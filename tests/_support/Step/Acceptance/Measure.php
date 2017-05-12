@@ -3,7 +3,7 @@ namespace Step\Acceptance;
 
 class Measure extends \AcceptanceTester
 {
-    //-----Submeatures types-----
+    //-----Submeasures types-----
     const WithoutSubmeasures_QuantitativeSubmeasure           = 'Select submeasure type';
     const MultipleQuestionAndNumber_QuantitativeSubmeasure    = 'Multiple question + Number';
     const Number_QuantitativeSubmeasure                       = 'Number';
@@ -14,7 +14,7 @@ class Measure extends \AcceptanceTester
     const MultipleQuestion_MultipleAnswersSubmeasure          = 'Multiple question';
     
     public function CreateMeasure($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
-                                   $questions = null, $options = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null)
+                                   $questions = null, $options = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $points = null)
     {
         $I = $this;
         $I->amOnPage(\Page\MeasureCreate::URL());
@@ -140,6 +140,9 @@ class Measure extends \AcceptanceTester
             case 'ignore':
                 break;
         }
+        if (isset($points)){
+            $I->fillField(\Page\MeasureCreate::$PointsField, $points);
+        }
         if (isset($state)){
             $I->seeOptionIsSelected(\Page\MeasureCreate::$StateDisableSelect, $state);
         }
@@ -148,7 +151,8 @@ class Measure extends \AcceptanceTester
     }  
     
     public function CheckSavedValuesOnMeasureUpdatePage($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
-                           $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $quantToggleStatus = 'ignore', $multipAnswerToggleStatus ='ignore')
+                           $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $quantToggleStatus = 'ignore', 
+                           $multipAnswerToggleStatus ='ignore', $points = null)
     {
         $I = $this;
         $I->wait(2);
@@ -271,6 +275,9 @@ class Measure extends \AcceptanceTester
             case 'ignore':
                 break;
         }
+        if (isset($points)){
+            $I->seeInField(\Page\MeasureUpdate::$PointsField, $points);
+        }
         if (isset($state)){
             $I->seeOptionIsSelected(\Page\MeasureUpdate::$StateDisableSelect, $state);
         }
@@ -298,7 +305,7 @@ class Measure extends \AcceptanceTester
     {
         $I = $this;
         $I->wantTo("Go to measure update page");
-        $I->amOnPage(\Page\MeasureList::$URL);
+        $I->amOnPage(\Page\MeasureList::URL());
         $I->wait(1);
         $I->click(\Page\MeasureList::UpdateButtonLine_ByDescValue($desc));
         $I->wait(2);
@@ -307,7 +314,7 @@ class Measure extends \AcceptanceTester
     public function CheckSavedValuesOnMeasureListPage($row, $desc = null, $quantitative = 'ignore', $status = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\MeasureList::$URL);
+        $I->amOnPage(\Page\MeasureList::URL());
         $I->wait(2);
         if (isset($desc)){
             $I->see($desc, \Page\MeasureList::DescriptionLine($row));
@@ -328,10 +335,10 @@ class Measure extends \AcceptanceTester
     }
     
     public function UpdateMeasure($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
-                                   $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null)
+                                   $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $points = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\MeasureList::$URL);
+        $I->amOnPage(\Page\MeasureList::URL());
         $I->wait(1);
         $I->click(\Page\MeasureList::UpdateButtonLine($row));
         $I->wait(1);
@@ -419,6 +426,9 @@ class Measure extends \AcceptanceTester
                 break;
             case 'ignore':
                 break;
+        }
+        if (isset($state)){
+            $I->fillField(\Page\MeasureUpdate::$PointsField, $points);
         }
         if (isset($state)){
             $I->seeOptionIsSelected(\Page\MeasureUpdate::$StateDisableSelect, $state);

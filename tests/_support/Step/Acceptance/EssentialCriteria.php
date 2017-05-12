@@ -7,7 +7,7 @@ class EssentialCriteria extends \AcceptanceTester
     public function CreateEssentialCriteria($number = null, $status = null, $state = null, $completePoints = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\EssentialCriteriaList::$URL);
+        $I->amOnPage(\Page\EssentialCriteriaList::URL());
         $I->wait(1);
         $I->click(\Page\EssentialCriteriaList::$CreateECButton);
         $I->wait(2);
@@ -48,6 +48,30 @@ class EssentialCriteria extends \AcceptanceTester
         $I->click(\Page\EssentialCriteriaManage::$SaveButton);
         $I->wait(2);
         return $statusesNew;
+    }
+    
+    public function PublishECStatus($row = '1')
+    {
+        $I = $this;
+        $I->wait(3);
+        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton);
+        $I->click(\Page\EssentialCriteriaManage::$VersionHistoryTab);
+        $I->wait(1);
+        $I->click(\Page\EssentialCriteriaManage::PublishButtonLine_VersionHistoryTab($row));
+        $I->wait(1);        
+        $I->see('Published', \Page\EssentialCriteriaManage::$StatusTitle);
+    }
+    
+    public function UpdateECPoints($points)
+    {
+        $I = $this;
+        $I->wait(3);
+        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton);
+        $I->click(\Page\EssentialCriteriaManage::$PointsTab);
+        $I->wait(1);
+        $I->fillField(\Page\EssentialCriteriaManage::$RequiredPointsField);
+        $I->wait(1);        
+        $I->click(\Page\EssentialCriteriaManage::$SaveButton);
     }
     
     public function CheckSavedValuesOnManageEssentialCriteriaPage($descs = null, $statuses = null)

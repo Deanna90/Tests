@@ -10,12 +10,13 @@ class ProgramCreate extends \AcceptanceTester
     
     public static $NameField              = '#program-name';
     
-    public static $StateSelect            = '#program-state_id';
-    public static $CitySelect             = '#program_cities_chosen';
-    public static $SelectedStateOption    = '#program-state_id [selected]';
-    public static $StateOption            = '#program-state_id option';
-    public static $SelectedCityOption     = '#program_cities_chosen a>span';
-    public static $CityOption             = '#program-cities+div ul>li';
+    public static $StateSelect                = '#program-state_id';
+    public static $CitySelect                 = '#program_cities_chosen';
+    public static $RecertificationCycleSelect = '#program-recertification_cycle';
+    public static $SelectedStateOption        = '#program-state_id [selected]';
+    public static $StateOption                = '#program-state_id option';
+    public static $SelectedCityOption         = '#program_cities_chosen a>span';
+    public static $CityOption                 = '#program-cities+div ul>li';
     
     public static $NameLabel              = '[for=program-name]';
     public static $StateSelectLabel       = '[for=program-state_id]';

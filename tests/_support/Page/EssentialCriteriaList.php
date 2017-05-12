@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class EssentialCriteriaList
+class EssentialCriteriaList extends \AcceptanceTester
 {
-    public static $URL                  = '/master-admin/essential-criteria/index';
+    public static function URL()          { return parent::$URL_UserAccess.'/essential-criteria/index';}
     public static $Title                = 'h1';
     public static $ECRow                = 'table[class*=table] tbody>tr';
     

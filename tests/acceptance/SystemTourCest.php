@@ -35,7 +35,7 @@ class SystemTourCest
         $weighted  = 'yes';
         $I->CreateState($name, $shortName, $weighted);
         $I->wait(2);
-        $I->seeInCurrentUrl(\Page\StateList::$URL);
+        $I->seeInCurrentUrl(\Page\StateList::URL());
     }
     
     public function SelectState(\Step\Acceptance\City $I)
@@ -348,6 +348,7 @@ class SystemTourCest
         $quantitative    = 'no';
         $submeasureType  = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->wait(3);
         $I->GoToMeasureUpdatePage($desc);
         $this->measuresDesc_Energy[] = $desc;
         $this->measuresDesc_Energy_sub1 = $desc;
@@ -361,6 +362,7 @@ class SystemTourCest
         $quantitative   = 'yes';
         $submeasureType = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->wait(3);
         $I->GoToMeasureUpdatePage($desc);
         $this->measuresDesc_Energy[] = $desc;
         $this->measuresDesc_Energy_sub2 = $desc;

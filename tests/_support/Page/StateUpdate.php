@@ -1,12 +1,12 @@
 <?php
 namespace Page;
 
-class StateUpdate
+class StateUpdate extends \AcceptanceTester
 {
-    public static function URL($id)       { return "/master-admin/state/update?id=$id";}
+    public static function URL($id)       { return parent::$URL_UserAccess."/state/update?id=$id";}
     public static $Title                  = 'h1';
     
-    public static $UpdateButton           = '[type=submit][class*=primary]';
+    public static $UpdateButton           = '.state-update [type=submit]';
     
     public static $NameField              = '#state-name';
     public static $ShortNameField         = '#state-short_name';

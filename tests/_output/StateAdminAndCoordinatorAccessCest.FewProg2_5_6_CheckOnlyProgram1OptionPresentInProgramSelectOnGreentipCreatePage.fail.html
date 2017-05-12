@@ -1,12 +1,12 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="WWNBZ0ZwRWsSVClUEgUKDCsRNSguCBwtaSoSDygiJj8PMWw9cQF2PQ==" />
+    <meta name="csrf-token" content="X2FsOW91elYoDht0PEBMJ2gyBHZXFkpubgAPSCIdTi42URhPXy8yZQ==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
-    <title>Not Found (#404)</title>
+    <title>GreenBiz - Login Site</title>
     <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
 <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
@@ -16,42 +16,64 @@
     </head>
 <body>
     <div id="main_page_container">
-        <div class="container">
+        <!-- user_id: guest -->
+<div class="container">
     <header class="clear">
         <div class="header-logo">
             <div class="">
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
                     <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
-                                                    <form class="no-ajax" action="/site/logout" method="post">
-<input type="hidden" name="_csrf" value="WWNBZ0ZwRWsSVClUEgUKDCsRNSguCBwtaSoSDygiJj8PMWw9cQF2PQ==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
+                                                    <a class="btn btn-default logout ajax" href="/site/login">Login</a>                                            </div>
                 </div>
             </div>
         </div>
-                    <div class="horizontal-nav">
-                <div class="responsive-menu1">
-                    <button class="hamburger1" style="display: block;">☰</button>
-                    <button class="cross1" style="display: none;">˟</button>
-                </div>
-                                    <ul id="w1" class="nav-pills navbar-default menu1 nav"></ul>                
-            </div>
+
+        
                     </header>
 
-    <div class="container">
+    <div class="site-login">
+    <h1>GreenBiz - Login Site</h1>
 
-    <h1>Not Found (#404)</h1>
+    <p>Please fill out the following fields to login:</p>
 
-    <div class="alert alert-danger">
-        Measure didn't find.    </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
+    <form id="login-form" class="no-ajax form-horizontal" action="/site/login" method="post">
+<input type="hidden" name="_csrf" value="X2FsOW91elYoDht0PEBMJ2gyBHZXFkpubgAPSCIdTi42URhPXy8yZQ==" />
+        <div class="form-group field-loginform-email required">
+<label class="col-lg-1 control-label" for="loginform-email">Email</label>
+<div class="col-lg-3"><input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" /></div>
+<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
+</div>
+        <div class="form-group field-loginform-password required">
+<label class="col-lg-1 control-label" for="loginform-password">Password</label>
+<div class="col-lg-3"><input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" /></div>
+<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
+</div>
+        <div class="form-group field-loginform-rememberme">
+<div class="col-sm-6 col-sm-offset-3">
+<div class="checkbox">
+<label for="loginform-rememberme">
+<input type="hidden" name="LoginForm[rememberMe]" value="0" /><input type="checkbox" id="loginform-rememberme" name="LoginForm[rememberMe]" value="1" checked="" />
+Remember Me
+</label>
+</div>
+<div class="help-block help-block-error "></div>
+</div>
 
 </div>
+        <div class="form-group">
+            <a href="/site/request-password-reset" class="ajax">Forgot password?</a>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11 margin_top3p">
+                <button type="submit" class="btn btn-primary" name="login-button">Login</button>            </div>
+        </div>
+
+    </form>
+
+</div>
+
 </div>    </div>
     <div id="loading"></div>
 <div><div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_bottom" style="display: block;">
@@ -81,41 +103,38 @@
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=58e770a86a967">
+    <a href="/debug/default/view?panel=config&amp;tag=58f881b59fbfa">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=58e770a86a967" title="Status code: 404 Not Found">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_important">404</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=58e770a86a967" title="Action: app\modules\coordinator\controllers\GreenTipController::actionCreate()">Route <span class="yii-debug-toolbar__label">coordinator/green-tip/create</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=58f881b59fbfa" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=58f881b59fbfa" title="Action: app\controllers\SiteController::actionLogin()">Route <span class="yii-debug-toolbar__label">site/login</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=58e770a86a967" title="Logged 34 messages, 1 error">Log
-        <span class="yii-debug-toolbar__label">34</span>
-    </a>
-        <a href="/debug/default/view?panel=log&amp;tag=58e770a86a967&amp;Log%5Blevel%5D=1" title="1 error">
-        <span class="yii-debug-toolbar__label yii-debug-toolbar__label_important">1</span>
+    <a href="/debug/default/view?panel=log&amp;tag=58f881b59fbfa" title="Logged 14 messages">Log
+        <span class="yii-debug-toolbar__label">14</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=58e770a86a967" title="Total request processing time was 87 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">87 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=58e770a86a967" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10.073 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=58f881b59fbfa" title="Total request processing time was 68 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">68 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=58f881b59fbfa" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9.165 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=58e770a86a967" title="Executed 17 database queries which took 5 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">17</span> <span class="yii-debug-toolbar__label">5 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=58f881b59fbfa" title="Executed 1 database queries which took 0 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span> <span class="yii-debug-toolbar__label">0 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=58e770a86a967" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=58f881b59fbfa" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user&amp;tag=58e770a86a967">
-                    User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">4507</span>
+    <a href="/debug/default/view?panel=user">
+                    <span class="yii-debug-toolbar__label">Guest</span>
             </a>
 </div>
                             
@@ -771,19 +790,18 @@ a.yii-debug-toolbar__label:focus {
 
 })();</script><script src="/assets/6b040846/jquery.js"></script>
 <script src="/assets/a83e0e94/yii.js"></script>
+<script src="/assets/a83e0e94/yii.validation.js"></script>
+<script src="/assets/a83e0e94/yii.activeForm.js"></script>
 <script src="/assets/5463e113/jquery-ui.js"></script>
 <script src="/assets/7942af6b/js/bootstrap.js"></script>
 <script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
-<script src="/assets/a83e0e94/yii.validation.js"></script>
-<script src="/assets/a83e0e94/yii.activeForm.js"></script>
+<script src="/assets/ee2108e6/jquery.inputmask.bundle.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/global.prod.js"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
-    app.ready(function(){
-        app.ajaxTools._flags.isErrorState = true;
-    });
+jQuery('#login-form').yiiActiveForm([{"id":"loginform-email","name":"email","container":".field-loginform-email","input":"#loginform-email","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});}},{"id":"loginform-password","name":"password","container":".field-loginform-password","input":"#loginform-password","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});}},{"id":"loginform-rememberme","name":"rememberMe","container":".field-loginform-rememberme","input":"#loginform-rememberme","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.boolean(value, messages, {"trueValue":"1","falseValue":"0","message":"Remember Me must be either \"1\" or \"0\".","skipOnEmpty":1});}}], []);
 });</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -800,7 +818,7 @@ a.yii-debug-toolbar__label:focus {
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"Not Found (#404)","loadedAssets":{"js":["\/assets\/6b040846\/jquery.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/a83e0e94\/yii.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.activeForm.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/6b040846\/jquery.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/a83e0e94\/yii.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.activeForm.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
+        app.pageTools.setInitialPageData({"title":"GreenBiz - Login Site","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/ee2108e6\/jquery.inputmask.bundle.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/ee2108e6\/jquery.inputmask.bundle.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
     });
 </script>
 

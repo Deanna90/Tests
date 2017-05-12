@@ -12,8 +12,13 @@ class MeasureCreate extends \AcceptanceTester
     public static $IsQuantitativeToggleButton      = '#measure-is_quantitative_switch_control';
     public static $HaveMultipleAnswersToggleButton = '#measureform-hasmultiplequestions_switch_control';
     
-    public static $DescriptionField       = '#measure-description';
-    public static $PointsField            = '#measure-points';
+    public static $DescriptionField           = '#measure-description';
+    public static $PointsField                = '#measure-points';
+    public static $YesOrNoQuestion_Name       = '.registration-field p';
+    public static $YesOrNoQuestion_YesButton  = '.registration-field .yes-btn+label';
+    public static $YesOrNoQuestion_NoButton   = '.registration-field .yes-btn+label';
+    public static $SectionsQuestion_Name      = '.p-small';
+    public static function SectionsQuestion_Section($number)   { return ".sections-input [data-section='$number']";}
     
     public static $AuditGroupSelect       = '#measure-audit_group_id';
     public static $AuditSubgroupSelect    = '#subgroups';
@@ -46,17 +51,17 @@ class MeasureCreate extends \AcceptanceTester
     public static $SubmeasureTypeSelectLabel   = '[for=measureform-submeasuretype]';
     
     //-----Multiple question + Number Option-----
-    public static $AddQuestionButton_MultipleQuestionAndNumber         = '.add-multiple-question[type=button]';
+    public static $AddQuestionButton_MultipleQuestionAndNumber         = '[class*=and-digit-container] .add-multiple-question[type=button]';
     public static $AddAnswerButton_MultipleQuestionAndNumber           = '[class*=opt] .add-multiple-question';
     
     public static $TotalAnswersRequiredField_MultipleQuestionAndNumber       = '#submeasure-total_required';
     public static $TotalNumberOfAnswersStaticField_MultipleQuestionAndNumber = '.total-number-of-answers';
     
-    public static function QuestionField_MultipleQuestionAndNumber($number)        {$a = $number + 2; return ".multiple-questions-and-digit-container>div:nth-of-type($a) input";}
-    public static function DeleteQuestionButton_MultipleQuestionAndNumber($number) {$a = $number + 2; return ".multiple-questions-and-digit-container>div:nth-of-type($a) .delete-row";}
+    public static function QuestionField_MultipleQuestionAndNumber($number)        {$a = $number + 1; return ".multiple-questions-and-digit-container>div>div:nth-of-type($a) input";}
+    public static function DeleteQuestionButton_MultipleQuestionAndNumber($number) {$a = $number + 1; return ".multiple-questions-and-digit-container>div>div:nth-of-type($a) .delete-row";}
 
-    public static function AnswerField_MultipleQuestionAndNumber($number)        {$a = $number +1; return "[class*=opt]>div:nth-of-type($a) input";}
-    public static function DeleteAnswerButton_MultipleQuestionAndNumber($number) {$a = $number +1; return "[class*=opt]>div:nth-of-type($a) .delete-row";}
+    public static function AnswerField_MultipleQuestionAndNumber($number)        {$a = $number +1; return "[class*=opt]>div>div:nth-of-type($a) input";}
+    public static function DeleteAnswerButton_MultipleQuestionAndNumber($number) {$a = $number +1; return "[class*=opt]>div>div:nth-of-type($a) .delete-row";}
     
     //-----Number Option-----
     public static $AddAnswerButton_Number           = 'button.add-multiple-question';

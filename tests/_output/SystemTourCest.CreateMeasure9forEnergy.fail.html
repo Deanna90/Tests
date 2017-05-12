@@ -1,259 +1,591 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="a0k4UzJmNFEufgg0dDNNACgNdCZtLnImKmRWAkcLBmUZGUwqCgxGFA==" />
+    <meta name="csrf-token" content="dlkzaDEtMnkCKgcfc2ZlNUI4SgFbfXQ4EChZIVVOQQNbP1AEfkJtPQ==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
-    <title>Measures</title>
-    <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
-<link href="/assets/dbb4b7cb/css/dependent-dropdown.css" rel="stylesheet" />
-<link href="/assets/f016074/css/kv-widgets.css" rel="stylesheet" />
-<link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <title>Create Measure</title>
+    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
 <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
+<link href="/leaflet/leaflet.css" rel="stylesheet" />
 <link href="/css/chosen.min.css" rel="stylesheet" />
 <link href="/css/style.css" rel="stylesheet" />
-<link href="/css/switch.jquery.css" rel="stylesheet" />
-<script type="text/javascript">window.depdrop_fdb1cfa5 = {"depends":["state-id"],"placeholder":"Select...","url":"\/ajax\/audit-groups-by-state-id"};
-
-window.depdrop_da7aad34 = {"depends":["audit-group-id"],"placeholder":"Select...","url":"\/ajax\/audit-sub-groups-by-audit-group","params":["state-id"]};
-</script>    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
+<link href="/css/switch.jquery.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
     <style>.cke{visibility:hidden;}</style></head>
 <body>
     <div id="main_page_container">
-        <div class="container">
+        <!-- user_id: 1 -->
+<div class="container">
     <header class="clear">
         <div class="header-logo">
             <div class="">
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
-                    <!--                    <a href="#">Welcome</a>-->
-                    <!--                    <a href="#">Contact</a>-->
-                    <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                    <a href="/business/registration" class="ajax">NEW BUSINESS</a>                    <div class="select-wrapper">
+                    <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
                                                     <form class="no-ajax" action="/site/logout" method="post">
-<input type="hidden" name="_csrf" value="a0k4UzJmNFEufgg0dDNNACgNdCZtLnImKmRWAkcLBmUZGUwqCgxGFA==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
+<input type="hidden" name="_csrf" value="dlkzaDEtMnkCKgcfc2ZlNUI4SgFbfXQ4EChZIVVOQQNbP1AEfkJtPQ==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
                 </div>
             </div>
         </div>
+
+        
                     <div class="horizontal-nav">
                 <div class="responsive-menu1">
                     <button class="hamburger1" style="display: block;">☰</button>
                     <button class="cross1" style="display: none;">˟</button>
                 </div>
-                                    <ul id="w3" class="nav-pills navbar-default menu1 nav"><li><a href="/master-admin/default/index" class="ajax">Dashboard</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Programs <b class="caret"></b></a><ul id="w4" class="dropdown-menu"><li><a href="/master-admin/program/index" tabindex="-1" class="ajax">Programs</a></li>
+                                                        <ul id="w2" class="nav-pills navbar-default menu1 nav"><li><a href="/master-admin/default/index" class="ajax">Dashboard</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Programs <b class="caret"></b></a><ul id="w3" class="dropdown-menu"><li><a href="/master-admin/program/index" tabindex="-1" class="ajax">Programs</a></li>
 <li><a href="/master-admin/city/index" tabindex="-1" class="ajax">Cities</a></li>
-<li><a href="/master-admin/sector/list" tabindex="-1" class="ajax">Sectors</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Measures <b class="caret"></b></a><ul id="w5" class="dropdown-menu"><li class="active"><a href="/master-admin/measure/index" tabindex="-1" class="ajax">Measures</a></li>
+<li><a href="/master-admin/sector/list" tabindex="-1" class="ajax">Sectors</a></li>
+<li><a href="/master-admin/landing-map-program/index" tabindex="-1" class="ajax">Source Programs</a></li></ul></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Measures <b class="caret"></b></a><ul id="w4" class="dropdown-menu"><li><a href="/master-admin/measure/index" tabindex="-1" class="ajax">Measures</a></li>
 <li><a href="/master-admin/popup-therm/manage-option" tabindex="-1" class="ajax">Popup Therm Options</a></li>
 <li><a href="/master-admin/popup-lighting-building-type/index" tabindex="-1" class="ajax">Popup Lighting Options</a></li>
 <li><a href="/master-admin/measure-weight-points/states" tabindex="-1" class="ajax">Points</a></li>
 <li><a href="/master-admin/global-variable/index" tabindex="-1" class="ajax">Global Variables</a></li>
 <li><a href="/master-admin/saving-area/index" tabindex="-1" class="ajax">Saving Areas</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Green Tips <b class="caret"></b></a><ul id="w6" class="dropdown-menu"><li><a href="/master-admin/green-tip/index" tabindex="-1" class="ajax">Measures</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Green Tips <b class="caret"></b></a><ul id="w5" class="dropdown-menu"><li><a href="/master-admin/green-tip/index" tabindex="-1" class="ajax">Measures</a></li>
 <li><a href="/master-admin/audit-green-tip/index" tabindex="-1" class="ajax">Audit Groups</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Checklists <b class="caret"></b></a><ul id="w7" class="dropdown-menu"><li><a href="/master-admin/essential-criteria/index" tabindex="-1" class="ajax">EC</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Checklists <b class="caret"></b></a><ul id="w6" class="dropdown-menu"><li><a href="/master-admin/essential-criteria/index" tabindex="-1" class="ajax">EC</a></li>
 <li><a href="/master-admin/checklist/list" tabindex="-1" class="ajax">Checklists</a></li></ul></li>
 <li><a href="/master-admin/tier/manage" class="ajax">Tiers</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Users <b class="caret"></b></a><ul id="w8" class="dropdown-menu"><li><a href="/master-admin/user/index?type=6" tabindex="-1" class="ajax">State Admins</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Users <b class="caret"></b></a><ul id="w7" class="dropdown-menu"><li><a href="/master-admin/user/index?type=6" tabindex="-1" class="ajax">State Admins</a></li>
 <li><a href="/master-admin/user/index?type=5" tabindex="-1" class="ajax">Coordinators</a></li>
 <li><a href="/master-admin/user/index?type=7" tabindex="-1" class="ajax">Auditors</a></li>
 <li><a href="/master-admin/user/index?type=3" tabindex="-1" class="ajax">Inspectors</a></li></ul></li>
 <li><a href="/master-admin/state/index" class="ajax">States</a></li>
-<li><a href="/master-admin/communication/index" class="ajax">Communication</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Statewakj <b class="caret"></b></a><ul id="w9" class="scrollable-menu dropdown-menu"><li><a href="/base/set-state" tabindex="-1" class="ajax">All States</a></li>
-<li><a href="/base/set-state?state_id=70" tabindex="-1" class="ajax">555</a></li>
-<li><a href="/base/set-state?state_id=5" tabindex="-1" class="ajax">California</a></li>
-<li><a href="/base/set-state?state_id=93" tabindex="-1" class="ajax">Statebncz</a></li>
-<li><a href="/base/set-state?state_id=99" tabindex="-1" class="ajax">Statecywd</a></li>
-<li><a href="/base/set-state?state_id=97" tabindex="-1" class="ajax">Stateeito</a></li>
-<li><a href="/base/set-state?state_id=74" tabindex="-1" class="ajax">Stateerxt</a></li>
-<li><a href="/base/set-state?state_id=88" tabindex="-1" class="ajax">Statefeau</a></li>
-<li><a href="/base/set-state?state_id=101" tabindex="-1" class="ajax">Statefpni</a></li>
-<li><a href="/base/set-state?state_id=86" tabindex="-1" class="ajax">Statefthn</a></li>
-<li><a href="/base/set-state?state_id=75" tabindex="-1" class="ajax">Stategaxq</a></li>
-<li><a href="/base/set-state?state_id=90" tabindex="-1" class="ajax">Stategcsv</a></li>
-<li><a href="/base/set-state?state_id=81" tabindex="-1" class="ajax">Stategkdq</a></li>
-<li><a href="/base/set-state?state_id=92" tabindex="-1" class="ajax">Statehblf</a></li>
-<li><a href="/base/set-state?state_id=80" tabindex="-1" class="ajax">Stateinfb</a></li>
-<li><a href="/base/set-state?state_id=98" tabindex="-1" class="ajax">Stateiocj</a></li>
-<li><a href="/base/set-state?state_id=95" tabindex="-1" class="ajax">Statejcrk</a></li>
-<li><a href="/base/set-state?state_id=83" tabindex="-1" class="ajax">Statejlwj</a></li>
-<li><a href="/base/set-state?state_id=100" tabindex="-1" class="ajax">Statejswi</a></li>
-<li><a href="/base/set-state?state_id=84" tabindex="-1" class="ajax">Statekhnc</a></li>
-<li><a href="/base/set-state?state_id=89" tabindex="-1" class="ajax">Statelvyo</a></li>
-<li><a href="/base/set-state?state_id=79" tabindex="-1" class="ajax">Statelyul</a></li>
-<li><a href="/base/set-state?state_id=82" tabindex="-1" class="ajax">Stateoqyo</a></li>
-<li><a href="/base/set-state?state_id=76" tabindex="-1" class="ajax">Stateosfg</a></li>
-<li><a href="/base/set-state?state_id=96" tabindex="-1" class="ajax">Stateoxkd</a></li>
-<li><a href="/base/set-state?state_id=91" tabindex="-1" class="ajax">Statesibd</a></li>
-<li><a href="/base/set-state?state_id=85" tabindex="-1" class="ajax">Stateubqm</a></li>
-<li><a href="/base/set-state?state_id=78" tabindex="-1" class="ajax">Stateupji</a></li>
-<li><a href="/base/set-state?state_id=94" tabindex="-1" class="ajax">Stateviyo</a></li>
-<li><a href="/base/set-state?state_id=73" tabindex="-1" class="ajax">Statevxwl</a></li>
-<li><a href="/base/set-state?state_id=103" tabindex="-1" class="ajax">Statewakj</a></li>
-<li><a href="/base/set-state?state_id=77" tabindex="-1" class="ajax">Statewcqd</a></li>
-<li><a href="/base/set-state?state_id=87" tabindex="-1" class="ajax">Statewofv</a></li>
-<li><a href="/base/set-state?state_id=102" tabindex="-1" class="ajax">Statewpye</a></li>
-<li><a href="/base/set-state?state_id=53" tabindex="-1" class="ajax">TTT</a></li>
-<li><a href="/base/set-state?state_id=48" tabindex="-1" class="ajax">Washington</a></li></ul></li></ul>                
+<li><a href="/master-admin/notification/index" class="ajax">Notification</a></li>
+<li><a href="/master-admin/report/configure" class="ajax">Reports</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Statechqm <b class="caret"></b></a><ul id="w8" class="scrollable-menu dropdown-menu"><li><a href="/base/set-state" tabindex="-1" class="ajax">All States</a></li>
+<li><a href="/base/set-state?state_id=2" tabindex="-1" class="ajax">California</a></li>
+<li><a href="/base/set-state?state_id=190" tabindex="-1" class="ajax">etrhth</a></li>
+<li><a href="/base/set-state?state_id=87" tabindex="-1" class="ajax">newnew</a></li>
+<li><a href="/base/set-state?state_id=306" tabindex="-1" class="ajax">nnnneeww</a></li>
+<li><a href="/base/set-state?state_id=290" tabindex="-1" class="ajax">StatCitykqki</a></li>
+<li><a href="/base/set-state?state_id=291" tabindex="-1" class="ajax">StatCitymgqa</a></li>
+<li><a href="/base/set-state?state_id=288" tabindex="-1" class="ajax">StatCitynrew</a></li>
+<li><a href="/base/set-state?state_id=295" tabindex="-1" class="ajax">StatCityspny</a></li>
+<li><a href="/base/set-state?state_id=305" tabindex="-1" class="ajax">StatCityuhii</a></li>
+<li><a href="/base/set-state?state_id=296" tabindex="-1" class="ajax">StatCityvffe</a></li>
+<li><a href="/base/set-state?state_id=294" tabindex="-1" class="ajax">StatCityvzkt</a></li>
+<li><a href="/base/set-state?state_id=292" tabindex="-1" class="ajax">StatCityxjfw</a></li>
+<li><a href="/base/set-state?state_id=289" tabindex="-1" class="ajax">StatCityxodm</a></li>
+<li><a href="/base/set-state?state_id=293" tabindex="-1" class="ajax">StatCityzvew</a></li>
+<li><a href="/base/set-state?state_id=308" tabindex="-1" class="ajax">state input</a></li>
+<li><a href="/base/set-state?state_id=310" tabindex="-1" class="ajax">state no</a></li>
+<li><a href="/base/set-state?state_id=309" tabindex="-1" class="ajax">state ques</a></li>
+<li><a href="/base/set-state?state_id=300" tabindex="-1" class="ajax">StateAccessafmn</a></li>
+<li><a href="/base/set-state?state_id=302" tabindex="-1" class="ajax">StateAccessamvj</a></li>
+<li><a href="/base/set-state?state_id=314" tabindex="-1" class="ajax">StateAccessbumz</a></li>
+<li><a href="/base/set-state?state_id=303" tabindex="-1" class="ajax">StateAccessiaxf</a></li>
+<li><a href="/base/set-state?state_id=304" tabindex="-1" class="ajax">StateAccesspsmn</a></li>
+<li><a href="/base/set-state?state_id=301" tabindex="-1" class="ajax">StateAccessycbo</a></li>
+<li><a href="/base/set-state?state_id=189" tabindex="-1" class="ajax">Stateafjo</a></li>
+<li><a href="/base/set-state?state_id=150" tabindex="-1" class="ajax">StateAGTsefg</a></li>
+<li><a href="/base/set-state?state_id=316" tabindex="-1" class="ajax">Statebjia</a></li>
+<li><a href="/base/set-state?state_id=320" tabindex="-1" class="ajax">Statechqm</a></li>
+<li><a href="/base/set-state?state_id=317" tabindex="-1" class="ajax">Stateeule</a></li>
+<li><a href="/base/set-state?state_id=319" tabindex="-1" class="ajax">Statehycs</a></li>
+<li><a href="/base/set-state?state_id=188" tabindex="-1" class="ajax">Statejbmm</a></li>
+<li><a href="/base/set-state?state_id=17" tabindex="-1" class="ajax">StateMGTavar</a></li>
+<li><a href="/base/set-state?state_id=54" tabindex="-1" class="ajax">StateMGTazng</a></li>
+<li><a href="/base/set-state?state_id=84" tabindex="-1" class="ajax">StateMGTbiag</a></li>
+<li><a href="/base/set-state?state_id=42" tabindex="-1" class="ajax">StateMGTbuid</a></li>
+<li><a href="/base/set-state?state_id=122" tabindex="-1" class="ajax">StateMGTbwwz</a></li>
+<li><a href="/base/set-state?state_id=114" tabindex="-1" class="ajax">StateMGTcbxm</a></li>
+<li><a href="/base/set-state?state_id=25" tabindex="-1" class="ajax">StateMGTcgzu</a></li>
+<li><a href="/base/set-state?state_id=312" tabindex="-1" class="ajax">StateMGTclnx</a></li>
+<li><a href="/base/set-state?state_id=6" tabindex="-1" class="ajax">StateMGTclts</a></li>
+<li><a href="/base/set-state?state_id=29" tabindex="-1" class="ajax">StateMGTcsil</a></li>
+<li><a href="/base/set-state?state_id=88" tabindex="-1" class="ajax">StateMGTcyet</a></li>
+<li><a href="/base/set-state?state_id=82" tabindex="-1" class="ajax">StateMGTcyzo</a></li>
+<li><a href="/base/set-state?state_id=60" tabindex="-1" class="ajax">StateMGTdabk</a></li>
+<li><a href="/base/set-state?state_id=123" tabindex="-1" class="ajax">StateMGTdahw</a></li>
+<li><a href="/base/set-state?state_id=65" tabindex="-1" class="ajax">StateMGTdegx</a></li>
+<li><a href="/base/set-state?state_id=127" tabindex="-1" class="ajax">StateMGTdezs</a></li>
+<li><a href="/base/set-state?state_id=107" tabindex="-1" class="ajax">StateMGTdhch</a></li>
+<li><a href="/base/set-state?state_id=130" tabindex="-1" class="ajax">StateMGTdpen</a></li>
+<li><a href="/base/set-state?state_id=73" tabindex="-1" class="ajax">StateMGTdpiz</a></li>
+<li><a href="/base/set-state?state_id=11" tabindex="-1" class="ajax">StateMGTdzlv</a></li>
+<li><a href="/base/set-state?state_id=49" tabindex="-1" class="ajax">StateMGTeanr</a></li>
+<li><a href="/base/set-state?state_id=51" tabindex="-1" class="ajax">StateMGTegeg</a></li>
+<li><a href="/base/set-state?state_id=178" tabindex="-1" class="ajax">StateMGTehox</a></li>
+<li><a href="/base/set-state?state_id=24" tabindex="-1" class="ajax">StateMGTeite</a></li>
+<li><a href="/base/set-state?state_id=75" tabindex="-1" class="ajax">StateMGTejof</a></li>
+<li><a href="/base/set-state?state_id=133" tabindex="-1" class="ajax">StateMGTesba</a></li>
+<li><a href="/base/set-state?state_id=55" tabindex="-1" class="ajax">StateMGTexfm</a></li>
+<li><a href="/base/set-state?state_id=66" tabindex="-1" class="ajax">StateMGTfgjx</a></li>
+<li><a href="/base/set-state?state_id=136" tabindex="-1" class="ajax">StateMGTfnfm</a></li>
+<li><a href="/base/set-state?state_id=46" tabindex="-1" class="ajax">StateMGTgahs</a></li>
+<li><a href="/base/set-state?state_id=143" tabindex="-1" class="ajax">StateMGTgizz</a></li>
+<li><a href="/base/set-state?state_id=63" tabindex="-1" class="ajax">StateMGTgkga</a></li>
+<li><a href="/base/set-state?state_id=185" tabindex="-1" class="ajax">StateMGTgkpm</a></li>
+<li><a href="/base/set-state?state_id=120" tabindex="-1" class="ajax">StateMGTgmrv</a></li>
+<li><a href="/base/set-state?state_id=36" tabindex="-1" class="ajax">StateMGTgure</a></li>
+<li><a href="/base/set-state?state_id=59" tabindex="-1" class="ajax">StateMGTgvsy</a></li>
+<li><a href="/base/set-state?state_id=113" tabindex="-1" class="ajax">StateMGTgxhj</a></li>
+<li><a href="/base/set-state?state_id=3" tabindex="-1" class="ajax">StateMGTgzkg</a></li>
+<li><a href="/base/set-state?state_id=298" tabindex="-1" class="ajax">StateMGThaur</a></li>
+<li><a href="/base/set-state?state_id=124" tabindex="-1" class="ajax">StateMGThjcf</a></li>
+<li><a href="/base/set-state?state_id=115" tabindex="-1" class="ajax">StateMGThjou</a></li>
+<li><a href="/base/set-state?state_id=34" tabindex="-1" class="ajax">StateMGThmqx</a></li>
+<li><a href="/base/set-state?state_id=15" tabindex="-1" class="ajax">StateMGThmxm</a></li>
+<li><a href="/base/set-state?state_id=100" tabindex="-1" class="ajax">StateMGThrbt</a></li>
+<li><a href="/base/set-state?state_id=142" tabindex="-1" class="ajax">StateMGThwgk</a></li>
+<li><a href="/base/set-state?state_id=162" tabindex="-1" class="ajax">StateMGTibcb</a></li>
+<li><a href="/base/set-state?state_id=79" tabindex="-1" class="ajax">StateMGTihfh</a></li>
+<li><a href="/base/set-state?state_id=102" tabindex="-1" class="ajax">StateMGTiiwu</a></li>
+<li><a href="/base/set-state?state_id=98" tabindex="-1" class="ajax">StateMGTiofo</a></li>
+<li><a href="/base/set-state?state_id=106" tabindex="-1" class="ajax">StateMGTitmj</a></li>
+<li><a href="/base/set-state?state_id=38" tabindex="-1" class="ajax">StateMGTiueu</a></li>
+<li><a href="/base/set-state?state_id=32" tabindex="-1" class="ajax">StateMGTiveu</a></li>
+<li><a href="/base/set-state?state_id=67" tabindex="-1" class="ajax">StateMGTixyu</a></li>
+<li><a href="/base/set-state?state_id=31" tabindex="-1" class="ajax">StateMGTjiro</a></li>
+<li><a href="/base/set-state?state_id=299" tabindex="-1" class="ajax">StateMGTjjgh</a></li>
+<li><a href="/base/set-state?state_id=48" tabindex="-1" class="ajax">StateMGTjlms</a></li>
+<li><a href="/base/set-state?state_id=44" tabindex="-1" class="ajax">StateMGTjstg</a></li>
+<li><a href="/base/set-state?state_id=135" tabindex="-1" class="ajax">StateMGTjutt</a></li>
+<li><a href="/base/set-state?state_id=117" tabindex="-1" class="ajax">StateMGTkgbt</a></li>
+<li><a href="/base/set-state?state_id=47" tabindex="-1" class="ajax">StateMGTklct</a></li>
+<li><a href="/base/set-state?state_id=92" tabindex="-1" class="ajax">StateMGTkqho</a></li>
+<li><a href="/base/set-state?state_id=39" tabindex="-1" class="ajax">StateMGTlgqj</a></li>
+<li><a href="/base/set-state?state_id=16" tabindex="-1" class="ajax">StateMGTlmvv</a></li>
+<li><a href="/base/set-state?state_id=96" tabindex="-1" class="ajax">StateMGTlxib</a></li>
+<li><a href="/base/set-state?state_id=77" tabindex="-1" class="ajax">StateMGTlyab</a></li>
+<li><a href="/base/set-state?state_id=145" tabindex="-1" class="ajax">StateMGTmbha</a></li>
+<li><a href="/base/set-state?state_id=186" tabindex="-1" class="ajax">StateMGTmmlr</a></li>
+<li><a href="/base/set-state?state_id=10" tabindex="-1" class="ajax">StateMGTmpou</a></li>
+<li><a href="/base/set-state?state_id=128" tabindex="-1" class="ajax">StateMGTmtpw</a></li>
+<li><a href="/base/set-state?state_id=184" tabindex="-1" class="ajax">StateMGTmwck</a></li>
+<li><a href="/base/set-state?state_id=43" tabindex="-1" class="ajax">StateMGTmzqa</a></li>
+<li><a href="/base/set-state?state_id=149" tabindex="-1" class="ajax">StateMGTnamn</a></li>
+<li><a href="/base/set-state?state_id=41" tabindex="-1" class="ajax">StateMGTnbta</a></li>
+<li><a href="/base/set-state?state_id=72" tabindex="-1" class="ajax">StateMGTnibi</a></li>
+<li><a href="/base/set-state?state_id=105" tabindex="-1" class="ajax">StateMGTnmcn</a></li>
+<li><a href="/base/set-state?state_id=76" tabindex="-1" class="ajax">StateMGTnokv</a></li>
+<li><a href="/base/set-state?state_id=68" tabindex="-1" class="ajax">StateMGTnpyp</a></li>
+<li><a href="/base/set-state?state_id=45" tabindex="-1" class="ajax">StateMGTnssb</a></li>
+<li><a href="/base/set-state?state_id=97" tabindex="-1" class="ajax">StateMGTnwqx</a></li>
+<li><a href="/base/set-state?state_id=80" tabindex="-1" class="ajax">StateMGTobkn</a></li>
+<li><a href="/base/set-state?state_id=50" tabindex="-1" class="ajax">StateMGToclr</a></li>
+<li><a href="/base/set-state?state_id=110" tabindex="-1" class="ajax">StateMGTocpu</a></li>
+<li><a href="/base/set-state?state_id=177" tabindex="-1" class="ajax">StateMGTohgu</a></li>
+<li><a href="/base/set-state?state_id=116" tabindex="-1" class="ajax">StateMGTojwc</a></li>
+<li><a href="/base/set-state?state_id=109" tabindex="-1" class="ajax">StateMGTolfk</a></li>
+<li><a href="/base/set-state?state_id=311" tabindex="-1" class="ajax">StateMGToous</a></li>
+<li><a href="/base/set-state?state_id=103" tabindex="-1" class="ajax">StateMGToovf</a></li>
+<li><a href="/base/set-state?state_id=33" tabindex="-1" class="ajax">StateMGToque</a></li>
+<li><a href="/base/set-state?state_id=12" tabindex="-1" class="ajax">StateMGTosfz</a></li>
+<li><a href="/base/set-state?state_id=183" tabindex="-1" class="ajax">StateMGTowxh</a></li>
+<li><a href="/base/set-state?state_id=58" tabindex="-1" class="ajax">StateMGTpbln</a></li>
+<li><a href="/base/set-state?state_id=119" tabindex="-1" class="ajax">StateMGTpcky</a></li>
+<li><a href="/base/set-state?state_id=125" tabindex="-1" class="ajax">StateMGTphbl</a></li>
+<li><a href="/base/set-state?state_id=181" tabindex="-1" class="ajax">StateMGTpnyf</a></li>
+<li><a href="/base/set-state?state_id=83" tabindex="-1" class="ajax">StateMGTppsu</a></li>
+<li><a href="/base/set-state?state_id=81" tabindex="-1" class="ajax">StateMGTptle</a></li>
+<li><a href="/base/set-state?state_id=138" tabindex="-1" class="ajax">StateMGTpwhe</a></li>
+<li><a href="/base/set-state?state_id=141" tabindex="-1" class="ajax">StateMGTqcxq</a></li>
+<li><a href="/base/set-state?state_id=62" tabindex="-1" class="ajax">StateMGTqdis</a></li>
+<li><a href="/base/set-state?state_id=69" tabindex="-1" class="ajax">StateMGTqhzj</a></li>
+<li><a href="/base/set-state?state_id=61" tabindex="-1" class="ajax">StateMGTqklc</a></li>
+<li><a href="/base/set-state?state_id=40" tabindex="-1" class="ajax">StateMGTqome</a></li>
+<li><a href="/base/set-state?state_id=180" tabindex="-1" class="ajax">StateMGTqsmm</a></li>
+<li><a href="/base/set-state?state_id=7" tabindex="-1" class="ajax">StateMGTqssh</a></li>
+<li><a href="/base/set-state?state_id=86" tabindex="-1" class="ajax">StateMGTrefo</a></li>
+<li><a href="/base/set-state?state_id=20" tabindex="-1" class="ajax">StateMGTrejm</a></li>
+<li><a href="/base/set-state?state_id=30" tabindex="-1" class="ajax">StateMGTreoo</a></li>
+<li><a href="/base/set-state?state_id=26" tabindex="-1" class="ajax">StateMGTrjjk</a></li>
+<li><a href="/base/set-state?state_id=187" tabindex="-1" class="ajax">StateMGTrjjt</a></li>
+<li><a href="/base/set-state?state_id=18" tabindex="-1" class="ajax">StateMGTrlnr</a></li>
+<li><a href="/base/set-state?state_id=118" tabindex="-1" class="ajax">StateMGTrmxp</a></li>
+<li><a href="/base/set-state?state_id=37" tabindex="-1" class="ajax">StateMGTrwwo</a></li>
+<li><a href="/base/set-state?state_id=14" tabindex="-1" class="ajax">StateMGTsbkg</a></li>
+<li><a href="/base/set-state?state_id=53" tabindex="-1" class="ajax">StateMGTsier</a></li>
+<li><a href="/base/set-state?state_id=179" tabindex="-1" class="ajax">StateMGTslpi</a></li>
+<li><a href="/base/set-state?state_id=64" tabindex="-1" class="ajax">StateMGTsovl</a></li>
+<li><a href="/base/set-state?state_id=112" tabindex="-1" class="ajax">StateMGTssnn</a></li>
+<li><a href="/base/set-state?state_id=129" tabindex="-1" class="ajax">StateMGTszdm</a></li>
+<li><a href="/base/set-state?state_id=121" tabindex="-1" class="ajax">StateMGTtdgk</a></li>
+<li><a href="/base/set-state?state_id=4" tabindex="-1" class="ajax">StateMGTtgty</a></li>
+<li><a href="/base/set-state?state_id=13" tabindex="-1" class="ajax">StateMGTthvy</a></li>
+<li><a href="/base/set-state?state_id=111" tabindex="-1" class="ajax">StateMGTtldh</a></li>
+<li><a href="/base/set-state?state_id=176" tabindex="-1" class="ajax">StateMGTtrny</a></li>
+<li><a href="/base/set-state?state_id=132" tabindex="-1" class="ajax">StateMGTtyeh</a></li>
+<li><a href="/base/set-state?state_id=126" tabindex="-1" class="ajax">StateMGTtzcr</a></li>
+<li><a href="/base/set-state?state_id=71" tabindex="-1" class="ajax">StateMGTudkm</a></li>
+<li><a href="/base/set-state?state_id=101" tabindex="-1" class="ajax">StateMGTueki</a></li>
+<li><a href="/base/set-state?state_id=313" tabindex="-1" class="ajax">StateMGTujzr</a></li>
+<li><a href="/base/set-state?state_id=70" tabindex="-1" class="ajax">StateMGTvluc</a></li>
+<li><a href="/base/set-state?state_id=85" tabindex="-1" class="ajax">StateMGTvrqb</a></li>
+<li><a href="/base/set-state?state_id=91" tabindex="-1" class="ajax">StateMGTvvlt</a></li>
+<li><a href="/base/set-state?state_id=137" tabindex="-1" class="ajax">StateMGTwbzq</a></li>
+<li><a href="/base/set-state?state_id=139" tabindex="-1" class="ajax">StateMGTwfxb</a></li>
+<li><a href="/base/set-state?state_id=131" tabindex="-1" class="ajax">StateMGTwocu</a></li>
+<li><a href="/base/set-state?state_id=74" tabindex="-1" class="ajax">StateMGTwolq</a></li>
+<li><a href="/base/set-state?state_id=23" tabindex="-1" class="ajax">StateMGTwpzy</a></li>
+<li><a href="/base/set-state?state_id=52" tabindex="-1" class="ajax">StateMGTwrgq</a></li>
+<li><a href="/base/set-state?state_id=140" tabindex="-1" class="ajax">StateMGTwvgb</a></li>
+<li><a href="/base/set-state?state_id=27" tabindex="-1" class="ajax">StateMGTwvlv</a></li>
+<li><a href="/base/set-state?state_id=22" tabindex="-1" class="ajax">StateMGTwypz</a></li>
+<li><a href="/base/set-state?state_id=35" tabindex="-1" class="ajax">StateMGTxdvm</a></li>
+<li><a href="/base/set-state?state_id=297" tabindex="-1" class="ajax">StateMGTxfin</a></li>
+<li><a href="/base/set-state?state_id=95" tabindex="-1" class="ajax">StateMGTxhar</a></li>
+<li><a href="/base/set-state?state_id=5" tabindex="-1" class="ajax">StateMGTxjgb</a></li>
+<li><a href="/base/set-state?state_id=9" tabindex="-1" class="ajax">StateMGTxnml</a></li>
+<li><a href="/base/set-state?state_id=161" tabindex="-1" class="ajax">StateMGTxtpo</a></li>
+<li><a href="/base/set-state?state_id=21" tabindex="-1" class="ajax">StateMGTxuqe</a></li>
+<li><a href="/base/set-state?state_id=307" tabindex="-1" class="ajax">StateMGTygmx</a></li>
+<li><a href="/base/set-state?state_id=146" tabindex="-1" class="ajax">StateMGTyikm</a></li>
+<li><a href="/base/set-state?state_id=28" tabindex="-1" class="ajax">StateMGTyjtw</a></li>
+<li><a href="/base/set-state?state_id=287" tabindex="-1" class="ajax">StateMGTzdpr</a></li>
+<li><a href="/base/set-state?state_id=90" tabindex="-1" class="ajax">StateMGTzigc</a></li>
+<li><a href="/base/set-state?state_id=57" tabindex="-1" class="ajax">StateMGTzkdl</a></li>
+<li><a href="/base/set-state?state_id=147" tabindex="-1" class="ajax">StateMGTzpxv</a></li>
+<li><a href="/base/set-state?state_id=108" tabindex="-1" class="ajax">StateMGTztcz</a></li>
+<li><a href="/base/set-state?state_id=93" tabindex="-1" class="ajax">statenew</a></li>
+<li><a href="/base/set-state?state_id=315" tabindex="-1" class="ajax">Stateripq</a></li>
+<li><a href="/base/set-state?state_id=89" tabindex="-1" class="ajax">StateStdbcz</a></li>
+<li><a href="/base/set-state?state_id=269" tabindex="-1" class="ajax">StateStfiql</a></li>
+<li><a href="/base/set-state?state_id=278" tabindex="-1" class="ajax">StateStgicg</a></li>
+<li><a href="/base/set-state?state_id=267" tabindex="-1" class="ajax">StateStgwuz</a></li>
+<li><a href="/base/set-state?state_id=256" tabindex="-1" class="ajax">StateSthxqe</a></li>
+<li><a href="/base/set-state?state_id=268" tabindex="-1" class="ajax">StateStjcpo</a></li>
+<li><a href="/base/set-state?state_id=270" tabindex="-1" class="ajax">StateStjzvm</a></li>
+<li><a href="/base/set-state?state_id=260" tabindex="-1" class="ajax">StateStkzxc</a></li>
+<li><a href="/base/set-state?state_id=283" tabindex="-1" class="ajax">StateStlpis</a></li>
+<li><a href="/base/set-state?state_id=211" tabindex="-1" class="ajax">StateStncoi</a></li>
+<li><a href="/base/set-state?state_id=196" tabindex="-1" class="ajax">StateStnsiw</a></li>
+<li><a href="/base/set-state?state_id=251" tabindex="-1" class="ajax">StateStsiqe</a></li>
+<li><a href="/base/set-state?state_id=19" tabindex="-1" class="ajax">StateStsuqs</a></li>
+<li><a href="/base/set-state?state_id=286" tabindex="-1" class="ajax">StateSttrtv</a></li>
+<li><a href="/base/set-state?state_id=248" tabindex="-1" class="ajax">StateStwghz</a></li>
+<li><a href="/base/set-state?state_id=285" tabindex="-1" class="ajax">StateStwutr</a></li>
+<li><a href="/base/set-state?state_id=264" tabindex="-1" class="ajax">StateStxgmt</a></li>
+<li><a href="/base/set-state?state_id=284" tabindex="-1" class="ajax">StateStxlyc</a></li>
+<li><a href="/base/set-state?state_id=252" tabindex="-1" class="ajax">StateStxrfz</a></li>
+<li><a href="/base/set-state?state_id=259" tabindex="-1" class="ajax">StateStyfxa</a></li>
+<li><a href="/base/set-state?state_id=318" tabindex="-1" class="ajax">Stateucby</a></li>
+<li><a href="/base/set-state?state_id=94" tabindex="-1" class="ajax">tessst</a></li>
+<li><a href="/base/set-state?state_id=1" tabindex="-1" class="ajax">Washington</a></li></ul></li></ul>                
             </div>
-                    </header>
+                <ul class="breadcrumb"><li><a href="/master-admin/default/index" class="ajax">Home</a></li>
+<li><a href="/master-admin/measure/index" class="ajax">Measures</a></li>
+<li class="active">Create Measure</li>
+</ul>    </header>
 
-    <div class="col-md-12 background-grey">
-    <div class="row">
+    <div class="col-md-12">
+    <div class="measure-create">
+        <div class="padding_bottom2p dashboard border-bottom">
+            <div class="info-block padding_top2p">
+                <h3>Create Measure</h3>
+            </div>
+        </div>
 
         
-<div class="col-md-3">
-    <div class="left-column-checklist">
-        <div class="responsive-menu">
-            <button class="hamburger" style="display: block;">☰</button>
-            <button class="cross" style="display: none;">˟</button>
-        </div>
-        <div class="menu">
-            <div class="left-column-block">
-                <div class="left-column-buttons">
-                    <a class="btn btn-green-outline col-100 ajax" href="/master-admin/measure/create">create new measures</a>                </div>
-            </div>
-            <div class="left-column-block">
-                <form id="w0" action="/master-admin/measure/index" method="get" role="form" class="ajax">
-                <p class="green-title">Search for measures</p>
-                <p class="p-label">search by keyword</p>
-                <div class="input-row clear">
-                    <div class="col-100">
-                        <div class="form-group field-dynamicmodel-description">
+<div class="measure-form">
 
-<input type="text" id="dynamicmodel-description" class="form-control" name="DynamicModel[description]" />
-
-<p class="help-block help-block-error"></p>
-</div>                    </div>
+    <form id="w0" action="/master-admin/measure/create" method="post" class="ajax">
+<input type="hidden" name="_csrf" value="dlkzaDEtMnkCKgcfc2ZlNUI4SgFbfXQ4EChZIVVOQQNbP1AEfkJtPQ==" />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    MEASURE INFO
                 </div>
-                <p class="p-label">search by measure number</p>
-                <div class="input-row clear">
-                    <div class="wrap no-padd-left col-100">
-                        <div class="form-group field-dynamicmodel-id">
+                <div class="form-group field-measure-status">
+<label class="control-label" for="measure-status">Status</label>
+<input type="hidden" id="measure-status" class="form-control" name="Measure[status]" value="1" />
 
-<input type="text" id="dynamicmodel-id" class="form-control" name="DynamicModel[id]" placeholder="Measure Number" />
+<div class="help-block"></div>
+</div>
+                <div class="form-group field-measure-description required">
+<label class="control-label" for="measure-description">Description</label>
+<textarea id="measure-description" class="form-control" name="Measure[description]" rows="6" aria-required="true"></textarea>
 
-<p class="help-block help-block-error"></p>
-</div>                    </div>
-                </div>
-                <p class="green-title">Filter</p>
-                                    <p class="p-label">filter by state</p>
-                    <div class="select-wrapper">
-                        <span class="fa fa-angle-down custom"></span>
-                        <div class="form-group field-state-id">
-
-<select id="state-id" class="form-control" name="DynamicModel[state_id]">
-<option value=""></option>
-<option value="103" selected="">Statewakj</option>
+<div class="help-block"></div>
+</div>
+                <div class="form-group field-measure-audit_group_id required">
+<label class="control-label" for="measure-audit_group_id">Audit Group</label>
+<select id="measure-audit_group_id" class="select1 fetch-audit-subgroups form-control" name="Measure[audit_group_id]" aria-required="true">
+<option value="">Select AuditGroup</option>
+<option value="2">General</option>
+<option value="1">Energy</option>
+<option value="3">Pollution Prevention</option>
+<option value="4">Solid Waste</option>
+<option value="5">Transportation</option>
+<option value="6">Wastewater</option>
+<option value="7">Water</option>
 </select>
 
-<p class="help-block help-block-error"></p>
-</div>                    </div>
-                                <p class="p-label">filter by audit group</p>
-                <div class="select-wrapper">
-                    <span class="fa fa-angle-down custom"></span>
-                    <div class="form-group field-audit-group-id">
+<div class="help-block"></div>
+</div>
+                <div class="select-wrapper col-100 field-subgroups required">
+<label class="control-label" for="subgroups">Audit Subgroup</label>
+<select id="subgroups" class="select1 form-control" name="Measure[audit_subgroup_id]" data-placeholder="Select AuditSubGroup" aria-required="true"><option value="">Select AuditSubGroup</option><option value="887">EnAudSub1kaeq</option></select>
 
-<select id="audit-group-id" class="form-control" name="DynamicModel[audit_group_id]" data-krajee-depdrop="depdrop_fdb1cfa5" disabled="disabled">
-
+<div class="help-block"></div>
+</div>
+                <div class="form-group field-measure-state_id">
+<label class="control-label" for="measure-state_id">State</label>
+<select id="measure-state_id" class="form-control" name="Measure[state_id]" disabled="disabled">
+<option value="">Select State</option>
+<option value="2">California</option>
+<option value="1">Washington</option>
+<option value="3">StateMGTgzkg</option>
+<option value="4">StateMGTtgty</option>
+<option value="5">StateMGTxjgb</option>
+<option value="6">StateMGTclts</option>
+<option value="7">StateMGTqssh</option>
+<option value="9">StateMGTxnml</option>
+<option value="10">StateMGTmpou</option>
+<option value="11">StateMGTdzlv</option>
+<option value="12">StateMGTosfz</option>
+<option value="13">StateMGTthvy</option>
+<option value="14">StateMGTsbkg</option>
+<option value="15">StateMGThmxm</option>
+<option value="16">StateMGTlmvv</option>
+<option value="17">StateMGTavar</option>
+<option value="18">StateMGTrlnr</option>
+<option value="19">StateStsuqs</option>
+<option value="20">StateMGTrejm</option>
+<option value="21">StateMGTxuqe</option>
+<option value="22">StateMGTwypz</option>
+<option value="23">StateMGTwpzy</option>
+<option value="24">StateMGTeite</option>
+<option value="25">StateMGTcgzu</option>
+<option value="26">StateMGTrjjk</option>
+<option value="27">StateMGTwvlv</option>
+<option value="28">StateMGTyjtw</option>
+<option value="29">StateMGTcsil</option>
+<option value="30">StateMGTreoo</option>
+<option value="31">StateMGTjiro</option>
+<option value="32">StateMGTiveu</option>
+<option value="33">StateMGToque</option>
+<option value="34">StateMGThmqx</option>
+<option value="35">StateMGTxdvm</option>
+<option value="36">StateMGTgure</option>
+<option value="37">StateMGTrwwo</option>
+<option value="38">StateMGTiueu</option>
+<option value="39">StateMGTlgqj</option>
+<option value="40">StateMGTqome</option>
+<option value="41">StateMGTnbta</option>
+<option value="42">StateMGTbuid</option>
+<option value="43">StateMGTmzqa</option>
+<option value="44">StateMGTjstg</option>
+<option value="45">StateMGTnssb</option>
+<option value="46">StateMGTgahs</option>
+<option value="47">StateMGTklct</option>
+<option value="48">StateMGTjlms</option>
+<option value="49">StateMGTeanr</option>
+<option value="50">StateMGToclr</option>
+<option value="51">StateMGTegeg</option>
+<option value="52">StateMGTwrgq</option>
+<option value="53">StateMGTsier</option>
+<option value="54">StateMGTazng</option>
+<option value="55">StateMGTexfm</option>
+<option value="57">StateMGTzkdl</option>
+<option value="58">StateMGTpbln</option>
+<option value="59">StateMGTgvsy</option>
+<option value="60">StateMGTdabk</option>
+<option value="61">StateMGTqklc</option>
+<option value="62">StateMGTqdis</option>
+<option value="63">StateMGTgkga</option>
+<option value="64">StateMGTsovl</option>
+<option value="65">StateMGTdegx</option>
+<option value="66">StateMGTfgjx</option>
+<option value="67">StateMGTixyu</option>
+<option value="68">StateMGTnpyp</option>
+<option value="69">StateMGTqhzj</option>
+<option value="70">StateMGTvluc</option>
+<option value="71">StateMGTudkm</option>
+<option value="72">StateMGTnibi</option>
+<option value="73">StateMGTdpiz</option>
+<option value="74">StateMGTwolq</option>
+<option value="75">StateMGTejof</option>
+<option value="76">StateMGTnokv</option>
+<option value="77">StateMGTlyab</option>
+<option value="79">StateMGTihfh</option>
+<option value="80">StateMGTobkn</option>
+<option value="81">StateMGTptle</option>
+<option value="82">StateMGTcyzo</option>
+<option value="83">StateMGTppsu</option>
+<option value="84">StateMGTbiag</option>
+<option value="85">StateMGTvrqb</option>
+<option value="86">StateMGTrefo</option>
+<option value="87">newnew</option>
+<option value="88">StateMGTcyet</option>
+<option value="89">StateStdbcz</option>
+<option value="90">StateMGTzigc</option>
+<option value="91">StateMGTvvlt</option>
+<option value="92">StateMGTkqho</option>
+<option value="93">statenew</option>
+<option value="94">tessst</option>
+<option value="95">StateMGTxhar</option>
+<option value="96">StateMGTlxib</option>
+<option value="97">StateMGTnwqx</option>
+<option value="98">StateMGTiofo</option>
+<option value="100">StateMGThrbt</option>
+<option value="101">StateMGTueki</option>
+<option value="102">StateMGTiiwu</option>
+<option value="103">StateMGToovf</option>
+<option value="105">StateMGTnmcn</option>
+<option value="106">StateMGTitmj</option>
+<option value="107">StateMGTdhch</option>
+<option value="108">StateMGTztcz</option>
+<option value="109">StateMGTolfk</option>
+<option value="110">StateMGTocpu</option>
+<option value="111">StateMGTtldh</option>
+<option value="112">StateMGTssnn</option>
+<option value="113">StateMGTgxhj</option>
+<option value="114">StateMGTcbxm</option>
+<option value="115">StateMGThjou</option>
+<option value="116">StateMGTojwc</option>
+<option value="117">StateMGTkgbt</option>
+<option value="118">StateMGTrmxp</option>
+<option value="119">StateMGTpcky</option>
+<option value="120">StateMGTgmrv</option>
+<option value="121">StateMGTtdgk</option>
+<option value="122">StateMGTbwwz</option>
+<option value="123">StateMGTdahw</option>
+<option value="124">StateMGThjcf</option>
+<option value="125">StateMGTphbl</option>
+<option value="126">StateMGTtzcr</option>
+<option value="127">StateMGTdezs</option>
+<option value="128">StateMGTmtpw</option>
+<option value="129">StateMGTszdm</option>
+<option value="130">StateMGTdpen</option>
+<option value="131">StateMGTwocu</option>
+<option value="132">StateMGTtyeh</option>
+<option value="133">StateMGTesba</option>
+<option value="135">StateMGTjutt</option>
+<option value="136">StateMGTfnfm</option>
+<option value="137">StateMGTwbzq</option>
+<option value="138">StateMGTpwhe</option>
+<option value="139">StateMGTwfxb</option>
+<option value="140">StateMGTwvgb</option>
+<option value="141">StateMGTqcxq</option>
+<option value="142">StateMGThwgk</option>
+<option value="143">StateMGTgizz</option>
+<option value="145">StateMGTmbha</option>
+<option value="146">StateMGTyikm</option>
+<option value="147">StateMGTzpxv</option>
+<option value="149">StateMGTnamn</option>
+<option value="150">StateAGTsefg</option>
+<option value="161">StateMGTxtpo</option>
+<option value="162">StateMGTibcb</option>
+<option value="176">StateMGTtrny</option>
+<option value="177">StateMGTohgu</option>
+<option value="178">StateMGTehox</option>
+<option value="179">StateMGTslpi</option>
+<option value="180">StateMGTqsmm</option>
+<option value="181">StateMGTpnyf</option>
+<option value="183">StateMGTowxh</option>
+<option value="184">StateMGTmwck</option>
+<option value="185">StateMGTgkpm</option>
+<option value="186">StateMGTmmlr</option>
+<option value="187">StateMGTrjjt</option>
+<option value="188">Statejbmm</option>
+<option value="189">Stateafjo</option>
+<option value="190">etrhth</option>
+<option value="196">StateStnsiw</option>
+<option value="211">StateStncoi</option>
+<option value="248">StateStwghz</option>
+<option value="251">StateStsiqe</option>
+<option value="252">StateStxrfz</option>
+<option value="256">StateSthxqe</option>
+<option value="259">StateStyfxa</option>
+<option value="260">StateStkzxc</option>
+<option value="264">StateStxgmt</option>
+<option value="267">StateStgwuz</option>
+<option value="268">StateStjcpo</option>
+<option value="269">StateStfiql</option>
+<option value="270">StateStjzvm</option>
+<option value="278">StateStgicg</option>
+<option value="283">StateStlpis</option>
+<option value="284">StateStxlyc</option>
+<option value="285">StateStwutr</option>
+<option value="286">StateSttrtv</option>
+<option value="287">StateMGTzdpr</option>
+<option value="288">StatCitynrew</option>
+<option value="289">StatCityxodm</option>
+<option value="290">StatCitykqki</option>
+<option value="291">StatCitymgqa</option>
+<option value="292">StatCityxjfw</option>
+<option value="293">StatCityzvew</option>
+<option value="294">StatCityvzkt</option>
+<option value="295">StatCityspny</option>
+<option value="296">StatCityvffe</option>
+<option value="297">StateMGTxfin</option>
+<option value="298">StateMGThaur</option>
+<option value="299">StateMGTjjgh</option>
+<option value="300">StateAccessafmn</option>
+<option value="301">StateAccessycbo</option>
+<option value="302">StateAccessamvj</option>
+<option value="303">StateAccessiaxf</option>
+<option value="304">StateAccesspsmn</option>
+<option value="305">StatCityuhii</option>
+<option value="306">nnnneeww</option>
+<option value="307">StateMGTygmx</option>
+<option value="308">state input</option>
+<option value="309">state ques</option>
+<option value="310">state no</option>
+<option value="311">StateMGToous</option>
+<option value="312">StateMGTclnx</option>
+<option value="313">StateMGTujzr</option>
+<option value="314">StateAccessbumz</option>
+<option value="315">Stateripq</option>
+<option value="316">Statebjia</option>
+<option value="317">Stateeule</option>
+<option value="318">Stateucby</option>
+<option value="319">Statehycs</option>
+<option value="320" selected="">Statechqm</option>
 </select>
 
-<p class="help-block help-block-error"></p>
-</div>                </div>
-                <p class="p-label">filter by audit subgroup</p>
-                <div class="select-wrapper">
-                    <span class="fa fa-angle-down custom"></span>
-                    <div class="form-group field-audit-sub-group-id">
+<div class="help-block"></div>
+</div>            </div>
 
-<select id="audit-sub-group-id" class="form-control" name="DynamicModel[audit_subgroup_id]" data-krajee-depdrop="depdrop_da7aad34" disabled="disabled">
 
+            <div class="form-group field-measure-is_quantitative">
+<label class="control-label" for="measure-is_quantitative">Is Quantitative</label>
+<select id="measure-is_quantitative" class="form-control post-on-change" name="Measure[is_quantitative]" style="display: none;">
+<option value="1">yes</option>
+<option value="0" selected="selected">no</option>
 </select>
 
-<p class="help-block help-block-error"></p>
-</div>                </div>
-                                    <p class="p-label">filter by program</p>
-                    <div class="select-wrapper">
-                        <span class="fa fa-angle-down custom"></span>
-                        <div class="form-group field-program-id">
-
-<select id="program-id" class="form-control" name="DynamicModel[program_id]">
-<option value=""></option>
-<option value="52">Progshlv</option>
+<div class="help-block"></div>
+<div id="measure-is_quantitative_switch_control" class="switch-control switch-control-2-items" style="width: 54px;"><div class="switch-control-point ui-draggable ui-draggable-handle" style="left: 26px; background-color: rgb(209, 74, 60);"></div></div></div><div class="form-group field-measureform-hasmultiplequestions">
+<label class="control-label" for="measureform-hasmultiplequestions">Does this measure have multiple answers?</label>
+<select id="measureform-hasmultiplequestions" class="form-control post-on-change" name="hasMultipleQuestions" style="display: none;">
+<option value="1">yes</option>
+<option value="0" selected="selected">no</option>
 </select>
 
-<p class="help-block help-block-error"></p>
-</div>                    </div>
-                                <p class="p-label">filter by quantitative</p>
-                <div class="select-wrapper">
-                    <span class="fa fa-angle-down custom"></span>
-                    <div class="form-group field-is-quantitative">
+<div class="help-block"></div>
+<div id="measureform-hasmultiplequestions_switch_control" class="switch-control switch-control-2-items" style="width: 54px;"><div class="switch-control-point ui-draggable ui-draggable-handle" style="left: 26px; background-color: rgb(209, 74, 60);"></div></div></div>                    <!--                    -->                    <div class="hidden">
 
-<select id="is-quantitative" class="form-control" name="DynamicModel[is_quantitative]">
-<option value=""></option>
-<option value="yes">Yes</option>
-<option value="no">No</option>
-</select>
-
-<p class="help-block help-block-error"></p>
-</div>                </div>
-                                    <p class="p-label">filter by status</p>
-                    <div class="select-wrapper">
-                        <span class="fa fa-angle-down custom"></span>
-                        <div class="form-group field-status">
-
-<select id="status" class="form-control" name="DynamicModel[status]">
-<option value=""></option>
-<option value="1" selected="">active</option>
-<option value="2">deleted</option>
-<option value="3">pending</option>
-</select>
-
-<p class="help-block help-block-error"></p>
-</div>                    </div>
-                                <div class="left-column-block">
-                    <div class="left-column-buttons">
-                        <button type="submit" class="btn btn-green-outline col-100">Apply filters</button>                    </div>
-                </div>
-                <div class="left-column-block">
-                    <div class="left-column-buttons">
-                        <a href="/master-admin/measure/index" class="ajax">
-                            <button class="btn btn-green-outline col-100">clear all filters</button>
-                        </a>
                     </div>
-                </div>
-                </form>            </div>
+                            
+                    </div>
+
+                            </div>
+
+
+    <div class="form-group">
+        <div class="content">
+            <div class="success">
+                                    <button type="submit" class="btn btn-success">Create</button>                
+            </div>
         </div>
+    </div>
+
+    </form>
+</div>
     </div>
 </div>
-
-        <div class="col-md-9 background-white">
-            <div class="right-column-checklist">
-                <div class="title-block">
-                    <h2>Measures</h2>
-                </div>
-                <div class="way-files">
-                    <!--                        <a href="#" class="p-label">FILTERED By audit group | </a>-->
-                    <!--                        <a href="#" class="p-label lite-green"><i class="fa fa-close"></i>solid waste</a>-->
-                </div>
-                <div id="w1" class="grid-view"><table class="table-striped table-hover custom-table"><caption class="title-row dark-green text-left" colspan="3">Measures</caption>
-<thead>
-<tr class="title-row grey"><th><a href="/master-admin/measure/index?sort=id" data-sort="id" class="ajax">ID</a></th><th><a href="/master-admin/measure/index?sort=description" data-sort="description" class="ajax">Description</a></th><th><a href="/master-admin/measure/index?sort=is_quantitative" data-sort="is_quantitative" class="ajax">Quantitative</a></th><th>Status</th><th class="action-column">Actions</th><th class="action-column">Green Tips</th></tr>
-</thead>
-<tbody>
-<tr class="open-popup" data-key="267"><td>267</td><td>Descriptionmors</td><td>Yes</td><td>active</td><td><a href="/master-admin/measure/update?id=267" title="Update" aria-label="Update" data-pjax="0" class="ajax"><span class="glyphicon glyphicon-pencil"></span></a>  <a href="/master-admin/measure/delete?id=267" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" data-method="post"><span class="glyphicon glyphicon-trash"></span></a></td><td> <a class="btn btn-green ajax" href="/master-admin/green-tip/create?measure_id=267">Create</a></td></tr>
-<tr class="open-popup" data-key="268"><td>268</td><td>Descriptionugnf</td><td>Yes</td><td>active</td><td><a href="/master-admin/measure/update?id=268" title="Update" aria-label="Update" data-pjax="0" class="ajax"><span class="glyphicon glyphicon-pencil"></span></a>  <a href="/master-admin/measure/delete?id=268" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" data-method="post"><span class="glyphicon glyphicon-trash"></span></a></td><td> <a class="btn btn-green ajax" href="/master-admin/green-tip/create?measure_id=268">Create</a></td></tr>
-<tr class="open-popup" data-key="269"><td>269</td><td>Descriptionxjtx</td><td>Yes</td><td>active</td><td><a href="/master-admin/measure/update?id=269" title="Update" aria-label="Update" data-pjax="0" class="ajax"><span class="glyphicon glyphicon-pencil"></span></a>  <a href="/master-admin/measure/delete?id=269" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" data-method="post"><span class="glyphicon glyphicon-trash"></span></a></td><td> <a class="btn btn-green ajax" href="/master-admin/green-tip/create?measure_id=269">Create</a></td></tr>
-<tr class="open-popup" data-key="270"><td>270</td><td>Descriptionqkpl</td><td>No</td><td>active</td><td><a href="/master-admin/measure/update?id=270" title="Update" aria-label="Update" data-pjax="0" class="ajax"><span class="glyphicon glyphicon-pencil"></span></a>  <a href="/master-admin/measure/delete?id=270" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" data-method="post"><span class="glyphicon glyphicon-trash"></span></a></td><td> <a class="btn btn-green ajax" href="/master-admin/green-tip/create?measure_id=270">Create</a></td></tr>
-<tr class="open-popup" data-key="271"><td>271</td><td>Descriptionqcqo</td><td>No</td><td>active</td><td><a href="/master-admin/measure/update?id=271" title="Update" aria-label="Update" data-pjax="0" class="ajax"><span class="glyphicon glyphicon-pencil"></span></a>  <a href="/master-admin/measure/delete?id=271" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" data-method="post"><span class="glyphicon glyphicon-trash"></span></a></td><td> <a class="btn btn-green ajax" href="/master-admin/green-tip/create?measure_id=271">Create</a></td></tr>
-<tr class="open-popup" data-key="272"><td>272</td><td>Descriptionmklq</td><td>No</td><td>active</td><td><a href="/master-admin/measure/update?id=272" title="Update" aria-label="Update" data-pjax="0" class="ajax"><span class="glyphicon glyphicon-pencil"></span></a>  <a href="/master-admin/measure/delete?id=272" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" data-method="post"><span class="glyphicon glyphicon-trash"></span></a></td><td> <a class="btn btn-green ajax" href="/master-admin/green-tip/create?measure_id=272">Create</a></td></tr>
-</tbody></table>
-</div>            </div>
-        </div>
-    </div>
-
 </div>    </div>
     <div id="loading"></div>
 <div><div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_bottom" style="display: block;">
@@ -264,8 +596,8 @@ window.depdrop_da7aad34 = {"depends":["audit-group-id"],"placeholder":"Select...
             </a>
         </div>
 
-        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: none">
-            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter">0</span>
+        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: block;">
+            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter yii-debug-toolbar__label_success">1</span>
             <div class="yii-debug-toolbar__ajax_info">
                 <table>
                     <thead>
@@ -277,43 +609,43 @@ window.depdrop_da7aad34 = {"depends":["audit-group-id"],"placeholder":"Select...
                         <th>Profile</th>
                     </tr>
                     </thead>
-                    <tbody class="yii-debug-toolbar__ajax_requests"></tbody>
+                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/audit-sub-groups-by-audit-group?auditId=1&amp;state_id=320">/ajax/audit-sub-groups-by-audit-group?auditId=1&amp;state_id=320</td><td class="yii-debug-toolbar__ajax_request_duration">48 ms</td> <td><a href="/debug/default/view?tag=590222478c31d">590222478c31d</a></td></tr></tbody>
                 </table>
             </div>
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=58de82617ed22">
+    <a href="/debug/default/view?panel=config&amp;tag=5902224550b56">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=58de82617ed22" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=58de82617ed22" title="Action: app\modules\masteradmin\controllers\MeasureController::actionIndex()">Route <span class="yii-debug-toolbar__label">master-admin/measure/index</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=5902224550b56" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=5902224550b56" title="Action: app\modules\masteradmin\controllers\MeasureController::actionCreate()">Route <span class="yii-debug-toolbar__label">master-admin/measure/create</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=58de82617ed22" title="Logged 41 messages">Log
-        <span class="yii-debug-toolbar__label">41</span>
+    <a href="/debug/default/view?panel=log&amp;tag=5902224550b56" title="Logged 40 messages">Log
+        <span class="yii-debug-toolbar__label">40</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=58de82617ed22" title="Total request processing time was 111 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">111 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=58de82617ed22" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12.112 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=5902224550b56" title="Total request processing time was 125 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">125 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=5902224550b56" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12.137 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=58de82617ed22" title="Executed 26 database queries which took 6 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">26</span> <span class="yii-debug-toolbar__label">6 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=5902224550b56" title="Executed 25 database queries which took 10 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">25</span> <span class="yii-debug-toolbar__label">10 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=58de82617ed22" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">15</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=5902224550b56" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">13</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user&amp;tag=58de82617ed22">
+    <a href="/debug/default/view?panel=user&amp;tag=5902224550b56">
                     User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span>
             </a>
 </div>
@@ -969,12 +1301,8 @@ a.yii-debug-toolbar__label:focus {
     };
 
 })();</script><script src="/assets/6b040846/jquery.js"></script>
-<script src="/assets/dbb4b7cb/js/dependent-dropdown.js"></script>
-<script src="/assets/61a93d47/js/depdrop.js"></script>
-<script src="/assets/f016074/js/kv-widgets.js"></script>
 <script src="/assets/a83e0e94/yii.js"></script>
 <script src="/assets/a83e0e94/yii.activeForm.js"></script>
-<script src="/assets/a83e0e94/yii.gridView.js"></script>
 <script src="/assets/5463e113/jquery-ui.js"></script>
 <script src="/assets/7942af6b/js/bootstrap.js"></script>
 <script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
@@ -982,19 +1310,16 @@ a.yii-debug-toolbar__label:focus {
 <script src="/assets/a8119c8c/adapters/jquery.js"></script>
 <script src="/assets/d2bdffe5/dosamigos-ckeditor.widget.js"></script>
 <script src="/assets/a83e0e94/yii.validation.js"></script>
+<script src="/assets/33c042c0/jquery.inputmask.bundle.js"></script>
+<script src="/leaflet/leaflet.js"></script>
+<script src="/leaflet/lib.shp/catiline.js"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/masteradmin/global.js"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
-
-jQuery('#audit-group-id').depdrop(depdrop_fdb1cfa5);
-
-
-jQuery('#audit-sub-group-id').depdrop(depdrop_da7aad34);
-
-jQuery('#w0').yiiActiveForm([], []);
-jQuery('#w1').yiiGridView({"filterUrl":"\/master-admin\/measure\/index","filterSelector":"#w1-filters input, #w1-filters select"});
+jQuery('#w0').yiiActiveForm([], {"errorSummary":".alert.alert-danger"});
 });</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -1011,9 +1336,9 @@ jQuery('#w1').yiiGridView({"filterUrl":"\/master-admin\/measure\/index","filterS
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"Measures","loadedAssets":{"js":["\/assets\/dbb4b7cb\/js\/dependent-dropdown.js","\/assets\/6b040846\/jquery.js","\/assets\/61a93d47\/js\/depdrop.js","\/assets\/f016074\/js\/kv-widgets.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.gridView.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.validation.js"],"css":["\/assets\/dbb4b7cb\/css\/dependent-dropdown.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/f016074\/css\/kv-widgets.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/dbb4b7cb\/js\/dependent-dropdown.js","\/assets\/6b040846\/jquery.js","\/assets\/61a93d47\/js\/depdrop.js","\/assets\/f016074\/js\/kv-widgets.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.gridView.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.validation.js"],"css":["\/assets\/dbb4b7cb\/css\/dependent-dropdown.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/f016074\/css\/kv-widgets.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
+        app.pageTools.setInitialPageData({"title":"Create Measure","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/33c042c0\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/33c042c0\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 
 
-</div></body></html>
+</body></html>

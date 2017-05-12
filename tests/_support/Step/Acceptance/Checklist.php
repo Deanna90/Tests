@@ -31,11 +31,11 @@ class Checklist extends \AcceptanceTester
         }
         $I->wait(1);
         $I->click(\Page\ChecklistCreate::$SaveButton);
-        $I->wait(2);
+        $I->wait(3);
         $I->click('.confirm');
     }  
     
-    public function ManageChecklist($descs = null, $statuses = null)
+    public function ManageChecklist($descs = null, $statuses = null, $extension = null)
     {
         $I = $this;
         $I->wait(3);
@@ -51,6 +51,19 @@ class Checklist extends \AcceptanceTester
             $I->comment("Count of measures: $countDesc");
             for($i=0; $i<=$countDesc; $i++){
                 $I->selectOption(\Page\ChecklistManage::StatusSelectLine_ManageMeasureTab($descs[$i]), $statusesNew[$i]);
+            }
+        }
+        if (isset($descs) && isset($extension)){
+            $countDesc = count($descs);
+            $countExtens = count($extension);
+            $I->comment("Count of measures: $countDesc");
+            $I->comment("Count of extensions: $countExtens");
+            $count       = $countExtens - $countDesc;
+            $extensionsNew = array_splice($extension, $count);
+            $countDesc--;
+            $I->comment("Count of measures: $countDesc");
+            for($i=0; $i<=$countDesc; $i++){
+                $I->selectOption(\Page\ChecklistManage::MeasureExtensionSelectLine_ManageMeasureTab($descs[$i]), $extensionsNew[$i]);
             }
         }
         $I->click(\Page\ChecklistManage::$SaveButton);
@@ -70,6 +83,17 @@ class Checklist extends \AcceptanceTester
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab($row));
         $I->wait(1);        
         $I->see('Published', \Page\ChecklistManage::$StatusTitle);
+    }
+    
+    public function UpdateChecklistPoints($points)
+    {
+        $I = $this;
+        $I->wait(3);
+        $I->click(\Page\ChecklistManage::$PointsTab);
+        $I->wait(1);
+        $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points);
+        $I->wait(1);        
+        $I->click(\Page\ChecklistManage::$SaveButton);
     }
     
     public function CheckSavedValuesOnManageChecklistPage($descs = null, $statuses = null)

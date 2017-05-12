@@ -28,7 +28,7 @@ class EssentialCriteriaManage
     public static function PublishButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Publish']";}
     
     //-----Manage Measure Tab-----
-    public static $SaveButton                                      = '.btn-green';
+    public static $SaveButton                                      = '.btn.send-form';
     
     public static $GroupTableTitle_ManageMeasureTab                = '.group-table';
     public static $SubgroupTableTitle_ManageMeasureTab             = '.sub-group-table';

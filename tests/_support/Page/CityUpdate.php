@@ -1,12 +1,12 @@
 <?php
 namespace Page;
 
-class CityUpdate
+class CityUpdate extends \AcceptanceTester
 {
-    public static function URL($id)       { return "/master-admin/city/update?id=$id";}
+    public static function URL($id)       { return parent::$URL_UserAccess."/city/update?id=$id";}
     public static $Title                  = 'h1';
     
-    public static $UpdateButton           = '[type=submit][class*=primary]';
+    public static $UpdateButton           = '.city-update [type=submit]';
     
     public static $NameField              = '#city-name';
     public static $ZipsField              = '#city-zips';

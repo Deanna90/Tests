@@ -121,6 +121,8 @@ class AcceptanceTester extends \Codeception\Actor
             ),
             $content
         );
+        $this->switchToWindow();
+        $this->wait(2);
     }
 
 
@@ -128,6 +130,8 @@ class AcceptanceTester extends \Codeception\Actor
         $this->executeInSelenium(
             function (\Facebook\WebDriver\Remote\RemoteWebDriver $webDriver)
             use ($selector, $content) {
+                $parentwindow = $webDriver->getWindowHandle();
+                
                 $webDriver->switchTo()->frame(
                     $webDriver->findElement($selector)
                 );
@@ -136,8 +140,8 @@ class AcceptanceTester extends \Codeception\Actor
                     'arguments[0].innerHTML = "' . addslashes($content) . '"',
                     [$webDriver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'))]
                 );
-
-                $webDriver->switchTo()->defaultContent();
+                $webDriver->switchTo()->window($parentwindow);
+//                $webDriver->switchTo()->defaultContent();
             });
     }
 }

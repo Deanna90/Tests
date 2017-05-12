@@ -4,7 +4,7 @@ namespace Step\Acceptance;
 class State extends \AcceptanceTester
 {
 
-    public function CreateState($name = null, $shortName = null, $weighted = 'no')
+    public function CreateState($name = null, $shortName = null, $weighted = 'No')
     {
         $I = $this;
         $I->wantTo("Create State");
@@ -18,7 +18,13 @@ class State extends \AcceptanceTester
             $I->fillField(\Page\StateCreate::$ShortNameField, $shortName);
         }
         switch ($weighted) {
-            case 'yes'||'no':
+            case 'No':
+                $I->selectOption(\Page\StateCreate::$WeightedSelect, $weighted);
+                break;
+            case 'Input':
+                $I->selectOption(\Page\StateCreate::$WeightedSelect, $weighted);
+                break;
+            case 'Questions':
                 $I->selectOption(\Page\StateCreate::$WeightedSelect, $weighted);
                 break;
             case 'ignore':
@@ -28,13 +34,11 @@ class State extends \AcceptanceTester
         $I->wait(1);
     }  
     
-    public function UpdateState($row, $name = null, $shortName = null, $weighted = 'ignore')
+    public function UpdateState($id, $name = null, $shortName = null, $weighted = 'ignore')
     {
         $I = $this;
         $I->wantTo("Update State");
-        $I->amOnPage(\Page\StateList::URL());
-        $I->wait(1);
-        $I->click(\Page\StateList::UpdateButtonLine($row));
+        $I->amOnPage(\Page\StateUpdate::URL($id));
         $I->wait(1);
         $I->waitForElement(\Page\StateUpdate::$UpdateButton);
         if (isset($name)){
@@ -44,7 +48,13 @@ class State extends \AcceptanceTester
             $I->fillField(\Page\StateUpdate::$ShortNameField, $shortName);
         }
         switch ($weighted) {
-            case 'yes'||'no':
+            case 'No':
+                $I->selectOption(\Page\StateUpdate::$WeightedSelect, $weighted);
+                break;
+            case 'Input':
+                $I->selectOption(\Page\StateUpdate::$WeightedSelect, $weighted);
+                break;
+            case 'Questions':
                 $I->selectOption(\Page\StateUpdate::$WeightedSelect, $weighted);
                 break;
             case 'ignore':
@@ -57,11 +67,11 @@ class State extends \AcceptanceTester
     public function CheckInFieldsOnStateUpdatePage($name = null, $shortName = null, $weighted = null)
     {
         $I = $this;
-        $I->wantTo("Check Saved Values On State Update Page");
         $I->wait(1);
         $I->waitForElement(\Page\StateUpdate::$UpdateButton);
         if (isset($name)){
             $I->seeInField(\Page\StateUpdate::$NameField, $name);
+            $I->see("Update State: $name", \Page\StateUpdate::$Title);
         }
         if (isset($shortName)){
             $I->seeInField(\Page\StateUpdate::$ShortNameField, $shortName);
@@ -75,7 +85,7 @@ class State extends \AcceptanceTester
     {
         $I = $this;
         $I->wantTo("Get State Row Number On List");
-        $I->amOnPage(\Page\StateList::$URL);
+        $I->amOnPage(\Page\StateList::URL());
         $I->wait(1);
         $count = $I->getAmount($I, \Page\StateList::$StateRow);
         for($i=1; $i<=$count; $i++){
@@ -87,11 +97,56 @@ class State extends \AcceptanceTester
         return $i;
     }
     
-    public function CheckValuesOnStateListPage($row, $name = null, $shortName = null, $createdDate = null, $updatedDate = null, $status = 'active')
+    public function GetStateOnPageInList($name)
+    {
+        $I = $this;
+        $I->amOnPage(\Page\StateList::URL());
+        $I->wait(1);
+        $count = $I->grabTextFrom(\Page\StateList::$SummaryCount);
+        $pageCount = ceil($count/20);
+        $I->comment("Page count = $pageCount");
+        for($i=1; $i<=$pageCount; $i++){
+            $I->amOnPage(\Page\StateList::UrlPageNumber($i));
+            $I->wait(1);
+            $rows = $I->getAmount($I, \Page\StateList::$StateRow);
+            for($j=1; $j<=$rows; $j++){
+                if($I->grabTextFrom(\Page\StateList::NameLine($j)) == $name){
+                    $I->comment("I find state: $name at row: $j on page: $i");
+                    break 2;
+                }
+            }
+        }
+        $state['id']   = $I->grabTextFrom(\Page\StateList::IdLine($j));
+        $state['page'] = $i;
+        $state['row']  = $j;
+        return $state;
+    }
+    
+    public function GetAllStatesNames()
+    {
+        $I = $this;
+        $I->amOnPage(\Page\StateList::URL());
+        $I->wait(1);
+        $states = [];
+        $count = $I->grabTextFrom(\Page\StateList::$SummaryCount);
+        $pageCount = ceil($count/20);
+        $I->comment("Page count = $pageCount");
+        for($i=1; $i<=$pageCount; $i++){
+            $I->amOnPage(\Page\StateList::UrlPageNumber($i));
+            $I->wait(1);
+            $rows = $I->getAmount($I, \Page\StateList::$StateRow);
+            for($j=1; $j<=$rows; $j++){
+                $states[] = $I->grabTextFrom(\Page\StateList::NameLine($j));
+            }
+        }
+        return $states;
+    }
+    
+    public function CheckValuesOnStateListPage($row, $name = null, $shortName = null, $weighted = null, $createdDate = null, $updatedDate = null, $status = 'active')
     {
         $I = $this;
         $I->wantTo("Check Saved Values On State List Page");
-        $I->amOnPage(\Page\StateList::$URL);
+//        $I->amOnPage(\Page\StateList::URL());
         $I->wait(1);
         $I->waitForElement(\Page\StateList::$CreateStateButton);
         if (isset($name)){
@@ -99,6 +154,9 @@ class State extends \AcceptanceTester
         }
         if (isset($shortName)){
             $I->see($shortName, \Page\StateList::ShortNameLine($row));
+        }
+        if (isset($weighted)){
+            $I->see($weighted, \Page\StateList::WeightedLine($row));
         }
         if (isset($createdDate)){
             $I->see($createdDate, \Page\StateList::CreatedLine($row));

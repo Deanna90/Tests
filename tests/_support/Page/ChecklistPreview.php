@@ -6,6 +6,8 @@ class ChecklistPreview
     
     public static $Title                      = 'h1';
    
+    public static $ExtensionSelect            = '[name=measure_extensions]';
+    
     //-----Left Menu-----
     public static $LeftMenu_BackToChecklistButton          = '.getstarted-group';
     
@@ -30,7 +32,8 @@ class ChecklistPreview
     
     //Checklist Preview
     public static function MeasureDescription_ByDesc($desc)      { return "//*[@id='measures-form']//p[contains(text(), '$desc')]";}
-    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
+//    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
+    public static function MeasureGreenTip($grTip)               { return "//*[@class='short-articles link-green no-ajax'][contains(h4/text(), 'Measure')]//*[text()='$grTip']";}
     public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//p[contains(text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
     public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li/div[contains(p/text(), '$desc')]/span";}
     

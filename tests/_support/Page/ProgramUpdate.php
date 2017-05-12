@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class ProgramUpdate
+class ProgramUpdate extends \AcceptanceTester
 {
-    public static function URL($id)       { return  "/master-admin/program/update?id=$id";}
+    public static function URL($id)       { return parent::$URL_UserAccess."/program/update?id=$id";}
     public static $Title                  = 'h1';
     
     public static $UpdateButton           = '[type=submit][class*=primary]';

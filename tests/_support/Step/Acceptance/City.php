@@ -78,6 +78,32 @@ class City extends \AcceptanceTester
         return $i;
     }
     
+    public function GetCityOnPageInList($name)
+    {
+        $I = $this;
+        $I->amOnPage(\Page\CityList::URL());
+        $I->wait(1);
+        $count = $I->grabTextFrom(\Page\CityList::$SummaryCount);
+        $pageCount = ceil($count/20);
+        $I->comment("Page count = $pageCount");
+        for($i=1; $i<=$pageCount; $i++){
+            $I->amOnPage(\Page\CityList::UrlPageNumber($i));
+            $I->wait(1);
+            $rows = $I->getAmount($I, \Page\CityList::$CityRow);
+            $I->comment("Count of rows = $rows");
+            for($j=1; $j<=$rows; $j++){
+                if($I->grabTextFrom(\Page\CityList::NameLine($j)) == $name){
+                    $I->comment("I find city: $name at row: $j on page: $i");
+                    break 2;
+                }
+            }
+        }
+        $city['id']   = $I->grabTextFrom(\Page\CityList::IdLine($j));
+        $city['page'] = $i;
+        $city['row']  = $j;
+        return $city;
+    }
+    
     public function CheckValuesOnCityListPage($row, $name = null, $state = null, $createdDate = null, $updatedDate = null, $status = 'active')
     {
         $I = $this;

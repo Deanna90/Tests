@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class ProgramList
+class ProgramList extends \AcceptanceTester
 {
-    public static $URL                  = '/master-admin/program/index';
+    public static function URL()        { return parent::$URL_UserAccess.'/program/index';}
     public static $Title                = 'h1';
     public static $ProgramRow           = 'table[class*=table] tbody>tr';
     

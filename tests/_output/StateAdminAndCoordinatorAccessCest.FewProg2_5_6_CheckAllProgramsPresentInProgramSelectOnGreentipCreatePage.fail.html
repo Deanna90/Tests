@@ -1,100 +1,81 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="VkVZWnRMaDgPDxc3GBgaQj10OCgWISl.Ey8yEQQeBH4bIx4jJRM8Uw==" />
+    <meta name="csrf-token" content="UThCU202Qk0mVzUePgN0PGZrKhxVVXJ1YFkhIiBedjU4CDYlXWwKfg==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
-    <title>Create Green Tip</title>
-    <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
-<link href="/assets/dbb4b7cb/css/dependent-dropdown.css" rel="stylesheet" />
-<link href="/assets/f016074/css/kv-widgets.css" rel="stylesheet" />
-<link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <title>GreenBiz - Login Site</title>
+    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
 <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
 <link href="/css/chosen.min.css" rel="stylesheet" />
 <link href="/css/switch.jquery.css" rel="stylesheet" />
-<link href="/css/style.css" rel="stylesheet" />
-<script type="text/javascript">window.depdrop_fdb1cfa5 = {"depends":["state-id"],"placeholder":"Select...","url":"\/ajax\/audit-groups-by-state-id"};
-
-window.depdrop_da7aad34 = {"depends":["audit-group-id"],"placeholder":"Select...","url":"\/ajax\/audit-sub-groups-by-audit-group","params":["state-id"]};
-</script>    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
-    <style>.cke{visibility:hidden;}</style></head>
+<link href="/css/style.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
+    </head>
 <body>
-    <div id="main_page_container"><div class="container">
+    <div id="main_page_container">
+        <!-- user_id: guest -->
+<div class="container">
     <header class="clear">
         <div class="header-logo">
             <div class="">
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
                     <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
-                                                    <form class="no-ajax" action="/site/logout" method="post">
-<input type="hidden" name="_csrf" value="aHB0bktkbTgxOjoDJzAfQgNBFRwpCSx.LRofJTs2AX4lFjMXGjs5Uw==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
+                                                    <a class="btn btn-default logout ajax" href="/site/login">Login</a>                                            </div>
                 </div>
             </div>
         </div>
-                    <div class="horizontal-nav">
-                <div class="responsive-menu1">
-                    <button class="hamburger1" style="display: block;">☰</button>
-                    <button class="cross1" style="display: none;">˟</button>
-                </div>
-                                    <ul id="w2" class="nav-pills navbar-default menu1 nav"><li><a href="/state-admin/default/index" class="ajax">Dashboard</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Programs <b class="caret"></b></a><ul id="w3" class="dropdown-menu"><li><a href="/state-admin/program/index" tabindex="-1" class="ajax">Programs</a></li>
-<li><a href="/state-admin/city/index" tabindex="-1" class="ajax">Cities</a></li>
-<li><a href="/state-admin/sector/list" tabindex="-1" class="ajax">Sectors</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Measures <b class="caret"></b></a><ul id="w4" class="dropdown-menu"><li><a href="/state-admin/measure/index" tabindex="-1" class="ajax">Measures</a></li>
-<li><a href="/state-admin/measure-weight-points/states" tabindex="-1" class="ajax">Points</a></li>
-<li><a href="/state-admin/global-variable/index" tabindex="-1" class="ajax">Global Variables</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Green Tips <b class="caret"></b></a><ul id="w5" class="dropdown-menu"><li><a href="/state-admin/green-tip/index" tabindex="-1" class="ajax">Measures</a></li>
-<li><a href="/state-admin/audit-green-tip/index" tabindex="-1" class="ajax">Audit Groups</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Checklists <b class="caret"></b></a><ul id="w6" class="dropdown-menu"><li><a href="/state-admin/essential-criteria/index" tabindex="-1" class="ajax">EC</a></li>
-<li><a href="/state-admin/checklist/list" tabindex="-1" class="ajax">Checklists</a></li></ul></li>
-<li><a href="/state-admin/tier/manage" class="ajax">Tiers</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Users <b class="caret"></b></a><ul id="w7" class="dropdown-menu"><li><a href="/state-admin/user/index?type=5" tabindex="-1" class="ajax">Coordinators</a></li>
-<li><a href="/state-admin/user/index?type=7" tabindex="-1" class="ajax">Auditors</a></li>
-<li><a href="/state-admin/user/index?type=3" tabindex="-1" class="ajax">Inspectors</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">StateMGTptle <b class="caret"></b></a><ul id="w8" class="scrollable-menu dropdown-menu"><li><a href="/base/set-state?state_id=81" tabindex="-1" class="ajax">StateMGTptle</a></li></ul></li></ul>                
-            </div>
-                <ul class="breadcrumb"><li><a href="/state-admin/default/index" class="ajax">Home</a></li>
-<li><a href="/state-admin/green-tip/index" class="ajax">Green Tips</a></li>
-<li class="active">Create Green Tip</li>
-</ul>    </header>
 
-    <div class="green-tip-create">
+        
+                    </header>
 
-    <h1>Create Green Tip</h1>
+    <div class="site-login">
+    <h1>GreenBiz - Login Site</h1>
 
-    
-<div class="green-tip-form">
+    <p>Please fill out the following fields to login:</p>
 
-    <form id="w0" action="/state-admin/green-tip/create?measure_id=2517" method="post" class="ajax">
-<input type="hidden" name="_csrf" value="aHB0bktkbTgxOjoDJzAfQgNBFRwpCSx.LRofJTs2AX4lFjMXGjs5Uw==" />
-    <div class="form-group field-greentip-description">
-<label class="control-label" for="greentip-description">Description</label>
-<textarea id="greentip-description" class="form-control" name="GreenTip[description]" rows="6"></textarea>
-
-<div class="help-block"></div>
+    <form id="login-form" class="no-ajax form-horizontal" action="/site/login" method="post">
+<input type="hidden" name="_csrf" value="UThCU202Qk0mVzUePgN0PGZrKhxVVXJ1YFkhIiBedjU4CDYlXWwKfg==" />
+        <div class="form-group field-loginform-email required">
+<label class="col-lg-1 control-label" for="loginform-email">Email</label>
+<div class="col-lg-3"><input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" /></div>
+<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
 </div>
-    <div class="form-group field-greentip-program_ids required">
-<label class="control-label" for="greentip-program_ids">Program</label>
-<select id="greentip-program_ids" name="GreenTip[program_ids][]" multiple="" size="4" style="display: none;">
-<option value="120">ProgMGT1igqc</option>
-<option value="121">ProgMGT2ngxz</option>
-</select><div class="chosen-container chosen-container-multi chosen-with-drop chosen-container-active" style="width: 150px;" title="" id="greentip_program_ids_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Select some options" class="default" autocomplete="off" style="width: 137px;" /></li></ul><div class="chosen-drop"><ul class="chosen-results"><li class="active-result highlighted" data-option-array-index="0">ProgMGT1igqc</li><li class="active-result" data-option-array-index="1">ProgMGT2ngxz</li></ul></div></div>
-
-<div class="help-block"></div>
+        <div class="form-group field-loginform-password required">
+<label class="col-lg-1 control-label" for="loginform-password">Password</label>
+<div class="col-lg-3"><input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" /></div>
+<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
 </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">Create</button>    </div>
+        <div class="form-group field-loginform-rememberme">
+<div class="col-sm-6 col-sm-offset-3">
+<div class="checkbox">
+<label for="loginform-rememberme">
+<input type="hidden" name="LoginForm[rememberMe]" value="0" /><input type="checkbox" id="loginform-rememberme" name="LoginForm[rememberMe]" value="1" checked="" />
+Remember Me
+</label>
+</div>
+<div class="help-block help-block-error "></div>
+</div>
+
+</div>
+        <div class="form-group">
+            <a href="/site/request-password-reset" class="ajax">Forgot password?</a>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11 margin_top3p">
+                <button type="submit" class="btn btn-primary" name="login-button">Login</button>            </div>
+        </div>
 
     </form>
-</div>
 
 </div>
 
-</div><script type="text/javascript">jQuery('#greentip-program_ids').chosen({"disable_search_threshold":10,"placeholder_text_single":"Select an option","placeholder_text_multiple":"Select some options","no_results_text":"No results match"});
-jQuery('#w0').yiiActiveForm([{"id":"greentip-description","name":"description","container":".field-greentip-description","input":"#greentip-description","validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"Description must be a string.","skipOnEmpty":1});}},{"id":"greentip-program_ids","name":"program_ids","container":".field-greentip-program_ids","input":"#greentip-program_ids","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Program Ids cannot be blank."});}}], []);</script></div>
-    <div id="loading" style="display: none;"></div>
+</div>    </div>
+    <div id="loading"></div>
 <div><div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_bottom" style="display: block;">
     <div class="yii-debug-toolbar__bar">
         <div class="yii-debug-toolbar__block yii-debug-toolbar__title">
@@ -103,8 +84,8 @@ jQuery('#w0').yiiActiveForm([{"id":"greentip-description","name":"description","
             </a>
         </div>
 
-        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: block;">
-            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter yii-debug-toolbar__label_success">1</span>
+        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: none">
+            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter">0</span>
             <div class="yii-debug-toolbar__ajax_info">
                 <table>
                     <thead>
@@ -116,44 +97,44 @@ jQuery('#w0').yiiActiveForm([{"id":"greentip-description","name":"description","
                         <th>Profile</th>
                     </tr>
                     </thead>
-                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/state-admin/green-tip/create?measure_id=2517">/state-admin/green-tip/create?measure_id=2517</td><td class="yii-debug-toolbar__ajax_request_duration">107 ms</td> <td><a href="/debug/default/view?tag=58e7635806d41">58e7635806d41</a></td></tr></tbody>
+                    <tbody class="yii-debug-toolbar__ajax_requests"></tbody>
                 </table>
             </div>
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=58e763543c5dc">
+    <a href="/debug/default/view?panel=config&amp;tag=58f88152bf681">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=58e763543c5dc" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=58e763543c5dc" title="Action: app\modules\stateadmin\controllers\MeasureController::actionIndex()">Route <span class="yii-debug-toolbar__label">state-admin/measure/index</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=58f88152bf681" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=58f88152bf681" title="Action: app\controllers\SiteController::actionLogin()">Route <span class="yii-debug-toolbar__label">site/login</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=58e763543c5dc" title="Logged 44 messages">Log
-        <span class="yii-debug-toolbar__label">44</span>
+    <a href="/debug/default/view?panel=log&amp;tag=58f88152bf681" title="Logged 14 messages">Log
+        <span class="yii-debug-toolbar__label">14</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=58e763543c5dc" title="Total request processing time was 129 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">129 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=58e763543c5dc" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12.131 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=58f88152bf681" title="Total request processing time was 68 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">68 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=58f88152bf681" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9.164 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=58e763543c5dc" title="Executed 29 database queries which took 9 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">29</span> <span class="yii-debug-toolbar__label">9 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=58f88152bf681" title="Executed 1 database queries which took 0 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span> <span class="yii-debug-toolbar__label">0 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=58e763543c5dc" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">14</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=58f88152bf681" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user&amp;tag=58e763543c5dc">
-                    User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">4498</span>
+    <a href="/debug/default/view?panel=user">
+                    <span class="yii-debug-toolbar__label">Guest</span>
             </a>
 </div>
                             
@@ -808,32 +789,19 @@ a.yii-debug-toolbar__label:focus {
     };
 
 })();</script><script src="/assets/6b040846/jquery.js"></script>
-<script src="/assets/dbb4b7cb/js/dependent-dropdown.js"></script>
-<script src="/assets/61a93d47/js/depdrop.js"></script>
-<script src="/assets/f016074/js/kv-widgets.js"></script>
 <script src="/assets/a83e0e94/yii.js"></script>
+<script src="/assets/a83e0e94/yii.validation.js"></script>
 <script src="/assets/a83e0e94/yii.activeForm.js"></script>
-<script src="/assets/a83e0e94/yii.gridView.js"></script>
 <script src="/assets/5463e113/jquery-ui.js"></script>
 <script src="/assets/7942af6b/js/bootstrap.js"></script>
 <script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
-<script src="/assets/a8119c8c/ckeditor.js"></script>
-<script src="/assets/a8119c8c/adapters/jquery.js"></script>
-<script src="/assets/d2bdffe5/dosamigos-ckeditor.widget.js"></script>
+<script src="/assets/ee2108e6/jquery.inputmask.bundle.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
 <script src="/js/app.js"></script>
-<script src="/js/masteradmin/global.js"></script>
-<script src="/js/stateadmin/global.js"></script>
+<script src="/js/global.prod.js"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
-
-jQuery('#audit-group-id').depdrop(depdrop_fdb1cfa5);
-
-
-jQuery('#audit-sub-group-id').depdrop(depdrop_da7aad34);
-
-jQuery('#w0').yiiActiveForm([], []);
-jQuery('#w1').yiiGridView({"filterUrl":"\/state-admin\/measure\/index","filterSelector":"#w1-filters input, #w1-filters select"});
+jQuery('#login-form').yiiActiveForm([{"id":"loginform-email","name":"email","container":".field-loginform-email","input":"#loginform-email","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});}},{"id":"loginform-password","name":"password","container":".field-loginform-password","input":"#loginform-password","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});}},{"id":"loginform-rememberme","name":"rememberMe","container":".field-loginform-rememberme","input":"#loginform-rememberme","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.boolean(value, messages, {"trueValue":"1","falseValue":"0","message":"Remember Me must be either \"1\" or \"0\".","skipOnEmpty":1});}}], []);
 });</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -850,9 +818,9 @@ jQuery('#w1').yiiGridView({"filterUrl":"\/state-admin\/measure\/index","filterSe
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"Measures","loadedAssets":{"js":["\/assets\/dbb4b7cb\/js\/dependent-dropdown.js","\/assets\/6b040846\/jquery.js","\/assets\/61a93d47\/js\/depdrop.js","\/assets\/f016074\/js\/kv-widgets.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.gridView.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/js\/stateadmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js"],"css":["\/assets\/dbb4b7cb\/css\/dependent-dropdown.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/f016074\/css\/kv-widgets.css","\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/dbb4b7cb\/js\/dependent-dropdown.js","\/assets\/6b040846\/jquery.js","\/assets\/61a93d47\/js\/depdrop.js","\/assets\/f016074\/js\/kv-widgets.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.gridView.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/js\/stateadmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js"],"css":["\/assets\/dbb4b7cb\/css\/dependent-dropdown.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/f016074\/css\/kv-widgets.css","\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
+        app.pageTools.setInitialPageData({"title":"GreenBiz - Login Site","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/ee2108e6\/jquery.inputmask.bundle.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/ee2108e6\/jquery.inputmask.bundle.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
     });
 </script>
 
 
-<script src="/assets/a83e0e94/yii.validation.js" loaded="ajax"></script><script src="/assets/47ae45c4/chosen.jquery.min.js" loaded="ajax"></script><link href="/assets/6dbd1208/chosen.bootstrap.css" loaded="ajax" rel="stylesheet" /></body></html>
+</body></html>

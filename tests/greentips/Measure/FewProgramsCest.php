@@ -68,9 +68,10 @@ class FewProgramsCest
         $state   = $this->state;
         $zips    = $this->zip1 = $I->GenerateZipCode();
         $program = $this->program1 = $I->GenerateNameOf("ProgMGT1");
+        $cityArr = [$city];
         
         $I->CreateCity($city, $state, $zips);
-        $Y->CreateProgram($program, $state, $city);
+        $Y->CreateProgram($program, $state, $cityArr);
     }
     
     public function Help2_5_2_CreateCity2_And_Program2(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
@@ -78,9 +79,10 @@ class FewProgramsCest
         $state   = $this->state;
         $zips    = $this->zip2 = $I->GenerateZipCode();
         $program = $this->program2 = $I->GenerateNameOf("ProgMGT2");
+        $cityArr = [$city];
         
         $I->CreateCity($city, $state, $zips);
-        $Y->CreateProgram($program, $state, $city);
+        $Y->CreateProgram($program, $state, $cityArr);
     }
     
     public function Help2_5_3_CreateCity3_And_Program3(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
@@ -88,9 +90,10 @@ class FewProgramsCest
         $state   = $this->state;
         $zips    = $this->zip3 = $I->GenerateZipCode();
         $program = $this->program3 = $I->GenerateNameOf("ProgMGT3");
+        $cityArr = [$city];
         
         $I->CreateCity($city, $state, $zips);
-        $Y->CreateProgram($program, $state, $city);
+        $Y->CreateProgram($program, $state, $cityArr);
     }
     
     public function FewProg2_5_4_CheckAbsentCreateGreenTipButtonInGreenTipsListBeforeAnyCreatingTipsNotSelectedMeasure(\Step\Acceptance\GreenTipForMeasure $I) {
@@ -186,6 +189,8 @@ class FewProgramsCest
         $grTip    = $this->gt_program1_2;
         
         $I->wait(1);
+        $I->reloadPage();
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
@@ -195,8 +200,8 @@ class FewProgramsCest
         }
         $I->wait(2);
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
-        $I->wait(1);
-        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip_ByDesc($measDesc, $grTip));
+        $I->wait(3);
+        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_10_CreateChecklistForTier3_Program2(\Step\Acceptance\Checklist $I) {
@@ -216,6 +221,8 @@ class FewProgramsCest
         $grTip    = $this->gt_program1_2;
         
         $I->wait(1);
+        $I->reloadPage();
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
@@ -225,8 +232,8 @@ class FewProgramsCest
         }
         $I->wait(2);
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
-        $I->wait(1);
-        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip_ByDesc($measDesc, $grTip));
+        $I->wait(3);
+        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_11_CreateChecklistForTier3_Program3(\Step\Acceptance\Checklist $I) {
@@ -246,6 +253,8 @@ class FewProgramsCest
         $grTip    = $this->gt_program3;
         
         $I->wait(1);
+        $I->reloadPage();
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
@@ -255,8 +264,8 @@ class FewProgramsCest
         }
         $I->wait(2);
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
-        $I->wait(1);
-        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip_ByDesc($measDesc, $grTip));
+        $I->wait(3);
+        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_12_LogOut(AcceptanceTester $I) {
@@ -295,8 +304,8 @@ class FewProgramsCest
         $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
-        $I->wait(2);
-        $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip_ByDesc($measDesc, $grTip));
+        $I->wait(3);
+        $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_14_LogOutFromBusiness2(AcceptanceTester $I){
@@ -337,8 +346,8 @@ class FewProgramsCest
         $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
-        $I->wait(2);
-        $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip_ByDesc($measDesc, $grTip));
+        $I->wait(3);
+        $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
     
     
@@ -365,8 +374,8 @@ class FewProgramsCest
         }
         $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
-        $I->wait(2);
-        $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip_ByDesc($measDesc, $grTip));
+        $I->wait(3);
+        $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
     
     public function FewProg2_5_16_2_CheckGreenTipForMeasure_OnBusinessView_Program3(AcceptanceTester $I) {
@@ -385,7 +394,7 @@ class FewProgramsCest
         }
         $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
-        $I->wait(2);
-        $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip_ByDesc($measDesc, $grTip));
+        $I->wait(3);
+        $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
 }

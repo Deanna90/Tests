@@ -3,10 +3,9 @@ namespace Step\Acceptance;
 
 class Program extends \AcceptanceTester
 {
-    public function CreateProgram($name = null, $state = null, $city = null)
+    public function CreateProgram($name = null, $state = null, $city = null, $recerticationCycle = '1 year')
     {
         $I = $this;
-        $city = [$city];
         $I->amOnPage(\Page\ProgramCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\ProgramCreate::$NameField);
@@ -24,6 +23,7 @@ class Program extends \AcceptanceTester
                 $I->click(\Page\ProgramCreate::selectCityOptionByName($city[$k]));
             }
         }
+        $I->selectOption(\Page\ProgramCreate::$RecertificationCycleSelect, $recerticationCycle);
         $I->click(\Page\ProgramCreate::$CreateButton);
         $I->wait(1);
     }  

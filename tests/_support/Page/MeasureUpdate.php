@@ -1,15 +1,15 @@
 <?php
 namespace Page;
 
-class MeasureUpdate
+class MeasureUpdate extends \AcceptanceTester
 {
-    public static $URL                       = '/master-admin/measure/create';
+    public static function URL($id)          { return parent::$URL_UserAccess."/measure/update?id=$id";}
     public static $Title                     = 'h1';
     public static $MeasureInfoBlockTitle     = '.row>div:nth-of-type(1) .panel-heading';
     public static $MeasurePointsBlockTitle   = '.row>div:nth-of-type(2) .panel-heading';
     public static $MeasureFormulasBlockTitle = '.row>div:nth-of-type(3) .panel-heading';
     
-    public static $UpdateButton                    = '[type=submit][class*=primary]';
+    public static $UpdateButton                    = '.measure-update [type=submit]';
     public static $IsQuantitativeToggleButton      = '#measure-is_quantitative_switch_control';
     public static $HaveMultipleAnswersToggleButton = '#measureform-hasmultiplequestions_switch_control';
     public static $ManageFormulasButton            = '#popup_link_0';

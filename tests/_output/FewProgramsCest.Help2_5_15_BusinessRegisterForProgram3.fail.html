@@ -1,6 +1,6 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="c0ouNWJWMlESBEd7NCxRJSxnQlY4FFVkRTlITAgzRRwqZxpWJ2ZzHQ==" />
+    <meta name="csrf-token" content="UXhqQ2hBdGk1PCQwBCABGmEnJCsZEBcTOB0AMiYGJTMVTgEEBgMiAg==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
@@ -10,13 +10,15 @@
     <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
 <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
+<link href="/leaflet/leaflet.css" rel="stylesheet" />
 <link href="/css/chosen.min.css" rel="stylesheet" />
 <link href="/css/switch.jquery.css" rel="stylesheet" />
 <link href="/css/style.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
     </head>
 <body>
     <div id="main_page_container">
-        <div class="container">
+        <!-- user_id: guest -->
+<div class="container">
     <header class="clear">
         <div class="header-logo">
             <div class="">
@@ -27,12 +29,14 @@
                 </div>
             </div>
         </div>
+
+        
                     </header>
 
     
     <div class="header-text">
         <a href="#" class="">
-            <span class="fa-stack fa-lg ">
+            <span class="fa-stack">
                 <i class="fa fa-circle-thin fa-stack-2x"></i>
                 <i class="fa fa-stack-1x digit">1</i>
                 <i class="fa fa-stack-1x symbol">✔</i>
@@ -40,14 +44,14 @@
         </a>
         <div id="chevron"></div>
         <a href="#" class="active">
-            <span class="fa-stack fa-lg ">
+            <span class="fa-stack">
                 <i class="fa fa-circle-thin fa-stack-2x"></i>
                 <i class="fa fa-stack-1x digit">2</i>
                 <i class="fa fa-stack-1x symbol">✔</i>
             </span><span class="step">Application</span></a>
         <div id="chevron"></div>
         <a href="#" class="">
-            <span class="fa-stack fa-lg ">
+            <span class="fa-stack">
             <i class="fa fa-circle-thin fa-stack-2x"></i>
             <i class="fa fa-stack-1x digit">3</i>
             <i class="fa fa-stack-1x symbol">✔</i>
@@ -55,7 +59,7 @@
     </div>
 
 <form id="w0" class="registration-container ajax" action="/business/registration" method="post">
-<input type="hidden" name="_csrf" value="c0ouNWJWMlESBEd7NCxRJSxnQlY4FFVkRTlITAgzRRwqZxpWJ2ZzHQ==" />    <h1>Registration</h1>
+<input type="hidden" name="_csrf" value="UXhqQ2hBdGk1PCQwBCABGmEnJCsZEBcTOB0AMiYGJTMVTgEEBgMiAg==" />    <h1>Registration</h1>
     <p class="sub-title">Tell us a little about your business so that we can get your profile started</p>
             <p class="green-title reg-title">contact info</p>
         <div class="row">
@@ -81,7 +85,7 @@
                 <div class="form-group">
                     <div class="form-group field-user-phone required has-success">
 
-<input type="tel" id="user-phone" class="form-control" name="User[phone]" placeholder="Phone Number" aria-required="true" aria-invalid="false" />
+<input type="text" id="user-phone" class="form-control" name="User[phone]" placeholder="Phone Number" aria-required="true" data-plugin-inputmask="inputmask_e4f2ec36" aria-invalid="false" />
 
 <div class="help-block"></div>
 </div>                </div>
@@ -131,7 +135,7 @@
             <div class="form-group">
                 <div class="form-group field-business-phone required has-success">
 
-<input type="tel" id="business-phone" class="form-control" name="Business[phone]" placeholder="Business Phone" aria-required="true" aria-invalid="false" />
+<input type="text" id="business-phone" class="form-control" name="Business[phone]" placeholder="Business Phone" aria-required="true" data-plugin-inputmask="inputmask_e4f2ec36" aria-invalid="false" />
 
 <div class="help-block"></div>
 </div>            </div>
@@ -413,7 +417,7 @@
         </div>
 
         <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: block;">
-            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter">1</span>
+            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter yii-debug-toolbar__label_success">1</span>
             <div class="yii-debug-toolbar__ajax_info">
                 <table>
                     <thead>
@@ -425,40 +429,40 @@
                         <th>Profile</th>
                     </tr>
                     </thead>
-                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_error">-</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/city-and-sectors-by-zip?zip=65549&amp;withOutProgram=0">/ajax/city-and-sectors-by-zip?zip=65549&amp;withOutProgram=0</td><td class="yii-debug-toolbar__ajax_request_duration">-</td> <td>n/a</td></tr></tbody>
+                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/city-and-sectors-by-zip?zip=33216&amp;withOutProgram=0">/ajax/city-and-sectors-by-zip?zip=33216&amp;withOutProgram=0</td><td class="yii-debug-toolbar__ajax_request_duration">46 ms</td> <td><a href="/debug/default/view?tag=590362a88374d">590362a88374d</a></td></tr></tbody>
                 </table>
             </div>
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=58e62a322c25d">
+    <a href="/debug/default/view?panel=config&amp;tag=590362a16a917">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=58e62a322c25d" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=58e62a322c25d" title="Action: app\controllers\BusinessController::actionRegistration()">Route <span class="yii-debug-toolbar__label">business/registration</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=590362a16a917" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=590362a16a917" title="Action: app\controllers\BusinessController::actionRegistration()">Route <span class="yii-debug-toolbar__label">business/registration</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=58e62a322c25d" title="Logged 19 messages">Log
+    <a href="/debug/default/view?panel=log&amp;tag=590362a16a917" title="Logged 19 messages">Log
         <span class="yii-debug-toolbar__label">19</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=58e62a322c25d" title="Total request processing time was 94 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">94 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=58e62a322c25d" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10.310 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=590362a16a917" title="Total request processing time was 99 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">99 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=590362a16a917" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10.567 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=58e62a322c25d" title="Executed 6 database queries which took 3 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">6</span> <span class="yii-debug-toolbar__label">3 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=590362a16a917" title="Executed 6 database queries which took 4 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">6</span> <span class="yii-debug-toolbar__label">4 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=58e62a322c25d" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=590362a16a917" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
     <a href="/debug/default/view?panel=user">
@@ -1119,17 +1123,28 @@ a.yii-debug-toolbar__label:focus {
 })();</script><script src="/assets/6b040846/jquery.js"></script>
 <script src="/assets/a83e0e94/yii.js"></script>
 <script src="/assets/a83e0e94/yii.validation.js"></script>
+<script src="/assets/33c042c0/jquery.inputmask.bundle.js"></script>
 <script src="/assets/ff1e5823/js/strength-validation.js"></script>
 <script src="/assets/a83e0e94/yii.activeForm.js"></script>
 <script src="/assets/5463e113/jquery-ui.js"></script>
 <script src="/assets/7942af6b/js/bootstrap.js"></script>
 <script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
+<script src="/leaflet/leaflet.js"></script>
+<script src="/leaflet/lib.shp/catiline.js"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/global.prod.js"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
-jQuery('#w0').yiiActiveForm([{"id":"user-first_name","name":"first_name","container":".field-user-first_name","input":"#user-first_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"First Name cannot be blank."});yii.validation.string(value, messages, {"message":"First Name must be a string.","max":255,"tooLong":"First Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-last_name","name":"last_name","container":".field-user-last_name","input":"#user-last_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Last Name cannot be blank."});yii.validation.string(value, messages, {"message":"Last Name must be a string.","max":255,"tooLong":"Last Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-phone","name":"phone","container":".field-user-phone","input":"#user-phone","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"You must put number in right format. \n Example (123) 123-1234","skipOnEmpty":1});}},{"id":"user-email","name":"email","container":".field-user-email","input":"#user-email","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});yii.validation.email(value, messages, {"pattern":/^[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/,"fullPattern":/^[^@]*&lt;[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?&gt;$/,"allowName":false,"message":"Email is not a valid email address.","enableIDN":false,"skipOnEmpty":1});}},{"id":"user-password","name":"password","container":".field-user-password","input":"#user-password","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});yii.validation.string(value, messages, {"message":"Password must be a string.","min":8,"tooShort":"Password should contain at least 8 characters.","max":100,"tooLong":"Password should contain at most 100 characters.","skipOnEmpty":1});kvStrengthValidator.validate(value, messages, {"strError":"Password must be a string","userField":"#user-username","min":10,"minError":"Password should contain at least 10 characters ({found} found)!","allowSpaces":false,"allowSpacesError":"Password cannot contain any spaces","hasUser":true,"hasUserError":"Password cannot contain the username","hasEmail":true,"hasEmailError":"Password cannot contain an email address","lower":1,"lowerError":"Password should contain at least one lower case character ({found} found)!","upper":1,"upperError":"Password should contain at least one upper case character ({found} found)!","digit":1,"digitError":"Password should contain at least one numeric / digit character ({found} found)!","special":1,"specialError":"Password should contain at least one special character ({found} found)!"});}},{"id":"user-new_password","name":"new_password","container":".field-user-new_password","input":"#user-new_password","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Confirm Password cannot be blank."});yii.validation.string(value, messages, {"message":"Confirm Password must be a string.","min":8,"tooShort":"Confirm Password should contain at least 8 characters.","max":100,"tooLong":"Confirm Password should contain at most 100 characters.","skipOnEmpty":1});yii.validation.compare(value, messages, {"operator":"==","type":"string","compareAttribute":"user-password","message":"Password and Confirm password don't match"});}},{"id":"business-name","name":"name","container":".field-business-name","input":"#business-name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Name cannot be blank."});yii.validation.string(value, messages, {"message":"Name must be a string.","max":255,"tooLong":"Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-phone","name":"phone","container":".field-business-phone","input":"#business-phone","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"You must put number in right format. \n Example (123) 123-1234","skipOnEmpty":1});}},{"id":"business-street_address","name":"street_address","container":".field-business-street_address","input":"#business-street_address","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Street Address cannot be blank."});yii.validation.string(value, messages, {"message":"Street Address must be a string.","max":255,"tooLong":"Street Address should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-zip","name":"zip","container":".field-business-zip","input":"#business-zip","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Zip cannot be blank."});yii.validation.regularExpression(value, messages, {"pattern":/^\d{5}(-\d{4})?$/,"not":false,"message":"Zip code is incorrect","skipOnEmpty":1});}},{"id":"business-city_id","name":"city_id","container":".field-cities","input":"#cities","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"City must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"City cannot be blank."});}},{"id":"business-state_name","name":"state_name","container":".field-business-state_name","input":"#business-state_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"State Name must be a string.","max":255,"tooLong":"State Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-state_id","name":"state_id","container":".field-business-state_id","input":"#business-state_id","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"State must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"State cannot be blank."});}},{"id":"business-website","name":"website","container":".field-business-website","input":"#business-website","validate":function (attribute, value, messages, deferred, $form) {yii.validation.url(value, messages, {"pattern":/^(http|https):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i,"message":"Website is not a valid URL.","enableIDN":false,"skipOnEmpty":1,"defaultScheme":"http"});}},{"id":"business-sector_id","name":"sector_id","container":".field-business-sector_id","input":"#business-sector_id","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Business Type must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Business Type cannot be blank."});}},{"id":"business-employees_number","name":"employees_number","container":".field-business-employees_number","input":"#business-employees_number","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Employees number must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Employees number cannot be blank."});}},{"id":"business-business_square_footage","name":"business_square_footage","container":".field-business-business_square_footage","input":"#business-business_square_footage","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Business Square Footage must be a number.","skipOnEmpty":1});}},{"id":"business-landscape_square_footage","name":"landscape_square_footage","container":".field-business-landscape_square_footage","input":"#business-landscape_square_footage","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Landscape Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Landscape Square Footage must be a number.","skipOnEmpty":1});}}], []);
+var inputmask_e4f2ec36 = {"mask":"(999) 999-9999"};
+jQuery("#user-phone").inputmask(inputmask_e4f2ec36);
+jQuery("#business-phone").inputmask(inputmask_e4f2ec36);
+jQuery('#w0').yiiActiveForm([{"id":"user-first_name","name":"first_name","container":".field-user-first_name","input":"#user-first_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"First Name cannot be blank."});yii.validation.string(value, messages, {"message":"First Name must be a string.","max":255,"tooLong":"First Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-last_name","name":"last_name","container":".field-user-last_name","input":"#user-last_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Last Name cannot be blank."});yii.validation.string(value, messages, {"message":"Last Name must be a string.","max":255,"tooLong":"Last Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-phone","name":"phone","container":".field-user-phone","input":"#user-phone","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"A phone number should contain 10 digit.","skipOnEmpty":1});}},{"id":"user-email","name":"email","container":".field-user-email","input":"#user-email","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});yii.validation.email(value, messages, {"pattern":/^[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/,"fullPattern":/^[^@]*&lt;[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?&gt;$/,"allowName":false,"message":"Email is not a valid email address.","enableIDN":false,"skipOnEmpty":1});}},{"id":"user-password","name":"password","container":".field-user-password","input":"#user-password","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});yii.validation.string(value, messages, {"message":"Password must be a string.","min":8,"tooShort":"Password should contain at least 8 characters.","max":100,"tooLong":"Password should contain at most 100 characters.","skipOnEmpty":1});if ((
+                    function (attribute, value) {
+                        return false;
+                    }
+                )(attribute, value)) { kvStrengthValidator.validate(value, messages, {"strError":"Password must be a string","userField":"#user-username","min":10,"minError":"Password should contain at least 10 characters ({found} found)!","allowSpaces":false,"allowSpacesError":"Password cannot contain any spaces","hasUser":true,"hasUserError":"Password cannot contain the username","hasEmail":true,"hasEmailError":"Password cannot contain an email address","lower":1,"lowerError":"Password should contain at least one lower case character ({found} found)!","upper":1,"upperError":"Password should contain at least one upper case character ({found} found)!","digit":1,"digitError":"Password should contain at least one numeric / digit character ({found} found)!","special":1,"specialError":"Password should contain at least one special character ({found} found)!"}); }}},{"id":"user-new_password","name":"new_password","container":".field-user-new_password","input":"#user-new_password","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Confirm Password cannot be blank."});yii.validation.string(value, messages, {"message":"Confirm Password must be a string.","min":8,"tooShort":"Confirm Password should contain at least 8 characters.","max":100,"tooLong":"Confirm Password should contain at most 100 characters.","skipOnEmpty":1});yii.validation.compare(value, messages, {"operator":"==","type":"string","compareAttribute":"user-password","message":"Password and Confirm password don't match"});}},{"id":"business-name","name":"name","container":".field-business-name","input":"#business-name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Name cannot be blank."});yii.validation.string(value, messages, {"message":"Name must be a string.","max":255,"tooLong":"Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-phone","name":"phone","container":".field-business-phone","input":"#business-phone","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"A phone number should contain 10 digit.","skipOnEmpty":1});}},{"id":"business-street_address","name":"street_address","container":".field-business-street_address","input":"#business-street_address","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Street Address cannot be blank."});yii.validation.string(value, messages, {"message":"Street Address must be a string.","max":255,"tooLong":"Street Address should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-zip","name":"zip","container":".field-business-zip","input":"#business-zip","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Zip cannot be blank."});yii.validation.regularExpression(value, messages, {"pattern":/^\d{5}(-\d{4})?$/,"not":false,"message":"Zip code is incorrect","skipOnEmpty":1});}},{"id":"business-city_id","name":"city_id","container":".field-cities","input":"#cities","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"City must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"City cannot be blank."});}},{"id":"business-state_name","name":"state_name","container":".field-business-state_name","input":"#business-state_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"State Name must be a string.","max":255,"tooLong":"State Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-state_id","name":"state_id","container":".field-business-state_id","input":"#business-state_id","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"State must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"State cannot be blank."});}},{"id":"business-website","name":"website","container":".field-business-website","input":"#business-website","validate":function (attribute, value, messages, deferred, $form) {yii.validation.url(value, messages, {"pattern":/^(http|https):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i,"message":"Website is not a valid URL.","enableIDN":false,"skipOnEmpty":1,"defaultScheme":"https"});}},{"id":"business-sector_id","name":"sector_id","container":".field-business-sector_id","input":"#business-sector_id","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Business Type must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Business Type cannot be blank."});}},{"id":"business-employees_number","name":"employees_number","container":".field-business-employees_number","input":"#business-employees_number","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Employees number must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Employees number cannot be blank."});}},{"id":"business-business_square_footage","name":"business_square_footage","container":".field-business-business_square_footage","input":"#business-business_square_footage","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Business Square Footage must be a number.","skipOnEmpty":1});}},{"id":"business-landscape_square_footage","name":"landscape_square_footage","container":".field-business-landscape_square_footage","input":"#business-landscape_square_footage","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Landscape Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Landscape Square Footage must be a number.","skipOnEmpty":1});}}], []);
 });</script>
 <script type="text/javascript">jQuery(window).on('load', function () {
             $('#w0').yiiActiveForm('add',
@@ -1163,7 +1178,7 @@ jQuery('#w0').yiiActiveForm([{"id":"user-first_name","name":"first_name","contai
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"Registration new business","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
+        app.pageTools.setInitialPageData({"title":"Registration new business","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/33c042c0\/jquery.inputmask.bundle.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/33c042c0\/jquery.inputmask.bundle.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 

@@ -1,22 +1,23 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="Q2hEcm9SWDEkJR0bKxoOVHcnEV9bGix.JQwtMAUhImknGjQWCgVgcw==" />
+    <meta name="csrf-token" content="Q0k0X2tCZ0QaHmUOBwQ3MhcLehckKzgGBANmODgkKgJ2IWZnDDEXdw==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
-    <title>Forbidden (#403)</title>
+    <title>Registration new business</title>
     <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
 <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
+<link href="/leaflet/leaflet.css" rel="stylesheet" />
 <link href="/css/chosen.min.css" rel="stylesheet" />
 <link href="/css/switch.jquery.css" rel="stylesheet" />
 <link href="/css/style.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
     </head>
 <body>
     <div id="main_page_container">
-        <!-- user_id: 1 -->
+        <!-- user_id: guest -->
 <div class="container">
     <header class="clear">
         <div class="header-logo">
@@ -24,37 +25,387 @@
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
                     <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
-                                                    <form class="no-ajax" action="/site/logout" method="post">
-<input type="hidden" name="_csrf" value="Q2hEcm9SWDEkJR0bKxoOVHcnEV9bGix.JQwtMAUhImknGjQWCgVgcw==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
+                                                    <a class="btn btn-default logout ajax" href="/site/login">Login</a>                                            </div>
                 </div>
             </div>
         </div>
 
         
-                    <div class="horizontal-nav">
-                <div class="responsive-menu1">
-                    <button class="hamburger1" style="display: block;">☰</button>
-                    <button class="cross1" style="display: none;">˟</button>
-                </div>
-                                    <ul id="w1" class="nav-pills navbar-default menu1 nav"></ul>                
-            </div>
                     </header>
 
-    <div class="container">
+    
+    <div class="header-text">
+        <a href="#" class="">
+            <span class="fa-stack">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-stack-1x digit">1</i>
+                <i class="fa fa-stack-1x symbol">✔</i>
+            </span><span class="step">Registration</span>
+        </a>
+        <div id="chevron"></div>
+        <a href="#" class="active">
+            <span class="fa-stack">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-stack-1x digit">2</i>
+                <i class="fa fa-stack-1x symbol">✔</i>
+            </span><span class="step">Application</span></a>
+        <div id="chevron"></div>
+        <a href="#" class="">
+            <span class="fa-stack">
+            <i class="fa fa-circle-thin fa-stack-2x"></i>
+            <i class="fa fa-stack-1x digit">3</i>
+            <i class="fa fa-stack-1x symbol">✔</i>
+        </span><span class="step">Review &amp; Submit</span></a>
+    </div>
 
-    <h1>Forbidden (#403)</h1>
+<form id="w0" class="registration-container ajax" action="/business/registration" method="post">
+<input type="hidden" name="_csrf" value="Q0k0X2tCZ0QaHmUOBwQ3MhcLehckKzgGBANmODgkKgJ2IWZnDDEXdw==" />    <h1>Registration</h1>
+    <p class="sub-title">Tell us a little about your business so that we can get your profile started</p>
+            <p class="green-title reg-title">contact info</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-group field-user-first_name required has-success">
 
-    <div class="alert alert-danger">
-        You are not allowed to perform this action.    </div>
+<input type="text" id="user-first_name" class="form-control" name="User[first_name]" placeholder="First Name" aria-required="true" aria-invalid="false" />
 
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
+<div class="help-block"></div>
+</div>                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-group field-user-last_name required has-success">
 
+<input type="text" id="user-last_name" class="form-control" name="User[last_name]" placeholder="Last Name" aria-required="true" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-group field-user-phone required has-success">
+
+<input type="text" id="user-phone" class="form-control" name="User[phone]" placeholder="Phone Number" aria-required="true" data-plugin-inputmask="inputmask_e4f2ec36" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-group field-user-email required has-success">
+
+<input type="email" id="user-email" class="form-control" name="User[email]" placeholder="Email Address" aria-required="true" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-group field-user-password required has-success">
+
+<input type="password" id="user-password" class="form-control" name="User[password]" placeholder="Create Password" aria-required="true" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="form-group field-user-new_password required has-success">
+
+<input type="password" id="user-new_password" class="form-control" name="User[new_password]" placeholder="Confirm Password" aria-required="true" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>                </div>
+            </div>
+        </div>
+        <p class="green-title reg-title">business info</p>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <div class="form-group field-business-name required has-success">
+
+<input type="text" id="business-name" class="form-control" name="Business[name]" placeholder="Business Name" aria-required="true" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-group field-business-phone required has-success">
+
+<input type="text" id="business-phone" class="form-control" name="Business[phone]" placeholder="Business Phone" aria-required="true" data-plugin-inputmask="inputmask_e4f2ec36" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="form-group field-business-street_address required has-success">
+
+<input type="text" id="business-street_address" class="form-control" name="Business[street_address]" placeholder="Street Address" aria-required="true" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+    </div>
+    <div class="text-error"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-group field-business-zip required has-success">
+
+<input type="text" id="business-zip" class="fetch-cities-zip form-control" name="Business[zip]" placeholder="Zip" autocomplete="off" aria-required="true" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-group field-cities required has-success">
+
+<select id="cities" class="form-control" name="Business[city_id]" aria-required="true" aria-invalid="false"><option value="">Select city</option><option value="636" data-state-id="324" data-state-name="StateMGTaopo" data-program-id="295">CityMGT2ojka</option></select>
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+        <div class="col-md-4 wrap-select">
+            <div class="form-group">
+                <div class="form-group field-business-state_name has-success">
+
+<input type="text" id="business-state_name" class="form-control" name="Business[state_name]" readonly="" placeholder="State" aria-invalid="false" />
+
+<div class="help-block"></div>
 </div>
+                <div class="form-group field-business-state_id required has-success">
+
+<input type="hidden" id="business-state_id" class="form-control" name="Business[state_id]" placeholder="State" aria-required="true" value="324" aria-invalid="false" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="form-group field-business-website">
+
+<input type="text" id="business-website" class="form-control" name="Business[website]" placeholder="Business Website" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+        <div class="col-md-6 wrap-select">
+            <div class="form-group">
+                <span class="fa fa-angle-down custom"></span>
+                <div class="form-group field-business-sector_id required">
+
+<select id="business-sector_id" class="form-control" name="Business[sector_id]" aria-required="true">
+<option value="">Business Type</option>
+</select>
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+    </div>
+    <p class="green-title reg-title">about the business</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-group field-business-employees_number required">
+
+<input type="text" id="business-employees_number" class="form-control" name="Business[employees_number]" placeholder="Number of employees" aria-required="true" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-group field-business-business_square_footage required">
+
+<input type="text" id="business-business_square_footage" class="form-control" name="Business[business_square_footage]" placeholder="Approx. Business Square Footage" aria-required="true" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-group field-business-landscape_square_footage required">
+
+<input type="text" id="business-landscape_square_footage" class="form-control" name="Business[landscape_square_footage]" placeholder="Approx. Landscape Square Footage" aria-required="true" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="form-group registration-field">
+                <p>What is the building ownership status?</p>
+                <div class="registration-field-btn">
+                    <input type="hidden" value="0" name="Business[ownership_status]" />
+
+                    <div class="normal-checkbox-float-left  normal-radio-holder normal-radio-Business-ownership_status-0"><input type="radio" id="normalradio-ownership_status_0" name="Business[ownership_status]" value="1" class="yes-btn" /><label for="normalradio-ownership_status_0" class="btn btn-green-outline">Own Building</label><div class="help-block"></div></div><div class="normal-checkbox-float-left  normal-radio-holder normal-radio-Business-ownership_status-1"><input type="radio" id="normalradio-ownership_status_1" name="Business[ownership_status]" value="2" class="yes-btn" /><label for="normalradio-ownership_status_1" class="btn btn-green-outline">Rent Space</label><div class="help-block"></div></div><div class="normal-checkbox-float-left  normal-radio-holder normal-radio-Business-ownership_status-2"><input type="radio" id="normalradio-ownership_status_2" name="Business[ownership_status]" value="3" class="yes-btn" /><label for="normalradio-ownership_status_2" class="btn btn-green-outline">Home Office</label><div class="help-block"></div></div>                </div>
+            </div>
+
+                                        <div class="form-group registration-field">
+                    <p>Are there other business locations?</p>
+                    <div class="registration-field-btn">
+                        <input type="hidden" value="0" name="Business[other_business_locations]" />
+                        <input type="radio" name="Business[other_business_locations]" value="1" id="checkbox-i0" class="yes-btn" />
+                        <label for="checkbox-i0" class="btn btn-green-outline">Yes</label>
+                        <input type="radio" name="Business[other_business_locations]" value="0" id="checkbox-0-n" class="no-btn" />
+                        <label for="checkbox-0-n" class="btn btn-red-outline">No</label>
+                    </div>
+                </div>
+                                            <div class="form-group registration-field">
+                    <p>Are there hazardous materials or waste on site?</p>
+                    <div class="registration-field-btn">
+                        <input type="hidden" value="0" name="Business[hazardous_materials]" />
+                        <input type="radio" name="Business[hazardous_materials]" value="1" id="checkbox-i1" class="yes-btn" />
+                        <label for="checkbox-i1" class="btn btn-green-outline">Yes</label>
+                        <input type="radio" name="Business[hazardous_materials]" value="0" id="checkbox-1-n" class="no-btn" />
+                        <label for="checkbox-1-n" class="btn btn-red-outline">No</label>
+                    </div>
+                </div>
+                                            <div class="form-group registration-field">
+                    <p>Is there a pool or spa on site?</p>
+                    <div class="registration-field-btn">
+                        <input type="hidden" value="0" name="Business[pool_or_spa]" />
+                        <input type="radio" name="Business[pool_or_spa]" value="1" id="checkbox-i2" class="yes-btn" />
+                        <label for="checkbox-i2" class="btn btn-green-outline">Yes</label>
+                        <input type="radio" name="Business[pool_or_spa]" value="0" id="checkbox-2-n" class="no-btn" />
+                        <label for="checkbox-2-n" class="btn btn-red-outline">No</label>
+                    </div>
+                </div>
+                                            <div class="form-group registration-field">
+                    <p>Is there an Emergency Back-Up Generator on site?</p>
+                    <div class="registration-field-btn">
+                        <input type="hidden" value="0" name="Business[have_backup]" />
+                        <input type="radio" name="Business[have_backup]" value="1" id="checkbox-i3" class="yes-btn" />
+                        <label for="checkbox-i3" class="btn btn-green-outline">Yes</label>
+                        <input type="radio" name="Business[have_backup]" value="0" id="checkbox-3-n" class="no-btn" />
+                        <label for="checkbox-3-n" class="btn btn-red-outline">No</label>
+                    </div>
+                </div>
+                                    </div>
+    </div>
+
+    
+    <p class="green-title reg-title">DOES YOUR BUSINESS REQUIRE any Permits?</p>
+    <span class="sub-title">Programs and agencies that inspect your business or issue permits (Select all that apply)</span>
+            <div class="buttons-group">
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_air]" />
+                        <input type="checkbox" name="Business[permits_air]" value="1" id="checkbox-permits_air" />
+                        <label for="checkbox-permits_air" class="btn">Air</label>
+                    </div>
+                </div>
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_hazardous_materials]" />
+                        <input type="checkbox" name="Business[permits_hazardous_materials]" value="1" id="checkbox-permits_hazardous_materials" />
+                        <label for="checkbox-permits_hazardous_materials" class="btn">Hazardous materials</label>
+                    </div>
+                </div>
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_hazardous_waste]" />
+                        <input type="checkbox" name="Business[permits_hazardous_waste]" value="1" id="checkbox-permits_hazardous_waste" />
+                        <label for="checkbox-permits_hazardous_waste" class="btn">Hazardous waste</label>
+                    </div>
+                </div>
+                    </div>
+            <div class="buttons-group">
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_storm_water]" />
+                        <input type="checkbox" name="Business[permits_storm_water]" value="1" id="checkbox-permits_storm_water" />
+                        <label for="checkbox-permits_storm_water" class="btn">Storm water</label>
+                    </div>
+                </div>
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_wastewater]" />
+                        <input type="checkbox" name="Business[permits_wastewater]" value="1" id="checkbox-permits_wastewater" />
+                        <label for="checkbox-permits_wastewater" class="btn">Wastewater</label>
+                    </div>
+                </div>
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_food_safety]" />
+                        <input type="checkbox" name="Business[permits_food_safety]" value="1" id="checkbox-permits_food_safety" />
+                        <label for="checkbox-permits_food_safety" class="btn">Food safety</label>
+                    </div>
+                </div>
+                    </div>
+            <div class="buttons-group">
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_fire_code]" />
+                        <input type="checkbox" name="Business[permits_fire_code]" value="1" id="checkbox-permits_fire_code" />
+                        <label for="checkbox-permits_fire_code" class="btn">Fire code</label>
+                    </div>
+                </div>
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_fire_under_tanks]" />
+                        <input type="checkbox" name="Business[permits_fire_under_tanks]" value="1" id="checkbox-permits_fire_under_tanks" />
+                        <label for="checkbox-permits_fire_under_tanks" class="btn">Underground storage tanks</label>
+                    </div>
+                </div>
+                            <div class="col-md-4 wrap">
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="Business[permits_fire_above_tanks]" />
+                        <input type="checkbox" name="Business[permits_fire_above_tanks]" value="1" id="checkbox-permits_fire_above_tanks" />
+                        <label for="checkbox-permits_fire_above_tanks" class="btn">Above ground storage tanks</label>
+                    </div>
+                </div>
+                    </div>
+    
+    <div class="buttons-group">
+        <div class="col-lg-10 col-lg-offset-2 col-lg-11 col-md-offset-1">
+                    <div class="col-md-5 wrap">
+                <div class="form-group">
+                    <input type="hidden" value="0" name="Business[permits_pool_safety]" />
+                    <input type="checkbox" name="Business[permits_pool_safety]" value="1" id="checkboxpermits_pool_safety" />
+                    <label for="checkboxpermits_pool_safety" class="btn">Pool and spa safety</label>
+                </div>
+            </div>
+                    <div class="col-md-5 wrap">
+                <div class="form-group">
+                    <input type="hidden" value="0" name="Business[permits_other]" />
+                    <input type="checkbox" name="Business[permits_other]" value="1" id="checkboxpermits_other" />
+                    <label for="checkboxpermits_other" class="btn">Other</label>
+                </div>
+            </div>
+                </div>
+    </div>
+
+    <div class="row radio-checkbox">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="normal-checkbox-float-left  normal-radio-holder normal-radio-Business-agree-0"><input type="hidden" value="0" name="Business[agree]" /><input type="checkbox" id="normalradio-agree_0" name="Business[agree]" value="1" class="normal-radio-has-validator-agree radio-checkbox float-right" /><label for="normalradio-agree_0" class="checkbox-radio-wrapper float-right">By submitting this enrollment form, I confirm that the information being submitted is
+                        accurate and complete, to the best of my knowledge. I also understand that because the
+                        Green Business Program does not work with all business types, and does not have standards
+                        for all business sectors, my business may not be eligible for certification. We commit to
+                        responding in a timely and complete manner to staff, auditors and/or inspectors contacting
+                        us to schedule a visit and to requests for information. We understand that the program may
+                        not be able to work with us if we are unresponsive to such requests within a reasonable
+                        period of time.</label><div class="help-block"></div></div>            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <button type="submit" class="btn btn-green-lite col-30">SUBMIT</button>            </div>
+        </div>
+    </div>
+</form>
 </div>    </div>
     <div id="loading"></div>
 <div><div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_bottom" style="display: block;">
@@ -65,8 +416,8 @@
             </a>
         </div>
 
-        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: none">
-            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter">0</span>
+        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: block;">
+            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter">2</span>
             <div class="yii-debug-toolbar__ajax_info">
                 <table>
                     <thead>
@@ -78,47 +429,44 @@
                         <th>Profile</th>
                     </tr>
                     </thead>
-                    <tbody class="yii-debug-toolbar__ajax_requests"></tbody>
+                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/city-and-sectors-by-zip?zip=13179&amp;withOutProgram=0">/ajax/city-and-sectors-by-zip?zip=13179&amp;withOutProgram=0</td><td class="yii-debug-toolbar__ajax_request_duration">46 ms</td> <td><a href="/debug/default/view?tag=59036490341cd">59036490341cd</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_error">-</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/sectors-by-program?programId=295">/ajax/sectors-by-program?programId=295</td><td class="yii-debug-toolbar__ajax_request_duration">-</td> <td>n/a</td></tr></tbody>
                 </table>
             </div>
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=58efa898442c2">
+    <a href="/debug/default/view?panel=config&amp;tag=590364892b5df">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=58efa898442c2" title="Status code: 403 Forbidden">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_important">403</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=58efa898442c2" title="Action: app\controllers\BusinessController::actionRegistration()">Route <span class="yii-debug-toolbar__label">business/registration</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=590364892b5df" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=590364892b5df" title="Action: app\controllers\BusinessController::actionRegistration()">Route <span class="yii-debug-toolbar__label">business/registration</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=58efa898442c2" title="Logged 22 messages, 1 error">Log
-        <span class="yii-debug-toolbar__label">22</span>
-    </a>
-        <a href="/debug/default/view?panel=log&amp;tag=58efa898442c2&amp;Log%5Blevel%5D=1" title="1 error">
-        <span class="yii-debug-toolbar__label yii-debug-toolbar__label_important">1</span>
+    <a href="/debug/default/view?panel=log&amp;tag=590364892b5df" title="Logged 19 messages">Log
+        <span class="yii-debug-toolbar__label">19</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=58efa898442c2" title="Total request processing time was 74 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">74 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=58efa898442c2" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9.535 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=590364892b5df" title="Total request processing time was 98 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">98 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=590364892b5df" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10.567 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=58efa898442c2" title="Executed 7 database queries which took 3 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">7</span> <span class="yii-debug-toolbar__label">3 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=590364892b5df" title="Executed 6 database queries which took 4 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">6</span> <span class="yii-debug-toolbar__label">4 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=58efa898442c2" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=590364892b5df" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user&amp;tag=58efa898442c2">
-                    User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span>
+    <a href="/debug/default/view?panel=user">
+                    <span class="yii-debug-toolbar__label">Guest</span>
             </a>
 </div>
                             
@@ -774,20 +1122,46 @@ a.yii-debug-toolbar__label:focus {
 
 })();</script><script src="/assets/6b040846/jquery.js"></script>
 <script src="/assets/a83e0e94/yii.js"></script>
+<script src="/assets/a83e0e94/yii.validation.js"></script>
+<script src="/assets/33c042c0/jquery.inputmask.bundle.js"></script>
+<script src="/assets/ff1e5823/js/strength-validation.js"></script>
+<script src="/assets/a83e0e94/yii.activeForm.js"></script>
 <script src="/assets/5463e113/jquery-ui.js"></script>
 <script src="/assets/7942af6b/js/bootstrap.js"></script>
 <script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
-<script src="/assets/a83e0e94/yii.validation.js"></script>
-<script src="/assets/a83e0e94/yii.activeForm.js"></script>
-<script src="/assets/ee2108e6/jquery.inputmask.bundle.js"></script>
+<script src="/leaflet/leaflet.js"></script>
+<script src="/leaflet/lib.shp/catiline.js"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/global.prod.js"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
-    app.ready(function(){
-        app.ajaxTools._flags.isErrorState = true;
-    });
+var inputmask_e4f2ec36 = {"mask":"(999) 999-9999"};
+jQuery("#user-phone").inputmask(inputmask_e4f2ec36);
+jQuery("#business-phone").inputmask(inputmask_e4f2ec36);
+jQuery('#w0').yiiActiveForm([{"id":"user-first_name","name":"first_name","container":".field-user-first_name","input":"#user-first_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"First Name cannot be blank."});yii.validation.string(value, messages, {"message":"First Name must be a string.","max":255,"tooLong":"First Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-last_name","name":"last_name","container":".field-user-last_name","input":"#user-last_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Last Name cannot be blank."});yii.validation.string(value, messages, {"message":"Last Name must be a string.","max":255,"tooLong":"Last Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-phone","name":"phone","container":".field-user-phone","input":"#user-phone","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"A phone number should contain 10 digit.","skipOnEmpty":1});}},{"id":"user-email","name":"email","container":".field-user-email","input":"#user-email","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});yii.validation.email(value, messages, {"pattern":/^[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/,"fullPattern":/^[^@]*&lt;[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?&gt;$/,"allowName":false,"message":"Email is not a valid email address.","enableIDN":false,"skipOnEmpty":1});}},{"id":"user-password","name":"password","container":".field-user-password","input":"#user-password","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});yii.validation.string(value, messages, {"message":"Password must be a string.","min":8,"tooShort":"Password should contain at least 8 characters.","max":100,"tooLong":"Password should contain at most 100 characters.","skipOnEmpty":1});if ((
+                    function (attribute, value) {
+                        return false;
+                    }
+                )(attribute, value)) { kvStrengthValidator.validate(value, messages, {"strError":"Password must be a string","userField":"#user-username","min":10,"minError":"Password should contain at least 10 characters ({found} found)!","allowSpaces":false,"allowSpacesError":"Password cannot contain any spaces","hasUser":true,"hasUserError":"Password cannot contain the username","hasEmail":true,"hasEmailError":"Password cannot contain an email address","lower":1,"lowerError":"Password should contain at least one lower case character ({found} found)!","upper":1,"upperError":"Password should contain at least one upper case character ({found} found)!","digit":1,"digitError":"Password should contain at least one numeric / digit character ({found} found)!","special":1,"specialError":"Password should contain at least one special character ({found} found)!"}); }}},{"id":"user-new_password","name":"new_password","container":".field-user-new_password","input":"#user-new_password","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Confirm Password cannot be blank."});yii.validation.string(value, messages, {"message":"Confirm Password must be a string.","min":8,"tooShort":"Confirm Password should contain at least 8 characters.","max":100,"tooLong":"Confirm Password should contain at most 100 characters.","skipOnEmpty":1});yii.validation.compare(value, messages, {"operator":"==","type":"string","compareAttribute":"user-password","message":"Password and Confirm password don't match"});}},{"id":"business-name","name":"name","container":".field-business-name","input":"#business-name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Name cannot be blank."});yii.validation.string(value, messages, {"message":"Name must be a string.","max":255,"tooLong":"Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-phone","name":"phone","container":".field-business-phone","input":"#business-phone","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"A phone number should contain 10 digit.","skipOnEmpty":1});}},{"id":"business-street_address","name":"street_address","container":".field-business-street_address","input":"#business-street_address","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Street Address cannot be blank."});yii.validation.string(value, messages, {"message":"Street Address must be a string.","max":255,"tooLong":"Street Address should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-zip","name":"zip","container":".field-business-zip","input":"#business-zip","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Zip cannot be blank."});yii.validation.regularExpression(value, messages, {"pattern":/^\d{5}(-\d{4})?$/,"not":false,"message":"Zip code is incorrect","skipOnEmpty":1});}},{"id":"business-city_id","name":"city_id","container":".field-cities","input":"#cities","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"City must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"City cannot be blank."});}},{"id":"business-state_name","name":"state_name","container":".field-business-state_name","input":"#business-state_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"State Name must be a string.","max":255,"tooLong":"State Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-state_id","name":"state_id","container":".field-business-state_id","input":"#business-state_id","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"State must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"State cannot be blank."});}},{"id":"business-website","name":"website","container":".field-business-website","input":"#business-website","validate":function (attribute, value, messages, deferred, $form) {yii.validation.url(value, messages, {"pattern":/^(http|https):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i,"message":"Website is not a valid URL.","enableIDN":false,"skipOnEmpty":1,"defaultScheme":"https"});}},{"id":"business-sector_id","name":"sector_id","container":".field-business-sector_id","input":"#business-sector_id","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Business Type must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Business Type cannot be blank."});}},{"id":"business-employees_number","name":"employees_number","container":".field-business-employees_number","input":"#business-employees_number","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Employees number must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Employees number cannot be blank."});}},{"id":"business-business_square_footage","name":"business_square_footage","container":".field-business-business_square_footage","input":"#business-business_square_footage","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Business Square Footage must be a number.","skipOnEmpty":1});}},{"id":"business-landscape_square_footage","name":"landscape_square_footage","container":".field-business-landscape_square_footage","input":"#business-landscape_square_footage","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Landscape Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Landscape Square Footage must be a number.","skipOnEmpty":1});}}], []);
+});</script>
+<script type="text/javascript">jQuery(window).on('load', function () {
+            $('#w0').yiiActiveForm('add',
+                {"id":"normalradio-agree_0",
+                "name":"Business[agree]",
+                "container":".normal-radio-Business-agree-0",
+                "input":"#normalradio-agree_0",
+                "validate":function (attribute, value, messages, deferred, $form) {
+                    yii.validation.compare(value, messages, {
+                        "operator":"==",
+                        "type":"string",
+                        "compareValue":"1",
+                        "skipOnEmpty":0,
+                        "message":"You must be agree with Terms and conditions"}
+                    );
+                }
+            });
 });</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -804,7 +1178,7 @@ a.yii-debug-toolbar__label:focus {
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"Forbidden (#403)","loadedAssets":{"js":["\/assets\/6b040846\/jquery.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/a83e0e94\/yii.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/ee2108e6\/jquery.inputmask.bundle.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/6b040846\/jquery.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/a83e0e94\/yii.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/ee2108e6\/jquery.inputmask.bundle.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
+        app.pageTools.setInitialPageData({"title":"Registration new business","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/33c042c0\/jquery.inputmask.bundle.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/33c042c0\/jquery.inputmask.bundle.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 
