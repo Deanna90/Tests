@@ -8,7 +8,7 @@ class UserUpdate
 
     public static $Title                  = 'h1';
     
-    public static $UpdateButton           = '[type=submit][class*=primary]';
+    public static $UpdateButton           = '.user-form [type=submit]';
     
     public static $EmailField             = '#user-email';
     public static $FirstNameField         = '#user-first_name';
@@ -39,6 +39,7 @@ class UserUpdate
 
     //-----State Admin-----
     public static $StatesHeadTitle          = '.user-form+div .panel-heading';
+    public static $State                    = '.user-form+div li';
     public static $AddStateButton           = 'a[href*=add-state]';
     public static $DeleteStateButton        = 'a[href*=remove-state]';
     public static $StateSelect_AddStateForm = '[name=state_id]';

@@ -5,11 +5,10 @@ class Tier extends \AcceptanceTester
 {
     public function ManageTiers($program = null, $tier1 = null, $tier1Name = null, $tier1Desc = null, $tier1OptIn = 'yes', 
                                                          $tier2 = null, $tier2Name = null, $tier2Desc = null, $tier2OptIn = 'yes', 
-                                                         $tier3 = null, $tier3Name = null, $tier3Desc = null, $tier3OptIn = 'yes',
-                                                         $tier4 = null, $tier4Name = null, $tier4Desc = null, $tier4OptIn = 'yes')
+                                                         $tier3 = null, $tier3Name = null, $tier3Desc = null, $tier3OptIn = 'yes')
     {
         $I = $this;
-        $I->amOnPage(\Page\TierManage::$URL);
+        $I->amOnPage(\Page\TierManage::URL());
         $I->wait(2);
         if (isset($program)){
             $I->selectOption(\Page\TierManage::$ProgramSelect, $program);
@@ -18,7 +17,7 @@ class Tier extends \AcceptanceTester
         if (isset($tier1)){
             $I->click(\Page\TierManage::$Tier1Button_LeftMenu);
             $I->wait(1);
-            switch ($optIn){
+            switch ($tier1OptIn){
                 case 'yes':
                     $I->click(\Page\TierManage::$YesRadioButton_OptIn);
                     break;
@@ -73,26 +72,6 @@ class Tier extends \AcceptanceTester
             }
             if (isset($tier3Desc)){
                 $I->fillField(\Page\TierManage::$TierDescriptionField, $tier3Desc);
-            }
-        }
-        if (isset($tier4)){
-            $I->click(\Page\TierManage::$Tier1Button_LeftMenu);
-            $I->wait(1);
-            switch ($tier4OptIn){
-                case 'yes':
-                    $I->click(\Page\TierManage::$YesRadioButton_OptIn);
-                    break;
-                case 'no':
-                    $I->click(\Page\TierManage::$NoRadioButton_OptIn);
-                    break;
-                case 'ignore':
-                    break;
-            }
-            if (isset($tier4Name)){
-                $I->fillField(\Page\TierManage::$TierNameField, $tier4Name);
-            }
-            if (isset($tier4Desc)){
-                $I->fillField(\Page\TierManage::$TierDescriptionField, $tier4Desc);
             }
         }
         $I->wait(1);

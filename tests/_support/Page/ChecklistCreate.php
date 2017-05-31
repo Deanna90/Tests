@@ -3,6 +3,8 @@ namespace Page;
 
 class ChecklistCreate extends \AcceptanceTester
 {
+    const DefaultSourceProgram                  = 'Essential Criteria';
+    
     public static function URL()        { return parent::$URL_UserAccess.'/checklist/merge-checklists';}
     public static $Title                  = 'h2';
     

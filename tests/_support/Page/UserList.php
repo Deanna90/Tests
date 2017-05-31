@@ -1,11 +1,16 @@
 <?php
 namespace Page;
 
-class UserList
+class UserList extends \AcceptanceTester
 {
-    public static $URL                  = '/master-admin/user/index';
+    public static function URL($type)                    { return parent::$URL_UserAccess."/user/index?type=$type";}
+    public static function UrlPageNumber($number, $type) { return parent::$URL_UserAccess."/user/index?type=$type&page=$number"; }
     public static $Title                = 'h1';
     public static $UserRow              = 'table[class*=table] tbody>tr';
+    public static $SummaryCount         = '.summary>b:last-of-type';
+    
+    //Search
+    public static $ByNameEmailSearchField   = '#filter-name';
     
     public static $CoordinatorsManageButton = '.left-column-block>div:nth-of-type(2) a';
     public static $StateAdminsManageButton  = '.left-column-block>div:nth-of-type(3) a';

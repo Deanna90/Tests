@@ -31,6 +31,7 @@ class ChecklistManage extends \AcceptanceTester
     //-----Manage Measure Tab-----
     public static $SaveButton                                      = '.btn-green-lite.send-form';
     public static $PreviewButton                                   = '.btn-green-lite.ajax';
+    public static $MeasureRow                                      = '.version-history.manage tr>td:first-of-type>p';
     
     public static $GroupTableTitle_ManageMeasureTab                = '.group-table';
     public static $SubgroupTableTitle_ManageMeasureTab             = '.sub-group-table';
@@ -55,16 +56,29 @@ class ChecklistManage extends \AcceptanceTester
     public static $IncludedMeasuresForm_DefaultCoreValue           = '.core-measures-req>p:nth-of-type(1) span';
     public static $IncludedMeasuresForm_LBCoreValue                = '.core-measures-req>p:nth-of-type(2) span';
     public static $IncludedMeasuresForm_LLCoreValue                = '.core-measures-req>p:nth-of-type(3) span';
-    public static $IncludedMeasuresForm_LB_LLCoreValue             = '.core-measures-req>p:nth-of-type(4) span';
-    public static $IncludedMeasuresForm_TotalCoreRequiredValue     = '.core-measures-req>p:nth-of-type(5) span';
+//    public static $IncludedMeasuresForm_LB_LLCoreValue             = '.core-measures-req>p:nth-of-type(4) span';
+    public static $IncludedMeasuresForm_TotalCoreRequiredValue     = '.core-measures-req>p:nth-of-type(4) span';
+    
+    public static $IncludedMeasuresForm_DefaultCoreLabel           = '.core-measures-req>p:nth-of-type(1) small';
+    public static $IncludedMeasuresForm_LBCoreLabel                = '.core-measures-req>p:nth-of-type(2) small';
+    public static $IncludedMeasuresForm_LLCoreLabel                = '.core-measures-req>p:nth-of-type(3) small';
+    public static $IncludedMeasuresForm_TotalCoreRequiredLabel     = '.core-measures-req>p:nth-of-type(4)';
+    
     public static $IncludedMeasuresForm_ElectiveTitle              = '.included-measures>fieldset:nth-of-type(2) legend';
     public static $IncludedMeasuresForm_DefaultElectiveValue       = '.elective-measures-req>p:nth-of-type(1) span';
     public static $IncludedMeasuresForm_LBElectiveValue            = '.elective-measures-req>p:nth-of-type(2) span';
     public static $IncludedMeasuresForm_LLElectiveValue            = '.elective-measures-req>p:nth-of-type(3) span';
-    public static $IncludedMeasuresForm_LB_LLElectiveValue         = '.elective-measures-req>p:nth-of-type(4) span';
-    public static $IncludedMeasuresForm_TotalElectiveValue         = '.elective-measures-req>p:nth-of-type(5) span';
-    public static $IncludedMeasuresForm_TotalElectiveRequiredValue = '.elective-measures-req>p:nth-of-type(6) span';
+//    public static $IncludedMeasuresForm_LB_LLElectiveValue         = '.elective-measures-req>p:nth-of-type(4) span';
+    public static $IncludedMeasuresForm_TotalElectiveValue         = '.elective-measures-req>p:nth-of-type(4) span';
+    public static $IncludedMeasuresForm_TotalElectiveRequiredValue = '.elective-measures-req>p:nth-of-type(5) span';
     public static $IncludedMeasuresForm_TotalValue                 = '.total-req-measures span';
+    
+    public static $IncludedMeasuresForm_DefaultElectiveLabel       = '.elective-measures-req>p:nth-of-type(1) small';
+    public static $IncludedMeasuresForm_LBElectiveLabel            = '.elective-measures-req>p:nth-of-type(2) small';
+    public static $IncludedMeasuresForm_LLElectiveLabel            = '.elective-measures-req>p:nth-of-type(3) small';
+    public static $IncludedMeasuresForm_TotalElectiveLabel         = '.elective-measures-req>p:nth-of-type(4)';
+    public static $IncludedMeasuresForm_TotalElectiveRequiredLabel = '.elective-measures-req>p:nth-of-type(5)';
+    public static $IncludedMeasuresForm_TotalLabel                 = '.total-req-measures p';
     
     public static $ConfirmPopup             = '.sweet-alert.visible';
     public static $ConfirmPopup_Title       = '.sweet-alert.visible h2';

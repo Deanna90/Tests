@@ -27,7 +27,7 @@ class EssentialCriteria extends \AcceptanceTester
         $I->wait(2);
     }  
 
-    public function ManageEssentialCriteria($descs = null, $statuses = null)
+    public function ManageEssentialCriteria($descs = null, $statuses = null, $extension = null)
     {
         $I = $this;
         $I->wait(3);
@@ -42,7 +42,21 @@ class EssentialCriteria extends \AcceptanceTester
             $countDesc--;
             $I->comment("Count of measures: $countDesc");
             for($i=0; $i<=$countDesc; $i++){
+                $I->wait(1);
                 $I->selectOption(\Page\EssentialCriteriaManage::StatusSelectLine_ManageMeasureTab($descs[$i]), $statusesNew[$i]);
+            }
+        }
+        if (isset($descs) && isset($extension)){
+            $countDesc = count($descs);
+            $countExtens = count($extension);
+            $I->comment("Count of measures: $countDesc");
+            $I->comment("Count of extensions: $countExtens");
+            $count       = $countExtens - $countDesc;
+            $extensionsNew = array_splice($extension, $count);
+            $countDesc--;
+            $I->comment("Count of measures: $countDesc");
+            for($i=0; $i<=$countDesc; $i++){
+                $I->selectOption(\Page\EssentialCriteriaManage::MeasureExtensionSelectLine_ManageMeasureTab($descs[$i]), $extensionsNew[$i]);
             }
         }
         $I->click(\Page\EssentialCriteriaManage::$SaveButton);
@@ -59,7 +73,7 @@ class EssentialCriteria extends \AcceptanceTester
         $I->wait(1);
         $I->click(\Page\EssentialCriteriaManage::PublishButtonLine_VersionHistoryTab($row));
         $I->wait(1);        
-        $I->see('Published', \Page\EssentialCriteriaManage::$StatusTitle);
+        $I->canSee('Published', \Page\EssentialCriteriaManage::$StatusTitle);
     }
     
     public function UpdateECPoints($points)
@@ -84,7 +98,7 @@ class EssentialCriteria extends \AcceptanceTester
             $countDesc--;
             $I->comment("Count of measures: $countDesc");
             for($i=0; $i<=$countDesc; $i++){
-                $I->seeOptionIsSelected(\Page\EssentialCriteriaManage::StatusSelectLine_ManageMeasureTab($descs[$i]), $statuses[$i]);
+                $I->canSeeOptionIsSelected(\Page\EssentialCriteriaManage::StatusSelectLine_ManageMeasureTab($descs[$i]), $statuses[$i]);
             }
         }
         $I->wait(1);

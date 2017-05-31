@@ -63,6 +63,7 @@ class Measure extends \AcceptanceTester
                             break;
                         case 'Number':
                             if (isset($questions)){
+                                $I->wait(1);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->click(\Page\MeasureCreate::$AddAnswerButton_Number);
@@ -144,8 +145,9 @@ class Measure extends \AcceptanceTester
             $I->fillField(\Page\MeasureCreate::$PointsField, $points);
         }
         if (isset($state)){
-            $I->seeOptionIsSelected(\Page\MeasureCreate::$StateDisableSelect, $state);
+            $I->canSeeOptionIsSelected(\Page\MeasureCreate::$StateDisableSelect, $state);
         }
+        $I->wait(2);
         $I->click(\Page\MeasureCreate::$CreateButton);
         $I->wait(2);
     }  
@@ -158,30 +160,30 @@ class Measure extends \AcceptanceTester
         $I->wait(2);
         $I->waitForElement(\Page\MeasureUpdate::$UpdateButton);
         if (isset($desc)){
-            $I->seeInField(\Page\MeasureUpdate::$DescriptionField, $desc);
+            $I->canSeeInField(\Page\MeasureUpdate::$DescriptionField, $desc);
         }
         if (isset($auditGroup)){
-            $I->seeOptionIsSelected(\Page\MeasureUpdate::$AuditGroupSelect, $auditGroup);
+            $I->canSeeOptionIsSelected(\Page\MeasureUpdate::$AuditGroupSelect, $auditGroup);
         }
         if (isset($auditSubgroup)){
-            $I->seeOptionIsSelected(\Page\MeasureUpdate::$AuditSubgroupSelect, $auditSubgroup);
+            $I->canSeeOptionIsSelected(\Page\MeasureUpdate::$AuditSubgroupSelect, $auditSubgroup);
         }
         switch ($quantToggleStatus){
             case 'on':
-                $I->seeElement(\Page\MeasureUpdate::$IsQuantitativeToggleButton." [style*='(111, 183, 80)']");
+                $I->canSeeElement(\Page\MeasureUpdate::$IsQuantitativeToggleButton." [style*='(111, 183, 80)']");
                 break;
             case 'off':
-                $I->seeElement(\Page\MeasureUpdate::$IsQuantitativeToggleButton." [style*='(209, 74, 60)']");
+                $I->canSeeElement(\Page\MeasureUpdate::$IsQuantitativeToggleButton." [style*='(209, 74, 60)']");
                 break;
             case 'ignore':
                 break;
         }
         switch ($multipAnswerToggleStatus){
             case 'on':
-                $I->seeElement(\Page\MeasureUpdate::$HaveMultipleAnswersToggleButton." [style*='(111, 183, 80)']");
+                $I->canSeeElement(\Page\MeasureUpdate::$HaveMultipleAnswersToggleButton." [style*='(111, 183, 80)']");
                 break;
             case 'off':
-                $I->seeElement(\Page\MeasureUpdate::$HaveMultipleAnswersToggleButton." [style*='(209, 74, 60)']");
+                $I->canSeeElement(\Page\MeasureUpdate::$HaveMultipleAnswersToggleButton." [style*='(209, 74, 60)']");
                 break;
             case 'ignore':
                 break;
@@ -189,46 +191,46 @@ class Measure extends \AcceptanceTester
         switch ($quantitative){
             case 'yes':
                 if(isset($submeasureType)){
-                    $I->seeOptionIsSelected(\Page\MeasureUpdate::$SubmeasureTypeSelect, $submeasureType);
+                    $I->canSeeOptionIsSelected(\Page\MeasureUpdate::$SubmeasureTypeSelect, $submeasureType);
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->seeInField(\Page\MeasureUpdate::QuestionField_MultipleQuestionAndNumber($i), $questions[$k]);
+                                    $I->canSeeInField(\Page\MeasureUpdate::QuestionField_MultipleQuestionAndNumber($i), $questions[$k]);
                                 }
                             }
                             if (isset($answers)){
                                 for ($i=1, $c= count($answers); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->seeInField(\Page\MeasureUpdate::AnswerField_MultipleQuestionAndNumber($i), $answers[$k]);
+                                    $I->canSeeInField(\Page\MeasureUpdate::AnswerField_MultipleQuestionAndNumber($i), $answers[$k]);
                                 }  
                             }
                             if (isset($requiredTotalAnswers)){
-                                $I->seeInField(\Page\MeasureUpdate::$TotalAnswersRequiredField_MultipleQuestionAndNumber, $requiredTotalAnswers);
+                                $I->canSeeInField(\Page\MeasureUpdate::$TotalAnswersRequiredField_MultipleQuestionAndNumber, $requiredTotalAnswers);
                             }
                             break;
                         case 'Number':
                             if (isset($questions)){
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->seeInField(\Page\MeasureUpdate::AnswerField_Number($i), $questions[$k]);
+                                    $I->canSeeInField(\Page\MeasureUpdate::AnswerField_Number($i), $questions[$k]);
                                 }
                             }
                             break;
                         case 'Popup Therms':
                             if (isset($popupDesc)){
-                                $I->seeInField(\Page\MeasureUpdate::$PopupDescriptionField_PopupTherms, $popupDesc);
+                                $I->canSeeInField(\Page\MeasureUpdate::$PopupDescriptionField_PopupTherms, $popupDesc);
                             }
                             break;
                         case 'Popup Lighting':
                             if (isset($popupDesc)){
-                                $I->seeInField(\Page\MeasureUpdate::$PopupDescriptionField_PopupLighting, $popupDesc);
+                                $I->canSeeInField(\Page\MeasureUpdate::$PopupDescriptionField_PopupLighting, $popupDesc);
                             }
                             break;
                         case 'Popup Waste diversion':
                             if (isset($popupDesc)){
-                                $I->seeInField(\Page\MeasureUpdate::$PopupDescriptionField_PopupWasteDiversion, $popupDesc);
+                                $I->canSeeInField(\Page\MeasureUpdate::$PopupDescriptionField_PopupWasteDiversion, $popupDesc);
                             }
                             break;
                         case 'Select submeasure type':
@@ -238,34 +240,34 @@ class Measure extends \AcceptanceTester
                 break;
             case 'no':
                 if(isset($submeasureType)){
-                    $I->seeOptionIsSelected(\Page\MeasureUpdate::$SubmeasureTypeSelect, $submeasureType);
+                    $I->canSeeOptionIsSelected(\Page\MeasureUpdate::$SubmeasureTypeSelect, $submeasureType);
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->seeInField(\Page\MeasureUpdate::QuestionField_MultipleQuestionAndNumber($i), $questions[$k]);
+                                    $I->canSeeInField(\Page\MeasureUpdate::QuestionField_MultipleQuestionAndNumber($i), $questions[$k]);
                                 }
                             }
                             if (isset($answers)){
                                 for ($i=1, $c= count($answers); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->seeInField(\Page\MeasureUpdate::AnswerField_MultipleQuestionAndNumber($i), $answers[$k]);
+                                    $I->canSeeInField(\Page\MeasureUpdate::AnswerField_MultipleQuestionAndNumber($i), $answers[$k]);
                                 }  
                             }
                             if (isset($requiredTotalAnswers)){
-                                $I->seeInField(\Page\MeasureUpdate::$TotalAnswersRequiredField_MultipleQuestionAndNumber, $requiredTotalAnswers);
+                                $I->canSeeInField(\Page\MeasureUpdate::$TotalAnswersRequiredField_MultipleQuestionAndNumber, $requiredTotalAnswers);
                             }
                             break;
                         case 'Multiple question':
                             if (isset($answers)){
                                 for ($i=1, $c= count($answers); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->seeInField(\Page\MeasureUpdate::AnswerField_MultipleAnswers($i), $answers[$k]);
+                                    $I->canSeeInField(\Page\MeasureUpdate::AnswerField_MultipleAnswers($i), $answers[$k]);
                                 }
                             }
                             if (isset($requiredTotalAnswers)){
-                                $I->seeInField(\Page\MeasureUpdate::$TotalAnswersRequiredField_MultipleAnswers, $requiredTotalAnswers);
+                                $I->canSeeInField(\Page\MeasureUpdate::$TotalAnswersRequiredField_MultipleAnswers, $requiredTotalAnswers);
                             }
                             break;
                         case 'Select submeasure type':
@@ -276,10 +278,10 @@ class Measure extends \AcceptanceTester
                 break;
         }
         if (isset($points)){
-            $I->seeInField(\Page\MeasureUpdate::$PointsField, $points);
+            $I->canSeeInField(\Page\MeasureUpdate::$PointsField, $points);
         }
         if (isset($state)){
-            $I->seeOptionIsSelected(\Page\MeasureUpdate::$StateDisableSelect, $state);
+            $I->canSeeOptionIsSelected(\Page\MeasureUpdate::$StateDisableSelect, $state);
         }
     }
         
@@ -306,7 +308,7 @@ class Measure extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Go to measure update page");
         $I->amOnPage(\Page\MeasureList::URL());
-        $I->wait(1);
+        $I->wait(2);
         $I->click(\Page\MeasureList::UpdateButtonLine_ByDescValue($desc));
         $I->wait(2);
     } 

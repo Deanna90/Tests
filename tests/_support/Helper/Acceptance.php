@@ -226,6 +226,24 @@ SCRIPT;
     }
     
     /**     
+     * @param \AcceptanceTester $I           
+     */
+    public function seePageNotFound($I) {
+        $I->wait(1);
+        $I->canSee("Page not found");
+        $I->canSeeInTitle("Not Found (#404)");
+    }
+    
+    /**     
+     * @param \AcceptanceTester $I           
+     */
+    public function seePageForbiddenAccess($I) {
+        $I->wait(1);
+        $I->canSee("You are not allowed to perform this action.");
+        $I->canSeeInTitle("Forbidden (#403)");
+    }
+    
+    /**     
      * @param \AcceptanceTester $I  
      * @param \Webdriver        $webdriver          
      */

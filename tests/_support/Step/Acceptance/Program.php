@@ -27,4 +27,30 @@ class Program extends \AcceptanceTester
         $I->click(\Page\ProgramCreate::$CreateButton);
         $I->wait(1);
     }  
+    
+    public function GetProgramOnPageInList($name)
+    {
+        $I = $this;
+        $I->amOnPage(\Page\ProgramList::URL());
+        $I->wait(1);
+        $count = $I->grabTextFrom(\Page\ProgramList::$SummaryCount);
+        $pageCount = ceil($count/20);
+        $I->comment("Page count = $pageCount");
+        for($i=1; $i<=$pageCount; $i++){
+            $I->amOnPage(\Page\ProgramList::UrlPageNumber($i));
+            $I->wait(1);
+            $rows = $I->getAmount($I, \Page\ProgramList::$ProgramRow);
+            $I->comment("Count of rows = $rows");
+            for($j=1; $j<=$rows; $j++){
+                if($I->grabTextFrom(\Page\ProgramList::NameLine($j)) == $name){
+                    $I->comment("I find program: $name at row: $j on page: $i");
+                    break 2;
+                }
+            }
+        }
+        $prog['id']   = $I->grabTextFrom(\Page\ProgramList::IdLine($j));
+        $prog['page'] = $i;
+        $prog['row']  = $j;
+        return $prog;
+    }
 }

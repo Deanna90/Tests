@@ -5,7 +5,7 @@ class EssentialCriteriaManage
 {
     public static function URL($id)       { return "/master-admin/checklist/measures?id=$id";}
     public static $Title                  = 'h2';
-    public static $StatusTitle            = 'h4';
+    public static $StatusTitle            = 'h2+p>span:first-of-type';
     
     public static $VersionHistoryTab            = '.tabs>ul>li:nth-of-type(1) a';
     public static $ManageMeasuresTab            = '.tabs>ul>li:nth-of-type(2) a';

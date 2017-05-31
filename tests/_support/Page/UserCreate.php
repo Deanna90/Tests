@@ -10,7 +10,7 @@ class UserCreate extends \AcceptanceTester
     
     public static function URL($type)       { return parent::$URL_UserAccess."/user/create?type=$type";}
 
-    public static $Title                  = 'h1';
+    public static $Title                  = 'h2';
     
     public static $CreateButton           = '[type=submit][class*=success]';
     
@@ -37,7 +37,11 @@ class UserCreate extends \AcceptanceTester
     
     public static $TypeSelectLabel        = '[for=user-type]';
     public static $StatusSelectLabel      = '[for=user-status]';
-    public static $NameErrorHelpBlock     = '#program-name+.help-block';
-    public static $CityErrorHelpBlock     = '#program-cities~.help-block';
-    public static $CityWarningHelpBlock   = '.alert-warning';
+    
+    public static $EmailErrorHelpBlock             = '#user-email+.help-block';
+    public static $FirstNameErrorHelpBlock         = '#user-first_name+.help-block';
+    public static $LastNameErrorHelpBlock          = '#user-last_name+.help-block';
+    public static $PasswordErrorHelpBlock          = '#user-password+.help-block';
+    public static $ConfirmPasswordErrorHelpBlock   = '#user-new_password+.help-block';
+    public static $PhoneErrorHelpBlock             = '#user-phone+.help-block';
 }

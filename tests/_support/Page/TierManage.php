@@ -1,15 +1,16 @@
 <?php
 namespace Page;
 
-class TierManage
+class TierManage extends \AcceptanceTester
 {
-    public static $URL                         = '/master-admin/tier/manage';
+    public static function URL()               { return parent::$URL_UserAccess.'/tier/manage';}
     public static $Title                       = '/master-admin/tier/manage';
     public static $BlockTitle                  = '/master-admin/tier/manage';
     public static $TierTitle                   = '/master-admin/tier/manage';
     
     public static $ProgramSelect               = '#program-id';
-
+    public static $ProgramOption               = '#program-id option';
+    
     public static $Tier1Button_LeftMenu        = '.filter-menu.tier>li:nth-of-type(1) a';
     public static $Tier2Button_LeftMenu        = '.filter-menu.tier>li:nth-of-type(2) a';
     public static $Tier3Button_LeftMenu        = '.filter-menu.tier>li:nth-of-type(3) a';

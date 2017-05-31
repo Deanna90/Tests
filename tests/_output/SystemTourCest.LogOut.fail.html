@@ -1,6 +1,6 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="SFRQdExQLi5lIGAYGBtrFyY3aUAhOU13ETMCGwAIYWM8JSE5BBhcfw==" />
+    <meta name="csrf-token" content="LUNyNDlnbzV7eigMVQUNR0caSmtjOAZHaxVHAn9TF0VadB0DVDMXeg==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
@@ -10,91 +10,179 @@
     <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
 <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
+<link href="/leaflet/leaflet.css" rel="stylesheet" />
 <link href="/css/chosen.min.css" rel="stylesheet" />
 <link href="/css/style.css" rel="stylesheet" />
 <link href="/css/switch.jquery.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
     <style>.cke{visibility:hidden;}</style></head>
-<body>
+<body class=" stop-scrolling">
     <div id="main_page_container">
-        <div class="container">
+        <!-- user_id: 1 -->
+<div class="container">
     <header class="clear">
         <div class="header-logo">
             <div class="">
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
-                    <!--                    <a href="#">Welcome</a>-->
-                    <!--                    <a href="#">Contact</a>-->
-                    <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                    <a href="/business/registration" class="ajax">NEW BUSINESS</a>                    <div class="select-wrapper">
+                    <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
                                                     <form class="no-ajax" action="/site/logout" method="post">
-<input type="hidden" name="_csrf" value="SFRQdExQLi5lIGAYGBtrFyY3aUAhOU13ETMCGwAIYWM8JSE5BBhcfw==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
+<input type="hidden" name="_csrf" value="LUNyNDlnbzV7eigMVQUNR0caSmtjOAZHaxVHAn9TF0VadB0DVDMXeg==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
                 </div>
             </div>
         </div>
+
+        
                     <div class="horizontal-nav">
                 <div class="responsive-menu1">
                     <button class="hamburger1" style="display: block;">☰</button>
                     <button class="cross1" style="display: none;">˟</button>
                 </div>
-                                    <ul id="w3" class="nav-pills navbar-default menu1 nav"><li><a href="/master-admin/default/index" class="ajax">Dashboard</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Programs <b class="caret"></b></a><ul id="w4" class="dropdown-menu"><li><a href="/master-admin/program/index" tabindex="-1" class="ajax">Programs</a></li>
+                                                        <ul id="w2" class="nav-pills navbar-default menu1 nav"><li><a href="/master-admin/default/index" class="ajax">Dashboard</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Programs <b class="caret"></b></a><ul id="w3" class="dropdown-menu"><li><a href="/master-admin/program/index" tabindex="-1" class="ajax">Programs</a></li>
 <li><a href="/master-admin/city/index" tabindex="-1" class="ajax">Cities</a></li>
-<li><a href="/master-admin/sector/list" tabindex="-1" class="ajax">Sectors</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Measures <b class="caret"></b></a><ul id="w5" class="dropdown-menu"><li><a href="/master-admin/measure/index" tabindex="-1" class="ajax">Measures</a></li>
+<li><a href="/master-admin/sector/list" tabindex="-1" class="ajax">Sectors</a></li>
+<li><a href="/master-admin/landing-map-program/index" tabindex="-1" class="ajax">Source Programs</a></li>
+<li><a href="/master-admin/audit-group/index" tabindex="-1" class="ajax">Audit Groups</a></li></ul></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Measures <b class="caret"></b></a><ul id="w4" class="dropdown-menu"><li><a href="/master-admin/measure/index" tabindex="-1" class="ajax">Measures</a></li>
 <li><a href="/master-admin/popup-therm/manage-option" tabindex="-1" class="ajax">Popup Therm Options</a></li>
 <li><a href="/master-admin/popup-lighting-building-type/index" tabindex="-1" class="ajax">Popup Lighting Options</a></li>
 <li><a href="/master-admin/measure-weight-points/states" tabindex="-1" class="ajax">Points</a></li>
 <li><a href="/master-admin/global-variable/index" tabindex="-1" class="ajax">Global Variables</a></li>
 <li><a href="/master-admin/saving-area/index" tabindex="-1" class="ajax">Saving Areas</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Green Tips <b class="caret"></b></a><ul id="w6" class="dropdown-menu"><li><a href="/master-admin/green-tip/index" tabindex="-1" class="ajax">Measures</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Green Tips <b class="caret"></b></a><ul id="w5" class="dropdown-menu"><li><a href="/master-admin/green-tip/index" tabindex="-1" class="ajax">Measures</a></li>
 <li><a href="/master-admin/audit-green-tip/index" tabindex="-1" class="ajax">Audit Groups</a></li></ul></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Checklists <b class="caret"></b></a><ul id="w7" class="dropdown-menu"><li><a href="/master-admin/essential-criteria/index" tabindex="-1" class="ajax">EC</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Checklists <b class="caret"></b></a><ul id="w6" class="dropdown-menu"><li><a href="/master-admin/essential-criteria/index" tabindex="-1" class="ajax">EC</a></li>
 <li><a href="/master-admin/checklist/list" tabindex="-1" class="ajax">Checklists</a></li></ul></li>
 <li><a href="/master-admin/tier/manage" class="ajax">Tiers</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Users <b class="caret"></b></a><ul id="w8" class="dropdown-menu"><li><a href="/master-admin/user/index?type=6" tabindex="-1" class="ajax">State Admins</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Users <b class="caret"></b></a><ul id="w7" class="dropdown-menu"><li><a href="/master-admin/user/index?type=6" tabindex="-1" class="ajax">State Admins</a></li>
 <li><a href="/master-admin/user/index?type=5" tabindex="-1" class="ajax">Coordinators</a></li>
 <li><a href="/master-admin/user/index?type=7" tabindex="-1" class="ajax">Auditors</a></li>
 <li><a href="/master-admin/user/index?type=3" tabindex="-1" class="ajax">Inspectors</a></li></ul></li>
 <li><a href="/master-admin/state/index" class="ajax">States</a></li>
-<li><a href="/master-admin/communication/index" class="ajax">Communication</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Statewpye <b class="caret"></b></a><ul id="w9" class="scrollable-menu dropdown-menu"><li><a href="/base/set-state" tabindex="-1" class="ajax">All States</a></li>
-<li><a href="/base/set-state?state_id=70" tabindex="-1" class="ajax">555</a></li>
-<li><a href="/base/set-state?state_id=5" tabindex="-1" class="ajax">California</a></li>
-<li><a href="/base/set-state?state_id=93" tabindex="-1" class="ajax">Statebncz</a></li>
-<li><a href="/base/set-state?state_id=99" tabindex="-1" class="ajax">Statecywd</a></li>
-<li><a href="/base/set-state?state_id=97" tabindex="-1" class="ajax">Stateeito</a></li>
-<li><a href="/base/set-state?state_id=74" tabindex="-1" class="ajax">Stateerxt</a></li>
-<li><a href="/base/set-state?state_id=88" tabindex="-1" class="ajax">Statefeau</a></li>
-<li><a href="/base/set-state?state_id=101" tabindex="-1" class="ajax">Statefpni</a></li>
-<li><a href="/base/set-state?state_id=86" tabindex="-1" class="ajax">Statefthn</a></li>
-<li><a href="/base/set-state?state_id=75" tabindex="-1" class="ajax">Stategaxq</a></li>
-<li><a href="/base/set-state?state_id=90" tabindex="-1" class="ajax">Stategcsv</a></li>
-<li><a href="/base/set-state?state_id=81" tabindex="-1" class="ajax">Stategkdq</a></li>
-<li><a href="/base/set-state?state_id=92" tabindex="-1" class="ajax">Statehblf</a></li>
-<li><a href="/base/set-state?state_id=80" tabindex="-1" class="ajax">Stateinfb</a></li>
-<li><a href="/base/set-state?state_id=98" tabindex="-1" class="ajax">Stateiocj</a></li>
-<li><a href="/base/set-state?state_id=95" tabindex="-1" class="ajax">Statejcrk</a></li>
-<li><a href="/base/set-state?state_id=83" tabindex="-1" class="ajax">Statejlwj</a></li>
-<li><a href="/base/set-state?state_id=100" tabindex="-1" class="ajax">Statejswi</a></li>
-<li><a href="/base/set-state?state_id=84" tabindex="-1" class="ajax">Statekhnc</a></li>
-<li><a href="/base/set-state?state_id=89" tabindex="-1" class="ajax">Statelvyo</a></li>
-<li><a href="/base/set-state?state_id=79" tabindex="-1" class="ajax">Statelyul</a></li>
-<li><a href="/base/set-state?state_id=82" tabindex="-1" class="ajax">Stateoqyo</a></li>
-<li><a href="/base/set-state?state_id=76" tabindex="-1" class="ajax">Stateosfg</a></li>
-<li><a href="/base/set-state?state_id=96" tabindex="-1" class="ajax">Stateoxkd</a></li>
-<li><a href="/base/set-state?state_id=91" tabindex="-1" class="ajax">Statesibd</a></li>
-<li><a href="/base/set-state?state_id=85" tabindex="-1" class="ajax">Stateubqm</a></li>
-<li><a href="/base/set-state?state_id=78" tabindex="-1" class="ajax">Stateupji</a></li>
-<li><a href="/base/set-state?state_id=94" tabindex="-1" class="ajax">Stateviyo</a></li>
-<li><a href="/base/set-state?state_id=73" tabindex="-1" class="ajax">Statevxwl</a></li>
-<li><a href="/base/set-state?state_id=77" tabindex="-1" class="ajax">Statewcqd</a></li>
-<li><a href="/base/set-state?state_id=87" tabindex="-1" class="ajax">Statewofv</a></li>
-<li><a href="/base/set-state?state_id=102" tabindex="-1" class="ajax">Statewpye</a></li>
-<li><a href="/base/set-state?state_id=53" tabindex="-1" class="ajax">TTT</a></li>
-<li><a href="/base/set-state?state_id=48" tabindex="-1" class="ajax">Washington</a></li></ul></li></ul>                
+<li><a href="/master-admin/notification/index" class="ajax">Notification</a></li>
+<li><a href="/master-admin/report/configure" class="ajax">Reports</a></li>
+<li><a href="/master-admin/resource/index" class="ajax">Resources</a></li>
+<li><a href="/master-admin/video/index" class="ajax">Video Tutorials</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Stateftgg <b class="caret"></b></a><ul id="w8" class="scrollable-menu dropdown-menu"><li><a href="/base/set-state" tabindex="-1" class="ajax">All States</a></li>
+<li><a href="/base/set-state?state_id=434" tabindex="-1" class="ajax">55555</a></li>
+<li><a href="/base/set-state?state_id=2" tabindex="-1" class="ajax">California</a></li>
+<li><a href="/base/set-state?state_id=190" tabindex="-1" class="ajax">etrhth</a></li>
+<li><a href="/base/set-state?state_id=357" tabindex="-1" class="ajax">ffff</a></li>
+<li><a href="/base/set-state?state_id=410" tabindex="-1" class="ajax">New2</a></li>
+<li><a href="/base/set-state?state_id=87" tabindex="-1" class="ajax">newnew</a></li>
+<li><a href="/base/set-state?state_id=306" tabindex="-1" class="ajax">nnnneeww</a></li>
+<li><a href="/base/set-state?state_id=327" tabindex="-1" class="ajax">rrrrr</a></li>
+<li><a href="/base/set-state?state_id=389" tabindex="-1" class="ajax">StatCityfdqi</a></li>
+<li><a href="/base/set-state?state_id=412" tabindex="-1" class="ajax">StatCitygrol</a></li>
+<li><a href="/base/set-state?state_id=413" tabindex="-1" class="ajax">StatCityjfxw</a></li>
+<li><a href="/base/set-state?state_id=408" tabindex="-1" class="ajax">StatCityjqoh</a></li>
+<li><a href="/base/set-state?state_id=403" tabindex="-1" class="ajax">StatCityjqpd</a></li>
+<li><a href="/base/set-state?state_id=409" tabindex="-1" class="ajax">StatCitylgkm</a></li>
+<li><a href="/base/set-state?state_id=406" tabindex="-1" class="ajax">StatCityocag</a></li>
+<li><a href="/base/set-state?state_id=402" tabindex="-1" class="ajax">StatCitypopq</a></li>
+<li><a href="/base/set-state?state_id=391" tabindex="-1" class="ajax">StatCityrbir</a></li>
+<li><a href="/base/set-state?state_id=411" tabindex="-1" class="ajax">StatCitysxkl</a></li>
+<li><a href="/base/set-state?state_id=390" tabindex="-1" class="ajax">StatCityvsdn</a></li>
+<li><a href="/base/set-state?state_id=388" tabindex="-1" class="ajax">StatCityyhcc</a></li>
+<li><a href="/base/set-state?state_id=407" tabindex="-1" class="ajax">StatCityztpv</a></li>
+<li><a href="/base/set-state?state_id=308" tabindex="-1" class="ajax">state input</a></li>
+<li><a href="/base/set-state?state_id=310" tabindex="-1" class="ajax">state no</a></li>
+<li><a href="/base/set-state?state_id=309" tabindex="-1" class="ajax">state ques</a></li>
+<li><a href="/base/set-state?state_id=441" tabindex="-1" class="ajax">Statebsaf</a></li>
+<li><a href="/base/set-state?state_id=446" tabindex="-1" class="ajax">Statecyxa</a></li>
+<li><a href="/base/set-state?state_id=448" tabindex="-1" class="ajax">Statediui</a></li>
+<li><a href="/base/set-state?state_id=450" tabindex="-1" class="ajax">Stateftgg</a></li>
+<li><a href="/base/set-state?state_id=447" tabindex="-1" class="ajax">Statehqxn</a></li>
+<li><a href="/base/set-state?state_id=445" tabindex="-1" class="ajax">Stateicif</a></li>
+<li><a href="/base/set-state?state_id=444" tabindex="-1" class="ajax">Statelhyj</a></li>
+<li><a href="/base/set-state?state_id=443" tabindex="-1" class="ajax">Statelrch</a></li>
+<li><a href="/base/set-state?state_id=88" tabindex="-1" class="ajax">StateMGTcyet</a></li>
+<li><a href="/base/set-state?state_id=349" tabindex="-1" class="ajax">StateMGTfhcl</a></li>
+<li><a href="/base/set-state?state_id=103" tabindex="-1" class="ajax">StateMGToovf</a></li>
+<li><a href="/base/set-state?state_id=93" tabindex="-1" class="ajax">statenew</a></li>
+<li><a href="/base/set-state?state_id=449" tabindex="-1" class="ajax">Statexrdo</a></li>
+<li><a href="/base/set-state?state_id=442" tabindex="-1" class="ajax">Statezbbg</a></li>
+<li><a href="/base/set-state?state_id=370" tabindex="-1" class="ajax">StInputWeightalqe</a></li>
+<li><a href="/base/set-state?state_id=405" tabindex="-1" class="ajax">StInputWeightbhsa</a></li>
+<li><a href="/base/set-state?state_id=362" tabindex="-1" class="ajax">StInputWeightceux</a></li>
+<li><a href="/base/set-state?state_id=368" tabindex="-1" class="ajax">StInputWeightcjuc</a></li>
+<li><a href="/base/set-state?state_id=366" tabindex="-1" class="ajax">StInputWeightdmmm</a></li>
+<li><a href="/base/set-state?state_id=371" tabindex="-1" class="ajax">StInputWeightdzjj</a></li>
+<li><a href="/base/set-state?state_id=377" tabindex="-1" class="ajax">StInputWeightejkl</a></li>
+<li><a href="/base/set-state?state_id=367" tabindex="-1" class="ajax">StInputWeighteptd</a></li>
+<li><a href="/base/set-state?state_id=373" tabindex="-1" class="ajax">StInputWeightermq</a></li>
+<li><a href="/base/set-state?state_id=355" tabindex="-1" class="ajax">StInputWeightezzh</a></li>
+<li><a href="/base/set-state?state_id=354" tabindex="-1" class="ajax">StInputWeightfnee</a></li>
+<li><a href="/base/set-state?state_id=358" tabindex="-1" class="ajax">StInputWeightgpme</a></li>
+<li><a href="/base/set-state?state_id=352" tabindex="-1" class="ajax">StInputWeightipar</a></li>
+<li><a href="/base/set-state?state_id=361" tabindex="-1" class="ajax">StInputWeightjnjs</a></li>
+<li><a href="/base/set-state?state_id=351" tabindex="-1" class="ajax">StInputWeightmbta</a></li>
+<li><a href="/base/set-state?state_id=359" tabindex="-1" class="ajax">StInputWeightmmiq</a></li>
+<li><a href="/base/set-state?state_id=356" tabindex="-1" class="ajax">StInputWeightoegy</a></li>
+<li><a href="/base/set-state?state_id=374" tabindex="-1" class="ajax">StInputWeightqbxo</a></li>
+<li><a href="/base/set-state?state_id=365" tabindex="-1" class="ajax">StInputWeightqflv</a></li>
+<li><a href="/base/set-state?state_id=350" tabindex="-1" class="ajax">StInputWeightrcil</a></li>
+<li><a href="/base/set-state?state_id=375" tabindex="-1" class="ajax">StInputWeightrodw</a></li>
+<li><a href="/base/set-state?state_id=353" tabindex="-1" class="ajax">StInputWeightskyt</a></li>
+<li><a href="/base/set-state?state_id=364" tabindex="-1" class="ajax">StInputWeightsrtx</a></li>
+<li><a href="/base/set-state?state_id=372" tabindex="-1" class="ajax">StInputWeighttjma</a></li>
+<li><a href="/base/set-state?state_id=360" tabindex="-1" class="ajax">StInputWeightuztj</a></li>
+<li><a href="/base/set-state?state_id=363" tabindex="-1" class="ajax">StInputWeightvfrf</a></li>
+<li><a href="/base/set-state?state_id=369" tabindex="-1" class="ajax">StInputWeightwwmw</a></li>
+<li><a href="/base/set-state?state_id=376" tabindex="-1" class="ajax">StInputWeightyfro</a></li>
+<li><a href="/base/set-state?state_id=396" tabindex="-1" class="ajax">StMeasExtensbcri</a></li>
+<li><a href="/base/set-state?state_id=382" tabindex="-1" class="ajax">StMeasExtenscqbg</a></li>
+<li><a href="/base/set-state?state_id=401" tabindex="-1" class="ajax">StMeasExtensdnum</a></li>
+<li><a href="/base/set-state?state_id=438" tabindex="-1" class="ajax">StMeasExtensdxca</a></li>
+<li><a href="/base/set-state?state_id=399" tabindex="-1" class="ajax">StMeasExtensedoj</a></li>
+<li><a href="/base/set-state?state_id=437" tabindex="-1" class="ajax">StMeasExtensfhwf</a></li>
+<li><a href="/base/set-state?state_id=398" tabindex="-1" class="ajax">StMeasExtensftut</a></li>
+<li><a href="/base/set-state?state_id=379" tabindex="-1" class="ajax">StMeasExtenshdnv</a></li>
+<li><a href="/base/set-state?state_id=394" tabindex="-1" class="ajax">StMeasExtensiaps</a></li>
+<li><a href="/base/set-state?state_id=384" tabindex="-1" class="ajax">StMeasExtensmfid</a></li>
+<li><a href="/base/set-state?state_id=393" tabindex="-1" class="ajax">StMeasExtensmkav</a></li>
+<li><a href="/base/set-state?state_id=395" tabindex="-1" class="ajax">StMeasExtensmwit</a></li>
+<li><a href="/base/set-state?state_id=378" tabindex="-1" class="ajax">StMeasExtensnpay</a></li>
+<li><a href="/base/set-state?state_id=397" tabindex="-1" class="ajax">StMeasExtensnypo</a></li>
+<li><a href="/base/set-state?state_id=380" tabindex="-1" class="ajax">StMeasExtensoklx</a></li>
+<li><a href="/base/set-state?state_id=392" tabindex="-1" class="ajax">StMeasExtenstoxg</a></li>
+<li><a href="/base/set-state?state_id=439" tabindex="-1" class="ajax">StMeasExtenstrkb</a></li>
+<li><a href="/base/set-state?state_id=381" tabindex="-1" class="ajax">StMeasExtenstsgj</a></li>
+<li><a href="/base/set-state?state_id=383" tabindex="-1" class="ajax">StMeasExtensuezg</a></li>
+<li><a href="/base/set-state?state_id=387" tabindex="-1" class="ajax">StMeasExtensuhzg</a></li>
+<li><a href="/base/set-state?state_id=385" tabindex="-1" class="ajax">StMeasExtensunsj</a></li>
+<li><a href="/base/set-state?state_id=386" tabindex="-1" class="ajax">StMeasExtenswraa</a></li>
+<li><a href="/base/set-state?state_id=404" tabindex="-1" class="ajax">StMeasExtensxngo</a></li>
+<li><a href="/base/set-state?state_id=400" tabindex="-1" class="ajax">StMeasExtenszmha</a></li>
+<li><a href="/base/set-state?state_id=416" tabindex="-1" class="ajax">StThermsdyxq</a></li>
+<li><a href="/base/set-state?state_id=436" tabindex="-1" class="ajax">StThermsfgzo</a></li>
+<li><a href="/base/set-state?state_id=424" tabindex="-1" class="ajax">StThermsgnjc</a></li>
+<li><a href="/base/set-state?state_id=414" tabindex="-1" class="ajax">StThermsgqyz</a></li>
+<li><a href="/base/set-state?state_id=422" tabindex="-1" class="ajax">StThermsgzci</a></li>
+<li><a href="/base/set-state?state_id=418" tabindex="-1" class="ajax">StThermshwar</a></li>
+<li><a href="/base/set-state?state_id=426" tabindex="-1" class="ajax">StThermshygk</a></li>
+<li><a href="/base/set-state?state_id=429" tabindex="-1" class="ajax">StThermsjodb</a></li>
+<li><a href="/base/set-state?state_id=427" tabindex="-1" class="ajax">StThermskdbh</a></li>
+<li><a href="/base/set-state?state_id=421" tabindex="-1" class="ajax">StThermsmafs</a></li>
+<li><a href="/base/set-state?state_id=425" tabindex="-1" class="ajax">StThermsnhyz</a></li>
+<li><a href="/base/set-state?state_id=431" tabindex="-1" class="ajax">StThermsnmnl</a></li>
+<li><a href="/base/set-state?state_id=415" tabindex="-1" class="ajax">StThermsnvws</a></li>
+<li><a href="/base/set-state?state_id=419" tabindex="-1" class="ajax">StThermsodku</a></li>
+<li><a href="/base/set-state?state_id=435" tabindex="-1" class="ajax">StThermsppdx</a></li>
+<li><a href="/base/set-state?state_id=432" tabindex="-1" class="ajax">StThermsqahi</a></li>
+<li><a href="/base/set-state?state_id=428" tabindex="-1" class="ajax">StThermsqpzn</a></li>
+<li><a href="/base/set-state?state_id=420" tabindex="-1" class="ajax">StThermssvmp</a></li>
+<li><a href="/base/set-state?state_id=433" tabindex="-1" class="ajax">StThermstjqg</a></li>
+<li><a href="/base/set-state?state_id=423" tabindex="-1" class="ajax">StThermsugia</a></li>
+<li><a href="/base/set-state?state_id=430" tabindex="-1" class="ajax">StThermsujyw</a></li>
+<li><a href="/base/set-state?state_id=417" tabindex="-1" class="ajax">StThermsvmos</a></li>
+<li><a href="/base/set-state?state_id=440" tabindex="-1" class="ajax">StThermsvnlm</a></li>
+<li><a href="/base/set-state?state_id=94" tabindex="-1" class="ajax">tessst</a></li>
+<li><a href="/base/set-state?state_id=1" tabindex="-1" class="ajax">Washington</a></li></ul></li></ul>                
             </div>
                 <ul class="breadcrumb"><li><a href="/master-admin/default/index" class="ajax">Home</a></li>
 <li><a href="/master-admin/checklist/list" class="ajax">Checklists</a></li>
-<li><a href="/master-admin/checklist/measures?id=190" class="ajax">Tier 3</a></li>
+<li><a href="/master-admin/checklist/measures?id=4109" class="ajax">Tier 3</a></li>
 <li class="active">Versions Tier 3</li>
 </ul>    </header>
 
@@ -110,36 +198,44 @@
         <div class="col-md-9 background-white">
             <div class="right-column-checklist">
                 <div class="">
-                    <div class="title-block">
-                        <h2>Versions Tier 3</h2>
-                        <h4>(Published)</h4>
-                    </div>
+                    <div class="title-block row">
+    <div class="col-md-8">
+        <h2>Prog1ogrl: Sec2Prog1twoy</h2>
+        <p class="grey p-label margin-0">VERSION:05/17/2017 -
+            <span class="draft-color p-label">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                Published                                </span>
+            |
+            <span class="black">
+                                    Tier 3                                </span>
+        </p>
+    </div>
+    <div class="col-md-2">
+            </div>
+</div>
                     <div class="tabs" data-toggle="tabslet">
                         <ul class="tab-style clear">
                             <li>
-                                <a href="/master-admin/checklist/version?id=190" class="tab-switch active ajax">Version History</a>
+                                <a href="/master-admin/checklist/version?id=4109" class="tab-switch active ajax">Version History</a>
                             </li>
                             <li>
-                                <a href="/master-admin/checklist/measures?id=190&amp;type=tier" class="tab-switch ajax">manage measures</a>
+                                <a href="/master-admin/checklist/measures?id=4109&amp;type=tier" class="tab-switch ajax">manage measures</a>
                             </li>
                             <li>
-                                <a href="/master-admin/checklist/define-total?id=190&amp;type=tier" class="tab-switch ajax">define total measures needed</a>
+                                <a href="/master-admin/checklist/define-total?id=4109&amp;type=tier" class="tab-switch ajax">define total measures needed</a>
                             </li>
-                            <li>
-                                <a href="/master-admin/checklist/points?id=190&amp;type=tier" class="tab-switch ajax">points</a>
-                            </li>
-                        </ul>
+                                                    </ul>
                         <div class="tab-content">
                             <div id="tabs-2">
-                                <form id="w0" action="/master-admin/checklist/version?id=190" method="post" class="ajax">
-<input type="hidden" name="_csrf" value="SFRQdExQLi5lIGAYGBtrFyY3aUAhOU13ETMCGwAIYWM8JSE5BBhcfw==" />                                <div class="tabs-btn manage clear">
+                                <form id="manage-checklist" action="/master-admin/checklist/version?id=4109" method="post" class="ajax">
+<input type="hidden" name="_csrf" value="LUNyNDlnbzV7eigMVQUNR0caSmtjOAZHaxVHAn9TF0VadB0DVDMXeg==" />                                <div class="tabs-btn manage clear">
                                 </div>
-                                <div id="w1" class="grid-view"><div class="summary">Showing <b>1-1</b> of <b>1</b> item.</div>
+                                <div id="w0" class="grid-view"><div class="summary">Showing <b>1-1</b> of <b>1</b> item.</div>
 <table class="version-history define setup"><thead>
-<tr><th><input type="checkbox" class="select-on-check-all" name="selection_all" value="1" /></th><th><a class="desc ajax" href="/master-admin/checklist/version?id=190&amp;sort=id" data-sort="id">ID</a></th><th>Status</th><th><a href="/master-admin/checklist/version?id=190&amp;sort=updated" data-sort="updated" class="ajax">Updated</a></th><th><a href="/master-admin/checklist/version?id=190&amp;sort=created" data-sort="created" class="ajax">Created</a></th><th class="action-column">Actions</th></tr>
+<tr><th><input type="checkbox" class="select-on-check-all" name="selection_all" value="1" /></th><th><a class="desc ajax" href="/master-admin/checklist/version?id=4109&amp;sort=id" data-sort="id">ID</a></th><th>Status</th><th><a href="/master-admin/checklist/version?id=4109&amp;sort=created" data-sort="created" class="ajax">Created</a></th><th><a href="/master-admin/checklist/version?id=4109&amp;sort=updated" data-sort="updated" class="ajax">Updated</a></th><th class="action-column">Actions</th></tr>
 </thead>
 <tbody>
-<tr data-key="190"><td><input type="checkbox" name="selection[]" value="190" /></td><td>190</td><td>Published</td><td>03/31/2017</td><td>03/31/2017</td><td><a class="lite-green no-ajax" href="/master-admin/checklist/measures?id=190&amp;type=tier" title="View">Edit</a><a class="lite-green no-ajax" href="/master-admin/checklist/version-clone?id=190">Clone</a></td></tr>
+<tr data-key="4109"><td><input type="checkbox" name="selection[]" value="4109" /></td><td>4109</td><td>Published</td><td>05/17/2017</td><td>05/17/2017</td><td><a class="lite-green no-ajax" href="/master-admin/checklist/measures?id=4109&amp;type=tier" title="Edit checklist">Edit</a> <a class="lite-green no-ajax" href="/master-admin/checklist/version-clone?id=4109" title="Make checklist copy">Clone</a>  <a class="lite-green no-ajax" href="/master-admin/checklist/version-un-publish?id=4109" title="Make checklist Draft again">UnPublish</a> </td></tr>
 </tbody></table>
 </div>
                                 </form>                            </div>
@@ -179,37 +275,37 @@
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=58de1b283eb92">
+    <a href="/debug/default/view?panel=config&amp;tag=591c2d993b8a2">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=58de1b283eb92" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=58de1b283eb92" title="Action: app\modules\masteradmin\controllers\ChecklistController::actionVersion()">Route <span class="yii-debug-toolbar__label">master-admin/checklist/version</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=591c2d993b8a2" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=591c2d993b8a2" title="Action: app\modules\masteradmin\controllers\ChecklistController::actionVersion()">Route <span class="yii-debug-toolbar__label">master-admin/checklist/version</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=58de1b283eb92" title="Logged 32 messages">Log
-        <span class="yii-debug-toolbar__label">32</span>
+    <a href="/debug/default/view?panel=log&amp;tag=591c2d993b8a2" title="Logged 47 messages">Log
+        <span class="yii-debug-toolbar__label">47</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=58de1b283eb92" title="Total request processing time was 95 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">95 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=58de1b283eb92" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">11.098 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=591c2d993b8a2" title="Total request processing time was 120 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">120 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=591c2d993b8a2" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12.852 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=58de1b283eb92" title="Executed 18 database queries which took 5 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">18</span> <span class="yii-debug-toolbar__label">5 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=591c2d993b8a2" title="Executed 32 database queries which took 9 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">32</span> <span class="yii-debug-toolbar__label">9 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=58de1b283eb92" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=591c2d993b8a2" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">14</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user&amp;tag=58de1b283eb92">
+    <a href="/debug/default/view?panel=user&amp;tag=591c2d993b8a2">
                     User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span>
             </a>
 </div>
@@ -875,14 +971,51 @@ a.yii-debug-toolbar__label:focus {
 <script src="/assets/a8119c8c/adapters/jquery.js"></script>
 <script src="/assets/d2bdffe5/dosamigos-ckeditor.widget.js"></script>
 <script src="/assets/a83e0e94/yii.validation.js"></script>
+<script src="/assets/cbe07863/jquery.inputmask.bundle.js"></script>
+<script src="/leaflet/leaflet.js"></script>
+<script src="/leaflet/lib.shp/catiline.js"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
+<script src="/js/jquery.form.min.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/masteradmin/global.js"></script>
+<script type="text/javascript">sweetAlert({"id":"w1","type":"success","title":"Checklist successfully published!","allowOutsideClick":true,"timer":2500}, function() {});</script><div class="sweet-overlay" tabindex="-1" style="opacity: 1.1; display: block;"></div><div class="sweet-alert showSweetAlert visible" data-custom-class="" data-has-cancel-button="false" data-has-confirm-button="true" data-allow-outside-click="true" data-has-done-function="true" data-animation="pop" data-timer="2500" style="display: block; margin-top: -179px;"><div class="sa-icon sa-error" style="display: none;">
+      <span class="sa-x-mark">
+        <span class="sa-line sa-left"></span>
+        <span class="sa-line sa-right"></span>
+      </span>
+    </div><div class="sa-icon sa-warning" style="display: none;">
+      <span class="sa-body"></span>
+      <span class="sa-dot"></span>
+    </div><div class="sa-icon sa-info" style="display: none;"></div><div class="sa-icon sa-success animate" style="display: block;">
+      <span class="sa-line sa-tip animateSuccessTip"></span>
+      <span class="sa-line sa-long animateSuccessLong"></span>
+
+      <div class="sa-placeholder"></div>
+      <div class="sa-fix"></div>
+    </div><div class="sa-icon sa-custom" style="display: none;"></div><h2>Checklist successfully published!</h2>
+    <p></p>
+    <fieldset>
+      <input type="text" tabindex="3" placeholder="" />
+      <div class="sa-input-error"></div>
+    </fieldset><div class="sa-error-container">
+      <div class="icon">!</div>
+      <p>Not valid!</p>
+    </div><div class="sa-button-container">
+      <button class="cancel" tabindex="2" style="display: none;">Cancel</button>
+      <div class="sa-confirm-button-container">
+        <button class="confirm" tabindex="1" style="display: inline-block; background-color: rgb(140, 212, 245); box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;">OK</button><div class="la-ball-fall">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div></div>
 <script type="text/javascript">jQuery(document).ready(function () {
-jQuery('#w1').yiiGridView('setSelectionColumn', {"name":"selection[]","class":null,"multiple":true,"checkAll":"selection_all"});
-jQuery('#w1').yiiGridView({"filterUrl":"\/master-admin\/checklist\/version?id=190","filterSelector":"#w1-filters input, #w1-filters select"});
-jQuery('#w0').yiiActiveForm([], []);
+jQuery('#w0').yiiGridView('setSelectionColumn', {"name":"selection[]","class":null,"multiple":true,"checkAll":"selection_all"});
+jQuery('#w0').yiiGridView({"filterUrl":"\/master-admin\/checklist\/version?id=4109","filterSelector":"#w0-filters input, #w0-filters select"});
+jQuery('#manage-checklist').yiiActiveForm([], []);
 });</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -899,7 +1032,7 @@ jQuery('#w0').yiiActiveForm([], []);
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"Versions Tier 3","loadedAssets":{"js":["\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.gridView.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.validation.js"],"css":["\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.gridView.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.validation.js"],"css":["\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
+        app.pageTools.setInitialPageData({"title":"Versions Tier 3","loadedAssets":{"js":["\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.gridView.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/jquery.form.min.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.gridView.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/jquery.form.min.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 

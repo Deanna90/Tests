@@ -4,8 +4,11 @@ namespace Page;
 class ProgramList extends \AcceptanceTester
 {
     public static function URL()        { return parent::$URL_UserAccess.'/program/index';}
+    public static function UrlPageNumber($number) { return parent::$URL_UserAccess."/program/index?page=$number"; }
+    
     public static $Title                = 'h1';
     public static $ProgramRow           = 'table[class*=table] tbody>tr';
+    public static $SummaryCount         = '.summary>b:last-of-type';
     
     public static $CreateProgramButton  = 'a.btn-green-lite';
     

@@ -10,28 +10,32 @@ class Checklist extends \AcceptanceTester
         $I->wait(2);
         if (isset($sourceProgram)){
             $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
+            $I->wait(2);
         }
         if (isset($programCriteria)){
             $I->selectOption(\Page\ChecklistCreate::$ProgramCriteriaSelect, $programCriteria);
+            $I->wait(2);
         }
         if (isset($sectorCriteria)){
-            $I->wait(1);
             $I->selectOption(\Page\ChecklistCreate::$SectorCriteriaSelect, $sectorCriteria);
+            $I->wait(2);
         }
         if (isset($programDestination)){
             $I->selectOption(\Page\ChecklistCreate::$ProgramDestinationSelect, $programDestination);
+            $I->wait(2);
         }
         if (isset($sectorDestination)){
-            $I->wait(1);
             $I->selectOption(\Page\ChecklistCreate::$SectorDestinationSelect, $sectorDestination);
+            $I->wait(2);
         }
         if (isset($tier)){
-            $I->wait(1);
+            $I->wait(4);
             $I->selectOption(\Page\ChecklistCreate::$TierSelect, $tier);
         }
-        $I->wait(1);
+        $I->wait(2);
         $I->click(\Page\ChecklistCreate::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
+        $I->waitForElement('.confirm', 10);
         $I->click('.confirm');
     }  
     
@@ -46,7 +50,7 @@ class Checklist extends \AcceptanceTester
             $I->comment("Count of measures: $countDesc");
             $I->comment("Count of statuses: $countStat");
             $count       = $countStat - $countDesc;
-            $statusesNew = array_splice($statuses, $count);
+            $statusesNew = array_splice($statuses, 0, $countDesc);
             $countDesc--;
             $I->comment("Count of measures: $countDesc");
             for($i=0; $i<=$countDesc; $i++){
@@ -59,7 +63,7 @@ class Checklist extends \AcceptanceTester
             $I->comment("Count of measures: $countDesc");
             $I->comment("Count of extensions: $countExtens");
             $count       = $countExtens - $countDesc;
-            $extensionsNew = array_splice($extension, $count);
+            $extensionsNew = array_splice($extension, 0, $countDesc);
             $countDesc--;
             $I->comment("Count of measures: $countDesc");
             for($i=0; $i<=$countDesc; $i++){
@@ -82,7 +86,7 @@ class Checklist extends \AcceptanceTester
         $I->wait(1);
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab($row));
         $I->wait(1);        
-        $I->see('Published', \Page\ChecklistManage::$StatusTitle);
+        $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
     }
     
     public function UpdateChecklistPoints($points)
@@ -106,7 +110,7 @@ class Checklist extends \AcceptanceTester
             $countDesc--;
             $I->comment("Count of measures: $countDesc");
             for($i=0; $i<=$countDesc; $i++){
-                $I->seeOptionIsSelected(\Page\ChecklistManage::StatusSelectLine_ManageMeasureTab($descs[$i]), $statuses[$i]);
+                $I->canSeeOptionIsSelected(\Page\ChecklistManage::StatusSelectLine_ManageMeasureTab($descs[$i]), $statuses[$i]);
             }
         }
         $I->wait(1);

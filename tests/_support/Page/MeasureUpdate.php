@@ -10,6 +10,8 @@ class MeasureUpdate extends \AcceptanceTester
     public static $MeasureFormulasBlockTitle = '.row>div:nth-of-type(3) .panel-heading';
     
     public static $UpdateButton                    = '.measure-update [type=submit]';
+    public static $ApproveButton                   = '[name=approve]';
+    public static $CloneButton                     = '.success a.btn';
     public static $IsQuantitativeToggleButton      = '#measure-is_quantitative_switch_control';
     public static $HaveMultipleAnswersToggleButton = '#measureform-hasmultiplequestions_switch_control';
     public static $ManageFormulasButton            = '#popup_link_0';

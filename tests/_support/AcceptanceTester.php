@@ -74,6 +74,8 @@ class AcceptanceTester extends \Codeception\Actor
                 case 'inspector':
                     self::$URL_UserAccess = '/inspector';
                     break;
+                case 'user':
+                    break;
             }
         }
     }
@@ -144,4 +146,5 @@ class AcceptanceTester extends \Codeception\Actor
 //                $webDriver->switchTo()->defaultContent();
             });
     }
+   
 }

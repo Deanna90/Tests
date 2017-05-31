@@ -7,6 +7,11 @@ class BusinessChecklistView
 
     public static $Title                      = 'h1';
    
+    public static $SaveButton_Footer          = '.success.save-buttons button[type=submit].btn-green';
+    public static $SaveAndNextButton_Footer   = '.success.save-buttons button[name=save_next]';
+    public static $PreviousButton_Footer      = '.success.save-buttons>div:first-of-type a.btn-md';
+    public static $ReviewButton_Footer        = '.success.save-buttons>div:last-of-type a.btn-md';
+    
     //-----Left Menu-----
     public static $LeftMenu_ApplicationDetailsButton       = '.getstarted-group';
     
@@ -35,8 +40,9 @@ class BusinessChecklistView
     public static function MeasureGreenTip($grTip)               { return "//*[@class='short-articles link-green no-ajax'][contains(h4/text(), 'Measure')]//*[text()='$grTip']";}
     public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//p[contains(text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
     public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/span";}
+    public static function Savings_ByDesc($desc)                 { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/div";}
     
-    public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
+    public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
     public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//select";}
     public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//input";}
     public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//*[@class='switch-control switch-control-2-items']";}
@@ -47,5 +53,27 @@ class BusinessChecklistView
     public static $CoreProgressBarInfo           = '#measures-form>div:first-of-type .progress-wrapper+span';
     public static $ElectiveProgressBarInfo       = '#measures-form>div:nth-last-of-type(3) .progress-wrapper+span';
     
+    public static $FirstMeasuresTitle            = '#measures-form>div:first-of-type h3';
+    public static $SecondMeasuresTitle           = '#measures-form>div:nth-of-type(2) h3';
+    
+    public static function Core_MeasureDescription_ByDesc($desc)        { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]//p[contains(text(), '$desc')]";}
+    public static function Elective_MeasureDescription_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]//p[contains(text(), '$desc')]";}
+    
+    //-----------------------------Therms Popup---------------------------------
+    
+    const ThermsPopup                                                 = '.modal.fade.in';
+    public static $ThermsPopup_TotalEstimatedField_Section1           = '.modal.fade.in .therm-section-1 #total_estimated';
+    public static $ThermsPopup_TotalEstimatedLabel_Section1           = '.modal.fade.in .therm-section-1 [for=total_estimated]';
+    
+    public static function ThermsPopup_OptionSelect_Section2($number)           { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt']";}
+    public static function ThermsPopup_OptionSelectOption_Section2($number)     { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt'] option";}
+    public static function ThermsPopup_OptionSelectLabel_Section2($number)      { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [for=qt]";}
+    public static function ThermsPopup_TotalEstimatedField_Section2($number)    { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='qt']";}
+    public static function ThermsPopup_TotalEstimatedLabel_Section2($number)    { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a)";}
+    public static function ThermsPopup_DeleteOptionButton_Section2($number)     { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [data-action=delete]";}
+    
+    public static $ThermsPopup_AddOptionButton          = '.modal.fade.in [data-action=add]';
+    public static $ThermsPopup_SaveChangesButton        = '.modal.fade.in button[type=submit]';
+    public static $ThermsPopup_CloseButton              = '.modal.fade.in .close';
 
 }

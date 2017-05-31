@@ -5,6 +5,7 @@ class CityCreateCest
 {
     public $state, $idProg, $usedZip;
     public $states, $anotherState, $cityAnotherState, $zipAnotherState;
+    public $cityNameCheck;
     public $requiredErrorName  = "Name cannot be blank.";
     public $requiredErrorState = "State cannot be blank.";
     public $requiredErrorZips  = "Zips cannot be blank.";
@@ -15,14 +16,14 @@ class CityCreateCest
         $I->LoginAsAdmin($I);
     }
     
-    public function Help1_GrabAllStates(\Step\Acceptance\State $I)
+    public function Help1_1_GrabAllStates(\Step\Acceptance\State $I)
     {
         $I->amOnPage(Page\StateList::URL());
         $I->wait(1);
         $this->states = $I->GetAllStatesNames();
     }
     
-    public function Help1_GrabAnotherStateAndCityZip(\Step\Acceptance\City $I)
+    public function Help1_2_GrabAnotherStateAndCityZip(\Step\Acceptance\City $I)
     {
         $this->anotherState     = $this->states[3];
         $this->cityAnotherState = $I->GenerateNameOf("CityAnotherSt");
@@ -36,15 +37,16 @@ class CityCreateCest
         $I->seeInCurrentUrl(\Page\CityList::URL());
     }
     
-    public function Help1_CreateState(\Step\Acceptance\State $I)
+    public function Help1_3_CreateState(\Step\Acceptance\State $I)
     {
         $name = $this->state = $I->GenerateNameOf("StatCity");
         $shortName = "sn";
+        
         $I->CreateState($name, $shortName);
         $this->states[] = $this->state;
     }
     
-    public function Help1_3_SelectDefaultState(AcceptanceTester $I)
+    public function Help1_4_SelectDefaultState(AcceptanceTester $I)
     {
         $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
@@ -74,6 +76,7 @@ class CityCreateCest
         $name  = '';
         $state = $this->state;
         $zips  = $I->GenerateZipCode();
+        
         $I->CreateCity($name, $state, $zips);
         $I->wait(1);
         $I->see($this->requiredErrorName, \Page\CityCreate::$NameErrorHelpBlock);
@@ -85,6 +88,7 @@ class CityCreateCest
         $name  = 't';
         $state = $this->state;
         $zips  = $I->GenerateZipCode();
+        
         $I->CreateCity($name, $state, $zips);
         $I->wait(1);
         $city = $I->GetCityOnPageInList($name);
@@ -92,7 +96,7 @@ class CityCreateCest
         $I->CheckInFieldsOnCityUpdatePage($name);
     }
     
-    public function CityCreate3_1_3_1_CheckInProgramCreateUpdatePage_NameField1Symbol(\Step\Acceptance\City $I)
+    public function CityCreate3_1_3_1_CheckInProgramCreatePage_NameField1Symbol(\Step\Acceptance\City $I)
     {
         $name  = 't';
         $state = $this->state;
@@ -105,7 +109,6 @@ class CityCreateCest
         $I->click(\Page\ProgramCreate::$CitySelect);
         $I->wait(2);
         $I->see($name, \Page\ProgramCreate::$CityOption);
-//        $I->seeElement(Page\ProgramCreate::selectCityOptionByName($name));
     }
     
     public function CityCreate3_1_3_2_CreateProgramWithCity_NameField1Symbol(\Step\Acceptance\Program $I)
@@ -113,6 +116,7 @@ class CityCreateCest
         $name  = 'prog1';
         $state = $this->state;
         $city  = 't';
+        
         $I->CreateProgram($name, $state, $city);
         $I->amOnPage(Page\ProgramList::URL());
         $I->wait(1);
@@ -124,6 +128,7 @@ class CityCreateCest
         $name  = "city128city128 check city city128city128 check city city128city128 check city city128city128 check city city128city128 check cit";
         $state = $this->state;
         $zips  = $I->GenerateZipCode();
+        
         $I->CreateCity($name, $state, $zips);
         $I->wait(1);
         $city = $I->GetCityOnPageInList($name);
@@ -131,22 +136,54 @@ class CityCreateCest
         $I->CheckInFieldsOnCityUpdatePage($name);
     }
     
+    public function CityCreate3_1_4_1_CheckInProgramCreatePage_NameField128Symbol(\Step\Acceptance\City $I)
+    {
+        $name  = "city128city128 check city city128city128 check city city128city128 check city city128city128 check city city128city128 check cit";
+        $state = $this->state;
+        
+        $I->wait(2);
+        $I->amOnPage(Page\ProgramCreate::URL());
+        $I->wait(2);
+        $I->selectOption(Page\ProgramCreate::$StateSelect, $state);
+        $I->wait(2);
+        $I->click(\Page\ProgramCreate::$CitySelect);
+        $I->wait(2);
+        $I->see($name, \Page\ProgramCreate::$CityOption);
+    }
+    
     public function CityCreate3_1_5_NameField255Symbol(\Step\Acceptance\City $I)
     {
-        $name  = $I->GenerateNameOf("city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city");
+        $this->cityNameCheck = $name  = $I->GenerateNameOf("city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city255check city");
         $state = $this->state;
         $zips  = $I->GenerateZipCode();
+        
         $I->CreateCity($name, $state, $zips);
         $I->wait(1);
         $city = $I->GetCityOnPageInList($name);
         $I->amOnPage(\Page\CityUpdate::URL($city['id']));
         $I->CheckInFieldsOnCityUpdatePage($name);
+    }
+    
+    public function CityCreate3_1_5_1_CheckInProgramCreatePage_NameField255Symbol(\Step\Acceptance\City $I)
+    {
+        $name  = $this->cityNameCheck;
+        $state = $this->state;
+        
+        $I->wait(2);
+        $I->amOnPage(Page\ProgramCreate::URL());
+        $I->wait(2);
+        $I->selectOption(Page\ProgramCreate::$StateSelect, $state);
+        $I->wait(2);
+        $I->click(\Page\ProgramCreate::$CitySelect);
+        $I->wait(2);
+        $I->see($name, \Page\ProgramCreate::$CityOption);
     }
     
     public function CityCreate3_1_6_ValidationNameField256Symbol(\Step\Acceptance\City $I)
     {
         $name1 = "dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blo";
         $name  = "dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256blockcheck dfgvvfcity256bl";
+        
         $I->amOnPage(\Page\CityCreate::URL());
         $I->wait(1);
         $I->fillField(\Page\CityCreate::$NameField, $name1);
@@ -156,21 +193,38 @@ class CityCreateCest
     
     public function CityCreate3_1_7_NameFieldNumberSymbols(\Step\Acceptance\City $I)
     {
-        $name  = $I->GenerateNameOf("34546");
+        $this->cityNameCheck = $name  = $I->GenerateNameOf("34546");
         $state = $this->state;
         $zips  = $I->GenerateZipCode();
+        
         $I->CreateCity($name, $state, $zips);
         $I->wait(1);
         $city = $I->GetCityOnPageInList($name);
         $I->amOnPage(\Page\CityUpdate::URL($city['id']));
         $I->CheckInFieldsOnCityUpdatePage($name);
+    }
+    
+    public function CityCreate3_1_7_1_CheckInProgramCreatePage_NameFieldNumberSymbols(\Step\Acceptance\City $I)
+    {
+        $name  = $this->cityNameCheck;
+        $state = $this->state;
+        
+        $I->wait(2);
+        $I->amOnPage(Page\ProgramCreate::URL());
+        $I->wait(2);
+        $I->selectOption(Page\ProgramCreate::$StateSelect, $state);
+        $I->wait(2);
+        $I->click(\Page\ProgramCreate::$CitySelect);
+        $I->wait(2);
+        $I->see($name, \Page\ProgramCreate::$CityOption);
     }
     
     public function CityCreate3_1_8_NameFieldPunctuationSymbols(\Step\Acceptance\City $I)
     {
-        $name  = $I->GenerateNameOf("+_)(*&^%$#@!`=-[]\';/.,<>?:{}|");
+        $this->cityNameCheck = $name  = $I->GenerateNameOf("+_)(*&^%$#@!`=-[]\';/.,<>?:{}|");
         $state = $this->state;
         $zips  = $I->GenerateZipCode();
+        
         $I->CreateCity($name, $state, $zips);
         $I->wait(1);
         $city = $I->GetCityOnPageInList($name);
@@ -178,16 +232,47 @@ class CityCreateCest
         $I->CheckInFieldsOnCityUpdatePage($name);
     }
     
+    public function CityCreate3_1_8_1_CheckInProgramCreatePage_NameFieldPunctuationSymbols(\Step\Acceptance\City $I)
+    {
+        $name  = $this->cityNameCheck;
+        $state = $this->state;
+        
+        $I->wait(2);
+        $I->amOnPage(Page\ProgramCreate::URL());
+        $I->wait(2);
+        $I->selectOption(Page\ProgramCreate::$StateSelect, $state);
+        $I->wait(2);
+        $I->click(\Page\ProgramCreate::$CitySelect);
+        $I->wait(2);
+        $I->see($name, \Page\ProgramCreate::$CityOption);
+    }
+    
     public function CityCreate3_1_9_NameFieldPunctuationSymbols(\Step\Acceptance\City $I)
     {
-        $name  = $I->GenerateNameOf('hh"gtg');
+        $this->cityNameCheck = $name  = $I->GenerateNameOf('hh"gtg');
         $state = $this->state;
         $zips  = $I->GenerateZipCode();
+        
         $I->CreateCity($name, $state, $zips);
         $I->wait(1);
         $city = $I->GetCityOnPageInList($name);
         $I->amOnPage(\Page\CityUpdate::URL($city['id']));
         $I->CheckInFieldsOnCityUpdatePage($name);
+    }
+    
+    public function CityCreate3_1_9_1_CheckInProgramCreatePage_NameFieldPunctuationSymbols(\Step\Acceptance\City $I)
+    {
+        $name  = $this->cityNameCheck;
+        $state = $this->state;
+        
+        $I->wait(2);
+        $I->amOnPage(Page\ProgramCreate::URL());
+        $I->wait(2);
+        $I->selectOption(Page\ProgramCreate::$StateSelect, $state);
+        $I->wait(2);
+        $I->click(\Page\ProgramCreate::$CitySelect);
+        $I->wait(2);
+        $I->see($name, \Page\ProgramCreate::$CityOption);
     }
     
     //--------------------------------------------------------------------------Zips Field-----------------------------------------------------------------------------------------
@@ -444,13 +529,13 @@ class CityCreateCest
         $I->assertEquals('2', $countOption);
     }
     
-    public function Help1_3_SelectDefaultAllStates(AcceptanceTester $I)
+    public function Help4_1_5_SelectDefaultAllStates(AcceptanceTester $I)
     {
         $I->wait(2);
         $I->SelectDefaultState($I, "All States");
     }
     
-    public function CityCreate4_1_5_CheckAllValues_StateSelect(\Step\Acceptance\City $I)
+    public function CityCreate4_1_6_CheckAllValues_StateSelect(\Step\Acceptance\City $I)
     {
         $state1     = $this->state;
         $I->amOnPage(\Page\CityCreate::URL());
@@ -467,8 +552,6 @@ class CityCreateCest
     
     //--------------------------------------------------------------------------Create Button---------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------Create Button-----------------------------------------------------------------------------------------
-    
     public function CityCreate5_1_1_CreateButtonPresent(\Step\Acceptance\City $I)
     {
         $I->amOnPage(\Page\CityCreate::URL());
@@ -494,7 +577,7 @@ class CityCreateCest
         $I->SelectDefaultState($I, $this->state);
     }
     
-    public function CityCreate5_1_3_CreateButtonFunction_NoWeighted(\Step\Acceptance\City $I)
+    public function CityCreate5_1_4_CreateButtonFunction_NoWeighted(\Step\Acceptance\City $I)
     {
         $name      = $I->GenerateNameOf("city");
         $state     = $this->state;
