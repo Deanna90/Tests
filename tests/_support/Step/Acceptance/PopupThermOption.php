@@ -40,10 +40,10 @@ class PopupThermOption extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\PopupThermOptionUpdate::$UpdateButton);
         if (isset($name)){
-            $I->seeInField(\Page\PopupThermOptionUpdate::$NameField, $name);
+            $I->canSeeInField(\Page\PopupThermOptionUpdate::$NameField, $name);
         }
         if (isset($thermsCount)){
-            $I->seeInField(\Page\PopupThermOptionUpdate::$ThermsCountField, $thermsCount);
+            $I->canSeeInField(\Page\PopupThermOptionUpdate::$ThermsCountField, $thermsCount);
         }
     }
     
@@ -95,13 +95,13 @@ class PopupThermOption extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\PopupThermOptionList::$CreatePopupThermsOptionButton);
         if (isset($name)){
-            $I->see($name, \Page\PopupThermOptionList::NameLine($row));
+            $I->canSee($name, \Page\PopupThermOptionList::NameLine($row));
         }
         if (isset($thermsCount)){
-            $I->see($thermsCount, \Page\PopupThermOptionList::ThermsCountLine($row));
+            $I->canSee($thermsCount, \Page\PopupThermOptionList::ThermsCountLine($row));
         }
         if (isset($status)){
-            $I->see($status, \Page\PopupThermOptionList::StatusLine($row));
+            $I->canSee($status, \Page\PopupThermOptionList::StatusLine($row));
         }
     }
 }

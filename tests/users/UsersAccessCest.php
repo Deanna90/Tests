@@ -3,10 +3,14 @@
 
 class UsersAccessCest
 {
-    public $state, $program1, $program2, $idState, $idCity1, $idCity2, $idProg2, $sector, $city1, $city2, $zip1, $zip2;
+    public $state, $program1, $program2, $idState, $idCity1, $idCity2, $idProg2, $sector_Coordinator, $sector_StateAdmin, $sector_Update, $city1, $city2, $zip1, $zip2;
     public $audSubgroup1_Energy;
     public $measureDesc1_Coordinator, $measureDesc2_Coordinator, $measureDesc3_Coordinator;
     public $idMeasure1_Coordinator, $idMeasure2_Coordinator, $idMeasure3_Coordinator;
+    public $measureDesc1_StateAdmin, $measureDesc2_StateAdmin, $measureDesc3_StateAdmin, $measureDesc4_StateAdmin, $measureDesc5_StateAdmin, $measureDesc6_StateAdmin, 
+            $measureDesc7_StateAdmin, $measureDesc8_StateAdmin, $measureDesc9_StateAdmin;
+    public $idMeasure1_StateAdmin, $idMeasure2_StateAdmin, $idMeasure3_StateAdmin, $idMeasure4_StateAdmin, $idMeasure5_StateAdmin, $idMeasure6_StateAdmin, 
+            $idMeasure7_StateAdmin, $idMeasure8_StateAdmin, $idMeasure9_StateAdmin;
     public $grTip1_Coordinator, $grTip2_Coordinator;
     public $statusesT1_Coordinator        = ['core',  'core',  'elective'];
     public $extensionsT1_Coordinator      = ['Default',         'Large Landscape',   'Default'];
@@ -255,7 +259,7 @@ class UsersAccessCest
     
     //-----------------------Coordinator Create Sector--------------------------
     public function Help1_3_CreateSector(\Step\Acceptance\Sector $I) {
-        $sector  = $this->sector = $I->GenerateNameOf("SectAccess");
+        $sector  = $this->sector_Coordinator = $I->GenerateNameOf("SectAcCoord");
         $state   = $this->state;
         $program = $this->program2;
         
@@ -684,4 +688,318 @@ class UsersAccessCest
         $I->canSee("Tier 1: $this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3));
     }
     
+    //--------------------------------------------------------------------------Login As State Admin------------------------------------------------------------------------------------
+    
+    public function Help1_LogOut_And_LogInAsStateAdmin2(AcceptanceTester $I)
+    {
+        $I->Logout($I);
+        $I->wait(1);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
+    }
+    
+    //-----------------------State Admin Create Sector--------------------------
+    public function StateAdmin_CreateSector(\Step\Acceptance\Sector $I) {
+        $sector  = $this->sector_StateAdmin = $I->GenerateNameOf("SectAcStateAdmin");
+        $state   = $this->state;
+        $program = $this->program1;
+        
+        $I->amOnPage(\Page\SectorCreate::URL()."?state_id=$this->idState");
+        $I->wait(2);
+        $I->waitForElement(\Page\SectorCreate::$NameField);
+        $I->fillField(\Page\SectorCreate::$NameField, $sector);
+        $I->selectOption(\Page\SectorCreate::$StateSelect, $state);
+        $I->wait(1);
+        $I->selectOption(\Page\SectorCreate::$ProgramSelect, $program);
+        $I->wait(1);
+        $I->click(\Page\SectorCreate::$CreateButton);
+        $I->wait(1);
+        $I->CheckValuesOnSectorListPage($sector, $program);
+    }
+    
+    public function StateAdmin_UpdateSectorCreatedByCoordinator(\Step\Acceptance\Sector $I) {
+        $sector  = $this->sector_StateAdmin = $I->GenerateNameOf("SectAcStateAdmin");
+        $newsectrorName = $this->sector_Update = "new_changed by state sdmin";
+        $program = $this->program2;
+        
+        $I->UpdateSector($sector, $program, $newsectrorName);
+        $I->wait(1);
+        $I->CheckValuesOnSectorListPage($newsectrorName, $program);
+        $I->cantSeeElement(Page\SectorList::NameLine_ByNameValue($sector, $program));
+    }
+    
+    //-------State Admin Create Quantitative & Not Quantitative Measures--------
+    public function StateAdmin_CreateMeasure_NotQuantitative_MultipleQuestions(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc1_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'no';
+        $submeasureType  = \Step\Acceptance\Measure::MultipleQuestion_MultipleAnswersSubmeasure;
+        $questions       = ['ques1?', 'ques2?', 'ques3?'];
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
+        $this->idMeasure1_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    public function StateAdmin_CreateMeasure_NotQuantitative_MultipleQuestionsAndNumber(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc2_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'no';
+        $submeasureType  = \Step\Acceptance\Measure::MultipleQuestionAndNumber_MultipleAnswersSubmeasure;
+        $questions       = ['What is your favourite color?'];
+        $answers         = ['Grey', 'Green', 'Red'];
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($this->measureDesc2_StateAdmin)); 
+        $this->idMeasure2_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+   
+    public function StateAdmin_CreateMeasure_NotQuantitative_WithoutSubmeasures(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc3_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'no';
+        $submeasureType  = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->wait(6);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(3);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $this->idMeasure3_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    public function StateAdmin_CreateMeasure_Quantitative_MultipleQuestionsAndNumber(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc4_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'yes';
+        $submeasureType  = \Step\Acceptance\Measure::MultipleQuestionAndNumber_QuantitativeSubmeasure;
+        $questions       = ['What color?'];
+        $answers         = ['Grey', 'Green', 'Red'];
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
+        $this->idMeasure4_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    public function StateAdmin_CreateMeasure_Quantitative_Number(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc5_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'yes';
+        $submeasureType  = \Step\Acceptance\Measure::Number_QuantitativeSubmeasure;
+        $questions       = ['What', "Where"];
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
+        $this->idMeasure5_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    public function StateAdmin_CreateMeasure_Quantitative_ThermsPopup(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc6_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'yes';
+        $submeasureType  = \Step\Acceptance\Measure::PopupTherms_QuantitativeSubmeasure;
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
+        $this->idMeasure6_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    public function StateAdmin_CreateMeasure_Quantitative_LightingPopup(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc7_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'yes';
+        $submeasureType  = \Step\Acceptance\Measure::PopupLighting_QuantitativeSubmeasure;
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
+        $this->idMeasure7_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    public function StateAdmin_CreateMeasure_Quantitative_WasteDiversionPopup(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc8_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'yes';
+        $submeasureType  = \Step\Acceptance\Measure::PopupWasteDivertion_QuantitativeSubmeasure;
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
+        $this->idMeasure8_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    public function StateAdmin_CreateMeasure_Quantitative_WithoutSubmeasures(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc9_StateAdmin = $I->GenerateNameOf("Description Created by State Admin");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'yes';
+        $submeasureType  = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
+        $this->idMeasure9_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    //-----------------State Admin create Green Tips for measures---------------
+//    public function StateAdmin_CreateGreenTipForMeasure1(\Step\Acceptance\GreenTipForMeasure $I) {
+//        $descMeasure = $this->measureDesc1_Coordinator;
+//        $descGT      = $this->grTip1_Coordinator = $I->GenerateNameOf("GT1_Coordinator");
+//        $program     = [$this->program2];
+//        
+//        $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure1_Coordinator));
+//        $I->wait(2);
+//        $I->CreateMeasureGreenTip($descGT, $program);
+//        $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure1_Coordinator));
+//        $I->wait(2);
+//        $I->see($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
+//    }
+//    
+//    public function StateAdmin_CreateGreenTipForMeasure2(\Step\Acceptance\GreenTipForMeasure $I) {
+//        $descMeasure = $this->measureDesc2_Coordinator;
+//        $descGT      = $this->grTip2_Coordinator = $I->GenerateNameOf("GT2_Coordinator");
+//        $program     = [$this->program2];
+//        
+//        $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure2_Coordinator));
+//        $I->wait(2);
+//        $I->CreateMeasureGreenTip($descGT, $program);
+//        $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure2_Coordinator));
+//        $I->wait(2);
+//        $I->see($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
+//    }
+//    
+//    //------------------State Admin create Checklist For Tier 1-----------------
+//    public function StateAdmin_CreateChecklistForTier1_MeasuresAreAbsent(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
+//        $programDestination = $this->program2;
+//        $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
+//        $tier               = '1';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        
+//        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->cantSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
+//        $I->cantSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
+//        $I->cantSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
+//    }
+//    
+//    //-------------------------State Admin activate Tier 1----------------------
+//    public function StateAdmin_ActivateAndUpdateTier1(\Step\Acceptance\Tier $I) {
+//        $program    = $this->program2;
+//        $tier1      = '1';
+//        $tier1Name  = $this->tier1Name = "tiername1_StateAdmin";
+//        $tier1Desc  = 'tier desc update by State Admin';
+//        $tier1OptIn = 'yes';
+//        
+//        $I->amOnPage(Page\TierManage::URL());
+//        $I->wait(1);
+//        $I->canSee($program, Page\TierManage::$ProgramOption);
+//        $I->cantSee($this->program1, Page\TierManage::$ProgramOption);
+//        $I->selectOption(Page\TierManage::$ProgramSelect, $program);
+//        $I->wait(2);
+//        $I->canSee('Tier 1', Page\TierManage::$Tier1Button_LeftMenu);
+//        $I->canSee('Tier 2', Page\TierManage::$Tier2Button_LeftMenu);
+//        $I->canSee('Tier 3', Page\TierManage::$Tier3Button_LeftMenu);
+//        $I->ManageTiers($program, $tier1='1', $tier1Name, $tier1Desc, $tier1OptIn);
+//    }
+//    
+//    //---------------------State Admin create Inspector-------------------------
+//    
+//    public function StateAdmin_CreateInspectorUser(Step\Acceptance\User $I)
+//    {
+//        $userType  = Page\UserCreate::inspectorType;
+//        $email     = $this->emailInspector = $I->GenerateEmail();
+//        $firstName = $I->GenerateNameOf('firnam');
+//        $lastName  = $I->GenerateNameOf('lastnam');
+//        $password  = $confirmPassword = $this->password;
+//        $phone     = $I->GeneratePhoneNumber();
+//        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
+//        $I->reloadPage();
+//        $I->reloadPage();
+//        $I->wait(1);
+//        $I->canSee($this->state, \Page\UserUpdate::$State);
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
+//        $I->wait(1);
+//    }
+//    
+//    //------------------------State Admin create Auditor------------------------
+//    
+//    public function StateAdmin_CreateAuditorUser(Step\Acceptance\User $I)
+//    {
+//        $userType  = Page\UserCreate::auditorType;
+//        $email     = $this->emailAuditor = $I->GenerateEmail();
+//        $firstName = $I->GenerateNameOf('firnam');
+//        $lastName  = $I->GenerateNameOf('lastnam');
+//        $password  = $confirmPassword = $this->password;
+//        $phone     = $I->GeneratePhoneNumber();
+//        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
+//        $I->reloadPage();
+//        $I->wait(1);
+//        $I->canSee($this->state, \Page\UserUpdate::$State);
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
+//        $I->wait(1);
+//    }
+//    
+//    //------------------State Admin create Checklist For Tier 1-----------------
+//    public function StateAdmin_CreateChecklistForTier1(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
+//        $programDestination = $this->program2;
+//        $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
+//        $tier               = '1';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        
+//        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
+//        $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
+//        $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
+//        $I->ManageChecklist($descs, $this->statusesT1_Coordinator, $this->extensionsT1_Coordinator);
+//        $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesT1_Coordinator, $this->extensionsT1_Coordinator);
+//        $I->reloadPage();
+//        $I->PublishChecklistStatus();
+//    }
+//    
+//    public function Help1_16_LogOut(AcceptanceTester $I) {
+//        $I->amOnPage(Page\MeasureList::URL());
+//        $I->wait(1);
+//        $I->Logout($I);
+//    }
 }

@@ -13,7 +13,7 @@ class WeightPoints extends \AcceptanceTester
             $I->fillField(\Page\WeightPointsCreate::$NameField, $name);
         }
         if (isset($type)){
-            $I->seeOptionIsSelected(\Page\WeightPointsCreate::$TypeSelect, "Yes/No");
+            $I->canSeeOptionIsSelected(\Page\WeightPointsCreate::$TypeSelect, "Yes/No");
         }
         if (isset($points)){
             $I->fillField(\Page\WeightPointsCreate::$PointsField, $points);
@@ -32,7 +32,7 @@ class WeightPoints extends \AcceptanceTester
             $I->fillField(\Page\WeightPointsCreate::$NameField, $name);
         }
         if (isset($type)){
-            $I->seeOptionIsSelected(\Page\WeightPointsCreate::$TypeSelect, "Sections");
+            $I->canSeeOptionIsSelected(\Page\WeightPointsCreate::$TypeSelect, "Sections");
         }
         if (isset($sections)){
             $I->fillField(\Page\WeightPointsCreate::$SectionsField, $sections);

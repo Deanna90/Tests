@@ -3,24 +3,16 @@ namespace Page;
 
 class SectorRenameWindow
 {
-    // include url of current page
-    public static $URL = '';
-
-    /**
-     * Declare UI map for this page here. CSS or XPath allowed.
-     * public static $usernameField = '#username';
-     * public static $formSubmitButton = "#mainForm input[type=submit]";
-     */
-
-    /**
-     * Basic route example for your current URL
-     * You can append any additional parameter to URL
-     * and use it in tests like: Page\Edit::route('/123-post');
-     */
-    public static function route($param)
-    {
-        return static::$URL.$param;
-    }
+    public static $RenameWindow = '.modal.in';
+    public static $Title        = '.modal.in h2';
+    
+    public static $NameField    = '.modal.in #sector-name';
+    
+    public static $NameLabel    = '.modal.in [for=sector-name]';
+    
+    public static $UpdateButton = '.modal.in button[type=submit]';
+    public static $CloseButton  = '.modal.in .close';
+    
 
 
 }

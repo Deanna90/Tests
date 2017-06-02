@@ -319,17 +319,17 @@ class Measure extends \AcceptanceTester
         $I->amOnPage(\Page\MeasureList::URL());
         $I->wait(2);
         if (isset($desc)){
-            $I->see($desc, \Page\MeasureList::DescriptionLine($row));
+            $I->canSee($desc, \Page\MeasureList::DescriptionLine($row));
         }
         if (isset($status)){
-            $I->see($status, \Page\MeasureList::StatusLine($row));
+            $I->canSee($status, \Page\MeasureList::StatusLine($row));
         }
         switch ($quantitative){
             case 'yes':
-                $I->see('Yes', \Page\MeasureList::StatusLine($row));
+                $I->canSee('Yes', \Page\MeasureList::StatusLine($row));
                 break;
             case 'no':
-                $I->see('No', \Page\MeasureList::StatusLine($row));
+                $I->canSee('No', \Page\MeasureList::StatusLine($row));
                 break;
             case 'ignore':
                 break;
@@ -433,7 +433,7 @@ class Measure extends \AcceptanceTester
             $I->fillField(\Page\MeasureUpdate::$PointsField, $points);
         }
         if (isset($state)){
-            $I->seeOptionIsSelected(\Page\MeasureUpdate::$StateDisableSelect, $state);
+            $I->canSeeOptionIsSelected(\Page\MeasureUpdate::$StateDisableSelect, $state);
         }
         $I->click(\Page\MeasureUpdate::$UpdateButton);
         $I->wait(1);

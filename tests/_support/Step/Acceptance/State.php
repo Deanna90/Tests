@@ -70,14 +70,14 @@ class State extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\StateUpdate::$UpdateButton);
         if (isset($name)){
-            $I->seeInField(\Page\StateUpdate::$NameField, $name);
-            $I->see("Update State: $name", \Page\StateUpdate::$Title);
+            $I->canSeeInField(\Page\StateUpdate::$NameField, $name);
+            $I->canSee("Update State: $name", \Page\StateUpdate::$Title);
         }
         if (isset($shortName)){
-            $I->seeInField(\Page\StateUpdate::$ShortNameField, $shortName);
+            $I->canSeeInField(\Page\StateUpdate::$ShortNameField, $shortName);
         }
         if (isset($weighted)){
-            $I->seeOptionIsSelected(\Page\StateUpdate::$WeightedSelect, $weighted);
+            $I->canSeeOptionIsSelected(\Page\StateUpdate::$WeightedSelect, $weighted);
         }
     }
     
@@ -150,22 +150,22 @@ class State extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\StateList::$CreateStateButton);
         if (isset($name)){
-            $I->see($name, \Page\StateList::NameLine($row));
+            $I->canSee($name, \Page\StateList::NameLine($row));
         }
         if (isset($shortName)){
-            $I->see($shortName, \Page\StateList::ShortNameLine($row));
+            $I->canSee($shortName, \Page\StateList::ShortNameLine($row));
         }
         if (isset($weighted)){
-            $I->see($weighted, \Page\StateList::WeightedLine($row));
+            $I->canSee($weighted, \Page\StateList::WeightedLine($row));
         }
         if (isset($createdDate)){
-            $I->see($createdDate, \Page\StateList::CreatedLine($row));
+            $I->canSee($createdDate, \Page\StateList::CreatedLine($row));
         }
         if (isset($updatedDate)){
-            $I->see($updatedDate, \Page\StateList::CreatedLine($row));
+            $I->canSee($updatedDate, \Page\StateList::CreatedLine($row));
         }
         if (isset($status)){
-            $I->see($status, \Page\StateList::StatusLine($row));
+            $I->canSee($status, \Page\StateList::StatusLine($row));
         }
     }
 }

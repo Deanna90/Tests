@@ -1,22 +1,24 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="VTEtWUVvSF8iXloUFlp.LmJiRRZ9DHhnZFBOKAgHfCc8AVkvdTUAbA==" />
+    <meta name="csrf-token" content="TnNyRGh1Rld2Ih0uMioMJg8sEAceIzU8LEIQJScXBAMcR0EeLUYzBg==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
-    <title>GreenBiz - Login Site</title>
-    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-<link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
+    <title>Create Green Tip</title>
+    <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
+<link href="/assets/6dbd1208/chosen.bootstrap.css" rel="stylesheet" />
+<link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
+<link href="/leaflet/leaflet.css" rel="stylesheet" />
 <link href="/css/chosen.min.css" rel="stylesheet" />
 <link href="/css/switch.jquery.css" rel="stylesheet" />
 <link href="/css/style.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
-    </head>
+    <style>.cke{visibility:hidden;}</style><script type="text/javascript" src="http://gb-dev.pier2marketing.com/assets/a8119c8c/config.js?t=H0CF"></script><link rel="stylesheet" type="text/css" href="http://gb-dev.pier2marketing.com/assets/a8119c8c/skins/moono-lisa/editor.css?t=H0CF" /><script type="text/javascript" src="http://gb-dev.pier2marketing.com/assets/a8119c8c/lang/en.js?t=H0CF"></script><script type="text/javascript" src="http://gb-dev.pier2marketing.com/assets/a8119c8c/styles.js?t=H0CF"></script><link rel="stylesheet" type="text/css" href="http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/scayt/skins/moono-lisa/scayt.css" /><link rel="stylesheet" type="text/css" href="http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/wsc/skins/moono-lisa/wsc.css" /></head>
 <body>
     <div id="main_page_container">
-        <!-- user_id: guest -->
+        <!-- user_id: 5350 -->
 <div class="container">
     <header class="clear">
         <div class="header-logo">
@@ -24,53 +26,68 @@
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
                     <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
-                                                    <a class="btn btn-default logout ajax" href="/site/login">Login</a>                                            </div>
+                                                    <form class="no-ajax" action="/site/logout" method="post">
+<input type="hidden" name="_csrf" value="TnNyRGh1Rld2Ih0uMioMJg8sEAceIzU8LEIQJScXBAMcR0EeLUYzBg==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
                 </div>
             </div>
         </div>
 
         
-                    </header>
+                    <div class="horizontal-nav">
+                <div class="responsive-menu1">
+                    <button class="hamburger1" style="display: block;">☰</button>
+                    <button class="cross1" style="display: none;">˟</button>
+                </div>
+                                                        <ul id="w2" class="nav-pills navbar-default menu1 nav"><li><a href="/state-admin/default/index" class="ajax">Dashboard</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Programs <b class="caret"></b></a><ul id="w3" class="dropdown-menu"><li><a href="/state-admin/program/index" tabindex="-1" class="ajax">Programs</a></li>
+<li><a href="/state-admin/city/index" tabindex="-1" class="ajax">Cities</a></li>
+<li><a href="/state-admin/sector/list" tabindex="-1" class="ajax">Sectors</a></li></ul></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Measures <b class="caret"></b></a><ul id="w4" class="dropdown-menu"><li><a href="/state-admin/measure/index" tabindex="-1" class="ajax">Measures</a></li>
+<li><a href="/state-admin/global-variable/index" tabindex="-1" class="ajax">Global Variables</a></li></ul></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Green Tips <b class="caret"></b></a><ul id="w5" class="dropdown-menu"><li><a href="/state-admin/green-tip/index" tabindex="-1" class="ajax">Measures</a></li>
+<li><a href="/state-admin/audit-green-tip/index" tabindex="-1" class="ajax">Audit Groups</a></li></ul></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Checklists <b class="caret"></b></a><ul id="w6" class="dropdown-menu"><li><a href="/state-admin/essential-criteria/index" tabindex="-1" class="ajax">EC</a></li>
+<li><a href="/state-admin/checklist/list" tabindex="-1" class="ajax">Checklists</a></li></ul></li>
+<li><a href="/state-admin/tier/manage" class="ajax">Tiers</a></li>
+<li><a href="/state-admin/notification/index" class="ajax">Notification</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Users <b class="caret"></b></a><ul id="w7" class="dropdown-menu"><li><a href="/state-admin/user/index?type=5" tabindex="-1" class="ajax">Coordinators</a></li>
+<li><a href="/state-admin/user/index?type=7" tabindex="-1" class="ajax">Auditors</a></li>
+<li><a href="/state-admin/user/index?type=3" tabindex="-1" class="ajax">Inspectors</a></li></ul></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">StateMGTeunf <b class="caret"></b></a><ul id="w8" class="scrollable-menu dropdown-menu"><li><a href="/base/set-state?state_id=542" tabindex="-1" class="ajax">StateMGTeunf</a></li></ul></li></ul>                
+            </div>
+                <ul class="breadcrumb"><li><a href="/state-admin/default/index" class="ajax">Home</a></li>
+<li><a href="/state-admin/green-tip/index" class="ajax">Green Tips</a></li>
+<li class="active">Create Green Tip</li>
+</ul>    </header>
 
-    <div class="site-login">
-    <h1>GreenBiz - Login Site</h1>
+    <div class="green-tip-create">
 
-    <p>Please fill out the following fields to login:</p>
+    <h1>Create Green Tip</h1>
 
-    <form id="login-form" class="no-ajax form-horizontal" action="/site/login" method="post">
-<input type="hidden" name="_csrf" value="VTEtWUVvSF8iXloUFlp.LmJiRRZ9DHhnZFBOKAgHfCc8AVkvdTUAbA==" />
-        <div class="form-group field-loginform-email required">
-<label class="col-lg-1 control-label" for="loginform-email">Email</label>
-<div class="col-lg-3"><input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" /></div>
-<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
-</div>
-        <div class="form-group field-loginform-password required">
-<label class="col-lg-1 control-label" for="loginform-password">Password</label>
-<div class="col-lg-3"><input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" /></div>
-<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
-</div>
-        <div class="form-group field-loginform-rememberme">
-<div class="col-sm-6 col-sm-offset-3">
-<div class="checkbox">
-<label for="loginform-rememberme">
-<input type="hidden" name="LoginForm[rememberMe]" value="0" /><input type="checkbox" id="loginform-rememberme" name="LoginForm[rememberMe]" value="1" checked="" />
-Remember Me
-</label>
-</div>
-<div class="help-block help-block-error "></div>
-</div>
+    
+<div class="green-tip-form">
 
-</div>
-        <div class="form-group">
-            <a href="/site/request-password-reset" class="ajax">Forgot password?</a>
-        </div>
+    <form id="w0" action="/state-admin/green-tip/create?measure_id=5019" method="post" class="ajax">
+<input type="hidden" name="_csrf" value="TnNyRGh1Rld2Ih0uMioMJg8sEAceIzU8LEIQJScXBAMcR0EeLUYzBg==" />
+    <div class="form-group field-greentip-description">
+<label class="control-label" for="greentip-description">Description</label>
+<textarea id="greentip-description" name="GreenTip[description]" rows="6" style="visibility: hidden; display: none;"></textarea><div id="cke_greentip-description" class="cke_1 cke cke_reset cke_chrome cke_editor_greentip-description cke_ltr cke_browser_webkit" dir="ltr" lang="en" role="application" aria-labelledby="cke_greentip-description_arialbl"><span id="cke_greentip-description_arialbl" class="cke_voice_label">Rich Text Editor, greentip-description</span><div class="cke_inner cke_reset" role="presentation"><span id="cke_1_top" class="cke_top cke_reset_all" role="presentation" style="height: auto; user-select: none;"><span id="cke_7" class="cke_voice_label">Editor toolbars</span><span id="cke_1_toolbox" class="cke_toolbox" role="group" aria-labelledby="cke_7" onmousedown="return false;"><span id="cke_8" class="cke_toolbar" aria-labelledby="cke_8_label" role="toolbar"><span id="cke_8_label" class="cke_voice_label">undo</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_9" class="cke_button cke_button__undo cke_button_disabled " href="javascript:void('Undo')" title="Undo (⌘+Z)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_9_label" aria-describedby="cke_9_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(1,event);" onfocus="return CKEDITOR.tools.callFunction(2,event);" onclick="CKEDITOR.tools.callFunction(3,this);return false;"><span class="cke_button_icon cke_button__undo_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -2256px;background-size:auto;"> </span><span id="cke_9_label" class="cke_button_label cke_button__undo_label" aria-hidden="false">Undo</span><span id="cke_9_description" class="cke_button_label" aria-hidden="false">Keyboard shortcut Command+Z</span></a><a id="cke_10" class="cke_button cke_button__redo cke_button_disabled " href="javascript:void('Redo')" title="Redo (⌘+Y)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_10_label" aria-describedby="cke_10_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(4,event);" onfocus="return CKEDITOR.tools.callFunction(5,event);" onclick="CKEDITOR.tools.callFunction(6,this);return false;"><span class="cke_button_icon cke_button__redo_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -2208px;background-size:auto;"> </span><span id="cke_10_label" class="cke_button_label cke_button__redo_label" aria-hidden="false">Redo</span><span id="cke_10_description" class="cke_button_label" aria-hidden="false">Keyboard shortcut Command+Y</span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_11" class="cke_toolbar" aria-labelledby="cke_11_label" role="toolbar"><span id="cke_11_label" class="cke_voice_label">Basic Styles</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_12" class="cke_button cke_button__bold cke_button_off" href="javascript:void('Bold')" title="Bold (⌘+B)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_12_label" aria-describedby="cke_12_description" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(7,event);" onfocus="return CKEDITOR.tools.callFunction(8,event);" onclick="CKEDITOR.tools.callFunction(9,this);return false;"><span class="cke_button_icon cke_button__bold_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -24px;background-size:auto;"> </span><span id="cke_12_label" class="cke_button_label cke_button__bold_label" aria-hidden="false">Bold</span><span id="cke_12_description" class="cke_button_label" aria-hidden="false">Keyboard shortcut Command+B</span></a><a id="cke_13" class="cke_button cke_button__italic cke_button_off" href="javascript:void('Italic')" title="Italic (⌘+I)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_13_label" aria-describedby="cke_13_description" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(10,event);" onfocus="return CKEDITOR.tools.callFunction(11,event);" onclick="CKEDITOR.tools.callFunction(12,this);return false;"><span class="cke_button_icon cke_button__italic_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -48px;background-size:auto;"> </span><span id="cke_13_label" class="cke_button_label cke_button__italic_label" aria-hidden="false">Italic</span><span id="cke_13_description" class="cke_button_label" aria-hidden="false">Keyboard shortcut Command+I</span></a><a id="cke_14" class="cke_button cke_button__underline cke_button_off" href="javascript:void('Underline')" title="Underline (⌘+U)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_14_label" aria-describedby="cke_14_description" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(13,event);" onfocus="return CKEDITOR.tools.callFunction(14,event);" onclick="CKEDITOR.tools.callFunction(15,this);return false;"><span class="cke_button_icon cke_button__underline_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -144px;background-size:auto;"> </span><span id="cke_14_label" class="cke_button_label cke_button__underline_label" aria-hidden="false">Underline</span><span id="cke_14_description" class="cke_button_label" aria-hidden="false">Keyboard shortcut Command+U</span></a><a id="cke_15" class="cke_button cke_button__strike cke_button_off" href="javascript:void('Strikethrough')" title="Strikethrough" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_15_label" aria-describedby="cke_15_description" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(16,event);" onfocus="return CKEDITOR.tools.callFunction(17,event);" onclick="CKEDITOR.tools.callFunction(18,this);return false;"><span class="cke_button_icon cke_button__strike_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -72px;background-size:auto;"> </span><span id="cke_15_label" class="cke_button_label cke_button__strike_label" aria-hidden="false">Strikethrough</span><span id="cke_15_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_16" class="cke_button cke_button__removeformat cke_button_off" href="javascript:void('Remove Format')" title="Remove Format" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_16_label" aria-describedby="cke_16_description" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(19,event);" onfocus="return CKEDITOR.tools.callFunction(20,event);" onclick="CKEDITOR.tools.callFunction(21,this);return false;"><span class="cke_button_icon cke_button__removeformat_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -1800px;background-size:auto;"> </span><span id="cke_16_label" class="cke_button_label cke_button__removeformat_label" aria-hidden="false">Remove Format</span><span id="cke_16_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_17" class="cke_toolbar cke_toolbar_last" aria-labelledby="cke_17_label" role="toolbar"><span id="cke_17_label" class="cke_voice_label">Links</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_18" class="cke_button cke_button__link cke_button_off" href="javascript:void('Link')" title="Link (⌘+L)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_18_label" aria-describedby="cke_18_description" aria-haspopup="false" onkeydown="return CKEDITOR.tools.callFunction(22,event);" onfocus="return CKEDITOR.tools.callFunction(23,event);" onclick="CKEDITOR.tools.callFunction(24,this);return false;"><span class="cke_button_icon cke_button__link_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -1320px;background-size:auto;"> </span><span id="cke_18_label" class="cke_button_label cke_button__link_label" aria-hidden="false">Link</span><span id="cke_18_description" class="cke_button_label" aria-hidden="false">Keyboard shortcut Command+L</span></a><a id="cke_19" class="cke_button cke_button__unlink cke_button_disabled " href="javascript:void('Unlink')" title="Unlink" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_19_label" aria-describedby="cke_19_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(25,event);" onfocus="return CKEDITOR.tools.callFunction(26,event);" onclick="CKEDITOR.tools.callFunction(27,this);return false;"><span class="cke_button_icon cke_button__unlink_icon" style="background-image:url('http://gb-dev.pier2marketing.com/assets/a8119c8c/plugins/icons.png?t=H0CF');background-position:0 -1344px;background-size:auto;"> </span><span id="cke_19_label" class="cke_button_label cke_button__unlink_label" aria-hidden="false">Unlink</span><span id="cke_19_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span></span></span><div id="cke_1_contents" class="cke_contents cke_reset" role="presentation" style="height: 200px;"><span id="cke_23" class="cke_voice_label">Press ALT 0 for help</span><iframe src="" frameborder="0" class="cke_wysiwyg_frame cke_reset" title="Rich Text Editor, greentip-description" aria-describedby="cke_23" tabindex="0" allowtransparency="true" style="width: 100%; height: 100%;" cd_frame_id_="2d4889ec320cae325294c1d95e5cf624"></iframe></div></div></div>
 
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11 margin_top3p">
-                <button type="submit" class="btn btn-primary" name="login-button">Login</button>            </div>
-        </div>
+<div class="help-block"></div>
+</div>
+    <div class="form-group no-ajax field-greentip-program_ids required">
+<label class="control-label" for="greentip-program_ids">Program</label>
+<select id="greentip-program_ids" name="GreenTip[program_ids][]" multiple="" size="4" aria-required="true" style="display: none;">
+
+</select><div class="chosen-container chosen-container-multi chosen-with-drop chosen-container-active" style="width: 150px;" title="" id="greentip_program_ids_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Select some options" class="default" autocomplete="off" style="width: 28px;" /></li></ul><div class="chosen-drop"><ul class="chosen-results"><li class="no-results">No results match "<span>;</span>"</li></ul></div></div>
+
+<div class="help-block"></div>
+</div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Create</button>    </div>
 
     </form>
+</div>
 
 </div>
 
@@ -103,38 +120,38 @@ Remember Me
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=58f881651c95d">
+    <a href="/debug/default/view?panel=config&amp;tag=59301730dc113">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=58f881651c95d" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=58f881651c95d" title="Action: app\controllers\SiteController::actionLogin()">Route <span class="yii-debug-toolbar__label">site/login</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=59301730dc113" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=59301730dc113" title="Action: app\modules\stateadmin\controllers\GreenTipController::actionCreate()">Route <span class="yii-debug-toolbar__label">state-admin/green-tip/create</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=58f881651c95d" title="Logged 14 messages">Log
-        <span class="yii-debug-toolbar__label">14</span>
+    <a href="/debug/default/view?panel=log&amp;tag=59301730dc113" title="Logged 40 messages">Log
+        <span class="yii-debug-toolbar__label">40</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=58f881651c95d" title="Total request processing time was 68 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">68 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=58f881651c95d" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9.165 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=59301730dc113" title="Total request processing time was 99 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">99 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=59301730dc113" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">11.214 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=58f881651c95d" title="Executed 1 database queries which took 0 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span> <span class="yii-debug-toolbar__label">0 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=59301730dc113" title="Executed 25 database queries which took 7 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">25</span> <span class="yii-debug-toolbar__label">7 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=58f881651c95d" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=59301730dc113" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">15</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user">
-                    <span class="yii-debug-toolbar__label">Guest</span>
+    <a href="/debug/default/view?panel=user&amp;tag=59301730dc113">
+                    User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">5350</span>
             </a>
 </div>
                             
@@ -790,18 +807,30 @@ a.yii-debug-toolbar__label:focus {
 
 })();</script><script src="/assets/6b040846/jquery.js"></script>
 <script src="/assets/a83e0e94/yii.js"></script>
+<script src="/assets/a8119c8c/ckeditor.js"></script>
+<script src="/assets/a8119c8c/adapters/jquery.js"></script>
+<script src="/assets/d2bdffe5/dosamigos-ckeditor.widget.js"></script>
 <script src="/assets/a83e0e94/yii.validation.js"></script>
+<script src="/assets/47ae45c4/chosen.jquery.min.js"></script>
 <script src="/assets/a83e0e94/yii.activeForm.js"></script>
 <script src="/assets/5463e113/jquery-ui.js"></script>
 <script src="/assets/7942af6b/js/bootstrap.js"></script>
 <script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
-<script src="/assets/ee2108e6/jquery.inputmask.bundle.js"></script>
+<script src="/assets/cbe07863/jquery.inputmask.bundle.js"></script>
+<script src="/leaflet/leaflet.js"></script>
+<script src="/leaflet/lib.shp/catiline.js"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
+<script src="/js/jquery.form.min.js"></script>
 <script src="/js/app.js"></script>
-<script src="/js/global.prod.js"></script>
+<script src="/js/masteradmin/global.js"></script>
+<script src="/js/stateadmin/global.js"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
-jQuery('#login-form').yiiActiveForm([{"id":"loginform-email","name":"email","container":".field-loginform-email","input":"#loginform-email","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});}},{"id":"loginform-password","name":"password","container":".field-loginform-password","input":"#loginform-password","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});}},{"id":"loginform-rememberme","name":"rememberMe","container":".field-loginform-rememberme","input":"#loginform-rememberme","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.boolean(value, messages, {"trueValue":"1","falseValue":"0","message":"Remember Me must be either \"1\" or \"0\".","skipOnEmpty":1});}}], []);
+CKEDITOR.replace('greentip-description', {"height":200,"toolbarGroups":[{"name":"undo"},{"name":"basicstyles","groups":["basicstyles","cleanup"]},{"name":"colors"},{"name":"links","groups":["link"]}],"removeButtons":"Subscript,Superscript,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Anchor","removePlugins":"elementspath","resize_enabled":false});
+dosamigos.ckEditorWidget.registerOnChangeHandler('greentip-description');
+jQuery('#greentip-program_ids').chosen({"disable_search_threshold":10,"placeholder_text_single":"Select an option","placeholder_text_multiple":"Select some options","no_results_text":"No results match"});
+jQuery('#w0').yiiActiveForm([{"id":"greentip-description","name":"description","container":".field-greentip-description","input":"#greentip-description","validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"Description must be a string.","skipOnEmpty":1});}},{"id":"greentip-program_ids","name":"program_ids","container":".field-greentip-program_ids","input":"#greentip-program_ids","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Program Ids cannot be blank."});}}], []);
 });</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -818,7 +847,7 @@ jQuery('#login-form').yiiActiveForm([{"id":"loginform-email","name":"email","con
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"GreenBiz - Login Site","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/ee2108e6\/jquery.inputmask.bundle.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/ee2108e6\/jquery.inputmask.bundle.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
+        app.pageTools.setInitialPageData({"title":"Create Green Tip","loadedAssets":{"js":["\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/47ae45c4\/chosen.jquery.min.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/jquery.form.min.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/js\/stateadmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/assets\/6dbd1208\/chosen.bootstrap.css","\/assets\/7942af6b\/css\/bootstrap.css","\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/47ae45c4\/chosen.jquery.min.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/jquery.form.min.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/js\/stateadmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/assets\/6dbd1208\/chosen.bootstrap.css","\/assets\/7942af6b\/css\/bootstrap.css","\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 

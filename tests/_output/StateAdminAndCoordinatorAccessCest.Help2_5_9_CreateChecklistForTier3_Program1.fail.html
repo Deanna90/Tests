@@ -1,17 +1,18 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="UWZDNTBQS3cgKBVwfRMBJwEuEwBEYCA8MDMHZEhgLxUFDC92SGIFFQ==" />
+    <meta name="csrf-token" content="RlozdHdnSVZ.C1weLTgDJwcFUTcBMTo9JGtRFTgFCwIUbgAuMlQ8Bw==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
-    <title>Manage Tier 3</title>
+    <title>Create New Checklist</title>
     <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
-<link href="/assets/dbb4b7cb/css/dependent-dropdown.css" rel="stylesheet" />
+<link href="/assets/eb0a4553/css/dependent-dropdown.css" rel="stylesheet" />
 <link href="/assets/f016074/css/kv-widgets.css" rel="stylesheet" />
 <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
+<link href="/leaflet/leaflet.css" rel="stylesheet" />
 <link href="/css/chosen.min.css" rel="stylesheet" />
 <link href="/css/style.css" rel="stylesheet" />
 <link href="/css/switch.jquery.css" rel="stylesheet" />
@@ -26,8 +27,10 @@ window.depdrop_940cdcac = {"depends":["target-program-id"],"placeholder":"Select
 window.depdrop_b0bf3f21 = {"depends":["target-program-id"],"placeholder":"Select...","url":"\/master-admin\/ajax\/sub-checklists-by-program"};
 </script>    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
     <style>.cke{visibility:hidden;}</style></head>
-<body class="">
-    <div id="main_page_container"><div class="container">
+<body>
+    <div id="main_page_container">
+        <!-- user_id: 1 -->
+<div class="container">
     <header class="clear">
         <div class="header-logo">
             <div class="">
@@ -35,19 +38,23 @@ window.depdrop_b0bf3f21 = {"depends":["target-program-id"],"placeholder":"Select
                 <div class="user-navigation">
                     <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
                                                     <form class="no-ajax" action="/site/logout" method="post">
-<input type="hidden" name="_csrf" value="Vzkyb1pMZkYmd2QqFw8sFgdxYloufA0NNmx2PiJ8AiQDU14sIn4oJA==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
+<input type="hidden" name="_csrf" value="RlozdHdnSVZ.C1weLTgDJwcFUTcBMTo9JGtRFTgFCwIUbgAuMlQ8Bw==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
                 </div>
             </div>
         </div>
+
+        
                     <div class="horizontal-nav">
                 <div class="responsive-menu1">
                     <button class="hamburger1" style="display: block;">☰</button>
                     <button class="cross1" style="display: none;">˟</button>
                 </div>
-                                    <ul id="w2" class="nav-pills navbar-default menu1 nav"><li><a href="/master-admin/default/index" class="ajax">Dashboard</a></li>
+                                                        <ul id="w2" class="nav-pills navbar-default menu1 nav"><li><a href="/master-admin/default/index" class="ajax">Dashboard</a></li>
 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Programs <b class="caret"></b></a><ul id="w3" class="dropdown-menu"><li><a href="/master-admin/program/index" tabindex="-1" class="ajax">Programs</a></li>
 <li><a href="/master-admin/city/index" tabindex="-1" class="ajax">Cities</a></li>
-<li><a href="/master-admin/sector/list" tabindex="-1" class="ajax">Sectors</a></li></ul></li>
+<li><a href="/master-admin/sector/list" tabindex="-1" class="ajax">Sectors</a></li>
+<li><a href="/master-admin/landing-map-program/index" tabindex="-1" class="ajax">Source Programs</a></li>
+<li><a href="/master-admin/audit-group/index" tabindex="-1" class="ajax">Audit Groups</a></li></ul></li>
 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Measures <b class="caret"></b></a><ul id="w4" class="dropdown-menu"><li><a href="/master-admin/measure/index" tabindex="-1" class="ajax">Measures</a></li>
 <li><a href="/master-admin/popup-therm/manage-option" tabindex="-1" class="ajax">Popup Therm Options</a></li>
 <li><a href="/master-admin/popup-lighting-building-type/index" tabindex="-1" class="ajax">Popup Lighting Options</a></li>
@@ -64,404 +71,330 @@ window.depdrop_b0bf3f21 = {"depends":["target-program-id"],"placeholder":"Select
 <li><a href="/master-admin/user/index?type=7" tabindex="-1" class="ajax">Auditors</a></li>
 <li><a href="/master-admin/user/index?type=3" tabindex="-1" class="ajax">Inspectors</a></li></ul></li>
 <li><a href="/master-admin/state/index" class="ajax">States</a></li>
-<li><a href="/master-admin/communication/index" class="ajax">Communication</a></li>
-<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">StateMGTnibi <b class="caret"></b></a><ul id="w8" class="scrollable-menu dropdown-menu"><li><a href="/base/set-state" tabindex="-1" class="ajax">All States</a></li>
+<li><a href="/master-admin/notification/index" class="ajax">Notification</a></li>
+<li><a href="/master-admin/report/configure" class="ajax">Reports</a></li>
+<li><a href="/master-admin/resource/index" class="ajax">Resources</a></li>
+<li><a href="/master-admin/video/index" class="ajax">Video Tutorials</a></li>
+<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">StateMGTeunf <b class="caret"></b></a><ul id="w8" class="scrollable-menu dropdown-menu"><li><a href="/base/set-state" tabindex="-1" class="ajax">All States</a></li>
+<li><a href="/base/set-state?state_id=434" tabindex="-1" class="ajax">55555</a></li>
 <li><a href="/base/set-state?state_id=2" tabindex="-1" class="ajax">California</a></li>
-<li><a href="/base/set-state?state_id=19" tabindex="-1" class="ajax">New Test</a></li>
-<li><a href="/base/set-state?state_id=17" tabindex="-1" class="ajax">StateMGTavar</a></li>
-<li><a href="/base/set-state?state_id=54" tabindex="-1" class="ajax">StateMGTazng</a></li>
-<li><a href="/base/set-state?state_id=42" tabindex="-1" class="ajax">StateMGTbuid</a></li>
-<li><a href="/base/set-state?state_id=25" tabindex="-1" class="ajax">StateMGTcgzu</a></li>
-<li><a href="/base/set-state?state_id=6" tabindex="-1" class="ajax">StateMGTclts</a></li>
-<li><a href="/base/set-state?state_id=29" tabindex="-1" class="ajax">StateMGTcsil</a></li>
-<li><a href="/base/set-state?state_id=60" tabindex="-1" class="ajax">StateMGTdabk</a></li>
-<li><a href="/base/set-state?state_id=65" tabindex="-1" class="ajax">StateMGTdegx</a></li>
-<li><a href="/base/set-state?state_id=11" tabindex="-1" class="ajax">StateMGTdzlv</a></li>
-<li><a href="/base/set-state?state_id=49" tabindex="-1" class="ajax">StateMGTeanr</a></li>
-<li><a href="/base/set-state?state_id=51" tabindex="-1" class="ajax">StateMGTegeg</a></li>
-<li><a href="/base/set-state?state_id=24" tabindex="-1" class="ajax">StateMGTeite</a></li>
-<li><a href="/base/set-state?state_id=55" tabindex="-1" class="ajax">StateMGTexfm</a></li>
-<li><a href="/base/set-state?state_id=66" tabindex="-1" class="ajax">StateMGTfgjx</a></li>
-<li><a href="/base/set-state?state_id=46" tabindex="-1" class="ajax">StateMGTgahs</a></li>
-<li><a href="/base/set-state?state_id=63" tabindex="-1" class="ajax">StateMGTgkga</a></li>
-<li><a href="/base/set-state?state_id=36" tabindex="-1" class="ajax">StateMGTgure</a></li>
-<li><a href="/base/set-state?state_id=59" tabindex="-1" class="ajax">StateMGTgvsy</a></li>
-<li><a href="/base/set-state?state_id=3" tabindex="-1" class="ajax">StateMGTgzkg</a></li>
-<li><a href="/base/set-state?state_id=34" tabindex="-1" class="ajax">StateMGThmqx</a></li>
-<li><a href="/base/set-state?state_id=15" tabindex="-1" class="ajax">StateMGThmxm</a></li>
-<li><a href="/base/set-state?state_id=38" tabindex="-1" class="ajax">StateMGTiueu</a></li>
-<li><a href="/base/set-state?state_id=32" tabindex="-1" class="ajax">StateMGTiveu</a></li>
-<li><a href="/base/set-state?state_id=67" tabindex="-1" class="ajax">StateMGTixyu</a></li>
-<li><a href="/base/set-state?state_id=31" tabindex="-1" class="ajax">StateMGTjiro</a></li>
-<li><a href="/base/set-state?state_id=48" tabindex="-1" class="ajax">StateMGTjlms</a></li>
-<li><a href="/base/set-state?state_id=44" tabindex="-1" class="ajax">StateMGTjstg</a></li>
-<li><a href="/base/set-state?state_id=47" tabindex="-1" class="ajax">StateMGTklct</a></li>
-<li><a href="/base/set-state?state_id=39" tabindex="-1" class="ajax">StateMGTlgqj</a></li>
-<li><a href="/base/set-state?state_id=16" tabindex="-1" class="ajax">StateMGTlmvv</a></li>
-<li><a href="/base/set-state?state_id=10" tabindex="-1" class="ajax">StateMGTmpou</a></li>
-<li><a href="/base/set-state?state_id=43" tabindex="-1" class="ajax">StateMGTmzqa</a></li>
-<li><a href="/base/set-state?state_id=41" tabindex="-1" class="ajax">StateMGTnbta</a></li>
-<li><a href="/base/set-state?state_id=72" tabindex="-1" class="ajax">StateMGTnibi</a></li>
-<li><a href="/base/set-state?state_id=68" tabindex="-1" class="ajax">StateMGTnpyp</a></li>
-<li><a href="/base/set-state?state_id=45" tabindex="-1" class="ajax">StateMGTnssb</a></li>
-<li><a href="/base/set-state?state_id=50" tabindex="-1" class="ajax">StateMGToclr</a></li>
-<li><a href="/base/set-state?state_id=33" tabindex="-1" class="ajax">StateMGToque</a></li>
-<li><a href="/base/set-state?state_id=12" tabindex="-1" class="ajax">StateMGTosfz</a></li>
-<li><a href="/base/set-state?state_id=58" tabindex="-1" class="ajax">StateMGTpbln</a></li>
-<li><a href="/base/set-state?state_id=62" tabindex="-1" class="ajax">StateMGTqdis</a></li>
-<li><a href="/base/set-state?state_id=69" tabindex="-1" class="ajax">StateMGTqhzj</a></li>
-<li><a href="/base/set-state?state_id=61" tabindex="-1" class="ajax">StateMGTqklc</a></li>
-<li><a href="/base/set-state?state_id=40" tabindex="-1" class="ajax">StateMGTqome</a></li>
-<li><a href="/base/set-state?state_id=7" tabindex="-1" class="ajax">StateMGTqssh</a></li>
-<li><a href="/base/set-state?state_id=20" tabindex="-1" class="ajax">StateMGTrejm</a></li>
-<li><a href="/base/set-state?state_id=30" tabindex="-1" class="ajax">StateMGTreoo</a></li>
-<li><a href="/base/set-state?state_id=26" tabindex="-1" class="ajax">StateMGTrjjk</a></li>
-<li><a href="/base/set-state?state_id=18" tabindex="-1" class="ajax">StateMGTrlnr</a></li>
-<li><a href="/base/set-state?state_id=37" tabindex="-1" class="ajax">StateMGTrwwo</a></li>
-<li><a href="/base/set-state?state_id=14" tabindex="-1" class="ajax">StateMGTsbkg</a></li>
-<li><a href="/base/set-state?state_id=53" tabindex="-1" class="ajax">StateMGTsier</a></li>
-<li><a href="/base/set-state?state_id=64" tabindex="-1" class="ajax">StateMGTsovl</a></li>
-<li><a href="/base/set-state?state_id=4" tabindex="-1" class="ajax">StateMGTtgty</a></li>
-<li><a href="/base/set-state?state_id=13" tabindex="-1" class="ajax">StateMGTthvy</a></li>
-<li><a href="/base/set-state?state_id=71" tabindex="-1" class="ajax">StateMGTudkm</a></li>
-<li><a href="/base/set-state?state_id=70" tabindex="-1" class="ajax">StateMGTvluc</a></li>
-<li><a href="/base/set-state?state_id=56" tabindex="-1" class="ajax">StateMGTwagt</a></li>
-<li><a href="/base/set-state?state_id=23" tabindex="-1" class="ajax">StateMGTwpzy</a></li>
-<li><a href="/base/set-state?state_id=52" tabindex="-1" class="ajax">StateMGTwrgq</a></li>
-<li><a href="/base/set-state?state_id=27" tabindex="-1" class="ajax">StateMGTwvlv</a></li>
-<li><a href="/base/set-state?state_id=8" tabindex="-1" class="ajax">StateMGTwyim</a></li>
-<li><a href="/base/set-state?state_id=22" tabindex="-1" class="ajax">StateMGTwypz</a></li>
-<li><a href="/base/set-state?state_id=35" tabindex="-1" class="ajax">StateMGTxdvm</a></li>
-<li><a href="/base/set-state?state_id=5" tabindex="-1" class="ajax">StateMGTxjgb</a></li>
-<li><a href="/base/set-state?state_id=9" tabindex="-1" class="ajax">StateMGTxnml</a></li>
-<li><a href="/base/set-state?state_id=21" tabindex="-1" class="ajax">StateMGTxuqe</a></li>
-<li><a href="/base/set-state?state_id=28" tabindex="-1" class="ajax">StateMGTyjtw</a></li>
-<li><a href="/base/set-state?state_id=57" tabindex="-1" class="ajax">StateMGTzkdl</a></li>
+<li><a href="/base/set-state?state_id=190" tabindex="-1" class="ajax">etrhth</a></li>
+<li><a href="/base/set-state?state_id=357" tabindex="-1" class="ajax">ffff</a></li>
+<li><a href="/base/set-state?state_id=410" tabindex="-1" class="ajax">New2</a></li>
+<li><a href="/base/set-state?state_id=87" tabindex="-1" class="ajax">newnew</a></li>
+<li><a href="/base/set-state?state_id=306" tabindex="-1" class="ajax">nnnneeww</a></li>
+<li><a href="/base/set-state?state_id=327" tabindex="-1" class="ajax">rrrrr</a></li>
+<li><a href="/base/set-state?state_id=389" tabindex="-1" class="ajax">StatCityfdqi</a></li>
+<li><a href="/base/set-state?state_id=412" tabindex="-1" class="ajax">StatCitygrol</a></li>
+<li><a href="/base/set-state?state_id=413" tabindex="-1" class="ajax">StatCityjfxw</a></li>
+<li><a href="/base/set-state?state_id=408" tabindex="-1" class="ajax">StatCityjqoh</a></li>
+<li><a href="/base/set-state?state_id=403" tabindex="-1" class="ajax">StatCityjqpd</a></li>
+<li><a href="/base/set-state?state_id=409" tabindex="-1" class="ajax">StatCitylgkm</a></li>
+<li><a href="/base/set-state?state_id=406" tabindex="-1" class="ajax">StatCityocag</a></li>
+<li><a href="/base/set-state?state_id=402" tabindex="-1" class="ajax">StatCitypopq</a></li>
+<li><a href="/base/set-state?state_id=391" tabindex="-1" class="ajax">StatCityrbir</a></li>
+<li><a href="/base/set-state?state_id=411" tabindex="-1" class="ajax">StatCitysxkl</a></li>
+<li><a href="/base/set-state?state_id=390" tabindex="-1" class="ajax">StatCityvsdn</a></li>
+<li><a href="/base/set-state?state_id=388" tabindex="-1" class="ajax">StatCityyhcc</a></li>
+<li><a href="/base/set-state?state_id=407" tabindex="-1" class="ajax">StatCityztpv</a></li>
+<li><a href="/base/set-state?state_id=308" tabindex="-1" class="ajax">state input</a></li>
+<li><a href="/base/set-state?state_id=310" tabindex="-1" class="ajax">state no</a></li>
+<li><a href="/base/set-state?state_id=309" tabindex="-1" class="ajax">state ques</a></li>
+<li><a href="/base/set-state?state_id=454" tabindex="-1" class="ajax">Stateaiek</a></li>
+<li><a href="/base/set-state?state_id=441" tabindex="-1" class="ajax">Statebsaf</a></li>
+<li><a href="/base/set-state?state_id=446" tabindex="-1" class="ajax">Statecyxa</a></li>
+<li><a href="/base/set-state?state_id=456" tabindex="-1" class="ajax">Statedatz</a></li>
+<li><a href="/base/set-state?state_id=448" tabindex="-1" class="ajax">Statediui</a></li>
+<li><a href="/base/set-state?state_id=457" tabindex="-1" class="ajax">Statedzjj</a></li>
+<li><a href="/base/set-state?state_id=450" tabindex="-1" class="ajax">Stateftgg</a></li>
+<li><a href="/base/set-state?state_id=447" tabindex="-1" class="ajax">Statehqxn</a></li>
+<li><a href="/base/set-state?state_id=445" tabindex="-1" class="ajax">Stateicif</a></li>
+<li><a href="/base/set-state?state_id=462" tabindex="-1" class="ajax">Statekbag</a></li>
+<li><a href="/base/set-state?state_id=453" tabindex="-1" class="ajax">Statekfda</a></li>
+<li><a href="/base/set-state?state_id=463" tabindex="-1" class="ajax">Statekjql</a></li>
+<li><a href="/base/set-state?state_id=451" tabindex="-1" class="ajax">Statekywn</a></li>
+<li><a href="/base/set-state?state_id=444" tabindex="-1" class="ajax">Statelhyj</a></li>
+<li><a href="/base/set-state?state_id=443" tabindex="-1" class="ajax">Statelrch</a></li>
+<li><a href="/base/set-state?state_id=88" tabindex="-1" class="ajax">StateMGTcyet</a></li>
+<li><a href="/base/set-state?state_id=542" tabindex="-1" class="ajax">StateMGTeunf</a></li>
+<li><a href="/base/set-state?state_id=349" tabindex="-1" class="ajax">StateMGTfhcl</a></li>
+<li><a href="/base/set-state?state_id=103" tabindex="-1" class="ajax">StateMGToovf</a></li>
+<li><a href="/base/set-state?state_id=539" tabindex="-1" class="ajax">StateMGTuzmq</a></li>
+<li><a href="/base/set-state?state_id=541" tabindex="-1" class="ajax">StateMGTvfzd</a></li>
+<li><a href="/base/set-state?state_id=540" tabindex="-1" class="ajax">StateMGTvylz</a></li>
+<li><a href="/base/set-state?state_id=93" tabindex="-1" class="ajax">statenew</a></li>
+<li><a href="/base/set-state?state_id=452" tabindex="-1" class="ajax">Statenjyw</a></li>
+<li><a href="/base/set-state?state_id=461" tabindex="-1" class="ajax">Statesxvv</a></li>
+<li><a href="/base/set-state?state_id=455" tabindex="-1" class="ajax">Statetyfw</a></li>
+<li><a href="/base/set-state?state_id=464" tabindex="-1" class="ajax">Statexbgj</a></li>
+<li><a href="/base/set-state?state_id=449" tabindex="-1" class="ajax">Statexrdo</a></li>
+<li><a href="/base/set-state?state_id=442" tabindex="-1" class="ajax">Statezbbg</a></li>
+<li><a href="/base/set-state?state_id=475" tabindex="-1" class="ajax">Statezmwk</a></li>
+<li><a href="/base/set-state?state_id=471" tabindex="-1" class="ajax">StCheckCreateakfr</a></li>
+<li><a href="/base/set-state?state_id=493" tabindex="-1" class="ajax">StCheckCreateausc</a></li>
+<li><a href="/base/set-state?state_id=488" tabindex="-1" class="ajax">StCheckCreateaycu</a></li>
+<li><a href="/base/set-state?state_id=487" tabindex="-1" class="ajax">StCheckCreatebqsl</a></li>
+<li><a href="/base/set-state?state_id=490" tabindex="-1" class="ajax">StCheckCreatebvkw</a></li>
+<li><a href="/base/set-state?state_id=485" tabindex="-1" class="ajax">StCheckCreatecvrk</a></li>
+<li><a href="/base/set-state?state_id=505" tabindex="-1" class="ajax">StCheckCreatecvti</a></li>
+<li><a href="/base/set-state?state_id=481" tabindex="-1" class="ajax">StCheckCreatedjat</a></li>
+<li><a href="/base/set-state?state_id=483" tabindex="-1" class="ajax">StCheckCreatedkli</a></li>
+<li><a href="/base/set-state?state_id=468" tabindex="-1" class="ajax">StCheckCreatefbcy</a></li>
+<li><a href="/base/set-state?state_id=492" tabindex="-1" class="ajax">StCheckCreateioka</a></li>
+<li><a href="/base/set-state?state_id=500" tabindex="-1" class="ajax">StCheckCreateizvm</a></li>
+<li><a href="/base/set-state?state_id=473" tabindex="-1" class="ajax">StCheckCreatejebv</a></li>
+<li><a href="/base/set-state?state_id=474" tabindex="-1" class="ajax">StCheckCreatelaaj</a></li>
+<li><a href="/base/set-state?state_id=467" tabindex="-1" class="ajax">StCheckCreatelwnx</a></li>
+<li><a href="/base/set-state?state_id=486" tabindex="-1" class="ajax">StCheckCreatenokw</a></li>
+<li><a href="/base/set-state?state_id=504" tabindex="-1" class="ajax">StCheckCreatenxfd</a></li>
+<li><a href="/base/set-state?state_id=472" tabindex="-1" class="ajax">StCheckCreateoble</a></li>
+<li><a href="/base/set-state?state_id=491" tabindex="-1" class="ajax">StCheckCreateobsb</a></li>
+<li><a href="/base/set-state?state_id=498" tabindex="-1" class="ajax">StCheckCreatepfek</a></li>
+<li><a href="/base/set-state?state_id=496" tabindex="-1" class="ajax">StCheckCreatepkef</a></li>
+<li><a href="/base/set-state?state_id=489" tabindex="-1" class="ajax">StCheckCreatepkxs</a></li>
+<li><a href="/base/set-state?state_id=497" tabindex="-1" class="ajax">StCheckCreatepzmm</a></li>
+<li><a href="/base/set-state?state_id=469" tabindex="-1" class="ajax">StCheckCreatepzna</a></li>
+<li><a href="/base/set-state?state_id=470" tabindex="-1" class="ajax">StCheckCreaterytq</a></li>
+<li><a href="/base/set-state?state_id=478" tabindex="-1" class="ajax">StCheckCreatesvvi</a></li>
+<li><a href="/base/set-state?state_id=494" tabindex="-1" class="ajax">StCheckCreatevalz</a></li>
+<li><a href="/base/set-state?state_id=466" tabindex="-1" class="ajax">StCheckCreatevhbb</a></li>
+<li><a href="/base/set-state?state_id=477" tabindex="-1" class="ajax">StCheckCreatevukz</a></li>
+<li><a href="/base/set-state?state_id=476" tabindex="-1" class="ajax">StCheckCreatewilt</a></li>
+<li><a href="/base/set-state?state_id=480" tabindex="-1" class="ajax">StCheckCreatewnqg</a></li>
+<li><a href="/base/set-state?state_id=479" tabindex="-1" class="ajax">StCheckCreatexeir</a></li>
+<li><a href="/base/set-state?state_id=482" tabindex="-1" class="ajax">StCheckCreateyamw</a></li>
+<li><a href="/base/set-state?state_id=495" tabindex="-1" class="ajax">StCheckCreateyiqa</a></li>
+<li><a href="/base/set-state?state_id=484" tabindex="-1" class="ajax">StCheckCreatezmzq</a></li>
+<li><a href="/base/set-state?state_id=499" tabindex="-1" class="ajax">StCheckCreateznos</a></li>
+<li><a href="/base/set-state?state_id=465" tabindex="-1" class="ajax">StCheckCreatezyln</a></li>
+<li><a href="/base/set-state?state_id=370" tabindex="-1" class="ajax">StInputWeightalqe</a></li>
+<li><a href="/base/set-state?state_id=405" tabindex="-1" class="ajax">StInputWeightbhsa</a></li>
+<li><a href="/base/set-state?state_id=362" tabindex="-1" class="ajax">StInputWeightceux</a></li>
+<li><a href="/base/set-state?state_id=368" tabindex="-1" class="ajax">StInputWeightcjuc</a></li>
+<li><a href="/base/set-state?state_id=366" tabindex="-1" class="ajax">StInputWeightdmmm</a></li>
+<li><a href="/base/set-state?state_id=371" tabindex="-1" class="ajax">StInputWeightdzjj</a></li>
+<li><a href="/base/set-state?state_id=377" tabindex="-1" class="ajax">StInputWeightejkl</a></li>
+<li><a href="/base/set-state?state_id=367" tabindex="-1" class="ajax">StInputWeighteptd</a></li>
+<li><a href="/base/set-state?state_id=373" tabindex="-1" class="ajax">StInputWeightermq</a></li>
+<li><a href="/base/set-state?state_id=355" tabindex="-1" class="ajax">StInputWeightezzh</a></li>
+<li><a href="/base/set-state?state_id=354" tabindex="-1" class="ajax">StInputWeightfnee</a></li>
+<li><a href="/base/set-state?state_id=358" tabindex="-1" class="ajax">StInputWeightgpme</a></li>
+<li><a href="/base/set-state?state_id=352" tabindex="-1" class="ajax">StInputWeightipar</a></li>
+<li><a href="/base/set-state?state_id=361" tabindex="-1" class="ajax">StInputWeightjnjs</a></li>
+<li><a href="/base/set-state?state_id=351" tabindex="-1" class="ajax">StInputWeightmbta</a></li>
+<li><a href="/base/set-state?state_id=359" tabindex="-1" class="ajax">StInputWeightmmiq</a></li>
+<li><a href="/base/set-state?state_id=356" tabindex="-1" class="ajax">StInputWeightoegy</a></li>
+<li><a href="/base/set-state?state_id=374" tabindex="-1" class="ajax">StInputWeightqbxo</a></li>
+<li><a href="/base/set-state?state_id=365" tabindex="-1" class="ajax">StInputWeightqflv</a></li>
+<li><a href="/base/set-state?state_id=350" tabindex="-1" class="ajax">StInputWeightrcil</a></li>
+<li><a href="/base/set-state?state_id=375" tabindex="-1" class="ajax">StInputWeightrodw</a></li>
+<li><a href="/base/set-state?state_id=353" tabindex="-1" class="ajax">StInputWeightskyt</a></li>
+<li><a href="/base/set-state?state_id=364" tabindex="-1" class="ajax">StInputWeightsrtx</a></li>
+<li><a href="/base/set-state?state_id=372" tabindex="-1" class="ajax">StInputWeighttjma</a></li>
+<li><a href="/base/set-state?state_id=360" tabindex="-1" class="ajax">StInputWeightuztj</a></li>
+<li><a href="/base/set-state?state_id=363" tabindex="-1" class="ajax">StInputWeightvfrf</a></li>
+<li><a href="/base/set-state?state_id=369" tabindex="-1" class="ajax">StInputWeightwwmw</a></li>
+<li><a href="/base/set-state?state_id=376" tabindex="-1" class="ajax">StInputWeightyfro</a></li>
+<li><a href="/base/set-state?state_id=459" tabindex="-1" class="ajax">StMeasExtensajbo</a></li>
+<li><a href="/base/set-state?state_id=396" tabindex="-1" class="ajax">StMeasExtensbcri</a></li>
+<li><a href="/base/set-state?state_id=537" tabindex="-1" class="ajax">StMeasExtensbedo</a></li>
+<li><a href="/base/set-state?state_id=458" tabindex="-1" class="ajax">StMeasExtensbsyi</a></li>
+<li><a href="/base/set-state?state_id=382" tabindex="-1" class="ajax">StMeasExtenscqbg</a></li>
+<li><a href="/base/set-state?state_id=401" tabindex="-1" class="ajax">StMeasExtensdnum</a></li>
+<li><a href="/base/set-state?state_id=438" tabindex="-1" class="ajax">StMeasExtensdxca</a></li>
+<li><a href="/base/set-state?state_id=399" tabindex="-1" class="ajax">StMeasExtensedoj</a></li>
+<li><a href="/base/set-state?state_id=437" tabindex="-1" class="ajax">StMeasExtensfhwf</a></li>
+<li><a href="/base/set-state?state_id=398" tabindex="-1" class="ajax">StMeasExtensftut</a></li>
+<li><a href="/base/set-state?state_id=460" tabindex="-1" class="ajax">StMeasExtensgjhe</a></li>
+<li><a href="/base/set-state?state_id=538" tabindex="-1" class="ajax">StMeasExtensgodl</a></li>
+<li><a href="/base/set-state?state_id=379" tabindex="-1" class="ajax">StMeasExtenshdnv</a></li>
+<li><a href="/base/set-state?state_id=394" tabindex="-1" class="ajax">StMeasExtensiaps</a></li>
+<li><a href="/base/set-state?state_id=384" tabindex="-1" class="ajax">StMeasExtensmfid</a></li>
+<li><a href="/base/set-state?state_id=393" tabindex="-1" class="ajax">StMeasExtensmkav</a></li>
+<li><a href="/base/set-state?state_id=395" tabindex="-1" class="ajax">StMeasExtensmwit</a></li>
+<li><a href="/base/set-state?state_id=378" tabindex="-1" class="ajax">StMeasExtensnpay</a></li>
+<li><a href="/base/set-state?state_id=397" tabindex="-1" class="ajax">StMeasExtensnypo</a></li>
+<li><a href="/base/set-state?state_id=380" tabindex="-1" class="ajax">StMeasExtensoklx</a></li>
+<li><a href="/base/set-state?state_id=392" tabindex="-1" class="ajax">StMeasExtenstoxg</a></li>
+<li><a href="/base/set-state?state_id=439" tabindex="-1" class="ajax">StMeasExtenstrkb</a></li>
+<li><a href="/base/set-state?state_id=381" tabindex="-1" class="ajax">StMeasExtenstsgj</a></li>
+<li><a href="/base/set-state?state_id=383" tabindex="-1" class="ajax">StMeasExtensuezg</a></li>
+<li><a href="/base/set-state?state_id=387" tabindex="-1" class="ajax">StMeasExtensuhzg</a></li>
+<li><a href="/base/set-state?state_id=385" tabindex="-1" class="ajax">StMeasExtensunsj</a></li>
+<li><a href="/base/set-state?state_id=386" tabindex="-1" class="ajax">StMeasExtenswraa</a></li>
+<li><a href="/base/set-state?state_id=404" tabindex="-1" class="ajax">StMeasExtensxngo</a></li>
+<li><a href="/base/set-state?state_id=400" tabindex="-1" class="ajax">StMeasExtenszmha</a></li>
+<li><a href="/base/set-state?state_id=416" tabindex="-1" class="ajax">StThermsdyxq</a></li>
+<li><a href="/base/set-state?state_id=436" tabindex="-1" class="ajax">StThermsfgzo</a></li>
+<li><a href="/base/set-state?state_id=424" tabindex="-1" class="ajax">StThermsgnjc</a></li>
+<li><a href="/base/set-state?state_id=414" tabindex="-1" class="ajax">StThermsgqyz</a></li>
+<li><a href="/base/set-state?state_id=422" tabindex="-1" class="ajax">StThermsgzci</a></li>
+<li><a href="/base/set-state?state_id=418" tabindex="-1" class="ajax">StThermshwar</a></li>
+<li><a href="/base/set-state?state_id=426" tabindex="-1" class="ajax">StThermshygk</a></li>
+<li><a href="/base/set-state?state_id=429" tabindex="-1" class="ajax">StThermsjodb</a></li>
+<li><a href="/base/set-state?state_id=427" tabindex="-1" class="ajax">StThermskdbh</a></li>
+<li><a href="/base/set-state?state_id=421" tabindex="-1" class="ajax">StThermsmafs</a></li>
+<li><a href="/base/set-state?state_id=425" tabindex="-1" class="ajax">StThermsnhyz</a></li>
+<li><a href="/base/set-state?state_id=431" tabindex="-1" class="ajax">StThermsnmnl</a></li>
+<li><a href="/base/set-state?state_id=415" tabindex="-1" class="ajax">StThermsnvws</a></li>
+<li><a href="/base/set-state?state_id=419" tabindex="-1" class="ajax">StThermsodku</a></li>
+<li><a href="/base/set-state?state_id=435" tabindex="-1" class="ajax">StThermsppdx</a></li>
+<li><a href="/base/set-state?state_id=432" tabindex="-1" class="ajax">StThermsqahi</a></li>
+<li><a href="/base/set-state?state_id=428" tabindex="-1" class="ajax">StThermsqpzn</a></li>
+<li><a href="/base/set-state?state_id=420" tabindex="-1" class="ajax">StThermssvmp</a></li>
+<li><a href="/base/set-state?state_id=433" tabindex="-1" class="ajax">StThermstjqg</a></li>
+<li><a href="/base/set-state?state_id=423" tabindex="-1" class="ajax">StThermsugia</a></li>
+<li><a href="/base/set-state?state_id=430" tabindex="-1" class="ajax">StThermsujyw</a></li>
+<li><a href="/base/set-state?state_id=417" tabindex="-1" class="ajax">StThermsvmos</a></li>
+<li><a href="/base/set-state?state_id=440" tabindex="-1" class="ajax">StThermsvnlm</a></li>
+<li><a href="/base/set-state?state_id=523" tabindex="-1" class="ajax">StUserAccessaooj</a></li>
+<li><a href="/base/set-state?state_id=533" tabindex="-1" class="ajax">StUserAccessbefe</a></li>
+<li><a href="/base/set-state?state_id=524" tabindex="-1" class="ajax">StUserAccessbxxc</a></li>
+<li><a href="/base/set-state?state_id=516" tabindex="-1" class="ajax">StUserAccesscpcc</a></li>
+<li><a href="/base/set-state?state_id=530" tabindex="-1" class="ajax">StUserAccessdsoc</a></li>
+<li><a href="/base/set-state?state_id=521" tabindex="-1" class="ajax">StUserAccessefxw</a></li>
+<li><a href="/base/set-state?state_id=501" tabindex="-1" class="ajax">StUserAccessfvql</a></li>
+<li><a href="/base/set-state?state_id=506" tabindex="-1" class="ajax">StUserAccessgbkk</a></li>
+<li><a href="/base/set-state?state_id=518" tabindex="-1" class="ajax">StUserAccessgmby</a></li>
+<li><a href="/base/set-state?state_id=508" tabindex="-1" class="ajax">StUserAccessgumw</a></li>
+<li><a href="/base/set-state?state_id=517" tabindex="-1" class="ajax">StUserAccesshfbt</a></li>
+<li><a href="/base/set-state?state_id=513" tabindex="-1" class="ajax">StUserAccessiudj</a></li>
+<li><a href="/base/set-state?state_id=532" tabindex="-1" class="ajax">StUserAccessjtpr</a></li>
+<li><a href="/base/set-state?state_id=526" tabindex="-1" class="ajax">StUserAccesskpzv</a></li>
+<li><a href="/base/set-state?state_id=531" tabindex="-1" class="ajax">StUserAccessktky</a></li>
+<li><a href="/base/set-state?state_id=511" tabindex="-1" class="ajax">StUserAccesslrwo</a></li>
+<li><a href="/base/set-state?state_id=522" tabindex="-1" class="ajax">StUserAccesslvxi</a></li>
+<li><a href="/base/set-state?state_id=507" tabindex="-1" class="ajax">StUserAccessmkkp</a></li>
+<li><a href="/base/set-state?state_id=503" tabindex="-1" class="ajax">StUserAccessngep</a></li>
+<li><a href="/base/set-state?state_id=529" tabindex="-1" class="ajax">StUserAccessnugx</a></li>
+<li><a href="/base/set-state?state_id=536" tabindex="-1" class="ajax">StUserAccessqfnw</a></li>
+<li><a href="/base/set-state?state_id=535" tabindex="-1" class="ajax">StUserAccessqunm</a></li>
+<li><a href="/base/set-state?state_id=509" tabindex="-1" class="ajax">StUserAccesssnib</a></li>
+<li><a href="/base/set-state?state_id=514" tabindex="-1" class="ajax">StUserAccesssvcu</a></li>
+<li><a href="/base/set-state?state_id=515" tabindex="-1" class="ajax">StUserAccesstcac</a></li>
+<li><a href="/base/set-state?state_id=520" tabindex="-1" class="ajax">StUserAccesstyvy</a></li>
+<li><a href="/base/set-state?state_id=512" tabindex="-1" class="ajax">StUserAccessubde</a></li>
+<li><a href="/base/set-state?state_id=534" tabindex="-1" class="ajax">StUserAccessuhdl</a></li>
+<li><a href="/base/set-state?state_id=502" tabindex="-1" class="ajax">StUserAccessvgbz</a></li>
+<li><a href="/base/set-state?state_id=525" tabindex="-1" class="ajax">StUserAccesswhol</a></li>
+<li><a href="/base/set-state?state_id=528" tabindex="-1" class="ajax">StUserAccessxgbi</a></li>
+<li><a href="/base/set-state?state_id=527" tabindex="-1" class="ajax">StUserAccessxril</a></li>
+<li><a href="/base/set-state?state_id=519" tabindex="-1" class="ajax">StUserAccesszodb</a></li>
+<li><a href="/base/set-state?state_id=510" tabindex="-1" class="ajax">StUserAccesszpuk</a></li>
+<li><a href="/base/set-state?state_id=94" tabindex="-1" class="ajax">tessst</a></li>
 <li><a href="/base/set-state?state_id=1" tabindex="-1" class="ajax">Washington</a></li></ul></li></ul>                
             </div>
                 <ul class="breadcrumb"><li><a href="/master-admin/default/index" class="ajax">Home</a></li>
 <li><a href="/master-admin/checklist/list" class="ajax">Checklists</a></li>
-<li><a href="/master-admin/checklist/measures?id=3738" class="ajax">Tier 3</a></li>
-<li class="active">Manage Tier 3</li>
+<li class="active">Create New Checklist</li>
 </ul>    </header>
 
-    <div class="col-md-12 background-grey">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="left-column-checklist">
-                                    <div class="left-column-block margin-b-20">
-                        <p class="p-label">Select Version To Edit</p>
-                        <div class="select-wrapper">
-                            <span class="fa fa-angle-down custom"></span>
-                            <select class="go-on-change" name="id" data-url="/master-admin/checklist/measures">
-<option value="3738" selected="">04/07/2017 - Draft</option>
-</select>                        </div>
-                        <p class="p-label">Tier Level</p>
-                        <div class="select-wrapper">
-                            <span class="fa fa-angle-down custom"></span>
-                            <select class="go-on-change" name="id" data-url="/master-admin/checklist/measures">
+    <div class="create-content norm-select-style">
+    
+    <div class="title-block">
+        <h2>Create New Checklist</h2>
+    </div>
+    <div class="circle"><span>1</span></div>
+    <p>Choose your essential criteria in one of two ways.
+        Either select from a source program OR select
+        from a base set of templates.
+    </p>
+    <form id="w0" action="/master-admin/checklist/merge-checklists" method="post" class="ajax">
+<input type="hidden" name="_csrf" value="RlozdHdnSVZ.C1weLTgDJwcFUTcBMTo9JGtRFTgFCwIUbgAuMlQ8Bw==" />    <div class="border-block active">
+        <p class="p-label">choose source program</p>
+        <div class="select-wrapper">
+            <span class="fa fa-angle-down custom"></span>
 
-</select>                        </div>
-                    </div>
-                                
-<form id="w0" action="/master-admin/checklist/measures" method="get" role="form" class="ajax">
-<input type="hidden" name="id" value="3738" /><div class="left-column-block">
-    <h4 class="green"><strong>FILTER</strong></h4>
-    <p class="p-label">by extension</p>
-    <div class="select-wrapper col-100">
-        <span class="fa fa-angle-down custom"></span>
-        <div class="form-group field-filter-measure_extensions">
+            <div class="form-group field-source-program-id required">
 
-<select id="filter-measure_extensions" class="post-on-change col-100" name="filter[measure_extensions]">
-<option value="">View All</option>
-<option value="def">Default</option>
-<option value="is_lb">Large Building</option>
-<option value="is_ll">Large Landscape</option>
-<option value="all">Lg Building + Lg Landscape</option>
+<select id="source-program-id" class="form-control" name="MergeChecklistsForm[source_program_id]" aria-required="true" data-krajee-depdrop="depdrop_0d530336">
+<option value="0">Essential Criteria</option>
 </select>
 
-<p class="help-block help-block-error"></p>
-</div>    </div>
+<div class="help-block"></div>
+</div>        </div>
+        <p style="display: none;" class="p-label">Choose source sector</p>
+        <div style="display: none;" class="select-wrapper">
+            <span class="fa fa-angle-down custom"></span>
+            <div class="form-group field-source-sector-id">
 
-    <p class="p-label">by status</p>
-    <div class="select-wrapper col-100">
-        <span class="fa fa-angle-down custom"></span>
-        <div class="form-group field-filter-type">
-
-<select id="filter-type" class="post-on-change col-100" name="filter[type]">
-<option value="">View All</option>
-<option value="5">not set</option>
-<option value="3">elective</option>
-<option value="4">core</option>
-<option value="6">core &amp; elective</option>
+<select id="source-sector-id" class="form-control" name="MergeChecklistsForm[source_sector_id]" data-krajee-depdrop="depdrop_8191b98f" disabled="disabled">
+<option value="">Select...</option>
 </select>
 
-<p class="help-block help-block-error"></p>
-</div>    </div>
-
-    <p class="p-label">by quantitative</p>
-    <div class="select-wrapper col-100">
-        <span class="fa fa-angle-down custom"></span>
-        <div class="form-group field-filter-is_quantitative">
-
-<select id="filter-is_quantitative" class="post-on-change col-100" name="filter[is_quantitative]">
-<option value="">View All</option>
-<option value="1">yes</option>
-<option value="0">no</option>
-</select>
-
-<p class="help-block help-block-error"></p>
-</div>    </div>
-
-
-    <p class="p-label">by audit group</p>
-    <div class="select-wrapper col-100">
-        <span class="fa fa-angle-down custom"></span>
-        <div class="form-group field-filter-audit_group_id">
-
-<select id="filter-audit_group_id" class="post-on-change col-100" name="filter[audit_group_id]">
-<option value="">View All</option>
-<option value="1">Energy</option>
-<option value="2">General</option>
-<option value="3">Pollution Prevention</option>
-<option value="4">Solid Waste</option>
-<option value="5">Transportation</option>
-<option value="6">Wastewater</option>
-<option value="7">Water</option>
-</select>
-
-<p class="help-block help-block-error"></p>
-</div>    </div>
-
-    <p class="p-label">by audit sub group</p>
-    <div class="select-wrapper col-100">
-        <span class="fa fa-angle-down custom"></span>
-        <div class="form-group field-filter-audit_subgroup_id">
-
-<select id="filter-audit_subgroup_id" class="post-on-change col-100" name="filter[audit_subgroup_id]">
-<option value="">View All</option>
-</select>
-
-<p class="help-block help-block-error"></p>
-</div>    </div>
-
-    <h4 class="green"><strong>SEARCH</strong></h4>
-    <p class="p-label">by keyword</p>
-    <div class="input-row clear">
-        <div class="wrap no-padd-left col-100">
-            <div class="form-group field-filter-keyword">
-
-<input type="text" id="filter-keyword" class="post-on-change" name="filter[keyword]" placeholder="Keyword" />
-
-<p class="help-block help-block-error"></p>
+<div class="help-block"></div>
 </div>        </div>
     </div>
-    <p class="p-label">by number</p>
-    <div class="input-row clear">
-        <div class="wrap no-padd-left col-100">
-            <div class="form-group field-filter-measure_id">
 
-<input type="text" id="filter-measure_id" class="post-on-change" name="filter[measure_id]" placeholder="Measure Number" />
+    <div class="circle"><span>2</span></div>
+    <p>Then choose your sector criteria.</p>
+    <p class="p-label">Choose Program</p>
+    <div class="select-wrapper">
+        <span class="fa fa-angle-down custom"></span>
 
-<p class="help-block help-block-error"></p>
-</div>        </div>
-    </div>
+        <div class="form-group field-criteria-program-id">
+
+<select id="criteria-program-id" class="form-control" name="MergeChecklistsForm[criteria_program_id]" data-krajee-depdrop="depdrop_0d530336" disabled="disabled">
+<option value="">Select...</option>
+</select>
+
+<div class="help-block"></div>
 </div>
-
-</form>                
-<div id="number-of-included-measures" class="left-column-block grey">
-    <p class="green-title">Number of included measures</p>
-    <div class="included-measures">
-
-        <fieldset>
-            <legend>Core</legend>
-            <div class="core-measures-req">
-                <p><small>Default:</small> <span>0</span></p>
-                <p><small>Lg Building:</small> <span>0</span></p>
-                <p><small>Lg Landscape:</small> <span>0</span></p>
-                <p><small>Lg Building + Lg Landscape:</small> <span>0</span></p>
-                <p>Total core required: <span>0</span></p>
-            </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Elective</legend>
-            <div class="elective-measures-req">
-                <p><small>Default:</small> <span>0</span></p>
-                <p><small>Lg Building:</small> <span>0</span></p>
-                <p><small>Lg Landscape:</small> <span>0</span></p>
-                <p><small>Lg Building + Lg Landscape:</small> <span>0</span></p>
-                <p>Total elective:<span>0</span></p>
-                <p>Total elective required:<span>0</span></p>
-            </div>
-        </fieldset>
-
-        <hr />
-        <div class="total-req-measures">
-            <p>Total:<span>0</span></p>
-        </div>
     </div>
-</div>
-            </div>
-        </div>
+    <p class="p-label">Choose Sector</p>
+    <div class="select-wrapper">
+        <span class="fa fa-angle-down custom"></span>
+        <div class="form-group field-criteria-sector-id">
 
-        <div class="col-md-9 background-white">
-            <div class="right-column-checklist">
-                <div class="">
-                    <div class="title-block row">
-    <div class="col-md-8">
-        <h2>ProgMGT1ircr: Office / Retail</h2>
-        <p class="grey p-label margin-0">VERSION:04/07/2017 -
-            <span class="draft-color p-label">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                Draft                                </span>
-            |
-            <span class="black">
-                                    Tier 3                                </span>
-        </p>
+<select id="criteria-sector-id" class="form-control" name="MergeChecklistsForm[criteria_sector_id]" data-krajee-depdrop="depdrop_93df2a0c" disabled="disabled">
+<option value="">Select...</option>
+</select>
+
+<div class="help-block"></div>
+</div>    </div>
+    <div class="circle"><span>3</span></div>
+    <p>Now choose which checklist you are creating</p>
+    <p class="p-label">choose destination program</p>
+    <div class="select-wrapper">
+        <span class="fa fa-angle-down custom"></span>
+        <div class="form-group field-target-program-id required">
+
+<select id="target-program-id" class="form-control" name="MergeChecklistsForm[target_program_id]" aria-required="true" data-krajee-depdrop="depdrop_0d530336" disabled="disabled">
+<option value="">Select...</option>
+</select>
+
+<div class="help-block"></div>
+</div>
     </div>
-    <div class="col-md-2">
-                    <a class="btn btn-green-lite send-form col-100 " href="#" data-form="#manage-checklist">Save</a>    </div>
-    <div class="col-md-2">
-        <a class="btn btn-green-lite col-100 ajax" href="/master-admin/business/complete-measures?tier_id=3738&amp;preview=1">Preview</a>            </div>
-</div>
-                    <!--                </div>-->
-                    <div class="tabs" data-toggle="tabslet">
-                                                <ul class="tab-style clear">
-                            <li>
-                                <a href="/master-admin/checklist/version?id=3738" class="tab-switch ajax">Version History</a>
-                            </li>
-                            <li>
-                                <a href="/master-admin/checklist/measures?id=3738&amp;type=tier" class="tab-switch active ajax">manage measures</a>
-                            </li>
-                            <li>
-                                <a href="/master-admin/checklist/define-total?id=3738&amp;type=tier" class="tab-switch ajax">define total measures needed</a>
-                            </li>
-                                                    </ul>
-                        <div class="tab-content">
-                            <div id="tabs-2">
-                                <form id="manage-checklist" action="/master-admin/checklist/measures?id=3738" method="post" class="ajax">
-<input type="hidden" name="_csrf" value="Vzkyb1pMZkYmd2QqFw8sFgdxYloufA0NNmx2PiJ8AiQDU14sIn4oJA==" />                                <div class="tabs-btn manage clear"></div>
-                                <fieldset>
-                                    <!--                                <div class="tabs-btn manage clear">-->
-                                    <!---->
-                                    <!---->
-                                    <!--                                    -->                                    <!--                                    -->                                    <!---->
-                                    <!--                                </div>-->
-                                    <table class="version-history manage small-dropdown-text">
-                                        <thead>
-                                        <tr class="title-row grey">
-                                            <th>ID</th>
-                                            <th>Measure</th>
-                                            <th>Measure extension</th>
-                                            <th>Status</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                                                                                                                    <tr>
-                                                    <td class="title-row dark-green group-table title-group-table" colspan="4">Energy</td>
-                                                </tr>
-                                                                                                                                                    <tr>
-                                                        <td class="title-row liter-green sub-group-table" colspan="4">EnAudSub1xucv</td>
-                                                    </tr>
+    <p class="p-label">Choose destination Sector</p>
+    <div class="select-wrapper">
+        <span class="fa fa-angle-down custom"></span>
+        <div class="form-group field-target-sector-id required">
 
-                                                    
-        <tr class="">
-        <td><p>2497</p></td>
-        <td><p>Descriptionydzy</p></td>
-        <td>
-                        <div class="select-wrapper">
-                <span class="fa fa-angle-down custom"></span>
-                <select name="measure_extensions[2497]">
-<option value="def">Default</option>
-<option value="is_lb">Large Building</option>
-<option value="is_ll">Large Landscape</option>
-<option value="all">Lg Building + Lg Landscape</option>
-</select>                            </div>
-            <input type="hidden" value="458" name="measure_audit_sub_groups[2497]" />
-        </td>
-        <td>
-                        <div class="select-wrapper">
-                <span class="fa fa-angle-down custom"></span>
-                <select name="measures[2497]">
-<option value="5" selected="">not set</option>
-<option value="3">elective</option>
-<option value="4">core</option>
-</select>                            </div>
-        </td>
-    </tr>
-        <tr class="">
-        <td><p>2498</p></td>
-        <td><p>Descriptiontqux</p></td>
-        <td>
-                        <div class="select-wrapper">
-                <span class="fa fa-angle-down custom"></span>
-                <select name="measure_extensions[2498]">
-<option value="def">Default</option>
-<option value="is_lb">Large Building</option>
-<option value="is_ll">Large Landscape</option>
-<option value="all">Lg Building + Lg Landscape</option>
-</select>                            </div>
-            <input type="hidden" value="458" name="measure_audit_sub_groups[2498]" />
-        </td>
-        <td>
-                        <div class="select-wrapper">
-                <span class="fa fa-angle-down custom"></span>
-                <select name="measures[2498]">
-<option value="5" selected="">not set</option>
-<option value="3">elective</option>
-<option value="4">core</option>
-</select>                            </div>
-        </td>
-    </tr>
-        <tr class="">
-        <td><p>2499</p></td>
-        <td><p>Descriptiongbcr</p></td>
-        <td>
-                        <div class="select-wrapper">
-                <span class="fa fa-angle-down custom"></span>
-                <select name="measure_extensions[2499]">
-<option value="def">Default</option>
-<option value="is_lb">Large Building</option>
-<option value="is_ll">Large Landscape</option>
-<option value="all">Lg Building + Lg Landscape</option>
-</select>                            </div>
-            <input type="hidden" value="458" name="measure_audit_sub_groups[2499]" />
-        </td>
-        <td>
-                        <div class="select-wrapper">
-                <span class="fa fa-angle-down custom"></span>
-                <select name="measures[2499]">
-<option value="5" selected="">not set</option>
-<option value="3">elective</option>
-<option value="4">core</option>
-</select>                            </div>
-        </td>
-    </tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tbody>
-                                    </table>
-                                </fieldset>
+<select id="target-sector-id" class="form-control" name="MergeChecklistsForm[target_sector_id]" aria-required="true" data-krajee-depdrop="depdrop_940cdcac" disabled="disabled">
+<option value="">Select...</option>
+</select>
 
-                                <!--                                Display pagination-->
-                                                                </form>                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="title-block row">
-                        <div class="col-md-offset-8 col-md-2">
-                            <a class="btn btn-green-lite send-form col-100 " href="#" data-form="#manage-checklist">Save</a>                        </div>
-                        <div class="col-md-2">
-                            <a class="btn btn-green-lite col-100 ajax" href="/master-admin/business/complete-measures?tier_id=3738&amp;preview=1">Preview</a>                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div><script type="text/javascript">sweetAlert({"id":"w1","type":"success","title":"Checklist was successfully created!","allowOutsideClick":true,"timer":2500}, function() {});
-jQuery('#w0').yiiActiveForm([], []);
-jQuery('#manage-checklist').yiiActiveForm([], []);</script></div>
-    <div id="loading" style="display: none;"></div>
+<div class="help-block"></div>
+</div>    </div>
+    <div class="circle"><span>4</span></div>
+    <p>Now determine which tier this checklist is associated with</p>
+    <p class="p-label">choose Tier</p>
+    <div class="select-wrapper margin-b-40">
+        <span class="fa fa-angle-down custom"></span>
+        <div class="form-group field-target_checklist_number required">
+
+<select id="target_checklist_number" class="form-control" name="MergeChecklistsForm[target_checklist_number]" aria-required="true" data-krajee-depdrop="depdrop_b0bf3f21" disabled="disabled">
+<option value="">Select...</option>
+</select>
+
+<div class="help-block"></div>
+</div>    </div>
+
+    <button type="submit" class="btn btn-green-lite">Save</button>    </form></div>
+
+</div>    </div>
+    <div id="loading"></div>
 <div><div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_bottom" style="display: block;">
     <div class="yii-debug-toolbar__bar">
         <div class="yii-debug-toolbar__block yii-debug-toolbar__title">
@@ -470,8 +403,8 @@ jQuery('#manage-checklist').yiiActiveForm([], []);</script></div>
             </a>
         </div>
 
-        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: block;">
-            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter yii-debug-toolbar__label_success">3</span>
+        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: none">
+            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter">0</span>
             <div class="yii-debug-toolbar__ajax_info">
                 <table>
                     <thead>
@@ -483,43 +416,43 @@ jQuery('#manage-checklist').yiiActiveForm([], []);</script></div>
                         <th>Profile</th>
                     </tr>
                     </thead>
-                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/master-admin/ajax/sub-sectors">/master-admin/ajax/sub-sectors</td><td class="yii-debug-toolbar__ajax_request_duration">278 ms</td> <td>n/a</td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/master-admin/ajax/sub-checklists-by-program">/master-admin/ajax/sub-checklists-by-program</td><td class="yii-debug-toolbar__ajax_request_duration">284 ms</td> <td>n/a</td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/master-admin/checklist/merge-checklists">/master-admin/checklist/merge-checklists</td><td class="yii-debug-toolbar__ajax_request_duration">81 ms</td> <td><a href="/debug/default/view?tag=58e74fa2a308e">58e74fa2a308e</a></td></tr></tbody>
+                    <tbody class="yii-debug-toolbar__ajax_requests"></tbody>
                 </table>
             </div>
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=58e74f9b8cb55">
+    <a href="/debug/default/view?panel=config&amp;tag=593016ee477c5">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=58e74f9b8cb55" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=58e74f9b8cb55" title="Action: app\modules\masteradmin\controllers\ChecklistController::actionMergeChecklists()">Route <span class="yii-debug-toolbar__label">master-admin/checklist/merge-checklists</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=593016ee477c5" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=593016ee477c5" title="Action: app\modules\masteradmin\controllers\ChecklistController::actionMergeChecklists()">Route <span class="yii-debug-toolbar__label">master-admin/checklist/merge-checklists</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=58e74f9b8cb55" title="Logged 28 messages">Log
-        <span class="yii-debug-toolbar__label">28</span>
+    <a href="/debug/default/view?panel=log&amp;tag=593016ee477c5" title="Logged 29 messages">Log
+        <span class="yii-debug-toolbar__label">29</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=58e74f9b8cb55" title="Total request processing time was 99 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">99 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=58e74f9b8cb55" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10.826 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=593016ee477c5" title="Total request processing time was 113 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">113 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=593016ee477c5" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">11.723 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=58e74f9b8cb55" title="Executed 14 database queries which took 4 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">14</span> <span class="yii-debug-toolbar__label">4 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=593016ee477c5" title="Executed 15 database queries which took 5 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">15</span> <span class="yii-debug-toolbar__label">5 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=58e74f9b8cb55" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">14</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=593016ee477c5" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">16</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user&amp;tag=58e74f9b8cb55">
+    <a href="/debug/default/view?panel=user&amp;tag=593016ee477c5">
                     User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span>
             </a>
 </div>
@@ -1175,7 +1108,7 @@ a.yii-debug-toolbar__label:focus {
     };
 
 })();</script><script src="/assets/6b040846/jquery.js"></script>
-<script src="/assets/dbb4b7cb/js/dependent-dropdown.js"></script>
+<script src="/assets/eb0a4553/js/dependent-dropdown.js"></script>
 <script src="/assets/61a93d47/js/depdrop.js"></script>
 <script src="/assets/f016074/js/kv-widgets.js"></script>
 <script src="/assets/a83e0e94/yii.js"></script>
@@ -1187,8 +1120,13 @@ a.yii-debug-toolbar__label:focus {
 <script src="/assets/a8119c8c/ckeditor.js"></script>
 <script src="/assets/a8119c8c/adapters/jquery.js"></script>
 <script src="/assets/d2bdffe5/dosamigos-ckeditor.widget.js"></script>
+<script src="/assets/cbe07863/jquery.inputmask.bundle.js"></script>
+<script src="/leaflet/leaflet.js"></script>
+<script src="/leaflet/lib.shp/catiline.js"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
+<script src="/js/jquery.form.min.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/masteradmin/global.js"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
@@ -1230,40 +1168,9 @@ jQuery('#w0').yiiActiveForm([{"id":"mergechecklistsform-source_program_id","name
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"Create New Checklist","loadedAssets":{"js":["\/assets\/dbb4b7cb\/js\/dependent-dropdown.js","\/assets\/6b040846\/jquery.js","\/assets\/61a93d47\/js\/depdrop.js","\/assets\/f016074\/js\/kv-widgets.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js"],"css":["\/assets\/dbb4b7cb\/css\/dependent-dropdown.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/f016074\/css\/kv-widgets.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css"]},"assets":{"js":["\/assets\/dbb4b7cb\/js\/dependent-dropdown.js","\/assets\/6b040846\/jquery.js","\/assets\/61a93d47\/js\/depdrop.js","\/assets\/f016074\/js\/kv-widgets.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js"],"css":["\/assets\/dbb4b7cb\/css\/dependent-dropdown.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/f016074\/css\/kv-widgets.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css"]}});
+        app.pageTools.setInitialPageData({"title":"Create New Checklist","loadedAssets":{"js":["\/assets\/eb0a4553\/js\/dependent-dropdown.js","\/assets\/6b040846\/jquery.js","\/assets\/61a93d47\/js\/depdrop.js","\/assets\/f016074\/js\/kv-widgets.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/jquery.form.min.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/assets\/eb0a4553\/css\/dependent-dropdown.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/f016074\/css\/kv-widgets.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/eb0a4553\/js\/dependent-dropdown.js","\/assets\/6b040846\/jquery.js","\/assets\/61a93d47\/js\/depdrop.js","\/assets\/f016074\/js\/kv-widgets.js","\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/jquery.form.min.js","\/js\/app.js","\/js\/masteradmin\/global.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/assets\/eb0a4553\/css\/dependent-dropdown.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/f016074\/css\/kv-widgets.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 
 
-<div class="sweet-overlay" tabindex="-1" style="opacity: -0.06; display: none;"></div><div class="sweet-alert hideSweetAlert" data-custom-class="" data-has-cancel-button="false" data-has-confirm-button="true" data-allow-outside-click="true" data-has-done-function="true" data-animation="pop" data-timer="2500" style="display: none; margin-top: -179px; opacity: -0.06;"><div class="sa-icon sa-error" style="display: none;">
-      <span class="sa-x-mark">
-        <span class="sa-line sa-left"></span>
-        <span class="sa-line sa-right"></span>
-      </span>
-    </div><div class="sa-icon sa-warning" style="display: none;">
-      <span class="sa-body"></span>
-      <span class="sa-dot"></span>
-    </div><div class="sa-icon sa-info" style="display: none;"></div><div class="sa-icon sa-success" style="display: block;">
-      <span class="sa-line sa-tip"></span>
-      <span class="sa-line sa-long"></span>
-
-      <div class="sa-placeholder"></div>
-      <div class="sa-fix"></div>
-    </div><div class="sa-icon sa-custom" style="display: none;"></div><h2>Checklist was successfully created!</h2>
-    <p></p>
-    <fieldset>
-      <input type="text" tabindex="3" placeholder="" />
-      <div class="sa-input-error"></div>
-    </fieldset><div class="sa-error-container">
-      <div class="icon">!</div>
-      <p>Not valid!</p>
-    </div><div class="sa-button-container">
-      <button class="cancel" tabindex="2" style="display: none;">Cancel</button>
-      <div class="sa-confirm-button-container">
-        <button class="confirm" tabindex="1" style="display: inline-block; background-color: rgb(140, 212, 245); box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">OK</button><div class="la-ball-fall">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-    </div></div></body></html>
+</body></html>

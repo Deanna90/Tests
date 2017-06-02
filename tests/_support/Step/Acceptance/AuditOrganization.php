@@ -46,13 +46,13 @@ class AuditOrganization extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\AuditOrganizationUpdate::$UpdateButton);
         if (isset($name)){
-            $I->seeInField(\Page\AuditOrganizationUpdate::$NameField, $name);
+            $I->canSeeInField(\Page\AuditOrganizationUpdate::$NameField, $name);
         }
         if (isset($state)){
-            $I->seeOptionIsSelected(\Page\AuditOrganizationUpdate::$StateSelect, $state);
+            $I->canSeeOptionIsSelected(\Page\AuditOrganizationUpdate::$StateSelect, $state);
         }
         if (isset($status)){
-            $I->seeOptionIsSelected(\Page\AuditOrganizationUpdate::$StatusSelect, $status);
+            $I->canSeeOptionIsSelected(\Page\AuditOrganizationUpdate::$StatusSelect, $status);
         }
     }
     
@@ -78,19 +78,19 @@ class AuditOrganization extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\AuditOrganizationList::$CreateAuditOrganizationButton);
         if (isset($name)){
-            $I->see($name, \Page\AuditOrganizationList::NameLine($row));
+            $I->canSee($name, \Page\AuditOrganizationList::NameLine($row));
         }
         if (isset($state)){
-            $I->see($state, \Page\AuditOrganizationList::StateLine($row));
+            $I->canSee($state, \Page\AuditOrganizationList::StateLine($row));
         }
         if (isset($createdDate)){
-            $I->see($createdDate, \Page\AuditOrganizationList::CreatedLine($row));
+            $I->canSee($createdDate, \Page\AuditOrganizationList::CreatedLine($row));
         }
         if (isset($updatedDate)){
-            $I->see($updatedDate, \Page\AuditOrganizationList::UpdatedLine($row));
+            $I->canSee($updatedDate, \Page\AuditOrganizationList::UpdatedLine($row));
         }
         if (isset($status)){
-            $I->see($status, \Page\AuditOrganizationList::StatusLine($row));
+            $I->canSee($status, \Page\AuditOrganizationList::StatusLine($row));
         }
     }
 }

@@ -99,7 +99,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure1 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -114,7 +114,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure1));
@@ -129,7 +129,7 @@ class MeasureGreenTipCest
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure1));
         $I->wait(2);
-        $I->seeElement(Page\MeasureGreenTipCreate::$ProgramSelect);
+        $I->canSeeElement(Page\MeasureGreenTipCreate::$ProgramSelect);
         $I->click(Page\MeasureGreenTipCreate::$ProgramSelect);
         $I->dontSeeElement(\Page\MeasureGreenTipCreate::$ProgramOption);
     }
@@ -163,7 +163,7 @@ class MeasureGreenTipCest
         $I->CreateMeasureGreenTip($descGT, $program);
         $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure1));
         $I->wait(2);
-        $I->see($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
+        $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
     }
     
     /**
@@ -176,7 +176,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure1));
@@ -197,7 +197,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure2 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -212,7 +212,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure2));
@@ -245,7 +245,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure2));
@@ -266,7 +266,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure3 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -281,7 +281,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure3));
@@ -314,7 +314,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure3));
@@ -335,7 +335,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure4 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -350,7 +350,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure4));
@@ -383,7 +383,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure4));
@@ -404,7 +404,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure5 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -419,7 +419,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure5));
@@ -452,7 +452,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure5));
@@ -473,7 +473,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure6 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -488,7 +488,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure6));
@@ -521,7 +521,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure6));
@@ -543,7 +543,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure7 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -558,7 +558,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure7));
@@ -591,7 +591,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure7));
@@ -612,7 +612,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure8 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -627,7 +627,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure8));
@@ -660,7 +660,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure8));
@@ -681,7 +681,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->idMeasure9 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -696,7 +696,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure9));
@@ -730,7 +730,7 @@ class MeasureGreenTipCest
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($desc));
         $I->wait(1);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure9));

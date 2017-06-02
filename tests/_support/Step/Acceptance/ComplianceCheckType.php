@@ -43,10 +43,10 @@ class ComplianceCheckType extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\ComplianceCheckTypeUpdate::$UpdateButton);
         if (isset($name)){
-            $I->seeInField(\Page\ComplianceCheckTypeUpdate::$NameField, $name);
+            $I->canSeeInField(\Page\ComplianceCheckTypeUpdate::$NameField, $name);
         }
         if (isset($status)){
-            $I->seeOptionIsSelected(\Page\ComplianceCheckTypeUpdate::$StatusSelect, $status);
+            $I->canSeeOptionIsSelected(\Page\ComplianceCheckTypeUpdate::$StatusSelect, $status);
         }
     }
     
@@ -72,16 +72,16 @@ class ComplianceCheckType extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\ComplianceCheckTypeList::$CreateComplianceCheckTypeButton);
         if (isset($name)){
-            $I->see($name, \Page\ComplianceCheckTypeList::NameLine($row));
+            $I->canSee($name, \Page\ComplianceCheckTypeList::NameLine($row));
         }
         if (isset($createdDate)){
-            $I->see($createdDate, \Page\ComplianceCheckTypeList::CreatedLine($row));
+            $I->canSee($createdDate, \Page\ComplianceCheckTypeList::CreatedLine($row));
         }
         if (isset($updatedDate)){
-            $I->see($updatedDate, \Page\ComplianceCheckTypeList::UpdatedLine($row));
+            $I->canSee($updatedDate, \Page\ComplianceCheckTypeList::UpdatedLine($row));
         }
         if (isset($status)){
-            $I->see($status, \Page\ComplianceCheckTypeList::StatusLine($row));
+            $I->canSee($status, \Page\ComplianceCheckTypeList::StatusLine($row));
         }
     }
 }

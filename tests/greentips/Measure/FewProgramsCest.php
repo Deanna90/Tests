@@ -58,9 +58,9 @@ class FewProgramsCest
         $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
-        $I->seeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
-        $I->see(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
     }
     
     public function Help2_5_1_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
@@ -105,7 +105,7 @@ class FewProgramsCest
     public function FewProg2_5_5_CheckPresentCreateGreenTipButtonInGreenTipsListBeforeAnyCreatingTipsWithSelectedMeasure(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure));
         $I->wait(2);
-        $I->seeElement(\Page\MeasureGreenTipList::$CreateGreenTipButton);
+        $I->canSeeElement(\Page\MeasureGreenTipList::$CreateGreenTipButton);
     }
     
     public function FewProg2_5_6_CheckAllProgramsPresentInProgramSelectOnGreentipCreatePage(\Step\Acceptance\GreenTipForMeasure $I) {
@@ -117,9 +117,9 @@ class FewProgramsCest
         $I->wait(1);
         $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
         $I->wait(1);
-        $I->seeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
-        $I->seeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program2));
-        $I->seeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program3));
+        $I->canSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
+        $I->canSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program2));
+        $I->canSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program3));
         if($I->getAmount($I, \Page\MeasureGreenTipCreate::$ProgramOption) != 3){
             $I->fail("In Program Select more than created programs for this state");
         }
@@ -137,12 +137,12 @@ class FewProgramsCest
         $I->CreateMeasureGreenTip($descGT, $programArr);
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(2);
-        $I->seeElement(Page\MeasureList::ViewTipButtonLine_ByDescValue($descMeasure));
-        $I->see(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($descMeasure));
+        $I->canSeeElement(Page\MeasureList::ViewTipButtonLine_ByDescValue($descMeasure));
+        $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($descMeasure));
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($descMeasure));
         $I->wait(2);
-        $I->see($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
-        $I->see($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
+        $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
+        $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
     
     public function FewProg2_5_7_1_CheckProgram1_2_OptionAbsentInProgramSelectOnGreentipCreatePage(\Step\Acceptance\GreenTipForMeasure $I) {
@@ -150,8 +150,8 @@ class FewProgramsCest
         $I->wait(1);
         $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
         $I->wait(1);
-        $I->dontSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
-        $I->dontSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program2));
+        $I->cantSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
+        $I->cantSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program2));
     }
     
     public function FewProg2_5_8_Measure_CheckCreateGreenTipWithCreatedProgram3(\Step\Acceptance\GreenTipForMeasure $I) {
@@ -165,9 +165,9 @@ class FewProgramsCest
         $I->CreateMeasureGreenTip($descGT, $programArr);
         $I->amOnPage(Page\MeasureGreenTipList::URL());
         $I->wait(2);
-        $I->see($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
-        $I->see($this->gt_program1_2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
-        $I->see($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
+        $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
+        $I->canSee($this->gt_program1_2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
+        $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
     
     //--------------------------Create Checklists-------------------------------
@@ -201,7 +201,7 @@ class FewProgramsCest
         $I->wait(2);
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
-        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
+        $I->canSeeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_10_CreateChecklistForTier3_Program2(\Step\Acceptance\Checklist $I) {
@@ -233,7 +233,7 @@ class FewProgramsCest
         $I->wait(2);
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
-        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
+        $I->canSeeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_11_CreateChecklistForTier3_Program3(\Step\Acceptance\Checklist $I) {
@@ -265,7 +265,7 @@ class FewProgramsCest
         $I->wait(2);
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
-        $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
+        $I->canSeeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_12_LogOut(AcceptanceTester $I) {
@@ -305,7 +305,7 @@ class FewProgramsCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
-        $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_14_LogOutFromBusiness2(AcceptanceTester $I){
@@ -347,7 +347,7 @@ class FewProgramsCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
-        $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
     
     
@@ -375,7 +375,7 @@ class FewProgramsCest
         $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
-        $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
+        $I->canSeeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
     
     public function FewProg2_5_16_2_CheckGreenTipForMeasure_OnBusinessView_Program3(AcceptanceTester $I) {
@@ -395,6 +395,6 @@ class FewProgramsCest
         $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
-        $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
+        $I->canSeeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
 }

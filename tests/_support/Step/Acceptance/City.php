@@ -52,13 +52,13 @@ class City extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\CityUpdate::$UpdateButton);
         if (isset($name)){
-            $I->seeInField(\Page\CityUpdate::$NameField, $name);
+            $I->canSeeInField(\Page\CityUpdate::$NameField, $name);
         }
         if (isset($state)){
-            $I->seeOptionIsSelected(\Page\CityUpdate::$StateSelect, $state);
+            $I->canSeeOptionIsSelected(\Page\CityUpdate::$StateSelect, $state);
         }
         if (isset($zips)){
-            $I->seeInField(\Page\CityUpdate::$ZipsField, $zips);
+            $I->canSeeInField(\Page\CityUpdate::$ZipsField, $zips);
         }
     }
     
@@ -112,19 +112,19 @@ class City extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\CityList::$CreateCityButton);
         if (isset($name)){
-            $I->see($name, \Page\CityList::NameLine($row));
+            $I->canSee($name, \Page\CityList::NameLine($row));
         }
         if (isset($state)){
-            $I->see($shortName, \Page\CityList::StateLine($row));
+            $I->canSee($shortName, \Page\CityList::StateLine($row));
         }
         if (isset($createdDate)){
-            $I->see($createdDate, \Page\CityList::CreatedLine($row));
+            $I->canSee($createdDate, \Page\CityList::CreatedLine($row));
         }
         if (isset($updatedDate)){
-            $I->see($updatedDate, \Page\CityList::UpdatedLine($row));
+            $I->canSee($updatedDate, \Page\CityList::UpdatedLine($row));
         }
         if (isset($status)){
-            $I->see($status, \Page\CityList::StatusLine($row));
+            $I->canSee($status, \Page\CityList::StatusLine($row));
         }
     }
 }

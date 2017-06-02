@@ -46,13 +46,13 @@ class InspectorOrganization extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$UpdateButton);
         if (isset($name)){
-            $I->seeInField(\Page\InspectorOrganizationUpdate::$NameField, $name);
+            $I->canSeeInField(\Page\InspectorOrganizationUpdate::$NameField, $name);
         }
         if (isset($state)){
-            $I->seeOptionIsSelected(\Page\InspectorOrganizationUpdate::$StateSelect, $state);
+            $I->canSeeOptionIsSelected(\Page\InspectorOrganizationUpdate::$StateSelect, $state);
         }
         if (isset($status)){
-            $I->seeOptionIsSelected(\Page\InspectorOrganizationUpdate::$StatusSelect, $status);
+            $I->canSeeOptionIsSelected(\Page\InspectorOrganizationUpdate::$StatusSelect, $status);
         }
     }
     
@@ -78,19 +78,19 @@ class InspectorOrganization extends \AcceptanceTester
         $I->wait(1);
         $I->waitForElement(\Page\InspectorOrganizationList::$CreateInspectorOrganizationButton);
         if (isset($name)){
-            $I->see($name, \Page\InspectorOrganizationList::NameLine($row));
+            $I->canSee($name, \Page\InspectorOrganizationList::NameLine($row));
         }
         if (isset($state)){
-            $I->see($state, \Page\InspectorOrganizationList::StateLine($row));
+            $I->canSee($state, \Page\InspectorOrganizationList::StateLine($row));
         }
         if (isset($createdDate)){
-            $I->see($createdDate, \Page\InspectorOrganizationList::CreatedLine($row));
+            $I->canSee($createdDate, \Page\InspectorOrganizationList::CreatedLine($row));
         }
         if (isset($updatedDate)){
-            $I->see($updatedDate, \Page\InspectorOrganizationList::UpdatedLine($row));
+            $I->canSee($updatedDate, \Page\InspectorOrganizationList::UpdatedLine($row));
         }
         if (isset($status)){
-            $I->see($status, \Page\InspectorOrganizationList::StatusLine($row));
+            $I->canSee($status, \Page\InspectorOrganizationList::StatusLine($row));
         }
     }
 }
