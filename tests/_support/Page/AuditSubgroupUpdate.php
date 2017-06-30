@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class AuditSubgroupUpdate
+class AuditSubgroupUpdate extends \AcceptanceTester
 {
-    public static function URL($id)       { return "/master-admin/audit-sub-group/update?id=$id";}
+    public static function URL($id)       { return parent::$URL_UserAccess."/audit-sub-group/update?id=$id";}
     public static $Title                  = 'h1';
     
     public static $UpdateButton           = '[type=submit][class*=primary]';

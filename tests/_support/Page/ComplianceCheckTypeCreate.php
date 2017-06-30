@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class ComplianceCheckTypeCreate
+class ComplianceCheckTypeCreate extends \AcceptanceTester
 {
-    public static $URL                    = '/master-admin/compliance-check-type/create';
+    public static function URL()          { return parent::$URL_UserAccess.'/compliance-check-type/create';}
     public static $Title                  = 'h1';
     
     public static $CreateButton           = '[type=submit][class*=success]';

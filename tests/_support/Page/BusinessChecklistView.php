@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class BusinessChecklistView
+class BusinessChecklistView extends \AcceptanceTester
 {
-    public static $URL_Started                = '/user/application/index';
+    public static function URL_Business($businessID)     { return parent::$URL_UserAccess."/business/index?business_id=$businessID";}
 
     public static $Title                      = 'h1';
    
@@ -31,7 +31,55 @@ class BusinessChecklistView
     public static $LeftMenu_PrintApplicationButton         = '#checklist-number option';
     public static $LeftMenu_NoteToBusinessButton           = '#checklist-number option';
     
+    public static $BusinessInfoTab              = '#checklist-number [selected]';
+    public static $RecordsTab                   = '#checklist-number option';
+    public static $CommunicationTab             = '#checklist-number option';
+    public static $BusinessProfileTab           = '#checklist-number option';
    
+    //--------------------------------------------------------------------------
+    //-----------------------------Business Info Tab----------------------------
+    //--------------------------------------------------------------------------
+    const InProcessStatus       = 'In process';
+    const RecognizedStatus      = 'Recognized';
+    const DecertifiedStatus     = 'Decertified';
+    const DisqualifiedStatus    = 'Disqualified';
+    const NonresponsiveStatus   = 'Nonresponsive';
+    const RequiresRenewalStatus = 'Requires renewal';
+    const MovedClosedStatus     = 'Moved/Closed';
+    const NotSuitableStatus     = 'Not Suitable';
+    const ExpiredStatus         = 'Expired';
+    const RejectedStatus        = 'Rejected';
+    
+    public static $StatusSelect_BisinessInfoTab          = '#application_dropdown_1';
+    public static $RecognitionDateField_BisinessInfoTab  = '#recognition_date_input';
+    public static $SaveDateButton_BisinessInfoTab        = 'button#recognition_date_save_button';
+    public static $AddNewChecklistButton_BisinessInfoTab = 'a.btn-renew';
+    
+    public static $BusinessAddress_BisinessInfoTab = 'button#recognition_date_save_button';
+    public static $City_BisinessInfoTab            = 'button#recognition_date_save_button';
+    public static $ZipCode_BisinessInfoTab         = 'button#recognition_date_save_button';
+    public static $Phone_BisinessInfoTab           = 'button#recognition_date_save_button';
+    //Contact Info
+    public static $ContactNameField_BisinessInfoTab     = 'button#recognition_date_save_button';
+    public static $PhoneNumberField_BisinessInfoTab     = 'button#recognition_date_save_button';
+    public static $EmailField_BisinessInfoTab           = 'button#recognition_date_save_button';
+    public static $ManageContactsButton_BisinessInfoTab = 'a#popup_link_0';
+    //Tier Statuses
+    public static $TierStatusTitle_BisinessInfoTab      = 'button#recognition_date_save_button';
+    public static function TierName_BisinessInfoTab($row)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
+    public static function TierStatus_BisinessInfoTab($row)   { return "[class*=margin-top]>div:nth-of-type($row) .p-label";}
+    public static $TierPromotionsTitle_BisinessInfoTab     = 'button#recognition_date_save_button';
+    
+    public static function TierTab_BisinessInfoTab($tierNumber)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
+    public static $ApplicationStatusSelect_BisinessInfoTab          = '#application_dropdown_2';
+    public static $PhoneConsultStatusSelect_BisinessInfoTab         = '#application_dropdown_3';
+    public static $ComplianceCheckStatusSelect_BisinessInfoTab      = '#application_dropdown_4';
+    public static $SiteVisitStatusSelect_BisinessInfoTab            = '#application_dropdown_5';
+    public static $AuditsStatusSelect_BisinessInfoTab               = '#application_dropdown_6';
+    public static $RecognitionsTasksStatusSelect_BisinessInfoTab    = '#application_dropdown_7';
+    public static $AddDetailsButton_ComplianceCheck_BisinessInfoTab = 'a#popup_link_1';
+    public static $AddDetailsButton_Audits_BisinessInfoTab          = 'a#popup_link_2';
+    
     
     
     //Checklist View

@@ -226,9 +226,18 @@ SCRIPT;
     }
     
     /**     
+     * @param \AcceptanceTester $I          
+     * @param                   $field      
+     */
+    public function dontSeeFieldIsRequired($I, $field) {
+        $required = $I->grabAttributeFrom($field, 'required');
+        $I->assertEquals($required, NULL);
+    }
+    
+    /**     
      * @param \AcceptanceTester $I           
      */
-    public function seePageNotFound($I) {
+    public function canSeePageNotFound($I) {
         $I->wait(1);
         $I->canSee("Page not found");
         $I->canSeeInTitle("Not Found (#404)");
@@ -237,10 +246,28 @@ SCRIPT;
     /**     
      * @param \AcceptanceTester $I           
      */
-    public function seePageForbiddenAccess($I) {
+    public function cantSeePageNotFound($I) {
+        $I->wait(1);
+        $I->cantSee("Page not found");
+        $I->cantSeeInTitle("Not Found (#404)");
+    }
+    
+    /**     
+     * @param \AcceptanceTester $I           
+     */
+    public function canSeePageForbiddenAccess($I) {
         $I->wait(1);
         $I->canSee("You are not allowed to perform this action.");
         $I->canSeeInTitle("Forbidden (#403)");
+    }
+    
+    /**     
+     * @param \AcceptanceTester $I           
+     */
+    public function cantSeePageForbiddenAccess($I) {
+        $I->wait(1);
+        $I->cantSee("You are not allowed to perform this action.");
+        $I->cantSeeInTitle("Forbidden (#403)");
     }
     
     /**     

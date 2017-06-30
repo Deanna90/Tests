@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class EssentialCriteriaManage
+class EssentialCriteriaManage extends \AcceptanceTester
 {
-    public static function URL($id)       { return "/master-admin/checklist/measures?id=$id";}
+    public static function URL($id)       { return parent::$URL_UserAccess."/checklist/measures?id=$id";}
     public static $Title                  = 'h2';
     public static $StatusTitle            = 'h2+p>span:first-of-type';
     

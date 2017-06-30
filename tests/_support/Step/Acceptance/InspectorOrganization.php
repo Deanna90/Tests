@@ -3,10 +3,11 @@ namespace Step\Acceptance;
 
 class InspectorOrganization extends \AcceptanceTester
 {
-    public function CreateInspectorOrganization($name = null, $state = null, $status = null)
+    public function CreateInspectorOrganization($name = null, $state = null, $contact = null, $title = null, $email = null, $phone = null, $fax = null, $mobile = null, 
+                                                $address = null, $city = null, $zip = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\InspectorOrganizationCreate::$URL);
+        $I->amOnPage(\Page\InspectorOrganizationCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\InspectorOrganizationCreate::$NameField);
         if (isset($name)){
@@ -15,8 +16,32 @@ class InspectorOrganization extends \AcceptanceTester
         if (isset($state)){
             $I->selectOption(\Page\InspectorOrganizationCreate::$StateSelect, $state);
         }
-        if (isset($status)){
-            $I->selectOption(\Page\InspectorOrganizationCreate::$StatusSelect, $status);
+        if (isset($contact)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$ContactField, $contact);
+        }
+        if (isset($title)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$TitleField, $title);
+        }
+        if (isset($email)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$EmailField, $email);
+        }
+        if (isset($phone)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$PhoneField, $phone);
+        }
+        if (isset($fax)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$FaxField, $fax);
+        }
+        if (isset($mobile)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$MobileField, $mobile);
+        }
+        if (isset($address)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$AddressField, $address);
+        }
+        if (isset($city)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$CityField, $city);
+        }
+        if (isset($zip)){
+            $I->fillField(\Page\InspectorOrganizationCreate::$ZipCodeField, $zip);
         }
         $I->click(\Page\InspectorOrganizationCreate::$CreateButton);
         $I->wait(2);

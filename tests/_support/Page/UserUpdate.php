@@ -38,15 +38,15 @@ class UserUpdate
     public static $CityWarningHelpBlock   = '.alert-warning';
 
     //-----State Admin-----
-    public static $StatesHeadTitle          = '.user-form+div .panel-heading';
-    public static $State                    = '.user-form+div li';
+    public static $StatesHeadTitle          = 'h2+div .panel-heading';
+    public static $State                    = 'h2+div li';
     public static $AddStateButton           = 'a[href*=add-state]';
     public static $DeleteStateButton        = 'a[href*=remove-state]';
     public static $StateSelect_AddStateForm = '[name=state_id]';
     public static $AddButton_AddStateForm   = 'button.btn-success';
     
     //-----Coordinator-----
-    public static $ProgramsHeadTitle            = '.title-block>div:last-of-type .panel-heading';
+    public static $ProgramsHeadTitle            = '.title-block>div:nth-of-type(2) .panel-heading';
     public static $AddProgramButton             = 'a[href*=add-program]';
     public static $ProgramSelect_AddProgramForm = '[name=program_id]';
     public static $AddButton_AddProgramForm     = 'button.btn-success';

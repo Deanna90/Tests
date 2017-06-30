@@ -1,13 +1,13 @@
 <?php
 namespace Page;
 
-class ComplianceCheckTypeList
+class ComplianceCheckTypeList extends \AcceptanceTester
 {
-    public static $URL                             = '/master-admin/compliance-check-type/index';
+    public static function URL()                   {return parent::$URL_UserAccess.'/compliance-check-type/index';}
     public static $Title                           = 'h1';
     public static $ComplianceCheckTypeRow          = 'table[class*=table] tbody>tr';
     
-    public static $CreateComplianceCheckTypeButton = 'a.btn-green-lite';
+    public static $CreateComplianceCheckTypeButton = 'a.btn-success';
    
     public static $IdLinkHead           = 'table[class*=table] tr>th:first-of-type a';
     public static $NameLinkHead         = 'table[class*=table] tr>th:nth-of-type(2) a';

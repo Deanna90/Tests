@@ -1,26 +1,38 @@
 <?php
 namespace Page;
 
-class SavingAreaCreate
+class SavingAreaCreate extends \AcceptanceTester
 {
-    // include url of current page
-    public static $URL = '';
-
-    /**
-     * Declare UI map for this page here. CSS or XPath allowed.
-     * public static $usernameField = '#username';
-     * public static $formSubmitButton = "#mainForm input[type=submit]";
-     */
-
-    /**
-     * Basic route example for your current URL
-     * You can append any additional parameter to URL
-     * and use it in tests like: Page\Edit::route('/123-post');
-     */
-    public static function route($param)
-    {
-        return static::$URL.$param;
-    }
-
-
+    public static function URL()          { return parent::$URL_UserAccess."/saving-area/create";}
+    public static $Title                  = 'h1';
+    
+    public static $CreateButton           = '[type=submit][class*=success]';
+    
+    public static $NameField                        = '#savingarea-name';
+    public static $UnitsField                       = '#savingarea-units';
+    public static $MoneyConversionRateField         = '#savingarea-money_conversion_rate';
+    public static $VisualUnitsField                 = '#savingarea-visual_units';
+    public static $VisualUnitsConversionRateField   = '#savingarea-visual_units_conversion_rate';
+    public static $VisualNameField                  = '#savingarea-visual_name';
+    public static $ChartColorField                  = '#savingarea-chart_color';
+    
+    public static $ImageFileUpload                  = '#savingarea-imagefile';
+    
+    public static $StatusSelect                     = '#savingarea-status';
+    public static $HasVisualRepresentationSelect    = '#savingarea-has_visual_representation';
+    
+    //Labels
+    public static $NameLabel                        = '[for=savingarea-name]';
+    public static $UnitsLabel                       = '[for=savingarea-units]';
+    public static $MoneyConversionRateLabel         = '[for=savingarea-money_conversion_rate]';
+    public static $VisualUnitsLabel                 = '[for=savingarea-visual_units]';
+    public static $VisualUnitsConversionRateLabel   = '[for=savingarea-visual_units_conversion_rate]';
+    public static $VisualNameLabel                  = '[for=savingarea-visual_name]';
+    public static $ChartColorLabel                  = '[for=savingarea-chart_color]';
+    
+    public static $ImageFileUploadLabel               = '[for=savingarea-imagefile]';
+    
+    public static $StatusSelectLabel                  = '[for=savingarea-status]';
+    public static $HasVisualRepresentationSelectLabel = '[for=savingarea-has_visual_representation]';
+    
 }

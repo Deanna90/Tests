@@ -14,6 +14,9 @@ class UserCreate extends \AcceptanceTester
     
     public static $CreateButton           = '[type=submit][class*=success]';
     
+    public static $ShowContactInfoCheckbox      = '#show_contact_info';
+    public static $ShowContactInfoCheckboxLabel = '[for=show_contact_info]';
+    
     public static $EmailField             = '#user-email';
     public static $FirstNameField         = '#user-first_name';
     public static $LastNameField          = '#user-last_name';

@@ -538,7 +538,7 @@ class ChecklistMeasureExtensionCest
         $password         = $confirmPassword = 'Qq!1111111';
         $busName          = $this->business1_LB = $I->GenerateNameOf("bus1_LB");
         $busPhone         = $I->GeneratePhoneNumber();
-        $address          = $I->GenerateNameOf("addr");;
+        $address          = $I->GenerateNameOf("addr");
         $zip              = $this->zip1;
         $city             = $this->city1;
         $website          = 'fgfh.fh';

@@ -22,4 +22,29 @@ class AuditSubGroup extends \AcceptanceTester
         $I->wait(2);
     } 
 
+    public function GetAuditSubgroupOnPageInList($name)
+    {
+        $I = $this;
+        $I->amOnPage(\Page\AuditSubgroupList::URL());
+        $I->wait(1);
+        $count = $I->grabTextFrom(\Page\AuditSubgroupList::$SummaryCount);
+        $pageCount = ceil($count/20);
+        $I->comment("Page count = $pageCount");
+        for($i=1; $i<=$pageCount; $i++){
+            $I->amOnPage(\Page\AuditSubgroupList::UrlPageNumber($i));
+            $I->wait(2);
+            $rows = $I->getAmount($I, \Page\AuditSubgroupList::$AuditSubgroupRow);
+            $I->comment("Count of rows = $rows");
+            for($j=1; $j<=$rows; $j++){
+                if($I->grabTextFrom(\Page\AuditSubgroupList::NameLine($j)) == $name){
+                    $I->comment("I find subgroup: $name at row: $j on page: $i");
+                    break 2;
+                }
+            }
+        }
+        $city['id']   = $I->grabTextFrom(\Page\AuditSubgroupList::IdLine($j));
+        $city['page'] = $i;
+        $city['row']  = $j;
+        return $city;
+    }
 }

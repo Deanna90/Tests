@@ -4,8 +4,14 @@ namespace Page;
 class RegistrationStarted
 {
     public static $URL_Started                = '/user/application/index';
+    public static $URL_Review                 = '/user/application/review';
 
-    public static $Title                      = 'h1';
+    public static $Title                      = 'h2';
+    
+    public static $RegistrationMenuItem       = 'a.first';
+    public static $ApplicationMenuItem        = 'a.second';
+    public static $ReviewAndSubmitMenuItem    = 'a.third';
+    
     
     public static $SaveButton_Footer          = '.success.save-buttons button[type=submit].btn-green';
     public static $SaveAndNextButton_Footer   = '.success.save-buttons button[name=save_next]';
@@ -38,10 +44,10 @@ class RegistrationStarted
     public static $RightBlock_NeedToCompleteMeasuresInfo     = '.right-column-block>div:first-of-type h4+p';
     public static $RightBlock_CurrentlyCompletedMeasuresInfo = '.right-column-block>div:first-of-type .large-insert-text';
     
-    public static function CoordinatorEmail($row)           { return ".left-column-block>div:nth-of-type(2) ul>li:nth-of-type($row)>a:nth-of-type(1)";}
-    public static function CoordinatorPhone($row)           { return ".left-column-block>div:nth-of-type(2) ul>li:nth-of-type($row)>a:nth-of-type(2)";}
-    public static function CoordinatorEmail_ByEmail($email) { return "//*[@class='contact-info-list']//li[contains(a[1]/text(), '$email')]/a[1]";}
-    public static function CoordinatorPhone_ByEmail($email) { return "//*[@class='contact-info-list']//li[contains(a[1]/text(), '$email')]/a[2]";}
+    public static function CoordinatorEmail($row)           { return ".left-column-block>div:nth-of-type(2) ul>li:nth-of-type($row)>a:nth-of-type(2)";}
+    public static function CoordinatorPhone($row)           { return ".left-column-block>div:nth-of-type(2) ul>li:nth-of-type($row)>a:nth-of-type(1)";}
+    public static function CoordinatorEmail_ByEmail($email) { return "//*[@class='contact-info-list']//li[contains(a[2]/text(), '$email')]/a[2]";}
+    public static function CoordinatorPhone_ByEmail($email) { return "//*[@class='contact-info-list']//li[contains(a[2]/text(), '$email')]/a[1]";}
     
     public static function MeasureDescription_ByDesc($desc)      { return "//*[@id='measures-form']//p[contains(text(), '$desc')]";}
 //    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
@@ -84,4 +90,20 @@ class RegistrationStarted
     public static $ThermsPopup_AddOptionButton          = '.modal.fade.in [data-action=add]';
     public static $ThermsPopup_SaveChangesButton        = '.modal.fade.in button[type=submit]';
     public static $ThermsPopup_CloseButton              = '.modal.fade.in .close';
+    
+    //-----Review & Submit Page-----
+    
+    public static $SubmitMyApplicationButton            = '.input-row button[type=submit]';
+//    public static $ReviewTitle                          = 'h2';
+    
+    public static $CategoriesHead        = '#measures-form>div:first-of-type h3';
+    public static $CoreMeasuresHead      = '#measures-form>div:first-of-type h3';
+    public static $ElectiveMeasuresHead  = '#measures-form>div:first-of-type h3';
+    public static $StatusHead            = '#measures-form>div:first-of-type h3';
+    
+    public static function Review_GroupLine_ByName($groupName)  { return "//*[@class='registration-table']//tr[contains(td/text(), '$groupName')]/td[1]";}
+    public static function Review_SubgroupLine_ByName($name)    { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[1]/a";}
+    public static function Review_CoreLine_ByName($name)        { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[2]";}
+    public static function Review_ElectiveLine_ByName($name)    { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[3]";}
+    public static function Review_StatusLine_ByName($name)      { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[4]/span";}
 }

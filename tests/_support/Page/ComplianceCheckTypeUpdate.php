@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class ComplianceCheckTypeUpdate
+class ComplianceCheckTypeUpdate extends \AcceptanceTester
 {
-    public static function URL($id)       { return "/master-admin/compliance-check-type/update?id=$id";}
+    public static function URL($id)       { return parent::$URL_UserAccess."/compliance-check-type/update?id=$id";}
     public static $Title                  = 'h1';
     
     public static $UpdateButton           = '[type=submit][class*=primary]';

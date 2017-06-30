@@ -1,11 +1,14 @@
 <?php
 namespace Page;
 
-class AuditSubgroupList
+class AuditSubgroupList extends \AcceptanceTester
 {
-    public static $URL                  = '/master-admin/audit-sub-group/index';
-    public static $Title                = 'h1';
+    public static function URL()                  { return parent::$URL_UserAccess.'/audit-sub-group/index';}
+    public static function UrlPageNumber($number) { return parent::$URL_UserAccess."/audit-sub-group/index?page=$number"; }
+    
+    public static $Title                         = 'h1';
     public static $AuditSubgroupRow              = 'table[class*=table] tbody>tr';
+    public static $SummaryCount                  = '.summary>b:last-of-type';
     
     public static $LeftMenu_AuditorsButton           = '.filter-menu nav>li:nth-of-type(1) a';
     public static $LeftMenu_AuditOrganizationsButton = '.filter-menu nav>li:nth-of-type(2) a';

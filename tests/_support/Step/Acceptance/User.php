@@ -5,7 +5,7 @@ class User extends \AcceptanceTester
 {
     
     public function CreateUser($userType = null, $email = null, $firstName = null, $lastName = null, $password = null, $confirmPassword = null, 
-                                $phone = null, $type = null)
+                                $phone = null, $type = null, $showInfo = 'ignore')
     {
         $I = $this;
         $I->amOnPage(\Page\UserCreate::URL($userType));
@@ -31,6 +31,21 @@ class User extends \AcceptanceTester
         }
         if (isset($type)){
             $I->canSeeOptionIsSelected(\Page\UserCreate::$TypeDisabledSelect, $type);
+        }
+        switch ($showInfo){
+            case 'on' :
+                if($I->grabAttributeFrom(\Page\UserCreate::$ShowContactInfoCheckbox, 'checked') == NULL){
+                    $I->click(\Page\UserCreate::$ShowContactInfoCheckboxLabel);
+                }
+//                $checked = $I->grabAttributeFrom(\Page\UserCreate::$ShowContactInfoCheckbox, 'checked');
+                break;
+            case 'off' :
+                if($I->grabAttributeFrom(\Page\UserCreate::$ShowContactInfoCheckbox, 'checked') == true){
+                    $I->click(\Page\UserCreate::$ShowContactInfoCheckboxLabel);
+                }
+                break;
+            case 'ignore' :
+                break;
         }
         $I->click(\Page\UserCreate::$CreateButton);
         $I->wait(2);
@@ -100,7 +115,7 @@ class User extends \AcceptanceTester
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
-            $I->amOnPage(\Page\UserList::UrlPageNumber($i));
+            $I->amOnPage(\Page\UserList::UrlPageNumber($i, $userType));
             $I->wait(1);
             $rows = $I->getAmount($I, \Page\UserList::$UserRow);
             $I->comment("Count of rows = $rows");

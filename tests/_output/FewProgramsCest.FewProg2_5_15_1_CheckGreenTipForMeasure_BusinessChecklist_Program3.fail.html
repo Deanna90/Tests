@@ -1,466 +1,82 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="SUVXd1JuZGIddQUQABoJFywWDygaPAcRCBUvOxVeM1IaFzxaKhoLUA==" />
+    <meta name="csrf-token" content="OVNOalpKaFVpPnwEDyM4HkkZLR5veCQBXTp4U2tyWRRRBT9SGD0pJQ==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
-    <title>GreenBiz - Complete-measures Application</title>
-    <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
-<link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <title>GreenBiz - Login Site</title>
+    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
 <link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
+<link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
 <link href="/leaflet/leaflet.css" rel="stylesheet" />
 <link href="/css/chosen.min.css" rel="stylesheet" />
-<link href="/css/style.css" rel="stylesheet" />
-<link href="/css/switch.jquery.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
-    <style>.cke{visibility:hidden;}</style></head>
+<link href="/css/switch.jquery.css" rel="stylesheet" />
+<link href="/css/style.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
+    </head>
 <body>
-    <div id="main_page_container"><!-- user_id: 5349 -->
+    <div id="main_page_container">
+        <!-- user_id: guest -->
 <div class="container">
     <header class="clear">
         <div class="header-logo">
             <div class="">
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
-                    <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                    <a href="/business/registration" class="ajax">NEW BUSINESS</a>                    <div class="select-wrapper">
-                                                    <form class="no-ajax" action="/site/logout" method="post">
-<input type="hidden" name="_csrf" value="YWlsLkZLWVI1WT5JFD80JwQ6NHEOGTohIDkUYgF7DmIyOwcDPj82YA==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
+                    <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
+                                                    <a class="btn btn-default logout ajax" href="/site/login">Login</a>                                            </div>
                 </div>
             </div>
         </div>
 
         
-                    <div class="horizontal-nav">
-                <div class="responsive-menu1">
-                    <button class="hamburger1" style="display: block;">☰</button>
-                    <button class="cross1" style="display: none;">˟</button>
-                </div>
-                                    <div class="header-text">
-                        <div class="number">
-    <a class="first  grey " href="#">Registration</a>            <img src="/img/icon_dividing_bar.png" alt="" />
-        <a class="second  grey ajax" href="/user/application/index">Application</a>                <img src="/img/icon_dividing_bar.png" alt="" />
-        <a class="third  grey ajax" href="/user/application/review">Review &amp; Submit</a>    
-</div>
-                                            </div>
-                
-            </div>
                     </header>
 
-    
-    <div class="col-md-12 background-grey">
-                                <div class="row">
-                <div class="col-md-3">
-                    <div class="row">
-                        
-<div class="left-column-checklist no-padd-top">
-    <div class="left-color-menu">
-        <div class="responsive-menu">
-            <button class="hamburger">☰</button>
-            <button class="cross">˟</button>
-        </div>
-        <ul class="menu nav nav-pills nav-stacked">
-                            <li class="getstarted-group"><a href="/user/application/index" class="ajax">get started</a>                    <div class="progress">
-                        <div class="progress-bar progress-background" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                            <span class="sr-only">0% Complete</span>
-                        </div>
-                    </div>
-                </li>
-                                        
-                <li class="energy-group active">
-                                        <a href="/user/application/complete-measures?audit_subgroup_id=1517&amp;business_id=8634&amp;tier_id=4884" class="ajax">Energy</a>
-                                            <ul class="sub-menu active" style="">
-                                                            <li class="active">
-                                    <a href="/user/application/complete-measures?audit_subgroup_id=1517&amp;business_id=8634&amp;tier_id=4884" class="ajax">EnAudSub1klrz</a>
-                                </li>
-                                                    </ul>
+    <div class="site-login">
+    <h1>GreenBiz - Login Site</h1>
 
-                        
-                        <div class="progress">
-                            <div class="progress-bar progress-background" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                                <span class="sr-only">0% Complete</span>
-                            </div>
-                        </div>
-                                    </li>
-                    </ul>
-                        <a href="/user/application/print?business_id=8634&amp;tier_id=4884&amp;all_audit_group=1&amp;green_tips=1" class="after-menu no-ajax" target="_blank">
-                    <i class="fa fa-2x fa-print"></i>Print Tier 3                 </a>
-            
-            </div>
+    <p>Please fill out the following fields to login:</p>
+
+    <form id="login-form" class="no-ajax form-horizontal" action="/site/login" method="post">
+<input type="hidden" name="_csrf" value="OVNOalpKaFVpPnwEDyM4HkkZLR5veCQBXTp4U2tyWRRRBT9SGD0pJQ==" />
+        <div class="form-group field-loginform-email required">
+<label class="col-lg-1 control-label" for="loginform-email">Email</label>
+<div class="col-lg-3"><input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" /></div>
+<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
+</div>
+        <div class="form-group field-loginform-password required">
+<label class="col-lg-1 control-label" for="loginform-password">Password</label>
+<div class="col-lg-3"><input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" /></div>
+<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
+</div>
+        <div class="form-group field-loginform-rememberme">
+<div class="col-sm-6 col-sm-offset-3">
+<div class="checkbox">
+<label for="loginform-rememberme">
+<input type="hidden" name="LoginForm[rememberMe]" value="0" /><input type="checkbox" id="loginform-rememberme" name="LoginForm[rememberMe]" value="1" checked="" />
+Remember Me
+</label>
+</div>
+<div class="help-block help-block-error "></div>
 </div>
 
-                    </div>
-                    <div class="row">
-                                                                        <div class="col-md-12 prev-tier">
-                                                    </div>
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="row">
-                        <div class="right-column-checklist col-md-12 padding_top3p scroll-to-errors">
-                                                                                                                                                                        <div class="title-block clear">
-                                <div class="info-block">
-                                    <p class="">
-                                        <span class="p-label">meeting the requirements</span>
-                                        <span class="p-small">
-                                                                                            You have currently completed 0                                                out of 1 total measures
-                                                                            </span>
-                                    </p>
-                                    <div class="progress-wrapper">
-                                        <div class="progress large">
-                                            <div class="progress-background large progress-bar in-progress" style="width: 0%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                                <span class="sr-only">0% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h2 class="waste-color">EnAudSub1klrz</h2>
-                                </div>
-                            </div>
-                            <form id="measures-form" action="/user/application/complete-measures?audit_subgroup_id=1517&amp;business_id=8634&amp;tier_id=4884" method="post" data-pjax="1" enctype="multipart/form-data" class="ajax">
-<input type="hidden" name="_csrf" value="YWlsLkZLWVI1WT5JFD80JwQ6NHEOGTohIDkUYgF7DmIyOwcDPj82YA==" />
-                            
-<div class="background-grey columns-content clear">
-    <div class="columns-like-table">
-        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 same-height">
-            <div class="application-content-titles">
-                <h3>Core measures</h3>
-                <p class="p-label col-md-3 col-sm-3 col-xs-3 text-right">
-                    <span class="lite-green">yes </span>
-                    <span class="delete-group">no </span>
-                    <span>n/a </span>
-                </p>
-            </div>
-            <div id="hidden-uploaded-input"></div>
-            <ol class="upload-items" type="1" start="1">
-                                    <li class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-9 col-sm-8 col-xs-8">
-    <p>1.  Descriptionanxb</p>
-                </div>
-<div class="col-md-2 col-sm-4 col-xs-4">
-    <div class="with-out-popup">
-        <div class="form-group field-relmeasuretobusiness-answer_type">
-
-<select id="relmeasuretobusiness-answer_type" class="measure-select handle-switch" name="Answers[new0][answer_type]" data-measure-id="5017" style="display: none;">
-<option value="3">yes</option>
-<option value="4" selected="selected">no</option>
-<option value="5">na</option>
-</select>
-
-<p class="help-block help-block-error"></p>
-<div id="relmeasuretobusiness-answer_type_switch_control" class="switch-control switch-control-3-items" style="width: 78px;"><div class="switch-control-point ui-draggable ui-draggable-handle" style="left: 26px; background-color: rgb(209, 74, 60);"></div></div></div>
-        <div class="flag-block">
-                        
-<div class="flag-post"><input type="hidden" name="Answers[new0][help]" value="0" /><input type="checkbox" id="help_new0" name="Answers[new0][help]" value="1" /><label class="p-label" for="help_new0">help<span class="fa fa-question in-progress-color"></span></label></div>
+</div>
+        <div class="form-group">
+            <a href="/site/request-password-reset" class="ajax">Forgot password?</a>
         </div>
 
-    </div>
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11 margin_top3p">
+                <button type="submit" class="btn btn-primary" name="login-button">Login</button>            </div>
+        </div>
+
+    </form>
 
 </div>
 
-
-                            
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                    </div>
-
-                                <ul class="contact-info-list"><div class="minimum-required">Please choose at least 1: </div>
-<li class="col-md-12 clear">
-    <div class="col-md-9 col-sm-9 col-xs-9">
-       <span>
-            <i class="fa fa-angle-right"></i>ques1       </span>
-    </div>
-    <div class="col-md-3 col-sm-3 col-xs-3">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="select-wrapper sub-measures-select">
-                    <span class="fa fa-angle-down custom"></span>
-                    <div class="form-group field-subAnswer-new0">
-
-<select id="subAnswer-new0" class="form-control" name="SubAnswers[new0][answer_option_id]">
-<option value="1277">a1</option>
-<option value="1278">a2</option>
-</select>
-
-<p class="help-block help-block-error"></p>
-</div>                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="input-wrapper">
-                    <div class="form-group field-relsubmeasuretobusiness-answer_value">
-
-<input type="text" id="relsubmeasuretobusiness-answer_value" class="form-control" name="SubAnswers[new0][answer_value]" />
-
-<p class="help-block help-block-error"></p>
-</div>                </div>
-            </div>
-        </div>
-    </div>
-</li>
-
-</ul>                            
-                            
-<div style="cursor: default;" class="file-upload col-md-12 no-ajax">
-    <span style="cursor: pointer;" href="" class="no-ajax lite-green add-file-new0 dz-clickable">
-        <img src="/img/icon_upload.png" alt="" />Upload
-    </span>
-</div>
-
-<div class="added-files" id="drop-zone-previews-container-new0"></div>
-<div class="hidden">
-    <div id="drop-zone-container-new0" class="dropzone" style="display: none;"><div id="drop-zone-previews-container-new0" class="dropzone-previews"></div><div class="dz-default dz-message"><span>Drop files here to upload</span></div><input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;" /></div></div>
-                        </div>
-                    </li>
-                            </ol>
-        </div>
-        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 same-height">
-            <div class="right-column-block margin-b-150">
-                                <div class="short-articles">
-                    <p class="p-label">category progress</p>
-                    <div class="progress-wrapper">
-                        <div class="progress large">
-                            <div class="progress-background large progress-bar in-progress" style="width: 0%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                <span class="sr-only">0% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="p-small">
-                                                    <span class="total_checked1">0</span> of
-                        <span class="total1">1</span>
-                            required measures completed
-                                            </span>
-                </div>
-                                    <p class="p-label">green tips</p>
-                                <div class="short-articles link-green no-ajax">
-            <h4><i class="fa fa-info-circle green"></i>Measure 1</h4><p>GT_pr3fubj</p>
-</div>
-                
-                <!--                -->                                <div class="short-articles">
-                                    </div>
-            </div>
-
-        </div>
-        <div class="save-buttons application-column">
-            <button type="submit" class="btn btn-md btn-green btn-block ">
-                save
-            </button>
-            <a href="#" class="btn btn-green update-time disabled col-10">Last saved
-                at <span class="not-set">(not set)</span></a>
-        </div>
-    </div>
-</div>
-
-                            <div class="background-grey columns-content clear">
-                                <div class="col-md-12">
-                                    <div class="application-add">
-                                        <h3>Other Green Things Your Business is Doing</h3>
-                                        <div class="contact-info-list margin-0">
-                                            <p>If you have another item that you believe your business should receive
-                                                credit
-                                                for,
-                                                please let us know and staff will consider it. Please fill in
-                                                information
-                                                describing
-                                                the measure:</p>
-                                        </div>
-                                        <div class="form-group field-relauditsubgrouptocomment-comment">
-
-<textarea id="relauditsubgrouptocomment-comment" class="form-control" name="comment" rows="3" cows="30"></textarea>
-
-<p class="help-block help-block-error"></p>
-</div>                                    </div>
-                                </div>
-                            </div>
-                            <div class="success save-buttons margin-b-20">
-                                <div class="application-buttons-group">
-                                                                            <a href="#" class="btn btn-md btn-green-outline col-20 disabled">previous</a>
-                                                                        <button type="submit" class="btn btn-md btn-green col-20">
-                                        save
-                                    </button>
-
-                                                                                                                                                                                                                            <button type="submit" name="save_next_show_model" value="1" class="btn btn-md btn-green-outline save-next-btn col-20">
-                                                        Save &amp; Next
-                                                    </button>
-                                                                                                                                                                                                        </div>
-                                <div class="application-buttons-group">
-                                    <a href="#" class="btn btn-green disabled update-time application">Last saved
-                                        at <span class="not-set">(not set)</span></a>
-                                </div>
-                                <div class="application-buttons-group">
-                                    <a href="/user/application/review?business_id=8634" class="btn btn-md btn-green-outline col-20 ajax">review</a>
-                                </div>
-                            </div>
-                            </form>                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="next-btn-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h2 class="modal-title" id="next-btn-modal-label">Almost done!</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="create-content">
-                        <h4>You've completed the last section of your checklist.
-
-                            Finish your application by clicking "REVIEW &amp; SUBMIT".</h4>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="success save-buttons">
-                        <div class="application-buttons-group">
-                            <a type="button" class="btn btn-green ajax" href="/user/application/review?business_id=8634" data-dismiss="modal">REVIEW
-                                &amp; SUBMIT</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div><script type="text/javascript">var sbmUrl = null;var RedrUrl = null;$(".delete-app-btn").click(function(e) {e.preventDefault();sbmUrl = $(this).attr("href");RedrUrl = $(this).data("redirect-url");sweetAlert({"timer":null,"type":"warning","title":"Are you sure?","text":"You really want delete this application?","confirmButtonText":"Yes, delete it!","confirmButtonColor":"#DD6B55","closeOnConfirm":false,"showCancelButton":true,"animation":"slide-from-top","onClickSelector":".delete-app-btn","selectAttribute":"href","id":"w0","allowOutsideClick":true}, function(input){
-                    if (input === false) return false;
-
-                    var link = sbmUrl;
-                    var redirect = RedrUrl;
-                    
-                    $.post(link, function( data ) {
-                        if (typeof redirect != 'undefined') {
-                            window.location.href = redirect;
-                        } else {
-                            location.reload();
-                        }
-                    });
-                });});
-         /** hide menu when load page and show block with active sub-menu link */
-
-        $('.left-color-menu').find('.sub-menu').hide();
-        $('.left-color-menu li.active').parent().show().addClass('active');
-        $('.left-color-menu li.active').parent().parent().show().addClass('active');
-
-
-        /** left menu open / close */
-
-        $('.left-color-menu &gt; ul &gt; li:not(:first)').click(function (e) {
-            e.preventDefault();
-
-            if ($(this).hasClass('active')) {
-                $(this).removeClass('active').find('.sub-menu').removeClass('active').slideUp();
-                return true;
-            }
-
-            $('.left-color-menu &gt; ul &gt; li').removeClass('active');
-
-            if (!$(this).find('.sub-menu').hasClass('active')) {
-                $(this).parent().find('li .sub-menu').removeClass('active').slideUp();
-            }
-
-            $(this).addClass('active');
-            $(this).find('.sub-menu').addClass('active').slideDown();
-        });
-
-
-        /** don't hide menu when click on self */
-
-        $('.sub-menu li').click(function (e) {
-            e.stopPropagation();
-        });
-            if(typeof subMeasuresWidget == 'undefined'){
-                window.subMeasuresWidget = {};
-            }
-
-                $("#replace-image-force").click(function() {
-                    alert("Need make a new instance of DropZone");
-                });
-            Dropzone.autoDiscover = false; var logoDropzonenew0 = new Dropzone("div#drop-zone-container-new0", {"url":"/user/application/upload-doc?business_id=8634","paramName":"measure_doc","maxFilesize":10,"addRemoveLinks":false,"uploadMultiple":false,"maxFiles":10,"previewTemplate":"                                &lt;div class=\"file-row\"&gt;\n                                    &lt;!-- This is used as the file preview template --&gt;\n                                 \n                                        &lt;!--&lt;span class=\"preview\"&gt;&lt;img data-dz-thumbnail /&gt;&lt;/span&gt;--&gt;\n                                        &lt;p class=\"name\" data-dz-name&gt;&lt;/p&gt;\n                                        &lt;span&gt;\n                                            &lt;a class=\"dz-remove required fa fa-trash\" href=\"javascript:undefined;\" data-dz-remove=\"\"&gt;&lt;/a&gt;                                      \n                                        &lt;/span&gt;\n                                        \n                                         &lt;strong class=\"error text-danger\" data-dz-errormessage&gt;&lt;/strong&gt;\n                                  \n                                        &lt;!--&lt;div class=\"progress progress-striped active\" role=\"progressbar\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\"&gt;--&gt;\n                                            &lt;!--&lt;div class=\"progress-bar progress-bar-success\" style=\"width:0%;\" data-dz-uploadprogress&gt;&lt;/div&gt;--&gt;\n                                        &lt;!--&lt;/div&gt;--&gt;\n                                 \n                                &lt;/div&gt;","clickable":".add-file-new0","autoProcessQueue":true,"hiddenInputContainer":"#drop-zone-container-new0","previewsContainer":"#drop-zone-previews-container-new0","headers":{"X-CSRF-Token":"YWlsLkZLWVI1WT5JFD80JwQ6NHEOGTohIDkUYgF7DmIyOwcDPj82YA=="},"params":{"_csrf":"YWlsLkZLWVI1WT5JFD80JwQ6NHEOGTohIDkUYgF7DmIyOwcDPj82YA=="}});logoDropzonenew0.on('success',                                 function(file, xhr){
-                                    json = JSON.parse(xhr);
-                                    
-                                    var form = $('#measures-form');
-                                 
-                                    var count = form.find('.hidden-uploaded-input').length;
-    
-                                    var inputContainer = $('&lt;div&gt;&lt;/div&gt;');
-                                    
-                                    var input = $('&lt;input&gt;');
-                                    input.addClass('hidden-uploaded-input');
-                                    input.attr('type', 'hidden');
-                                    input.attr('name', 'upload[]\[' + count + '][name]');
-                                    input.attr('value', file.name);
-                                    input.attr('data-actual', json.filename);
-                                    
-                                    inputContainer.append(input);
-                                    
-                                    var input_actual_name = $('&lt;input&gt;');
-                                    input_actual_name.attr('type', 'hidden');
-                                    input_actual_name.attr('name',  'upload[]\[' + count + '][actual_name]');
-                                    input_actual_name.attr('value', json.filename);
-                                    
-                                    inputContainer.append(input_actual_name);
-                                    
-                                    form.append(inputContainer);                                                                    
-                                });logoDropzonenew0.on('removedfile',                                 function(file){
-                                    // Remove file and hidden input.
-                                    var hiddenInputs = $('.hidden-uploaded-input');
-                                    var count = hiddenInputs.length;
-                                    for(var x=0; x&lt;count; x++)
-                                    {
-                                        if(hiddenInputs[x].value == file.name) {
-                                           var input = $(hiddenInputs[x]);
-                                           var actualName = input.attr('data-actual');    
-                                           input.parent().remove();
-                                           var data = '?' + $.param({
-                                                    fileName: actualName,
-                                                    business_id: 8634,
-                                                });
-                                           $.ajax({
-                                                type: 'DELETE',
-                                                url: 'remove-file' + data,
-                                                
-                                           });
-                                        }
-                                    }
-                                });logoDropzonenew0.on('complete', function(file){});           app.ready(function () {
-            var logoDZContainer = $('#drop-zone-container-new0');
-            logoDZContainer.hide();
-            var replaceBtn = $('#replace-measure_doc');
-            replaceBtn.unbind('click');
-            replaceBtn.on('click', function (e) {
-                e.preventDefault();
-                // logoDZContainer.enable();
-                logoDZContainer.show();
-            });
-
-            var removeBtn = $('#delete-measure_doc');
-            removeBtn.unbind('click');
-            removeBtn.on('click', function(e) {
-                e.preventDefault();
-                var btn = $(this);
-                var confirmation = confirm('Are you sure you want to delete this item?');
-                if (confirmation) {
-                    var img = $('#measure_doc-img');
-                    if (img.length) {
-                        $.ajax(btn.attr('href'),{
-                        type: 'DELETE',
-                        success:function(data) {
-                            if (data) {
-                                img.attr('src', img.attr('data-default-logo'));
-                                btn.hide();
-                            }
-                            
-                        }
-                    })   
-                    }
-                }
-            });
-           });
-            
-jQuery('#measures-form').yiiActiveForm([{"id":"relmeasuretobusiness-answer_type","name":"answer_type","container":".field-relmeasuretobusiness-answer_type","input":"#relmeasuretobusiness-answer_type","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Answer Type must be an integer.","skipOnEmpty":1});}},{"id":"relmeasuretobusiness-help","name":"help","container":".field-help_new0","input":"#help_new0","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.boolean(value, messages, {"trueValue":"1","falseValue":"0","message":"Help must be either \"1\" or \"0\".","skipOnEmpty":1});}},{"id":"relsubmeasuretobusiness-answer_option_id","name":"answer_option_id","container":".field-subAnswer-new0","input":"#subAnswer-new0","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Answer Option ID must be an integer.","skipOnEmpty":1});}},{"id":"relsubmeasuretobusiness-answer_value","name":"answer_value","container":".field-relsubmeasuretobusiness-answer_value","input":"#relsubmeasuretobusiness-answer_value","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"Answer Value must be a string.","skipOnEmpty":1});}},{"id":"relauditsubgrouptocomment-comment","name":"comment","container":".field-relauditsubgrouptocomment-comment","input":"#relauditsubgrouptocomment-comment","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"Comment must be a string.","skipOnEmpty":1});}}], {"errorSummary":".alert.alert-danger.error-container"});</script></div>    
-    <div id="loading" style="display: none;"></div>
+</div>    </div>
+    <div id="loading"></div>
 <div><div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_bottom" style="display: block;">
     <div class="yii-debug-toolbar__bar">
         <div class="yii-debug-toolbar__block yii-debug-toolbar__title">
@@ -469,8 +85,8 @@ jQuery('#measures-form').yiiActiveForm([{"id":"relmeasuretobusiness-answer_type"
             </a>
         </div>
 
-        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: block;">
-            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter yii-debug-toolbar__label_success">1</span>
+        <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: none">
+            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter">0</span>
             <div class="yii-debug-toolbar__ajax_info">
                 <table>
                     <thead>
@@ -482,44 +98,44 @@ jQuery('#measures-form').yiiActiveForm([{"id":"relmeasuretobusiness-answer_type"
                         <th>Profile</th>
                     </tr>
                     </thead>
-                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/user/application/complete-measures?audit_subgroup_id=1517&amp;business_id=8634&amp;tier_id=4884">/user/application/complete-measures?audit_subgroup_id=1517&amp;business_id=8634&amp;tier_id=4884</td><td class="yii-debug-toolbar__ajax_request_duration">185 ms</td> <td><a href="/debug/default/view?tag=593015abc296b">593015abc296b</a></td></tr></tbody>
+                    <tbody class="yii-debug-toolbar__ajax_requests"></tbody>
                 </table>
             </div>
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=593015a85c0ee">
+    <a href="/debug/default/view?panel=config&amp;tag=59394d130c90f">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=593015a85c0ee" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=593015a85c0ee" title="Action: app\modules\user\controllers\ApplicationController::actionIndex()">Route <span class="yii-debug-toolbar__label">user/application/index</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=59394d130c90f" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=59394d130c90f" title="Action: app\controllers\SiteController::actionLogin()">Route <span class="yii-debug-toolbar__label">site/login</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=593015a85c0ee" title="Logged 73 messages">Log
-        <span class="yii-debug-toolbar__label">73</span>
+    <a href="/debug/default/view?panel=log&amp;tag=59394d130c90f" title="Logged 14 messages">Log
+        <span class="yii-debug-toolbar__label">14</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=593015a85c0ee" title="Total request processing time was 169 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">169 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=593015a85c0ee" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">15.165 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=59394d130c90f" title="Total request processing time was 70 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">70 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=59394d130c90f" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9.419 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=593015a85c0ee" title="Executed 56 database queries which took 16 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">56</span> <span class="yii-debug-toolbar__label">16 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=59394d130c90f" title="Executed 1 database queries which took 0 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span> <span class="yii-debug-toolbar__label">0 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=593015a85c0ee" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=59394d130c90f" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">11</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user&amp;tag=593015a85c0ee">
-                    User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">5349</span>
+    <a href="/debug/default/view?panel=user">
+                    <span class="yii-debug-toolbar__label">Guest</span>
             </a>
 </div>
                             
@@ -1174,14 +790,12 @@ a.yii-debug-toolbar__label:focus {
     };
 
 })();</script><script src="/assets/6b040846/jquery.js"></script>
-<script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
 <script src="/assets/a83e0e94/yii.js"></script>
+<script src="/assets/a83e0e94/yii.validation.js"></script>
+<script src="/assets/a83e0e94/yii.activeForm.js"></script>
 <script src="/assets/5463e113/jquery-ui.js"></script>
 <script src="/assets/7942af6b/js/bootstrap.js"></script>
-<script src="/assets/a83e0e94/yii.activeForm.js"></script>
-<script src="/assets/a8119c8c/ckeditor.js"></script>
-<script src="/assets/a8119c8c/adapters/jquery.js"></script>
-<script src="/assets/d2bdffe5/dosamigos-ckeditor.widget.js"></script>
+<script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
 <script src="/assets/cbe07863/jquery.inputmask.bundle.js"></script>
 <script src="/leaflet/leaflet.js"></script>
 <script src="/leaflet/lib.shp/catiline.js"></script>
@@ -1189,55 +803,9 @@ a.yii-debug-toolbar__label:focus {
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/switch.jquery.js"></script>
 <script src="/js/app.js"></script>
-<script src="/js/user/global.js"></script>
-<script type="text/javascript">var sbmUrl = null;var RedrUrl = null;$(".delete-app-btn").click(function(e) {e.preventDefault();sbmUrl = $(this).attr("href");RedrUrl = $(this).data("redirect-url");sweetAlert({"timer":null,"type":"warning","title":"Are you sure?","text":"You really want delete this application?","confirmButtonText":"Yes, delete it!","confirmButtonColor":"#DD6B55","closeOnConfirm":false,"showCancelButton":true,"animation":"slide-from-top","onClickSelector":".delete-app-btn","selectAttribute":"href","id":"w0","allowOutsideClick":true}, function(input){
-                    if (input === false) return false;
-
-                    var link = sbmUrl;
-                    var redirect = RedrUrl;
-                    
-                    $.post(link, function( data ) {
-                        if (typeof redirect != 'undefined') {
-                            window.location.href = redirect;
-                        } else {
-                            location.reload();
-                        }
-                    });
-                });});</script>
+<script src="/js/global.prod.js"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
-         /** hide menu when load page and show block with active sub-menu link */
-
-        $('.left-color-menu').find('.sub-menu').hide();
-        $('.left-color-menu li.active').parent().show().addClass('active');
-        $('.left-color-menu li.active').parent().parent().show().addClass('active');
-
-
-        /** left menu open / close */
-
-        $('.left-color-menu &gt; ul &gt; li:not(:first)').click(function (e) {
-            e.preventDefault();
-
-            if ($(this).hasClass('active')) {
-                $(this).removeClass('active').find('.sub-menu').removeClass('active').slideUp();
-                return true;
-            }
-
-            $('.left-color-menu &gt; ul &gt; li').removeClass('active');
-
-            if (!$(this).find('.sub-menu').hasClass('active')) {
-                $(this).parent().find('li .sub-menu').removeClass('active').slideUp();
-            }
-
-            $(this).addClass('active');
-            $(this).find('.sub-menu').addClass('active').slideDown();
-        });
-
-
-        /** don't hide menu when click on self */
-
-        $('.sub-menu li').click(function (e) {
-            e.stopPropagation();
-        });
+jQuery('#login-form').yiiActiveForm([{"id":"loginform-email","name":"email","container":".field-loginform-email","input":"#loginform-email","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});}},{"id":"loginform-password","name":"password","container":".field-loginform-password","input":"#loginform-password","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});}},{"id":"loginform-rememberme","name":"rememberMe","container":".field-loginform-rememberme","input":"#loginform-rememberme","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.boolean(value, messages, {"trueValue":"1","falseValue":"0","message":"Remember Me must be either \"1\" or \"0\".","skipOnEmpty":1});}}], []);
 });</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -1254,9 +822,9 @@ a.yii-debug-toolbar__label:focus {
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"GreenBiz - Application","loadedAssets":{"js":["\/assets\/6b040846\/jquery.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/user\/global.js","\/assets\/a83e0e94\/yii.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/assets\/44e8300d\/dist\/sweetalert.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/6b040846\/jquery.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/user\/global.js","\/assets\/a83e0e94\/yii.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/assets\/44e8300d\/dist\/sweetalert.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/leaflet\/leaflet.css"]}});
+        app.pageTools.setInitialPageData({"title":"GreenBiz - Login Site","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 
 
-<script src="/assets/a83e0e94/yii.validation.js" loaded="ajax"></script><script src="/assets/f29ee055/dropzone/dist/min/dropzone.min.js" loaded="ajax"></script><link href="/assets/f29ee055/dropzone/dist/min/dropzone.min.css" loaded="ajax" rel="stylesheet" /></body></html>
+</body></html>

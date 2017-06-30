@@ -3,10 +3,11 @@ namespace Step\Acceptance;
 
 class AuditOrganization extends \AcceptanceTester
 {
-    public function CreateAuditOrganization($name = null, $state = null, $status = null)
+    public function CreateAuditOrganization($name = null, $state = null, $contact = null, $title = null, $email = null, $phone = null, $fax = null, $mobile = null, 
+                                                $address = null, $city = null, $zip = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\AuditOrganizationCreate::$URL);
+        $I->amOnPage(\Page\AuditOrganizationCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\AuditOrganizationCreate::$NameField);
         if (isset($name)){
@@ -15,8 +16,32 @@ class AuditOrganization extends \AcceptanceTester
         if (isset($state)){
             $I->selectOption(\Page\AuditOrganizationCreate::$StateSelect, $state);
         }
-        if (isset($status)){
-            $I->selectOption(\Page\AuditOrganizationCreate::$StatusSelect, $status);
+        if (isset($contact)){
+            $I->fillField(\Page\AuditOrganizationCreate::$ContactField, $contact);
+        }
+        if (isset($title)){
+            $I->fillField(\Page\AuditOrganizationCreate::$TitleField, $title);
+        }
+        if (isset($email)){
+            $I->fillField(\Page\AuditOrganizationCreate::$EmailField, $email);
+        }
+        if (isset($phone)){
+            $I->fillField(\Page\AuditOrganizationCreate::$PhoneField, $phone);
+        }
+        if (isset($fax)){
+            $I->fillField(\Page\AuditOrganizationCreate::$FaxField, $fax);
+        }
+        if (isset($mobile)){
+            $I->fillField(\Page\AuditOrganizationCreate::$MobileField, $mobile);
+        }
+        if (isset($address)){
+            $I->fillField(\Page\AuditOrganizationCreate::$AddressField, $address);
+        }
+        if (isset($city)){
+            $I->fillField(\Page\AuditOrganizationCreate::$CityField, $city);
+        }
+        if (isset($zip)){
+            $I->fillField(\Page\AuditOrganizationCreate::$ZipCodeField, $zip);
         }
         $I->click(\Page\AuditOrganizationCreate::$CreateButton);
         $I->wait(2);

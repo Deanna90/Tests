@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class AuditGroupList
+class AuditGroupList extends \AcceptanceTester
 {
-    public static $URL = '/master-admin/audit-group/index';
+    public static function URL()     { return parent::$URL_UserAccess.'/audit-group/index';}
 
     const Energy_AuditGroup              = 'Energy';
     const General_AuditGroup             = 'General';

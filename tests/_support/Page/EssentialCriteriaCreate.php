@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class EssentialCriteriaCreate
+class EssentialCriteriaCreate extends \AcceptanceTester
 {
-    public static function URL($stateId)  { return "/master-admin/checklist/create-criteria?state_id=$stateId";}
+    public static function URL($stateId)  { return parent::$URL_UserAccess."/checklist/create-criteria?state_id=$stateId";}
     public static $Title                  = 'h1';
     
     public static $CreateButton           = '[type=submit][class*=success]';
