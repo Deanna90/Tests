@@ -3,11 +3,13 @@ namespace Page;
 
 class ResourceList extends \AcceptanceTester
 {
-    public static function URL()        { return parent::$URL_UserAccess.'/resource/index';}
+    public static function URL()                  { return parent::$URL_UserAccess.'/resource/index';}
+    public static function UrlPageNumber($number) { return parent::$URL_UserAccess."/resource/index?page=$number"; }
     
     public static $Title                = 'h1';
-    public static $StateRow             = 'table[class*=table] tbody>tr';
+    public static $ResourceRow          = 'table[class*=table] tbody>tr';
     public static $SummaryCount         = '.summary>b:last-of-type';
+    public static $EmptyListLabel               = 'tr .empty';
    
     public static $CreateResourceButton = 'a.btn-success';
     

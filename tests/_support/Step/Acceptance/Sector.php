@@ -15,11 +15,11 @@ class Sector extends \AcceptanceTester
         }
         if (isset($state)){
             $I->selectOption(\Page\SectorCreate::$StateSelect, $state);
-            $I->wait(1);
+            $I->wait(2);
         }
         if (isset($program)){
             $I->selectOption(\Page\SectorCreate::$ProgramSelect, $program);
-            $I->wait(1);
+            $I->wait(2);
         }
         if (isset($status)){
             $I->selectOption(\Page\SectorCreate::$StatusSelect, $status);
@@ -32,9 +32,9 @@ class Sector extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\SectorList::URL());
-        $I->wait(2);
+        $I->wait(3);
         $I->waitForElement(\Page\SectorList::$CreateSectorButton);
-        $I->click(\Page\SectorList::NameLine_ByNameValue($name, $program));
+        $I->click(\Page\SectorList::UpdateButtonLine_ByNameValue($name, $program));
         $I->wait(1);
         $I->waitForElement(\Page\SectorRenameWindow::$RenameWindow);
         $I->fillField(\Page\SectorRenameWindow::$NameField, $newName);

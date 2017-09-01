@@ -1,383 +1,84 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="LVMzdFcwR01UYGAwInUpBBkcQw0EBBIKSSEEQQUAISBfDEsjDkN0BA==" />
+    <meta name="csrf-token" content="UWdMYVhzaFpkVhouYQYGagkxewo5KzsjHhUnMW0jW2MIAClMCEcdbA==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
-    <title>GreenBiz - Application</title>
-    <link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
-<link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-<link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
-<link href="/leaflet/leaflet.css" rel="stylesheet" />
-<link href="/css/chosen.min.css" rel="stylesheet" />
-<link href="/css/style.css" rel="stylesheet" />
-<link href="/css/switch.jquery.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
-    <style>.cke{visibility:hidden;}</style></head>
+    <title>GreenBiz - Login Site</title>
+    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css?v=1489065529" rel="stylesheet" />
+<link href="/assets/7942af6b/css/bootstrap.css?v=1489065529" rel="stylesheet" />
+<link href="/assets/44e8300d/dist/sweetalert.css?v=1489065529" rel="stylesheet" />
+<link href="/leaflet/leaflet.css?v=1492786568" rel="stylesheet" />
+<link href="/css/chosen.min.css?v=1483691700" rel="stylesheet" />
+<link href="/css/switch.jquery.css?v=1486483141" rel="stylesheet" />
+<link href="/css/style.css?v=1500389916" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
+    </head>
 <body>
     <div id="main_page_container">
-        <!-- user_id: 5435 -->
+        <!-- user_id: guest -->
 <div class="container">
     <header class="clear">
         <div class="header-logo">
             <div class="">
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
-                    <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                    <a href="/business/registration" class="ajax">NEW BUSINESS</a>                    <div class="select-wrapper">
-                                                    <form class="no-ajax" action="/site/logout" method="post">
-<input type="hidden" name="_csrf" value="LVMzdFcwR01UYGAwInUpBBkcQw0EBBIKSSEEQQUAISBfDEsjDkN0BA==" /><button type="submit" class="btn btn-default logout">Logout</button></form>                                            </div>
+                                            <a href="/business/index" class="ajax">SIGN UP TO BE A GREEN BUSINESSES</a>                    
+                    <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
+                                                    <a class="btn btn-default logout ajax" href="/site/login">Login</a>                                            </div>
                 </div>
             </div>
         </div>
 
         
-                    <div class="horizontal-nav">
-                <div class="responsive-menu1">
-                    <button class="hamburger1" style="display: block;">☰</button>
-                    <button class="cross1" style="display: none;">˟</button>
-                </div>
-                                    <div class="header-text">
-                        <div class="number">
-    <a class="first  grey  check-mark  green " href="#">Registration</a>            <img src="/img/icon_dividing_bar.png" alt="" />
-        <a class="second  active  check-mark  green ajax" href="/user/application/index">Application</a>                <img src="/img/icon_dividing_bar.png" alt="" />
-        <a class="third  grey ajax" href="/user/application/review">Review &amp; Submit</a>    
-</div>
-                                            </div>
-                
-            </div>
                     </header>
 
+    <div class="site-login create-content regular-style">
+
     
-<div class="col-md-12 background-grey">
-            <div class="row">
-            <div class="col-md-3">
-                <div class="row">
-                    
-<div class="left-column-checklist no-padd-top">
-    <div class="left-color-menu">
-        <div class="responsive-menu">
-            <button class="hamburger">☰</button>
-            <button class="cross" style="display: none;">˟</button>
-        </div>
-        <ul class="menu nav nav-pills nav-stacked">
-                            <li class="getstarted-group"><a href="/user/application/index" class="ajax">get started</a>                    <div class="progress">
-                        <div class="progress-bar progress-background" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                            <span class="sr-only">0% Complete</span>
-                        </div>
-                    </div>
-                </li>
-                                </ul>
-                        <a href="/user/application/print?business_id=8666&amp;tier_id=4918&amp;all_audit_group=1&amp;green_tips=1&amp;application_id=8733" class="after-menu no-ajax" target="_blank">
-                    <i class="fa fa-2x fa-print"></i>Print Tier 3                 </a>
-            
-            </div>
+    <h1>GreenBiz - Login Site</h1>
+
+    <p>Please fill out the following fields to login:</p>
+
+    <form id="login-form" class="no-ajax col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 form-horizontal" action="/site/login" method="post">
+<input type="hidden" name="_csrf" value="UWdMYVhzaFpkVhouYQYGagkxewo5KzsjHhUnMW0jW2MIAClMCEcdbA==" />
+    <div class="form-group field-loginform-email required">
+<label class="col-lg-3 col-md-4 control-label" for="loginform-email">Email</label>
+<div class="col-lg-9 col-md-8"><input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" /></div>
+<div class="col-lg-8 col-md-6"><div class="help-block help-block-error "></div></div>
+</div>
+    <div class="form-group field-loginform-password required">
+<label class="col-lg-3 col-md-4 control-label" for="loginform-password">Password</label>
+<div class="col-lg-9 col-md-8"><input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" /></div>
+<div class="col-lg-8 col-md-6"><div class="help-block help-block-error "></div></div>
+</div>
+    <div class="form-group field-loginform-rememberme">
+<div class="col-sm-6 col-sm-offset-3">
+<div class="checkbox">
+<label for="loginform-rememberme">
+<input type="hidden" name="LoginForm[rememberMe]" value="0" /><input type="checkbox" id="loginform-rememberme" name="LoginForm[rememberMe]" value="1" checked="" />
+Remember Me
+</label>
+</div>
+<div class="help-block help-block-error "></div>
 </div>
 
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="right-column-checklist col-md-12">
-                        <div class="title-block clear">
-                            <div class="info-block">
-                                <h2 class="lite-green">Using the Application</h2>
-                            </div>
-                        </div>
-                        <div class="background-grey columns-content clear">
-                            <div class="col-md-12">
-                                <h3>Welcome to your online greening checklist application!</h3>
-                                <a href="/user/application/complete-measures" class="col-md-offset-4 col-md-4 btn btn-green ajax">Get Started</a>
-                                <div class="row">
-                                    <div class="col-md-8 col-sm-12 col-xs-12">
-                                        <div class="left-column-block clear">
-                                            <div class="contact-info-list margin-b-20">
-                                                Coming soon...                                            </div>
-
-                                            <a href="#" class="btn btn-green btn-block no-ajax margin-b-40 col" type="button" data-toggle="modal" data-target="#how-to-use">
-                                                <i class="fa fa-info-circle"></i>how
-                                                to use this application</a>
-
-                                            <div class="contact-info-list p-arrow margin-b-20">
-                                                Coming soon...                                            </div>
-                                            <div class="contact-info-list">
-                                                Coming soon...                                                <ul class=""></ul>                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-12 col-xs-12">
-                                        <div class="right-column-block">
-                                            <div class="short-articles">
-                                                <p class="p-label">about THis APPLICATION</p>
-                                                <h4><i class="fa fa-bookmark green"></i> Meeting the Requirements</h4>
-                                                <p>There are 5 measures that need to be completed in
-                                                    this Application.</p>
-                                                <p>Currently, you have completed
-                                                    <br />
-                                                    <span class="green large-insert-text">
-                                                    0                                                        /5                                                </span> total measures</p>
-                                            </div>
-                                            <div class="short-articles">
-                                                <p class="p-label">useful tips</p>
-                                                <h4><i class="fa fa-bookmark green"></i> Completing the Application</h4>
-                                                Coming soon...                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- Modal -->
-<div class="modal fade" id="how-to-use" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog how-use-modal" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h2 class="modal-title" id="myModalLabel">How to use this application</h2>
-            </div>
-            <div class="modal-body">
-                <div class="row clear">
-                    <div class="col-md-12 padding_top_bot_3p border-bottom col">
-                        <div class="col-md-6 col-sm-6 border-right">
-                            <h3 class="margin-b-20">Understanding the sidebar</h3>
-                            <ul class="nav nav-pills nav-stacked background-grey margin-b-40">
-                                <li class="general-group">
-                                    <a href="#"><i class="fa fa-2x fa-leaf"></i>General</a>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-background" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
-                                            <span class="sr-only">0% Complete</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <p class="padd-0 general-line-use"><strong>Audit Group</strong></p>
-                                    <p>Text, Icon and Color indicate
-                                        the audit group.</p>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <p class="padd-0 progress-line-use"><strong>Progress Bar</strong></p>
-                                    <p>Shows where you are in a section.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h3 class="margin-b-20">Types of measures</h3>
-                            <p class="padd-0"><strong>Core Measures</strong></p>
-                            <p>These measures need to be completed in their entirety.</p>
-                            <p class="padding_top2p"><strong>Elective Measures</strong></p>
-                            <p>Choose from these measures to meet the total number of measures
-                                required.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 padding_top_bot_3p border-bottom col">
-                        <div class="col-md-12">
-                            <h3 class="row margin-b-20">Common buttons</h3>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <a href="#" class="btn btn-green-lite btn-block margin-b-5">SAVE</a>
-                            <p class="padd-0"><strong>Save</strong></p>
-                            <p>Saves your work so you can
-                                continue later .</p>
-
-                            <div class="margin-top-20 margin-b-5 padding_top3p">
-                                <div class="header-text how-to-use">
-                                    <a href="#" class="">
-                                        <span class="fa-stack">
-                                        <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                        <i class="fa fa-stack-1x digit">3</i>
-                                        <i class="fa fa-stack-1x symbol">✔</i>
-                                    </span><span class="step">Review &amp; Submit</span></a>
-                                </div>
-                            </div>
-                            <p><strong>Review</strong></p>
-                            <p>Jump to review your application and
-                                submit when you are ready</p>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 margin-b-5">
-                                            <a href="#" class="btn btn-green-outline btn-block margin-b-5">PREVIOUS</a>
-                                            <p class="padd-0"><strong>Previous</strong></p>
-                                            <p>Moves to the
-                                                previous page.</p>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 margin-b-5">
-                                            <a href="#" class="btn btn-green-outline btn-block margin-b-5">SAVE &amp; NEXT</a>
-                                            <p class="padd-0"><strong>Save &amp; Next</strong></p>
-                                            <p>Save current and moves to the
-                                                next page.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 padding_top3p">
-                                    <a href="#" class="btn btn-green-lite btn-block margin-b-5">SUBMIT MY APPLICATION</a>
-                                    <p class="padd-0"><strong>Submit</strong></p>
-                                    <p>After you have reviewed your work, submit
-                                        your application.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <a href="#" class="btn btn-green-lite btn-block margin-b-5">GO TO THE NEXT LEVEL
-                                AND GET CERTIFIED!</a>
-                            <p class="padd-0"><strong>Jump to the next Tier</strong></p>
-                            <p>Move from the current tier you are
-                                working on to the next level up.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 padding_top_bot_3p col">
-                        <div class="col-md-12">
-                            <h3 class="row margin-b-20">Answering Measures</h3>
-                        </div>
-                        <div class="col-md-12">
-                            <img src="../../img/how_to_use.png" alt="" />
-                        </div>
-<!--                        <div class="col-md-8 col-sm-12">-->
-<!--                            <div class="background-grey columns-content clear">-->
-<!--                                <div class="columns-like-table">-->
-<!--                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
-<!--                                        <div class="application-content-titles">-->
-<!--                                            <h3>Elective measures</h3>-->
-<!--                                            <div class="row-sub-title">-->
-<!--                                                <p class="p-small">Complete at least 0 of-->
-<!--                                                    the 8 Measures</p>-->
-<!--                                                <p class="p-label font14">-->
-<!--                                                    <span class="lite-green">yes </span>-->
-<!--                                                    <span class="delete-group">no </span>-->
-<!--                                                    <span>n/a </span>-->
-<!--                                                </p>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <ol class="upload-items" type="1" start="1">-->
-<!--                                            <li class="col-md-12">-->
-<!--                                                <div class="row">-->
-<!--                                                    <div class="col-md-9 col-sm-9 col-xs-9">-->
-<!--                                                        <p>6.  Obtain a green building certification for your facility, such as LEED certification, EnergyStar,-->
-<!--                                                            Passivhaus, Built Green, or Living Building Challenge.</p>-->
-<!--                                                        <br>-->
-<!--                                                        <div class="file-upload">-->
-<!--                                                            <a href="#" class="lite-green"><img src="/img/icon_upload.png" alt="">Upload</a>-->
-<!--                                                            <input class="upload" type="file" value="Choose Attachment File(s)">-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="col-md-2 col-sm-2 col-xs-2">-->
-<!--                                                        <div class="with-out-popup">-->
-<!--                                                            <div class="form-group field-relmeasuretobusiness-answer_type">-->
-<!---->
-<!--                                                                <select id="relmeasuretobusiness-answer_type" class="measure-select handle-switch" name="Answers[39][answer_type]" data-measure-id="5" style="display: none;">-->
-<!--                                                                    <option value="3">yes</option>-->
-<!--                                                                    <option value="4">no</option>-->
-<!--                                                                    <option value="5" selected="selected">na</option>-->
-<!--                                                                </select>-->
-<!---->
-<!--                                                                <p class="help-block help-block-error"></p>-->
-<!--                                                            </div>-->
-<!--                                                            <div class="flag-block">-->
-<!--                                                                <div class="flag-post">-->
-<!--                                                                    <input type="hidden" name="Answers[35][help]" value="0">-->
-<!--                                                                    <input type="checkbox" id="help_35" name="Answers[35][help]" value="1">-->
-<!--                                                                    <label class="p-label padding-0" for="help_35">help<span class="fa fa-question in-progress-color"></span></label>-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </li>-->
-<!--                                        </ol>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-                        </div>
-                        <div class="col-md-12">
-                            <div class="col-md-4 col-sm-12">
-                                <p class="padd-0"><strong>Measure</strong></p>
-                                <p>A question that helps us determine if
-                                    you meet our green standards.</p>
-                                <p class="padding_top2p"><strong>Click NO</strong></p>
-                                <p>If you are unsure.</p>
-                                <p class="padding_top2p"><strong>Leave It Blank</strong></p>
-                                <p>If you are planning to meet the measure
-                                    at a later date.</p>
-                                <p class="padding_top2p"><strong>Click HELP</strong></p>
-                                <p>If you need your coordinator to contact
-                                    you regarding the measure.</p>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <!--                                        <div class="row">-->
-                                        <!--                                            <div class="col-md-1 col-sm-2 col-xs-2 align_center">-->
-                                        <!--                                                <div class="row">-->
-                                        <!--                                                    <i class="fa fa-info-circle green"></i>-->
-                                        <!--                                                </div>-->
-                                        <!--                                            </div>-->
-                                        <!--                                            <div class="col-md-10 col-sm-10 col-xs-10">-->
-                                        <!--                                                <p class="padd-0"><strong>More Information</strong></p>-->
-                                        <!--                                                <p>Click here for more info about the-->
-                                        <!--                                                    measure.</p>-->
-                                        <!--                                            </div>-->
-                                        <div class="col-md-1 col-sm-2 col-xs-2 align_center">
-                                            <div class="row">
-                                                <div class="upload-items">
-                                                    <div class="file-upload" style="padding-top: 5px;">
-                                                        <a href="#" class="no-ajax lite-green add-file dz-clickable" id="replace-business-upload"><img src="/img/icon_upload.png" alt="" /></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10 col-sm-10 col-xs-10">
-                                            <p class="padd-0"><strong>Attach Supporting Document (optional)</strong></p>
-                                            <p>If you have documents that help show a
-                                                measure is complete, upload them here.</p>
-                                        </div>
-                                        <!--                                        </div>-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-1 col-sm-2 col-xs-2 align_center">
-                                            <div class="row">
-                                                <i class="fa fa-info-circle green" style="font-size: 18px; padding-top: 5px;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10 col-sm-10 col-xs-10">
-                                            <p class="padd-0"><strong>More Information</strong></p>
-                                            <p>Please check the right column for
-                                                information that will help you
-                                                complete the checklist measures.
-                                                Use the attached, GreenTips
-                                                screenshot to illustrate.</p>
-                                        </div>
-                                    </div>
-                                </div>
-<!--                                <p class="padd-0"><strong>Click NO</strong></p>-->
-<!--                                <p>If you are unsure.</p>-->
-<!--                                <p class="padd-0"><strong>Leave It Blank</strong></p>-->
-<!--                                <p>If you are planning to meet the measure-->
-<!--                                    at a later date.</p>-->
-<!--                                <p class="padd-0"><strong>Click HELP</strong></p>-->
-<!--                                <p>If you need your coordinator to contact-->
-<!--                                    you regarding the measure.</p>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-</div>    
+    <div class="form-group col-md-12 text-left lite-green">
+        <a href="/site/request-password-reset" class="ajax">Forgot password?</a>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-9 col-md-offset-2 col-md-9 margin_top3p">
+            <button type="submit" class="btn btn-green" name="login-button">Login</button>        </div>
+    </div>
+
+    </form>
+
+</div>
+
+</div>    </div>
     <div id="loading"></div>
 <div><div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_bottom" style="display: block;">
     <div class="yii-debug-toolbar__bar">
@@ -406,38 +107,38 @@
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=5936a46ddbd6b">
+    <a href="/debug/default/view?panel=config&amp;tag=5978b2f8a1e48">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=5936a46ddbd6b" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=5936a46ddbd6b" title="Action: app\modules\user\controllers\ApplicationController::actionIndex()">Route <span class="yii-debug-toolbar__label">user/application/index</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=5978b2f8a1e48" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=5978b2f8a1e48" title="Action: app\controllers\SiteController::actionLogin()">Route <span class="yii-debug-toolbar__label">site/login</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=5936a46ddbd6b" title="Logged 73 messages">Log
-        <span class="yii-debug-toolbar__label">73</span>
+    <a href="/debug/default/view?panel=log&amp;tag=5978b2f8a1e48" title="Logged 14 messages">Log
+        <span class="yii-debug-toolbar__label">14</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=5936a46ddbd6b" title="Total request processing time was 172 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">172 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=5936a46ddbd6b" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">15.456 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=5978b2f8a1e48" title="Total request processing time was 71 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">71 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=5978b2f8a1e48" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9.570 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=5936a46ddbd6b" title="Executed 56 database queries which took 17 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">56</span> <span class="yii-debug-toolbar__label">17 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=5978b2f8a1e48" title="Executed 1 database queries which took 0 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span> <span class="yii-debug-toolbar__label">0 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=5936a46ddbd6b" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=5978b2f8a1e48" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">11</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=user&amp;tag=5936a46ddbd6b">
-                    User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">5435</span>
+    <a href="/debug/default/view?panel=user">
+                    <span class="yii-debug-toolbar__label">Guest</span>
             </a>
 </div>
                             
@@ -1091,72 +792,26 @@ a.yii-debug-toolbar__label:focus {
         proxied.apply(this, Array.prototype.slice.call(arguments));
     };
 
-})();</script><script src="/assets/6b040846/jquery.js"></script>
-<script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
-<script src="/assets/a83e0e94/yii.js"></script>
-<script src="/assets/5463e113/jquery-ui.js"></script>
-<script src="/assets/7942af6b/js/bootstrap.js"></script>
-<script src="/assets/a83e0e94/yii.activeForm.js"></script>
-<script src="/assets/a8119c8c/ckeditor.js"></script>
-<script src="/assets/a8119c8c/adapters/jquery.js"></script>
-<script src="/assets/d2bdffe5/dosamigos-ckeditor.widget.js"></script>
-<script src="/assets/cbe07863/jquery.inputmask.bundle.js"></script>
-<script src="/leaflet/leaflet.js"></script>
-<script src="/leaflet/lib.shp/catiline.js"></script>
-<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
-<script src="/js/chosen.jquery.min.js"></script>
-<script src="/js/switch.jquery.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/user/global.js"></script>
-<script type="text/javascript">var sbmUrl = null;var RedrUrl = null;$(".delete-app-btn").click(function(e) {e.preventDefault();sbmUrl = $(this).attr("href");RedrUrl = $(this).data("redirect-url");sweetAlert({"timer":null,"type":"warning","title":"Are you sure?","text":"You really want delete this application?","confirmButtonText":"Yes, delete it!","confirmButtonColor":"#DD6B55","closeOnConfirm":false,"showCancelButton":true,"animation":"slide-from-top","onClickSelector":".delete-app-btn","selectAttribute":"href","id":"w0","allowOutsideClick":true}, function(input){
-                    if (input === false) return false;
-
-                    var link = sbmUrl;
-                    var redirect = RedrUrl;
-                    
-                    $.post(link, function( data ) {
-                        if (typeof redirect != 'undefined') {
-                            window.location.href = redirect;
-                        } else {
-                            location.reload();
-                        }
-                    });
-                });});</script>
+})();</script><script src="/assets/6b040846/jquery.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.validation.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.activeForm.js?v=1489065529"></script>
+<script src="/assets/5463e113/jquery-ui.js?v=1489065529"></script>
+<script src="/assets/7942af6b/js/bootstrap.js?v=1489065529"></script>
+<script src="/assets/44e8300d/dist/sweetalert.min.js?v=1489065529"></script>
+<script src="/assets/cbe07863/jquery.inputmask.bundle.js?v=1494592787"></script>
+<script src="/leaflet/leaflet.js?v=1492786568"></script>
+<script src="/leaflet/lib.shp/catiline.js?v=1492786568"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js?v=1492786568"></script>
+<script src="/js/jquery.debounce.js?v=1498744100"></script>
+<script src="/js/chosen.jquery.min.js?v=1483691700"></script>
+<script src="/js/switch.jquery.js?v=1499948167"></script>
+<script src="/js/app.js?v=1500382573"></script>
+<script src="/js/global.prod.js?v=1500386431"></script>
+<script src="/js/iframe-resizer/iframeResizer.contentWindow.min.js?v=1499846670"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
-         /** hide menu when load page and show block with active sub-menu link */
-
-        $('.left-color-menu').find('.sub-menu').hide();
-        $('.left-color-menu li.active').parent().show().addClass('active');
-        $('.left-color-menu li.active').parent().parent().show().addClass('active');
-
-
-        /** left menu open / close */
-
-        $('.left-color-menu &gt; ul &gt; li:not(:first)').click(function (e) {
-            e.preventDefault();
-
-            if ($(this).hasClass('active')) {
-                $(this).removeClass('active').find('.sub-menu').removeClass('active').slideUp();
-                return true;
-            }
-
-            $('.left-color-menu &gt; ul &gt; li').removeClass('active');
-
-            if (!$(this).find('.sub-menu').hasClass('active')) {
-                $(this).parent().find('li .sub-menu').removeClass('active').slideUp();
-            }
-
-            $(this).addClass('active');
-            $(this).find('.sub-menu').addClass('active').slideDown();
-        });
-
-
-        /** don't hide menu when click on self */
-
-        $('.sub-menu li').click(function (e) {
-            e.stopPropagation();
-        });
-});</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
+jQuery('#login-form').yiiActiveForm([{"id":"loginform-email","name":"email","container":".field-loginform-email","input":"#loginform-email","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});}},{"id":"loginform-password","name":"password","container":".field-loginform-password","input":"#loginform-password","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});}},{"id":"loginform-rememberme","name":"rememberMe","container":".field-loginform-rememberme","input":"#loginform-rememberme","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.boolean(value, messages, {"trueValue":"1","falseValue":"0","message":"Remember Me must be either \"1\" or \"0\".","skipOnEmpty":1});}}], []);
+});</script><div class="modal" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -1172,7 +827,7 @@ a.yii-debug-toolbar__label:focus {
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"GreenBiz - Application","loadedAssets":{"js":["\/assets\/6b040846\/jquery.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/user\/global.js","\/assets\/a83e0e94\/yii.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/assets\/44e8300d\/dist\/sweetalert.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/6b040846\/jquery.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/user\/global.js","\/assets\/a83e0e94\/yii.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/a83e0e94\/yii.activeForm.js","\/assets\/d2bdffe5\/dosamigos-ckeditor.widget.js","\/assets\/a8119c8c\/ckeditor.js","\/assets\/a8119c8c\/adapters\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/assets\/44e8300d\/dist\/sweetalert.css","\/css\/chosen.min.css","\/css\/style.css","\/css\/switch.jquery.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/leaflet\/leaflet.css"]}});
+        app.pageTools.setInitialPageData({"title":"GreenBiz - Login Site","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/jquery.debounce.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/js\/iframe-resizer\/iframeResizer.contentWindow.min.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/jquery.debounce.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/js\/iframe-resizer\/iframeResizer.contentWindow.min.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 

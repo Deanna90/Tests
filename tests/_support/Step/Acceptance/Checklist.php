@@ -7,7 +7,7 @@ class Checklist extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ChecklistCreate::URL());
-        $I->wait(2);
+        $I->wait(3);
         if (isset($sourceProgram)){
             $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
             $I->wait(2);
@@ -30,12 +30,14 @@ class Checklist extends \AcceptanceTester
         }
         if (isset($tier)){
             $I->wait(4);
+            $I->click(\Page\ChecklistCreate::$TierSelect);
+            $I->wait(1);
             $I->selectOption(\Page\ChecklistCreate::$TierSelect, $tier);
         }
         $I->wait(2);
         $I->click(\Page\ChecklistCreate::$SaveButton);
         $I->wait(4);
-        $I->waitForElement('.confirm', 10);
+        $I->waitForElement('.confirm', 60);
         $I->click('.confirm');
     }  
     
@@ -98,6 +100,7 @@ class Checklist extends \AcceptanceTester
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points);
         $I->wait(1);        
         $I->click(\Page\ChecklistManage::$SaveButton);
+        $I->wait(2);
     }
     
     public function CheckSavedValuesOnManageChecklistPage($descs = null, $statuses = null)

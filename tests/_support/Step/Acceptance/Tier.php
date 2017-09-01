@@ -16,7 +16,7 @@ class Tier extends \AcceptanceTester
         }
         if (isset($tier1)){
             $I->click(\Page\TierManage::$Tier1Button_LeftMenu);
-            $I->wait(1);
+            $I->wait(3);
             switch ($tier1OptIn){
                 case 'yes':
                     $I->click(\Page\TierManage::$YesRadioButton_OptIn);
@@ -36,7 +36,7 @@ class Tier extends \AcceptanceTester
         }
         if (isset($tier2)){
             $I->click(\Page\TierManage::$Tier2Button_LeftMenu);
-            $I->wait(1);
+            $I->wait(3);
             switch ($tier2OptIn){
                 case 'yes':
                     $I->click(\Page\TierManage::$YesRadioButton_OptIn);
@@ -56,7 +56,7 @@ class Tier extends \AcceptanceTester
         }
         if (isset($tier3)){
             $I->click(\Page\TierManage::$Tier1Button_LeftMenu);
-            $I->wait(1);
+            $I->wait(3);
             switch ($tier3OptIn){
                 case 'yes':
                     $I->click(\Page\TierManage::$YesRadioButton_OptIn);

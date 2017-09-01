@@ -1,9 +1,9 @@
 <?php
 namespace Page;
 
-class ChecklistList
+class ChecklistList extends \AcceptanceTester
 {
-    public static $URL                  = '/master-admin/checklist/list';
+    public static function URL()        { return parent::$URL_UserAccess.'/checklist/list';}
     public static $Title                = 'h1';
     public static $ChecklistRow         = 'table[class*=table] tbody>tr';
     

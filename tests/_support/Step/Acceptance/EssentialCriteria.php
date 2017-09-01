@@ -12,6 +12,8 @@ class EssentialCriteria extends \AcceptanceTester
         $I->click(\Page\EssentialCriteriaList::$CreateECButton);
         $I->wait(2);
         if (isset($number)){
+            $I->click(Page\EssentialCriteriaCreate::$NumberSelect);
+            $I->wait(1);
             $I->selectOption(\Page\EssentialCriteriaCreate::$NumberSelect, $number);
         }
         if (isset($status)){
@@ -74,6 +76,17 @@ class EssentialCriteria extends \AcceptanceTester
         $I->click(\Page\EssentialCriteriaManage::PublishButtonLine_VersionHistoryTab($row));
         $I->wait(1);        
         $I->canSee('Published', \Page\EssentialCriteriaManage::$StatusTitle);
+    }
+    
+    public function GetIdOfPublishedEC()
+    {
+        $I = $this;
+        $I->wait(3);
+        $I->click(\Page\EssentialCriteriaManage::$VersionHistoryTab);
+        $I->wait(1);
+        $id = $I->grabTextFrom(\Page\EssentialCriteriaManage::$IdOfPublishedEC_VersionHistoryTab);
+        $I->comment("Published EC id: $id");
+        return $id;
     }
     
     public function UpdateECPoints($points)

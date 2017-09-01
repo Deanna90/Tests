@@ -9,6 +9,7 @@ class StateList extends \AcceptanceTester
     public static $Title                = 'h1';
     public static $StateRow             = 'table[class*=table] tbody>tr';
     public static $SummaryCount         = '.summary>b:last-of-type';
+    public static $EmptyListLabel               = 'tr .empty';
     
     public static $CreateStateButton    = 'a.btn-green-lite';
    

@@ -3,8 +3,8 @@
 class ChecklistMeasureExtensionCest
 {
     public $state;
-    public $audSubgroup1_Energy;
-    public $audSubgroup1_SolidWaste;
+    public $audSubgroup1_Energy, $id_audSubgroup1_Energy;
+    public $audSubgroup1_SolidWaste, $id_audSubgroup1_SolidWaste;
     public $measure1Desc, $idMeasure1;
     public $measure2Desc, $idMeasure2;
     public $measure3Desc, $idMeasure3;
@@ -54,6 +54,9 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
         $I->wait(3);
+        $I->amOnPage(Page\AuditSubgroupList::URL());
+        $I->wait(2);
+        $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
     public function Help2_4_CreateAuditSubGroupsForSolidWasteGroup(\Step\Acceptance\AuditSubGroup $I)
@@ -64,6 +67,9 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
         $I->wait(3);
+        $I->amOnPage(Page\AuditSubgroupList::URL());
+        $I->wait(2);
+        $this->id_audSubgroup1_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
     public function Help1_7_CreateMeasure1_Number_Quant(\Step\Acceptance\Measure $I) {
@@ -292,7 +298,7 @@ class ChecklistMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(2);
         $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
+        $I->wait(3);
         $I->canSee('Core', \Page\ChecklistManage::$IncludedMeasuresForm_CoreTitle);
         $I->canSee('Default:', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreLabel);
         $I->canSee('Lg Building:', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreLabel);
@@ -321,7 +327,7 @@ class ChecklistMeasureExtensionCest
     
     public function MeasExtension1_15_1_CheckDefaultMeasures_Present_Default_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
+        $I->wait(3);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
@@ -336,7 +342,7 @@ class ChecklistMeasureExtensionCest
     
     public function MeasExtension1_15_1_CheckDefaultMeasures_Absent_LB_LL_LBAndLL_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
+        $I->wait(3);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
@@ -356,12 +362,12 @@ class ChecklistMeasureExtensionCest
     
     public function MeasExtension1_15_1_CheckLBMeasures_Present_Default_LB_LbAndLL_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
+        $I->wait(3);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Large Building");
-        $I->wait(2);
+        $I->wait(3);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
@@ -383,12 +389,12 @@ class ChecklistMeasureExtensionCest
     
     public function MeasExtension1_15_1_CheckLBMeasures_Absent_LL_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
+        $I->wait(3);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Large Building");
-        $I->wait(2);
+        $I->wait(3);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
@@ -412,12 +418,12 @@ class ChecklistMeasureExtensionCest
     
     public function MeasExtension1_15_1_CheckLLMeasures_Present_Default_LL_LbAndLL_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
+        $I->wait(3);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Large Landscape");
-        $I->wait(2);
+        $I->wait(3);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
@@ -438,12 +444,12 @@ class ChecklistMeasureExtensionCest
     
     public function MeasExtension1_15_1_CheckLLMeasures_Absent_LB_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
+        $I->wait(3);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Large Landscape");
-        $I->wait(2);
+        $I->wait(3);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
@@ -546,6 +552,7 @@ class ChecklistMeasureExtensionCest
         $employees        = '455';
         $busFootage       = $this->bus1_busSquire_LB;
         $landscapeFootage = $this->bus1_landSquire_LB;
+        
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
@@ -554,20 +561,16 @@ class ChecklistMeasureExtensionCest
     public function MeasExtension1_17_1_CheckMeasuresPresent_LB_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LB, LB&LL, Default measures with core&elective status are present in business checklist");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure1Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure2Desc));
-        $I->click(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_SolidWaste));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
         $I->wait(2);
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure7Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure8Desc));
+        $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
+        $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_SolidWasteGroupButton);
 //        $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure10Desc));
 //        $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure11Desc));
     }
@@ -575,19 +578,13 @@ class ChecklistMeasureExtensionCest
     public function MeasExtension1_17_1_CheckMeasuresAbsent_LL_NotSet(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LL measures and measures with not set status are absent in business checklist");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure5Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure6Desc));
-        $I->click(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_SolidWaste));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
         $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure9Desc));
 //        $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure12Desc));
@@ -620,6 +617,7 @@ class ChecklistMeasureExtensionCest
         $employees        = '455';
         $busFootage       = $this->bus2_busSquire_LL;
         $landscapeFootage = $this->bus2_landSquire_LL;
+        
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
@@ -628,16 +626,13 @@ class ChecklistMeasureExtensionCest
     public function MeasExtension1_17_1_CheckMeasuresPresent_LL_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LL, LB&LL, Default measures with core&elective status are present in business checklist");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure1Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure2Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure5Desc));
+        $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
         $I->cantSeeElement(\Page\ChecklistPreview::$LeftMenu_SolidWasteGroupButton);
 //        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_SolidWaste));
 //        $I->wait(2);
@@ -648,11 +643,7 @@ class ChecklistMeasureExtensionCest
     public function MeasExtension1_17_1_CheckMeasuresAbsent_LB_NotSet(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LB measures and measures with not set status are absent in business checklist");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure6Desc));
@@ -685,6 +676,7 @@ class ChecklistMeasureExtensionCest
         $employees        = '455';
         $busFootage       = $this->bus3_busSquire_LB_LL;
         $landscapeFootage = $this->bus3_landSquire_LB_LL;
+        
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
@@ -693,22 +685,18 @@ class ChecklistMeasureExtensionCest
     public function MeasExtension1_17_1_CheckMeasuresPresent_LL_LB_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LL, LB, LB&LL, Default measures with core&elective status are present in business checklist");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure1Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure2Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure5Desc));
-        $I->click(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_SolidWaste));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
         $I->wait(2);
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure7Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure8Desc));
+        $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
+        $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_SolidWasteGroupButton);
 //        $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure10Desc));
 //        $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure11Desc));
     }
@@ -716,17 +704,11 @@ class ChecklistMeasureExtensionCest
     public function MeasExtension1_17_1_CheckMeasuresAbsent_NotSet(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that measures with not set status are absent in business checklist");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure6Desc));
-        $I->click(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_SolidWaste));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
         $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure9Desc));
 //        $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure12Desc));
@@ -759,6 +741,7 @@ class ChecklistMeasureExtensionCest
         $employees        = '455';
         $busFootage       = $this->bus4_busSquire_Default;
         $landscapeFootage = $this->bus4_landSquire_Default;
+        
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
@@ -767,24 +750,17 @@ class ChecklistMeasureExtensionCest
     public function MeasExtension1_17_1_CheckMeasuresPresent_Default_CoreAndElective(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that Default measures with core&elective status are present in business checklist");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure1Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure2Desc));
+        $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
     }
     
     public function MeasExtension1_17_1_CheckMeasuresAbsent_LL_LB_LBAndLL_NotSet(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LL, LB, LB&LL measures and measures with not set status are absent in business checklist");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));

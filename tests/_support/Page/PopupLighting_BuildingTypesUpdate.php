@@ -10,7 +10,7 @@ class PopupLighting_BuildingTypesUpdate extends PopupLighting_BuildingTypesList
     public static $DeerHourButton       = parent::DeerHourButton;
     public static $FixtureMapButton     = parent::FixtureMapButton;
     
-    public static $UpdateButton           = '[type=submit][class*=success]';
+    public static $UpdateButton           = '[type=submit].btn-green';
    
     
     public static $NameField              = '#popuplightingbuildingtype-name';

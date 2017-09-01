@@ -3,10 +3,13 @@ namespace Page;
 
 class SavingAreaList extends \AcceptanceTester
 {
-    public static function URL()                 { return parent::$URL_UserAccess."/saving-area/index";}
+    public static function URL()                  { return parent::$URL_UserAccess."/saving-area/index";}
+    public static function UrlPageNumber($number) { return parent::$URL_UserAccess."/saving-area/index?page=$number"; }
+    
     public static $Title                         = 'h1';
     public static $SavingAreaRow                 = 'table[class*=table] tbody>tr';
     public static $SummaryCount                  = '.summary>b:last-of-type';
+    public static $EmptyListLabel               = 'tr .empty';
     
     public static $CreateSavingAreaButton        = 'a.btn-green-lite';
     

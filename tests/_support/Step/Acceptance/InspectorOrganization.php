@@ -44,7 +44,7 @@ class InspectorOrganization extends \AcceptanceTester
             $I->fillField(\Page\InspectorOrganizationCreate::$ZipCodeField, $zip);
         }
         $I->click(\Page\InspectorOrganizationCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(5);
     }  
 
     public function UpdateInspectorOrganization($row, $name = null, $status = null)

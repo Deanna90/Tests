@@ -44,7 +44,7 @@ class AuditOrganization extends \AcceptanceTester
             $I->fillField(\Page\AuditOrganizationCreate::$ZipCodeField, $zip);
         }
         $I->click(\Page\AuditOrganizationCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(5);
     }
     
     public function UpdateAuditOrganization($row, $name = null, $status = null)

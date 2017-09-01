@@ -10,6 +10,7 @@ class SavingAreaCreate extends \AcceptanceTester
     
     public static $NameField                        = '#savingarea-name';
     public static $UnitsField                       = '#savingarea-units';
+    public static $ShortUnitsField                  = '#savingarea-short_units';
     public static $MoneyConversionRateField         = '#savingarea-money_conversion_rate';
     public static $VisualUnitsField                 = '#savingarea-visual_units';
     public static $VisualUnitsConversionRateField   = '#savingarea-visual_units_conversion_rate';
@@ -24,6 +25,7 @@ class SavingAreaCreate extends \AcceptanceTester
     //Labels
     public static $NameLabel                        = '[for=savingarea-name]';
     public static $UnitsLabel                       = '[for=savingarea-units]';
+    public static $ShortUnitsLabel                  = '[for=savingarea-short_units]';
     public static $MoneyConversionRateLabel         = '[for=savingarea-money_conversion_rate]';
     public static $VisualUnitsLabel                 = '[for=savingarea-visual_units]';
     public static $VisualUnitsConversionRateLabel   = '[for=savingarea-visual_units_conversion_rate]';

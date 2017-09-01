@@ -1,19 +1,19 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="OVNOalpKaFVpPnwEDyM4HkkZLR5veCQBXTp4U2tyWRRRBT9SGD0pJQ==" />
+    <meta name="csrf-token" content="V3VHaWhZYnc.AwMBACk6DxUscV4dF1EhPBAFDxEwJigiNi49CghXRA==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
     <title>GreenBiz - Login Site</title>
-    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-<link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
-<link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
-<link href="/leaflet/leaflet.css" rel="stylesheet" />
-<link href="/css/chosen.min.css" rel="stylesheet" />
-<link href="/css/switch.jquery.css" rel="stylesheet" />
-<link href="/css/style.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
+    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css?v=1489065529" rel="stylesheet" />
+<link href="/assets/7942af6b/css/bootstrap.css?v=1489065529" rel="stylesheet" />
+<link href="/assets/44e8300d/dist/sweetalert.css?v=1489065529" rel="stylesheet" />
+<link href="/leaflet/leaflet.css?v=1492786568" rel="stylesheet" />
+<link href="/css/chosen.min.css?v=1483691700" rel="stylesheet" />
+<link href="/css/switch.jquery.css?v=1486483141" rel="stylesheet" />
+<link href="/css/style.css?v=1504074984" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
     </head>
 <body>
     <div id="main_page_container">
@@ -24,6 +24,7 @@
             <div class="">
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
+                                            <a href="/business/index" class="ajax">SIGN UP TO BE A GREEN BUSINESSES</a>                    
                     <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
                                                     <a class="btn btn-default logout ajax" href="/site/login">Login</a>                                            </div>
                 </div>
@@ -33,24 +34,26 @@
         
                     </header>
 
-    <div class="site-login">
+    <div class="site-login create-content regular-style">
+
+    
     <h1>GreenBiz - Login Site</h1>
 
     <p>Please fill out the following fields to login:</p>
 
-    <form id="login-form" class="no-ajax form-horizontal" action="/site/login" method="post">
-<input type="hidden" name="_csrf" value="OVNOalpKaFVpPnwEDyM4HkkZLR5veCQBXTp4U2tyWRRRBT9SGD0pJQ==" />
-        <div class="form-group field-loginform-email required">
-<label class="col-lg-1 control-label" for="loginform-email">Email</label>
-<div class="col-lg-3"><input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" /></div>
-<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
+    <form id="login-form" class="no-ajax col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 form-horizontal" action="/site/login" method="post">
+<input type="hidden" name="_csrf" value="V3VHaWhZYnc.AwMBACk6DxUscV4dF1EhPBAFDxEwJigiNi49CghXRA==" />
+    <div class="form-group field-loginform-email required">
+<label class="col-lg-3 col-md-4 control-label" for="loginform-email">Email</label>
+<div class="col-lg-9 col-md-8"><input type="text" id="loginform-email" class="form-control" name="LoginForm[email]" autofocus="" aria-required="true" /></div>
+<div class="col-lg-8 col-md-6"><div class="help-block help-block-error "></div></div>
 </div>
-        <div class="form-group field-loginform-password required">
-<label class="col-lg-1 control-label" for="loginform-password">Password</label>
-<div class="col-lg-3"><input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" /></div>
-<div class="col-lg-8"><div class="help-block help-block-error "></div></div>
+    <div class="form-group field-loginform-password required">
+<label class="col-lg-3 col-md-4 control-label" for="loginform-password">Password</label>
+<div class="col-lg-9 col-md-8"><input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" aria-required="true" /></div>
+<div class="col-lg-8 col-md-6"><div class="help-block help-block-error "></div></div>
 </div>
-        <div class="form-group field-loginform-rememberme">
+    <div class="form-group field-loginform-rememberme">
 <div class="col-sm-6 col-sm-offset-3">
 <div class="checkbox">
 <label for="loginform-rememberme">
@@ -62,14 +65,14 @@ Remember Me
 </div>
 
 </div>
-        <div class="form-group">
-            <a href="/site/request-password-reset" class="ajax">Forgot password?</a>
-        </div>
+    <div class="form-group col-md-12 text-left lite-green">
+        <a href="/site/request-password-reset" class="ajax">Forgot password?</a>
+    </div>
 
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11 margin_top3p">
-                <button type="submit" class="btn btn-primary" name="login-button">Login</button>            </div>
-        </div>
+    <div class="form-group">
+        <div class="col-lg-offset-3 col-lg-9 col-md-offset-4 col-md-9 margin_top3p">
+            <button type="submit" class="btn btn-green" name="login-button">Login</button>        </div>
+    </div>
 
     </form>
 
@@ -104,34 +107,34 @@ Remember Me
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=59394d130c90f">
+    <a href="/debug/default/view?panel=config&amp;tag=59a9430841382">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=59394d130c90f" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=59394d130c90f" title="Action: app\controllers\SiteController::actionLogin()">Route <span class="yii-debug-toolbar__label">site/login</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=59a9430841382" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=59a9430841382" title="Action: app\controllers\SiteController::actionLogin()">Route <span class="yii-debug-toolbar__label">site/login</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=59394d130c90f" title="Logged 14 messages">Log
+    <a href="/debug/default/view?panel=log&amp;tag=59a9430841382" title="Logged 14 messages">Log
         <span class="yii-debug-toolbar__label">14</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=59394d130c90f" title="Total request processing time was 70 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">70 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=59394d130c90f" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9.419 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=59a9430841382" title="Total request processing time was 72 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">72 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=59a9430841382" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">9.581 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=59394d130c90f" title="Executed 1 database queries which took 0 ms.">
+    <a href="/debug/default/view?panel=db&amp;tag=59a9430841382" title="Executed 1 database queries which took 0 ms.">
         DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">1</span> <span class="yii-debug-toolbar__label">0 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=59394d130c90f" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">11</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=59a9430841382" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">11</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
     <a href="/debug/default/view?panel=user">
@@ -789,24 +792,27 @@ a.yii-debug-toolbar__label:focus {
         proxied.apply(this, Array.prototype.slice.call(arguments));
     };
 
-})();</script><script src="/assets/6b040846/jquery.js"></script>
-<script src="/assets/a83e0e94/yii.js"></script>
-<script src="/assets/a83e0e94/yii.validation.js"></script>
-<script src="/assets/a83e0e94/yii.activeForm.js"></script>
-<script src="/assets/5463e113/jquery-ui.js"></script>
-<script src="/assets/7942af6b/js/bootstrap.js"></script>
-<script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
-<script src="/assets/cbe07863/jquery.inputmask.bundle.js"></script>
-<script src="/leaflet/leaflet.js"></script>
-<script src="/leaflet/lib.shp/catiline.js"></script>
-<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
-<script src="/js/chosen.jquery.min.js"></script>
-<script src="/js/switch.jquery.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/global.prod.js"></script>
+})();</script><script src="/assets/6b040846/jquery.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.validation.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.activeForm.js?v=1489065529"></script>
+<script src="/assets/5463e113/jquery-ui.js?v=1489065529"></script>
+<script src="/assets/7942af6b/js/bootstrap.js?v=1489065529"></script>
+<script src="/assets/44e8300d/dist/sweetalert.min.js?v=1489065529"></script>
+<script src="/assets/cbe07863/jquery.inputmask.bundle.js?v=1494592787"></script>
+<script src="/leaflet/leaflet.js?v=1492786568"></script>
+<script src="/leaflet/leaflet-pip.js?v=1503921516"></script>
+<script src="/leaflet/lib.shp/catiline.js?v=1492786568"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js?v=1492786568"></script>
+<script src="/js/jquery.debounce.js?v=1498744100"></script>
+<script src="/js/chosen.jquery.min.js?v=1483691700"></script>
+<script src="/js/switch.jquery.js?v=1499948167"></script>
+<script src="/js/app.js?v=1504184569"></script>
+<script src="/js/global.prod.js?v=1503482339"></script>
+<script src="/js/iframe-resizer/iframeResizer.contentWindow.min.js?v=1499846670"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
 jQuery('#login-form').yiiActiveForm([{"id":"loginform-email","name":"email","container":".field-loginform-email","input":"#loginform-email","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});}},{"id":"loginform-password","name":"password","container":".field-loginform-password","input":"#loginform-password","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});}},{"id":"loginform-rememberme","name":"rememberMe","container":".field-loginform-rememberme","input":"#loginform-rememberme","error":".help-block.help-block-error","validate":function (attribute, value, messages, deferred, $form) {yii.validation.boolean(value, messages, {"trueValue":"1","falseValue":"0","message":"Remember Me must be either \"1\" or \"0\".","skipOnEmpty":1});}}], []);
-});</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
+});</script><div class="modal" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -822,7 +828,7 @@ jQuery('#login-form').yiiActiveForm([{"id":"loginform-email","name":"email","con
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"GreenBiz - Login Site","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
+        app.pageTools.setInitialPageData({"title":"GreenBiz - Login Site","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/jquery.debounce.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/js\/iframe-resizer\/iframeResizer.contentWindow.min.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/leaflet-pip.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/jquery.debounce.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/js\/iframe-resizer\/iframeResizer.contentWindow.min.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/leaflet\/leaflet.js","\/leaflet\/leaflet-pip.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 

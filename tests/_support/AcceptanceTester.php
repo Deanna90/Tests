@@ -21,7 +21,7 @@ use Codeception\Module\Cli;
 */
 class AcceptanceTester extends \Codeception\Actor
 {
-    protected static $LoggedIn, $URL_UserAccess;
+    protected static $LoggedIn, $URL_UserAccess, $AddTagA;
     
     use _generated\AcceptanceTesterActions;
 
@@ -70,9 +70,11 @@ class AcceptanceTester extends \Codeception\Actor
                     break;
                 case 'auditor':
                     self::$URL_UserAccess = '/auditor';
+                    self::$AddTagA = '/a';
                     break;
                 case 'inspector':
                     self::$URL_UserAccess = '/inspector';
+                    self::$AddTagA = '';
                     break;
                 case 'user':
                     break;
@@ -146,5 +148,20 @@ class AcceptanceTester extends \Codeception\Actor
 //                $webDriver->switchTo()->defaultContent();
             });
     }
+    
+    public function makeElementVisible($cssSelector, $style = 'visibility'){
+	$I = $this;
+        switch ($style){
+            case 'visibility':
+                $value = 'visibility: visible';
+                break;
+            case 'display':
+                $value = 'display: inline';
+                break;
+        }
+            foreach ($cssSelector as $key) {
+                $I->executeJS('$(\''.$key.'\').attr("style","'.$value.'");');
+            }
+    } 
    
 }

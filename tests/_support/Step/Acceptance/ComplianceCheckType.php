@@ -3,26 +3,23 @@ namespace Step\Acceptance;
 
 class ComplianceCheckType extends \AcceptanceTester
 {
-    public function CreateComplianceCheckType($name = null, $status = null)
+    public function CreateComplianceCheckType($name = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\ComplianceCheckTypeCreate::$URL);
+        $I->amOnPage(\Page\ComplianceCheckTypeCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\ComplianceCheckTypeCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\ComplianceCheckTypeCreate::$NameField, $name);
         }
-        if (isset($status)){
-            $I->selectOption(\Page\ComplianceCheckTypeCreate::$StatusSelect, $status);
-        }
         $I->click(\Page\ComplianceCheckTypeCreate::$CreateButton);
         $I->wait(2);
     }
     
-    public function UpdateComplianceCheckType($row, $name = null, $status = null)
+    public function UpdateComplianceCheckType($row, $name = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\ComplianceCheckTypeList::$URL);
+        $I->amOnPage(\Page\ComplianceCheckTypeList::URL());
         $I->wait(1);
         $I->click(\Page\ComplianceCheckTypeList::UpdateButtonLine($row));
         $I->wait(1);
@@ -30,14 +27,11 @@ class ComplianceCheckType extends \AcceptanceTester
         if (isset($name)){
             $I->fillField(\Page\ComplianceCheckTypeUpdate::$NameField, $name);
         }
-        if (isset($status)){
-            $I->selectOption(\Page\ComplianceCheckTypeUpdate::$StatusSelect, $status);
-        }
         $I->click(\Page\ComplianceCheckTypeUpdate::$UpdateButton);
         $I->wait(2);
     }
     
-    public function CheckInFieldsOnComplianceCheckTypeUpdatePage($name = null, $status = null)
+    public function CheckInFieldsOnComplianceCheckTypeUpdatePage($name = null)
     {
         $I = $this;
         $I->wait(1);
@@ -45,30 +39,38 @@ class ComplianceCheckType extends \AcceptanceTester
         if (isset($name)){
             $I->canSeeInField(\Page\ComplianceCheckTypeUpdate::$NameField, $name);
         }
-        if (isset($status)){
-            $I->canSeeOptionIsSelected(\Page\ComplianceCheckTypeUpdate::$StatusSelect, $status);
-        }
     }
     
-    public function GetComplianceCheckTypeRowNumber($name)
+    public function GetComplianceCheckTypeOnPageInList($name)
     {
         $I = $this;
-        $I->amOnPage(\Page\ComplianceCheckTypeList::$URL);
+        $I->amOnPage(\Page\ComplianceCheckTypeList::URL());
         $I->wait(1);
-        $count = $I->getAmount($I, \Page\ComplianceCheckTypeList::$ComplianceCheckTypeRow);
-        for($i=1; $i<=$count; $i++){
-            if($I->grabTextFrom(\Page\ComplianceCheckTypeList::NameLine($i)) == $name){
-                break;
+        $count = $I->grabTextFrom(\Page\ComplianceCheckTypeList::$SummaryCount);
+        $pageCount = ceil($count/20);
+        $I->comment("Page count = $pageCount");
+        for($i=1; $i<=$pageCount; $i++){
+            $I->amOnPage(\Page\ComplianceCheckTypeList::UrlPageNumber($i));
+            $I->wait(1);
+            $rows = $I->getAmount($I, \Page\ComplianceCheckTypeList::$ComplianceCheckTypeRow);
+            $I->comment("Count of rows = $rows");
+            for($j=1; $j<=$rows; $j++){
+                if($I->grabTextFrom(\Page\ComplianceCheckTypeList::NameLine($j)) == $name){
+                    $I->comment("I find compliance check type: $name at row: $j on page: $i");
+                    break 2;
+                }
             }
         }
-        $I->comment("Compliance Check Type $name is on $i row");
-        return $i;
+        $comp['id']   = $I->grabTextFrom(\Page\ComplianceCheckTypeList::IdLine($j));
+        $comp['page'] = $i;
+        $comp['row']  = $j;
+        return $comp;
     }
     
     public function CheckValuesOnComplianceCheckTypeListPage($row, $name = null, $status = null, $createdDate = null, $updatedDate = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\ComplianceCheckTypeList::$URL);
+        $I->amOnPage(\Page\ComplianceCheckTypeList::URL());
         $I->wait(1);
         $I->waitForElement(\Page\ComplianceCheckTypeList::$CreateComplianceCheckTypeButton);
         if (isset($name)){

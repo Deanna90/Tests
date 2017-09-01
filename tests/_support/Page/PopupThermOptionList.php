@@ -9,6 +9,7 @@ class PopupThermOptionList extends \AcceptanceTester
     public static $Title                = 'h1';
     public static $ThermOptionRow       = 'table[class*=table] tbody>tr';
     public static $SummaryCount         = '.summary>b:last-of-type';
+    public static $EmptyListLabel               = 'tr .empty';
     
     public static $CreatePopupThermsOptionButton    = '.left-column-buttons .btn-success';
    

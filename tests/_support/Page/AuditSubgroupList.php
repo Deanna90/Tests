@@ -38,5 +38,15 @@ class AuditSubgroupList extends \AcceptanceTester
     public static function UpdateButtonLine($row) { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Update]"; }
     public static function DeleteButtonLine($row) { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Delete]"; }
 
-
+    //By description value
+    public static function IdLine_ByNameValue($name)           { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]/td[1]"; }
+    public static function NameLine_ByNameValue($name)         { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]/td[2]"; }
+    public static function AuditGroupLine_ByNameValue($name)   { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]/td[3]"; }
+    public static function StateLine_ByNameValue($name)        { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]/td[4]"; }
+    public static function CreatedLine_ByNameValue($name)      { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]/td[5]"; }
+    public static function UpdatedLine_ByNameValue($name)      { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]/td[6]"; }
+    public static function StatusLine_ByNameValue($name)       { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]/td[7]"; }
+    public static function UpdateButtonLine_ByNameValue($name) { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]//a[@title='Update']"; }
+    public static function DeleteButtonLine_ByNameValue($name) { return "//table[contains(@class, 'table-striped custom-table')]//tbody/tr[contains(td[2]/text(), '$name')]//a[@title='Delete']"; }
+    
 }

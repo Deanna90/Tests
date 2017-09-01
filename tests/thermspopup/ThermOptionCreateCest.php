@@ -1,4 +1,4 @@
-<?php
+3_1_6<?php
 
 
 class ThermOptionCreateCest
@@ -97,13 +97,15 @@ class ThermOptionCreateCest
     
     public function ThermCreate3_1_6_NameField256Symbol(\Step\Acceptance\PopupThermOption $I)
     {
-        $name        = $I->GenerateNameOf("6therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 c");
+        $name        = "6therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 ctrew";
+        $name2        = "6therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 ctre";
         $thermsCount = '2';
         
         $I->CreateThermOption($name, $thermsCount);
         $I->wait(1);
-        $I->canSee($this->invalid256ErrorName, \Page\PopupThermOptionCreate::$NameErrorHelpBlock);
-        $I->seeInCurrentUrl(\Page\PopupThermOptionCreate::URL());
+        $therm = $I->GetThermOptionOnPageInList($name2);
+        $I->amOnPage(\Page\PopupThermOptionUpdate::URL($therm['id']));
+        $I->CheckInFieldsOnThermOptionUpdatePage($name2);
     }
     
     public function ThermCreate3_1_7_NameFieldNumberSymbols(\Step\Acceptance\PopupThermOption $I)

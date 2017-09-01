@@ -3,8 +3,12 @@ namespace Page;
 
 class BusinessChecklistView extends \AcceptanceTester
 {
-    public static function URL_Business($businessID)     { return parent::$URL_UserAccess."/business/index?business_id=$businessID";}
-
+    public static function URL_BusinessInfo($businessID)                    { return parent::$URL_UserAccess."/business/index?business_id=$businessID";}
+    public static function URL_Records($businessID)                         { return parent::$URL_UserAccess."/business/records?business_id=$businessID";}
+    public static function URL_Communication($businessID)                   { return parent::$URL_UserAccess."/communication/index?business_id=$businessID";}
+    public static function URL_BusinessProfile($businessID)                 { return parent::$URL_UserAccess."/business/profile?business_id=$businessID";}
+    public static function URL_AuditGroupInChecklist($businessID, $idSubGr) { return parent::$URL_UserAccess."/business/complete-measures?audit_subgroup_id=$idSubGr&business_id=$businessID";}
+    
     public static $Title                      = 'h1';
    
     public static $SaveButton_Footer          = '.success.save-buttons button[type=submit].btn-green';
@@ -26,16 +30,25 @@ class BusinessChecklistView extends \AcceptanceTester
     public static function LeftMenu_Subgroup_ByName($subgroup) { return "//*[@class='sub-menu active']//li/a[text()='$subgroup']";}
     public static function LeftMenu_Subgroup($row)             { return ".sub-menu.active li:nth-of-type($row)>a";}
     
-    public static $LeftMenu_HowToUseThisAppButton          = '#checklist-number [selected]';
-    public static $LeftMenu_BusinessLoginButton            = '#checklist-number option';
-    public static $LeftMenu_PrintApplicationButton         = '#checklist-number option';
-    public static $LeftMenu_NoteToBusinessButton           = '#checklist-number option';
+    public static $LeftMenu_DeleteApplicationButton        = '.delete-app-btn';
+    public static $LeftMenu_BusinessLoginButton            = "a[href*='business/login']";
+    public static $LeftMenu_PrintFirstTierButton           = '#checklist-number option';
+    public static $LeftMenu_PrintSecondTierButton          = '#checklist-number option';
+    public static $LeftMenu_PrintThirdTierButton           = '#checklist-number option';
     
     public static $BusinessInfoTab              = '#checklist-number [selected]';
     public static $RecordsTab                   = '#checklist-number option';
     public static $CommunicationTab             = '#checklist-number option';
     public static $BusinessProfileTab           = '#checklist-number option';
    
+    public static $TotalPointsBlock             = '.no-padd-left';
+    public static $TotalPointsTitle             = '.no-padd-left .p-label';
+    public static $TotalPointsInfo              = '.no-padd-left .p-small';
+    
+    public static $TotalMeasuresBlock           = '.info-block';
+    public static $TotalMeasuresTitle           = '.info-block .p-label';
+    public static $TotalMeasuresInfo            = '.info-block .p-small';
+    
     //--------------------------------------------------------------------------
     //-----------------------------Business Info Tab----------------------------
     //--------------------------------------------------------------------------
@@ -76,7 +89,7 @@ class BusinessChecklistView extends \AcceptanceTester
     public static $ComplianceCheckStatusSelect_BisinessInfoTab      = '#application_dropdown_4';
     public static $SiteVisitStatusSelect_BisinessInfoTab            = '#application_dropdown_5';
     public static $AuditsStatusSelect_BisinessInfoTab               = '#application_dropdown_6';
-    public static $RecognitionsTasksStatusSelect_BisinessInfoTab    = '#application_dropdown_7';
+    public static $RecognitionTasksStatusSelect_BisinessInfoTab     = '#application_dropdown_7';
     public static $AddDetailsButton_ComplianceCheck_BisinessInfoTab = 'a#popup_link_1';
     public static $AddDetailsButton_Audits_BisinessInfoTab          = 'a#popup_link_2';
     
@@ -87,14 +100,15 @@ class BusinessChecklistView extends \AcceptanceTester
 //    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
     public static function MeasureGreenTip($grTip)               { return "//*[@class='short-articles link-green no-ajax'][contains(h4/text(), 'Measure')]//*[text()='$grTip']";}
     public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//p[contains(text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
+    public static function MeasureToggleButton2_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type']";}
     public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/span";}
     public static function Savings_ByDesc($desc)                 { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/div";}
     
     public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
     public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//select";}
     public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//input";}
-    public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//*[@class='switch-control switch-control-2-items']";}
-    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//*[@class='switch-control switch-control-3-items']";}
+    public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
+    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-3-items')]";}
     
     public static function AuditGreenTip_ByTipDesc($grTip)              { return "//*[@class='right-column-block']//h4[text()='$grTip']/i";}
     
@@ -109,19 +123,19 @@ class BusinessChecklistView extends \AcceptanceTester
     
     //-----------------------------Therms Popup---------------------------------
     
-    const ThermsPopup                                                 = '.modal.fade.in';
-    public static $ThermsPopup_TotalEstimatedField_Section1           = '.modal.fade.in .therm-section-1 #total_estimated';
-    public static $ThermsPopup_TotalEstimatedLabel_Section1           = '.modal.fade.in .therm-section-1 [for=total_estimated]';
+    const ThermsPopup                                                 = '.modal.in';
+    public static $ThermsPopup_TotalReadonlyField                     = '.modal.in #total';
+    public static $ThermsPopup_TotalReadonlyLabel                     = '.modal.in [for=total]';
     
-    public static function ThermsPopup_OptionSelect_Section2($number)           { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt']";}
-    public static function ThermsPopup_OptionSelectOption_Section2($number)     { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt'] option";}
-    public static function ThermsPopup_OptionSelectLabel_Section2($number)      { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [for=qt]";}
-    public static function ThermsPopup_TotalEstimatedField_Section2($number)    { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='qt']";}
-    public static function ThermsPopup_TotalEstimatedLabel_Section2($number)    { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a)";}
-    public static function ThermsPopup_DeleteOptionButton_Section2($number)     { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [data-action=delete]";}
+    public static function ThermsPopup_OptionSelect_Section2($number)           { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt']";}
+    public static function ThermsPopup_OptionSelectOption_Section2($number)     { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt'] option";}
+    public static function ThermsPopup_OptionSelectLabel_Section2($number)      { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [for=qt]";}
+    public static function ThermsPopup_TotalEstimatedField_Section2($number)    { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [id*='qt']";}
+    public static function ThermsPopup_TotalEstimatedLabel_Section2($number)    { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a)";}
+    public static function ThermsPopup_DeleteOptionButton_Section2($number)     { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [data-action=delete]";}
     
-    public static $ThermsPopup_AddOptionButton          = '.modal.fade.in [data-action=add]';
-    public static $ThermsPopup_SaveChangesButton        = '.modal.fade.in button[type=submit]';
-    public static $ThermsPopup_CloseButton              = '.modal.fade.in .close';
+    public static $ThermsPopup_AddOptionButton          = '.modal.in [data-action=add]';
+    public static $ThermsPopup_SaveChangesButton        = '.modal.in button[type=submit]';
+    public static $ThermsPopup_CloseButton              = '.modal.in .close';
 
 }

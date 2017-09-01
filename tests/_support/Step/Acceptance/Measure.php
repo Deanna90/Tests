@@ -14,7 +14,8 @@ class Measure extends \AcceptanceTester
     const MultipleQuestion_MultipleAnswersSubmeasure          = 'Multiple question';
     
     public function CreateMeasure($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
-                                   $questions = null, $options = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $points = null)
+                                   $questions = null, $options = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $points = null, $yesNoNameArray = null, 
+                                   $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null)
     {
         $I = $this;
         $I->amOnPage(\Page\MeasureCreate::URL());
@@ -27,18 +28,19 @@ class Measure extends \AcceptanceTester
             $I->selectOption(\Page\MeasureCreate::$AuditGroupSelect, $auditGroup);
         }
         if (isset($auditSubgroup)){
-            $I->wait(1);
+            $I->wait(2);
             $I->click(\Page\MeasureCreate::$AuditSubgroupSelect);
-            $I->wait(1);
+            $I->wait(2);
             $I->selectOption(\Page\MeasureCreate::$AuditSubgroupSelect, $auditSubgroup);
         }
         switch ($quantitative){
             case 'yes':
                 $I->click(\Page\MeasureCreate::$IsQuantitativeToggleButton);
                 $I->wait(3);
+                $I->waitForElement(\Page\MeasureCreate::$SubmeasureTypeSelect);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(2);
+                    $I->wait(3);
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
@@ -144,6 +146,20 @@ class Measure extends \AcceptanceTester
         if (isset($points)){
             $I->fillField(\Page\MeasureCreate::$PointsField, $points);
         }
+        if (isset($yesNoNameArray)){
+            for ($i=1, $c= count($yesNoNameArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\MeasureCreate::YesOrNoQuestion_AnswerButtonLabel_ByName($yesNoNameArray[$k], $yesNoValueArray[$k]));
+                $I->wait(1);
+            }
+        }
+        if (isset($sectionNameArray)){
+            for ($i=1, $c= count($sectionNameArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\MeasureCreate::SectionsQuestion_Section_ByName($sectionNameArray[$k], $sectionValueArray[$k]));
+                $I->wait(1);
+            }
+        }
         if (isset($state)){
             $I->canSeeOptionIsSelected(\Page\MeasureCreate::$StateDisableSelect, $state);
         }
@@ -154,7 +170,7 @@ class Measure extends \AcceptanceTester
     
     public function CheckSavedValuesOnMeasureUpdatePage($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
                            $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $quantToggleStatus = 'ignore', 
-                           $multipAnswerToggleStatus ='ignore', $points = null)
+                           $multipAnswerToggleStatus ='ignore', $points = null, $yesNoNameArray = null, $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null)
     {
         $I = $this;
         $I->wait(2);
@@ -279,6 +295,33 @@ class Measure extends \AcceptanceTester
         }
         if (isset($points)){
             $I->canSeeInField(\Page\MeasureUpdate::$PointsField, $points);
+        }
+        if (isset($yesNoNameArray)){
+            for ($c= count($yesNoNameArray), $i=$c; $i>=1; $i--){
+                $k = $i-1;
+                $yesNoValueArray = array_map('mb_strtolower', $yesNoValueArray);
+                $I->makeElementVisible([\Page\MeasureUpdate::YesOrNoQuestion_AnswerButton($i, $yesNoValueArray[$k])], $style = 'display');
+                $I->wait(2);
+//                $checked = $I->grabAttributeFrom(\Page\MeasureUpdate::YesOrNoQuestion_AnswerButton($i, $yesNoValueArray[$k]), 'checked');
+//                $I->comment("Checked: $checked");
+//                $I->assertEquals('true', $checked);
+                $I->comment("1");
+                $I->canSeeElementInDOM(\Page\MeasureUpdate::YesOrNoQuestion_AnswerButton_ByName($yesNoNameArray[$k], $yesNoValueArray[$k])."[@checked]");
+                $I->wait(1);
+//                $I->comment("2");
+//                $I->canSeeElement(\Page\MeasureUpdate::YesOrNoQuestion_AnswerButton_ByName($yesNoNameArray[$k], $yesNoValueArray[$k])."[@checked]");
+//                $I->wait(1);
+//                $I->comment("3");
+//                $I->canSeeElement(\Page\MeasureUpdate::YesOrNoQuestion_AnswerButton($i, $yesNoValueArray[$k])."[checked]");
+//                $I->wait(1);
+            }
+        }
+        if (isset($sectionNameArray)){
+            for ($i=1, $c= count($sectionNameArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->canSeeElement(\Page\MeasureUpdate::SectionsQuestion_Section_ByName($sectionNameArray[$k], $sectionValueArray[$k])."[@selected='selected']");
+                $I->wait(1);
+            }
         }
         if (isset($state)){
             $I->canSeeOptionIsSelected(\Page\MeasureUpdate::$StateDisableSelect, $state);

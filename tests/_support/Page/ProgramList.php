@@ -9,6 +9,7 @@ class ProgramList extends \AcceptanceTester
     public static $Title                = 'h1';
     public static $ProgramRow           = 'table[class*=table] tbody>tr';
     public static $SummaryCount         = '.summary>b:last-of-type';
+    public static $EmptyListLabel               = 'tr .empty';
     
     public static $CreateProgramButton  = 'a.btn-green-lite';
     

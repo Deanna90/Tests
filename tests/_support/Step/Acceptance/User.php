@@ -48,7 +48,7 @@ class User extends \AcceptanceTester
                 break;
         }
         $I->click(\Page\UserCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(5);
     }  
     
     public function CheckInFieldsOnUserUpdatePage($email = null, $firstName = null, $lastName = null, $password = null, $confirmPassword = null, 

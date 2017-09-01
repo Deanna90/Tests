@@ -3,11 +3,12 @@ namespace Page;
 
 class WeightPointsManage extends \AcceptanceTester
 {
-    public static function URL()                  { return parent::$URL_UserAccess.'/measure-weight-points/states';}
+    public static function URL($id)     { return parent::$URL_UserAccess."/measure-weight-points/index?state_id=$id";}
     
     public static $Title                = 'h1';
     public static $QuestionRow          = 'table[class*=table] tbody>tr';
     public static $SummaryCount         = '.summary>b:last-of-type';
+    public static $EmptyListLabel               = 'tr .empty';
    
     public static $CreateYesOrNoButton  = '.left-column-block>div:first-of-type a';
     public static $CreateSectionsButton = '.left-column-block>div:last-of-type a';

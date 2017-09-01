@@ -5,13 +5,14 @@ class MeasureGreenTipCest
 {
     public $state, $city1, $zip1;
     public $audSubgroup1_Energy, $audSubgroup2_Energy, $audSubgroup1_General, $audSubgroup2_General;
+    public $id_audSubgroup1_Energy, $id_audSubgroup2_Energy, $id_audSubgroup1_General, $id_audSubgroup2_General;
     public $measure1Desc, $measure2Desc, $measure3Desc, $measure4Desc, $measure5Desc, $measure6Desc, $measure7Desc, $measure8Desc, $measure9Desc;
     public $idMeasure1, $idMeasure2, $idMeasure3, $idMeasure4, $idMeasure5, $idMeasure6, $idMeasure7, $idMeasure8, $idMeasure9;
     public $measuresDesc_SuccessCreated = [];
     public $program1;
     public $gt1_program1, $gt2_program1, $gt3_program1, $gt4_program1, $gt5_program1, $gt6_program1, $gt7_program1, $gt8_program1, $gt9_program1;
     public $statuses1 = ['core', 'elective', 'core', 'elective', 'core', 'elective', 'core', 'elective', 'core'];
-    public $business;
+    public $business, $id_Business;
     public $checklistUrl;
     
 
@@ -63,6 +64,10 @@ class MeasureGreenTipCest
         $I->wait(3);
         $I->CreateAuditSubgroup($name2, $auditGroup, $state);
         $I->wait(3);
+        $I->amOnPage(Page\AuditSubgroupList::URL());
+        $I->wait(2);
+        $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name1));
+        $this->id_audSubgroup2_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name2));
     }
     
     /**
@@ -81,6 +86,10 @@ class MeasureGreenTipCest
         $I->wait(3);
         $I->CreateAuditSubgroup($name2, $auditGroup, $state);
         $I->wait(3);
+        $I->amOnPage(Page\AuditSubgroupList::URL());
+        $I->wait(2);
+        $this->id_audSubgroup1_General = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name1));
+        $this->id_audSubgroup2_General = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name2));
     }
     
     /**
@@ -765,10 +774,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(1);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -786,10 +797,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -807,10 +820,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -828,10 +843,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_Energy));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_Energy));
         $I->wait(2);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -849,10 +866,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_Energy));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_Energy));
         $I->wait(2);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -870,10 +889,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_GeneralGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_GeneralGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_GeneralGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -891,10 +912,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_GeneralGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_GeneralGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_GeneralGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -912,10 +935,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_GeneralGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_GeneralGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_GeneralGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -933,10 +958,12 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_GeneralGroupButton);
         if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_GeneralGroupButton.'.active') == 0) {
             $I->click(\Page\ChecklistPreview::$LeftMenu_GeneralGroupButton);
         }
         $I->wait(2);
+        $I->waitForElement(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
         $I->click(\Page\ChecklistPreview::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
@@ -973,6 +1000,7 @@ class MeasureGreenTipCest
         $employees        = '455';
         $busFootage       = '4566';
         $landscapeFootage = '12345';
+        
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
@@ -991,11 +1019,14 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+//        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
+//        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
+//        $I->wait(2);
+//        $I->waitForElement(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+//        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1011,11 +1042,7 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1031,11 +1058,7 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1051,11 +1074,7 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup2_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_Energy));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1071,11 +1090,7 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup2_Energy));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_Energy));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1091,11 +1106,7 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_GeneralGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1111,11 +1122,7 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_GeneralGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1131,11 +1138,7 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_GeneralGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1151,11 +1154,7 @@ class MeasureGreenTipCest
         
         $I->wait(1);
         $I->comment("Check value: $grTip for meassure: $measDesc");
-        $I->amOnPage(\Page\RegistrationStarted::$URL_Started);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$LeftMenu_GeneralGroupButton);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
@@ -1179,8 +1178,11 @@ class MeasureGreenTipCest
         $I->wait(1);
         $I->amOnPage(Page\Dashboard::URL());
         $I->wait(2);
-        $I->click(Page\Dashboard::BusinessLink_ByBusName($this->business));
-        $I->wait(2);
+        $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business), 'href');
+        $I->comment("Url1: $url1");
+        $u1 = explode('=', $url1);
+        $this->id_Business = $u1[1];
+        $I->comment("Business1 id: $this->id_Business");
     }
      
     /**
@@ -1193,11 +1195,14 @@ class MeasureGreenTipCest
         $grTip    = $this->gt1_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+//        $I->waitForElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
+//        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton.'.active') == 0) {
+//            $I->click(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
+//        }
+//        $I->wait(2);
+//        $I->waitForElement(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+//        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
@@ -1212,11 +1217,7 @@ class MeasureGreenTipCest
         $grTip    = $this->gt2_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
@@ -1231,11 +1232,7 @@ class MeasureGreenTipCest
         $grTip    = $this->gt3_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
@@ -1250,11 +1247,7 @@ class MeasureGreenTipCest
         $grTip    = $this->gt4_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup2_Energy));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup2_Energy));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
@@ -1269,11 +1262,7 @@ class MeasureGreenTipCest
         $grTip    = $this->gt5_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup2_Energy));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup2_Energy));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
@@ -1288,11 +1277,7 @@ class MeasureGreenTipCest
         $grTip    = $this->gt6_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_GeneralGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_GeneralGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
@@ -1307,11 +1292,7 @@ class MeasureGreenTipCest
         $grTip    = $this->gt7_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_GeneralGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_GeneralGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
@@ -1326,11 +1307,7 @@ class MeasureGreenTipCest
         $grTip    = $this->gt8_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_GeneralGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_GeneralGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
@@ -1345,11 +1322,7 @@ class MeasureGreenTipCest
         $grTip    = $this->gt9_program1;
         
         $I->wait(2);
-        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_GeneralGroupButton.'.active') == 0) {
-            $I->click(\Page\BusinessChecklistView::$LeftMenu_GeneralGroupButton);
-        }
-        $I->wait(2);
-        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup2_General));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup2_General));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }

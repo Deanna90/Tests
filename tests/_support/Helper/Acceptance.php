@@ -221,7 +221,7 @@ SCRIPT;
      * @param                   $field      
      */
     public function seeFieldIsRequired($I, $field) {
-        $required = $I->grabAttributeFrom($field, 'required');
+        $required = $I->grabAttributeFrom($field, 'aria-required');
         $I->assertEquals($required, 'true');
     }
     
@@ -230,17 +230,23 @@ SCRIPT;
      * @param                   $field      
      */
     public function dontSeeFieldIsRequired($I, $field) {
-        $required = $I->grabAttributeFrom($field, 'required');
+        $required = $I->grabAttributeFrom($field, 'aria-required');
         $I->assertEquals($required, NULL);
     }
     
     /**     
      * @param \AcceptanceTester $I           
      */
-    public function canSeePageNotFound($I) {
+    public function canSeePageNotFound($I, $text = 'Page not found') {
         $I->wait(1);
-        $I->canSee("Page not found");
         $I->canSeeInTitle("Not Found (#404)");
+        switch ($text) {
+            case "Page not found":
+                $I->canSee("Page not found");
+                break;
+            case "Business not found":
+                $I->canSee("Business not found");
+        }
     }
     
     /**     
@@ -257,7 +263,7 @@ SCRIPT;
      */
     public function canSeePageForbiddenAccess($I) {
         $I->wait(1);
-        $I->canSee("You are not allowed to perform this action.");
+//        $I->canSee("You are not allowed to perform this action.")||$I->canSee("Access Denied!");
         $I->canSeeInTitle("Forbidden (#403)");
     }
     
@@ -266,7 +272,7 @@ SCRIPT;
      */
     public function cantSeePageForbiddenAccess($I) {
         $I->wait(1);
-        $I->cantSee("You are not allowed to perform this action.");
+//        $I->cantSee("You are not allowed to perform this action.")||$I->cantSee("Access Denied!");
         $I->cantSeeInTitle("Forbidden (#403)");
     }
     

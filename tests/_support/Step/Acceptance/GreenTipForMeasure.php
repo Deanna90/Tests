@@ -20,7 +20,7 @@ class GreenTipForMeasure extends \AcceptanceTester
             }
         }
         $I->click(\Page\MeasureGreenTipCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(3);
     }  
     
     public function UpdateMeasureGreenTip($desc = null, $program = null)
@@ -48,6 +48,6 @@ class GreenTipForMeasure extends \AcceptanceTester
             }
         }
         $I->click(\Page\MeasureGreenTipUpdate::$UpdateButton);
-        $I->wait(2);
+        $I->wait(3);
     } 
 }

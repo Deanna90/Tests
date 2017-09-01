@@ -10,7 +10,6 @@ class StateAdminAndCoordinatorAccessCest
     public $program1, $program2;
     public $gt1_program1_2, $gt2_program1, $gt2_program2, $gt3_program2, $gt4_program2, $GT3Update_prog1, $GT3Create_prog1, $GT4Update_prog1;
     public $statuses = ['core', 'core', 'elective', 'elective'];
-    public $business2, $business3;
     public $emailStateAdmin, $emailCoordinator1, $emailCoordinator2, $password;
 
 
@@ -42,6 +41,9 @@ class StateAdminAndCoordinatorAccessCest
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
         $I->wait(3);
+        $I->amOnPage(Page\AuditSubgroupList::URL());
+        $I->wait(2);
+        $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
     public function FewProg2_5_CreateMeasure1forEnergy(\Step\Acceptance\Measure $I) {

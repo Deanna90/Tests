@@ -181,7 +181,8 @@ class BusinessStatusesCest
         $landscapeFootage = '666';
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
+        $I->wait(9);
+        $I->canSeeInCurrentUrl(\Page\RegistrationStarted::$URL_Started);
     }
     
     public function Help1_18_LogOutFromBusiness1(AcceptanceTester $I){
@@ -209,7 +210,8 @@ class BusinessStatusesCest
         $landscapeFootage = '666';
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
+        $I->wait(9);
+        $I->canSeeInCurrentUrl(\Page\RegistrationStarted::$URL_Started);
     }
     
     public function Help1_18_LogOutFromBusiness2(AcceptanceTester $I){
@@ -237,7 +239,8 @@ class BusinessStatusesCest
         $landscapeFootage = '666';
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
+        $I->wait(9);
+        $I->canSeeInCurrentUrl(\Page\RegistrationStarted::$URL_Started);
     }
     
     public function Help1_18_LogOutFromBusiness3_AndAdminLogin(AcceptanceTester $I){
@@ -301,7 +304,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::NonresponsiveStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -345,7 +348,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::NotSuitableStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -389,7 +392,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::DisqualifiedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -433,7 +436,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::MovedClosedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -477,7 +480,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -523,7 +526,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::RecognizedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -569,7 +572,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->canSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -615,7 +618,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::DisqualifiedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -659,7 +662,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::NonresponsiveStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -703,7 +706,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::MovedClosedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -747,7 +750,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::NotSuitableStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -791,7 +794,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::RecognizedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -835,7 +838,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->canSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -881,7 +884,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::RecognizedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -925,7 +928,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::InProcessStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->canSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -969,7 +972,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::RecognizedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
@@ -1013,7 +1016,7 @@ class BusinessStatusesCest
         $status = \Page\BusinessChecklistView::DecertifiedStatus;
         
         $I->wait(1);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_Business($this->busId1));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
         $I->wait(2);

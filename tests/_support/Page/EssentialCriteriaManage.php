@@ -27,6 +27,8 @@ class EssentialCriteriaManage extends \AcceptanceTester
     public static function CloneButtonLine_VersionHistoryTab($row)    { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Clone']";}
     public static function PublishButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Publish']";}
     
+    public static $IdOfPublishedEC_VersionHistoryTab               = "//table[@class='version-history define setup']//tr[contains(td[3]/text(),'Published')]/td[2]";
+    
     //-----Manage Measure Tab-----
     public static $SaveButton                                      = '.btn.send-form';
     

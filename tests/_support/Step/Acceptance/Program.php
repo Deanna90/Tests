@@ -3,7 +3,7 @@ namespace Step\Acceptance;
 
 class Program extends \AcceptanceTester
 {
-    public function CreateProgram($name = null, $state = null, $city = null, $recerticationCycle = '1 year')
+    public function CreateProgram($name = null, $state = null, $cityArray = null, $recerticationCycle = '1 year')
     {
         $I = $this;
         $I->amOnPage(\Page\ProgramCreate::URL());
@@ -15,12 +15,12 @@ class Program extends \AcceptanceTester
         if (isset($state)){
             $I->selectOption(\Page\ProgramCreate::$StateSelect, $state);
         }
-        if (isset($city)){
-            for ($i=1, $c= count($city); $i<=$c; $i++){
+        if (isset($cityArray)){
+            for ($i=1, $c= count($cityArray); $i<=$c; $i++){
                 $k = $i-1;
                 $I->click(\Page\ProgramCreate::$CitySelect);
-                $I->wait(1);
-                $I->click(\Page\ProgramCreate::selectCityOptionByName($city[$k]));
+                $I->wait(2);
+                $I->click(\Page\ProgramCreate::selectCityOptionByName($cityArray[$k]));
             }
         }
         $I->selectOption(\Page\ProgramCreate::$RecertificationCycleSelect, $recerticationCycle);

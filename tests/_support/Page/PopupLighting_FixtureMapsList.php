@@ -3,18 +3,18 @@ namespace Page;
 
 class PopupLighting_FixtureMapsList extends PopupLighting_BuildingTypesList
 {
-    public static function URL()                  { return parent::$URL_UserAccess."/popup-lighting-fixture-map/index";}
-    public static function UrlPageNumber($number) { return parent::$URL_UserAccess."/popup-lighting-fixture-map/index?page=$number"; }
-    public static $Title                    = 'h1';
-    public static $FixtureMapRow            = 'table[class*=table] tbody>tr';
-    public static $SummaryCount             = '.summary>b:last-of-type';
+    public static function URL()                      { return parent::$URL_UserAccess."/popup-lighting-fixture-map/index";}
+    public static function UrlPageNumber($number)     { return parent::$URL_UserAccess."/popup-lighting-fixture-map/index?page=$number"; }
+    public static $Title                              = 'h1';
+    public static $FixtureMapRow                      = 'table[class*=table] tbody>tr';
+    public static $SummaryCount                       = '.summary>b:last-of-type';
     
-    public static $CreateFixtureMapsButton  = '.left-column-buttons>a';
+    public static $CreateFixtureMapsButton            = '.left-column-buttons>a';
     
     //Left Menu Items
-    public static $BuildingTypeButton   = parent::BuildingTypeButton;
-    public static $DeerHourButton       = parent::DeerHourButton;
-    public static $FixtureMapButton     = parent::FixtureMapButton;
+    public static $BuildingTypeButton                 = parent::BuildingTypeButton;
+    public static $DeerHourButton                     = parent::DeerHourButton;
+    public static $FixtureMapButton                   = parent::FixtureMapButton;
     
    
     public static $IdLinkHead                         = 'table[class*=table] tr>th:first-of-type a';

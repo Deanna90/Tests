@@ -198,7 +198,7 @@ class CityCreateCest
         $zips  = $I->GenerateZipCode();
         
         $I->CreateCity($name, $state, $zips);
-        $I->wait(1);
+        $I->wait(2);
         $city = $I->GetCityOnPageInList($name);
         $I->amOnPage(\Page\CityUpdate::URL($city['id']));
         $I->CheckInFieldsOnCityUpdatePage($name);

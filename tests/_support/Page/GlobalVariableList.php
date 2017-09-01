@@ -3,7 +3,9 @@ namespace Page;
 
 class GlobalVariableList extends \AcceptanceTester
 {
-    public static function URL()     { return parent::$URL_UserAccess."/global-variable/index";}
+    public static function URL()                  { return parent::$URL_UserAccess."/global-variable/index";}
+    public static function UrlPageNumber($number) { return parent::$URL_UserAccess."/global-variable/index?page=$number"; }
+    
     public static $Title                         = 'h1';
     public static $GlobalVariableRow             = 'table[class*=table] tbody>tr';
     public static $SummaryCount                  = '.summary>b:last-of-type';

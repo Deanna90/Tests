@@ -10,6 +10,7 @@ class SectorList extends \AcceptanceTester
     public static $Title                = 'h1';
     public static $SectorRow            = 'table[class*=table] tbody>tr';
     public static $SummaryCount         = '.summary>b:last-of-type';
+    public static $EmptyListLabel               = 'tr .empty';
     
     //Filter
     public static $FilterTitle                  = 'p:first-of-type.green-title';
@@ -56,7 +57,7 @@ class SectorList extends \AcceptanceTester
     public static function NameLine_ByNameValue($name, $program)          { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]/td[2]"; }
     public static function ProgramLine_ByNameValue($name, $program)       { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]/td[3]"; }
     public static function StatusLine_ByNameValue($name, $program)        { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]/td[4]"; }
-    public static function UpdateButtonLine_ByNameValue($name, $program)  { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]//a[@title='Update']"; }
-    public static function DeleteButtonLine_ByNameValue($name, $program)  { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]//a[@title='Delete']"; }
+    public static function UpdateButtonLine_ByNameValue($name, $program)  { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]//span[@title='Rename']"; }
+    public static function DeleteButtonLine_ByNameValue($name, $program)  { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]//td[5]/a[2]/span"; }
     
 }

@@ -16,10 +16,10 @@ class GlobalVariableCreate extends \AcceptanceTester
     public static $UnitsSelect            = '#globalvariable-units';
     
     //Labels
-    public static $TitleLabel             = '#globalvariable-title';
-    public static $NameLabel              = '#globalvariable-name';
-    public static $ValueLabel             = '#globalvariable-value';
-    public static $DescriptionLabel       = '#globalvariable-description';
+    public static $TitleLabel             = '[for=globalvariable-title]';
+    public static $NameLabel              = '[for=globalvariable-name]';
+    public static $ValueLabel             = '[for=globalvariable-value]';
+    public static $DescriptionLabel       = '[for=globalvariable-description]';
     
-    public static $UnitsSelectLabel       = '#globalvariable-units';
+    public static $UnitsSelectLabel       = '[for=globalvariable-units]';
 }

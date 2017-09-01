@@ -3,24 +3,33 @@ namespace Page;
 
 class RegistrationStarted
 {
-    public static $URL_Started                = '/user/application/index';
-    public static $URL_Review                 = '/user/application/review';
+    public static $URL_Started                 = '/user/application/index';
+    public static $URL_Review                  = '/user/application/review';
+    public static function URL_AuditGroup($idSubGr)  { return "/user/application/complete-measures?audit_subgroup_id=$idSubGr";}
 
-    public static $Title                      = 'h2';
     
-    public static $RegistrationMenuItem       = 'a.first';
-    public static $ApplicationMenuItem        = 'a.second';
-    public static $ReviewAndSubmitMenuItem    = 'a.third';
+    public static $Title                       = 'h2';
     
+    public static $RegistrationMenuItem        = 'a.first';
+    public static $ApplicationMenuItem         = 'a.second';
+    public static $ReviewAndSubmitMenuItem     = 'a.third';
+    public static $FewBusinessesDropdownButton = '.dropdown-few-business button';
+    public static $FewBusinessesOption         = '.dropdown-few-business ul>li';
+    public static function selectBusinessOption($row)             { return ".dropdown-few-business ul>li:nth-of-type($row)>a";}
+    public static function selectBusinessOptionByName($business)  { return "//div[contains(@class, 'dropdown-few-business')]//ul/li/a[text()='$business']";}
     
     public static $SaveButton_Footer          = '.success.save-buttons button[type=submit].btn-green';
     public static $SaveAndNextButton_Footer   = '.success.save-buttons button[name=save_next]';
     public static $PreviousButton_Footer      = '.success.save-buttons>div:first-of-type a.btn-md';
     public static $ReviewButton_Footer        = '.success.save-buttons>div:last-of-type a.btn-md';
     
-    public static $TotalPointsBlock                      = '.no-padd-left';
-    public static $TotalPointsTitle                      = '.no-padd-left .p-label';
-    public static $TotalPointsInfo                       = '.no-padd-left .p-small';
+    public static $TotalPointsBlock           = '.no-padd-left';
+    public static $TotalPointsTitle           = '.no-padd-left .p-label';
+    public static $TotalPointsInfo            = '.no-padd-left .p-small';
+    
+    public static $TotalMeasuresBlock         = '.info-block';
+    public static $TotalMeasuresTitle         = '.info-block .p-label';
+    public static $TotalMeasuresInfo          = '.info-block .p-small';
     
     public static $GetStartedButton           = '[type=submit][class*=success]';
     public static $HowToUseThisAppButton      = '#checklist-number [selected]';
@@ -57,10 +66,11 @@ class RegistrationStarted
     public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/span";}
     
     public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
+    public static function SubmeasureLink_ByMeasureDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span/a";}
     public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//select";}
     public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//input";}
-    public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//*[@class='switch-control switch-control-2-items']";}
-    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//*[@class='switch-control switch-control-3-items']";}
+    public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
+    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//select[contains(@class, 'form-control popup-switcher')]";}
     
     public static function AuditGreenTip_ByTipDesc($grTip)              { return "//*[@class='right-column-block']//h4[text()='$grTip']/i";}
     
@@ -76,34 +86,54 @@ class RegistrationStarted
     
     //-----------------------------Therms Popup---------------------------------
     
-    const ThermsPopup                                                 = '.modal.fade.in';
-    public static $ThermsPopup_TotalEstimatedField_Section1           = '.modal.fade.in .therm-section-1 #total_estimated';
-    public static $ThermsPopup_TotalEstimatedLabel_Section1           = '.modal.fade.in .therm-section-1 [for=total_estimated]';
+    const ThermsPopup                                                 = '.modal.in';
+    public static $ThermsPopup_TotalReadonlyField                     = '.modal.in #total';
+    public static $ThermsPopup_TotalReadonlyLabel                     = '.modal.in [for=total]';
     
-    public static function ThermsPopup_OptionSelect_Section2($number)           { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt']";}
-    public static function ThermsPopup_OptionSelectOption_Section2($number)     { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt'] option";}
-    public static function ThermsPopup_OptionSelectLabel_Section2($number)      { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [for=qt]";}
-    public static function ThermsPopup_TotalEstimatedField_Section2($number)    { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [id*='qt']";}
-    public static function ThermsPopup_TotalEstimatedLabel_Section2($number)    { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a)";}
-    public static function ThermsPopup_DeleteOptionButton_Section2($number)     { $a=$number+1; return ".modal.fade.in .therm-section-2> div:nth-of-type($a) [data-action=delete]";}
+    public static function ThermsPopup_OptionSelect_Section2($number)           { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt']";}
+    public static function ThermsPopup_OptionSelectOption_Section2($number)     { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [id*='therm-opt'] option";}
+    public static function ThermsPopup_OptionSelectLabel_Section2($number)      { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [for=qt]";}
+    public static function ThermsPopup_TotalEstimatedField_Section2($number)    { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [id*='qt']";}
+    public static function ThermsPopup_TotalEstimatedLabel_Section2($number)    { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a)";}
+    public static function ThermsPopup_DeleteOptionButton_Section2($number)     { $a=$number+1; return ".modal.in .therm-section-2> div:nth-of-type($a) [data-action=delete]";}
     
-    public static $ThermsPopup_AddOptionButton          = '.modal.fade.in [data-action=add]';
-    public static $ThermsPopup_SaveChangesButton        = '.modal.fade.in button[type=submit]';
-    public static $ThermsPopup_CloseButton              = '.modal.fade.in .close';
+    public static $ThermsPopup_AddOptionButton          = '.modal.in [data-action=add]';
+    public static $ThermsPopup_SaveChangesButton        = '.modal.in button[type=submit]';
+    public static $ThermsPopup_CloseButton              = '.modal.in .close';
     
-    //-----Review & Submit Page-----
+    //----------------------------Lighting Popup--------------------------------
     
-    public static $SubmitMyApplicationButton            = '.input-row button[type=submit]';
-//    public static $ReviewTitle                          = 'h2';
+    const LightingPopup                                                 = '.modal.in';
+    public static $LightingPopup_BuildingTypeSelect                     = '.modal.in #building_type_id_0';
+    public static $LightingPopup_BuildingTypeSelectLabel                = '.modal.in [for=building_type_id_0]';
     
-    public static $CategoriesHead        = '#measures-form>div:first-of-type h3';
-    public static $CoreMeasuresHead      = '#measures-form>div:first-of-type h3';
-    public static $ElectiveMeasuresHead  = '#measures-form>div:first-of-type h3';
-    public static $StatusHead            = '#measures-form>div:first-of-type h3';
+    public static function LightingPopup_ReplacementFixtureSelect($number)         { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='replacement_lighting_id']";}
+    public static function LightingPopup_ReplacementFixtureQuantityField($number)  { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='replacement_quantity']";}
+    public static function LightingPopup_ExistingFixtureField($number)             { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='existing_lighting_id']";}
+    public static function LightingPopup_ExistingFixtureQuantityField($number)     { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='existing_quantity']";}
+    public static function LightingPopup_EnergySavingsField($number)               { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='total_energy_saving']";}
+    public static function LightingPopup_ExteriorCheckbox($number)                 { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='building_space']";}
+    public static function LightingPopup_DeleteOptionButton($number)               { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [data-action=delete]";}
     
-    public static function Review_GroupLine_ByName($groupName)  { return "//*[@class='registration-table']//tr[contains(td/text(), '$groupName')]/td[1]";}
-    public static function Review_SubgroupLine_ByName($name)    { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[1]/a";}
-    public static function Review_CoreLine_ByName($name)        { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[2]";}
-    public static function Review_ElectiveLine_ByName($name)    { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[3]";}
-    public static function Review_StatusLine_ByName($name)      { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[4]/span";}
+    public static $LightingPopup_AddOptionButton          = '.modal.in [data-action=add]';
+    public static $LightingPopup_SaveChangesButton        = '.modal.in button[type=submit]';
+    public static $LightingPopup_CloseButton              = '.modal.in .close';
+    
+    //-----------------------------Waste Diversion Popup---------------------------------
+    
+    const WasteDiversionPopup                                          = '.modal.in';
+    public static $WasteDiversionPopup_BeforeGBTab                     = ".modal.in [href='#tab-before']";
+    public static $WasteDiversionPopup_AfterGBTab                      = ".modal.in [href='#tab-after']";
+    
+    public static function WasteDiversionPopup_CommoditySelect($row, $beforeOrAfter)              { return "#commodity_id_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_ContainerTypeSelect($row, $beforeOrAfter)          { return "#container_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_ContainersField($row, $beforeOrAfter)              { return "#containers_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_CollectionPerWeekField($row, $beforeOrAfter)       { return "#pick_up_to_week_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_CompactedToggleButton($row, $beforeOrAfter)        { return "[name='rows[$row][$beforeOrAfter][compacted]']+div";}
+    public static function WasteDiversionPopup_CompactedToggleButtonSelect($row, $beforeOrAfter)  { return "[name='rows[$row][$beforeOrAfter][compacted]']";}
+    
+    public static function WasteDiversionPopup_SaveChangesButton($beforeOrAfter)        { return ".modal.in #tab-$beforeOrAfter tbody>tr:first-of-type button[type=submit]";}
+    public static $WasteDiversionPopup_CloseButton              = '.modal.in .close';
+    public static $WasteDiversionPopup_SaveButton_NoAnswer      = '.modal.in .close-popup';
+    
 }

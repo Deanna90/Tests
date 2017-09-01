@@ -88,13 +88,16 @@ class ThermOptionUpdateCest
     
     public function ThermUpdate3_1_6_NameField256Symbol(\Step\Acceptance\PopupThermOption $I)
     {
-        $name        = $I->GenerateNameOf("4therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 c");
+        $name        = "4therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 c1234";
+        $name2       = "4therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256therm256 check therm therm256 c123";
         
         $I->amOnPage(\Page\PopupThermOptionUpdate::URL($this->id));
         $I->UpdateThermOption($name);
         $I->wait(2);
-        $I->canSee($this->invalid256ErrorName, \Page\PopupThermOptionUpdate::$NameErrorHelpBlock);
-        $I->seeInCurrentUrl(\Page\PopupThermOptionUpdate::URL($this->id));
+        $therm = $I->GetThermOptionOnPageInList($name2);
+        $I->assertEquals($this->id, $therm['id']);
+        $I->amOnPage(\Page\PopupThermOptionUpdate::URL($this->id));
+        $I->CheckInFieldsOnThermOptionUpdatePage($name2);
     }
     
     public function ThermUpdate3_1_7_NameFieldNumberSymbols(\Step\Acceptance\PopupThermOption $I)
@@ -184,17 +187,18 @@ class ThermOptionUpdateCest
         $I->CheckInFieldsOnThermOptionUpdatePage(null, $thermsCount);
     }
     
-    public function ThermUpdate3_1_5_ThermsCountField9Symbol(\Step\Acceptance\PopupThermOption $I)
+    public function ThermUpdate3_1_5_ThermsCountField9Symbol_Blocked(\Step\Acceptance\PopupThermOption $I)
     {
-        $thermsCount = '123456789';
+        $thermsCount  = '123456789';
+        $thermsCount2 = '12345678';
         
         $I->amOnPage(\Page\PopupThermOptionUpdate::URL($this->id));
         $I->UpdateThermOption(null, $thermsCount);
         $I->wait(1);
         $therm = $I->GetThermOptionOnPageInList($this->optionName);
-        $I->see($thermsCount, Page\PopupThermOptionList::ThermsCount_ByName($this->optionName));
+        $I->see($thermsCount2, Page\PopupThermOptionList::ThermsCount_ByName($this->optionName));
         $I->amOnPage(\Page\PopupThermOptionUpdate::URL($therm['id']));
-        $I->CheckInFieldsOnThermOptionUpdatePage(null, $thermsCount);
+        $I->CheckInFieldsOnThermOptionUpdatePage(null, $thermsCount2);
     }
     
     public function ThermUpdate3_1_6_ThermsCountField10Symbol_Blocked(\Step\Acceptance\PopupThermOption $I)

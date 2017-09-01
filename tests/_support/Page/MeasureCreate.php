@@ -14,11 +14,20 @@ class MeasureCreate extends \AcceptanceTester
     
     public static $DescriptionField           = '#measure-description';
     public static $PointsField                = '#measure-points';
+    
+    public static function YesOrNoQuestion_Name_ByName($name)                       { return "//*[@class='form-group registration-field'][contains(text(), '$name')]";}
+    public static function YesOrNoQuestion_AnswerButtonLabel_ByName($name, $answer) { return "//*[@class='form-group registration-field'][contains(p/text(), '$name')]/div/label[contains(text(), '$answer')]";}
+    public static function YesOrNoQuestion_AnswerButton_ByName($name, $answer)      { return "//*[@class='form-group registration-field'][contains(p/text(), '$name')]/div/input[@class='$answer-btn']";}
+    public static function SectionsQuestion_Name_ByName($name)                      { return "//*[@class='p-small'][contains(text(), '$name')]";}
+    public static function SectionsQuestion_Section_ByName($name, $sections)        { return "//div[contains(*[@class='p-small']/text(), '$name')]//*[@data-section='$sections']";}
     public static $YesOrNoQuestion_Name       = '.registration-field p';
     public static $YesOrNoQuestion_YesButton  = '.registration-field .yes-btn+label';
     public static $YesOrNoQuestion_NoButton   = '.registration-field .yes-btn+label';
     public static $SectionsQuestion_Name      = '.p-small';
     public static function SectionsQuestion_Section($number)   { return ".sections-input [data-section='$number']";}
+    public static function YesQuestion_AnswerButton($row)                            { return ".panel-body>div:nth-of-type($row) .registration-field-btn .yes-btn";}
+    public static function NoQuestion_AnswerButton($row)                             { return ".panel-body>div:nth-of-type($row) .registration-field-btn .no-btn";}
+    public static function YesOrNoQuestion_AnswerButton($row, $answer)               { return ".panel-body>div:nth-of-type($row) .registration-field-btn .$answer-btn";}
     
     public static $AuditGroupSelect       = '#measure-audit_group_id';
     public static $AuditSubgroupSelect    = '#subgroups';

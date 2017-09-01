@@ -42,9 +42,9 @@ class AuditSubGroup extends \AcceptanceTester
                 }
             }
         }
-        $city['id']   = $I->grabTextFrom(\Page\AuditSubgroupList::IdLine($j));
-        $city['page'] = $i;
-        $city['row']  = $j;
-        return $city;
+        $subGr['id']   = $I->grabTextFrom(\Page\AuditSubgroupList::IdLine($j));
+        $subGr['page'] = $i;
+        $subGr['row']  = $j;
+        return $subGr;
     }
 }

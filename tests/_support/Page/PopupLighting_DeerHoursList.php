@@ -8,6 +8,7 @@ class PopupLighting_DeerHoursList extends PopupLighting_BuildingTypesList
     public static $Title                    = 'h1';
     public static $DeerHourRow              = 'table[class*=table] tbody>tr';
     public static $SummaryCount             = '.summary>b:last-of-type';
+    public static $EmptyListLabel               = 'tr .empty';
     
     public static $CreateDeerHourButton = '.left-column-buttons>a';
     

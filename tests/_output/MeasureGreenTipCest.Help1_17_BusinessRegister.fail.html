@@ -1,19 +1,19 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head>
     <meta name="csrf-param" content="_csrf" />
-    <meta name="csrf-token" content="eFUwY0tCc0IAAngtenYfAx9hQi8iGBQIDRMDBiAJRXIqbFUrJAQnOg==" />
+    <meta name="csrf-token" content="NjNvc1pFQ3ZbBVccLhp3PX5cFRUvJ3UYV2MjPhAcMTkDBCBBIzI3AQ==" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="true" />
     <meta charset="UTF-8" />
     <title>Registration new business</title>
-    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-<link href="/assets/7942af6b/css/bootstrap.css" rel="stylesheet" />
-<link href="/assets/44e8300d/dist/sweetalert.css" rel="stylesheet" />
-<link href="/leaflet/leaflet.css" rel="stylesheet" />
-<link href="/css/chosen.min.css" rel="stylesheet" />
-<link href="/css/switch.jquery.css" rel="stylesheet" />
-<link href="/css/style.css" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
+    <link href="/assets/5463e113/themes/smoothness/jquery-ui.css?v=1489065529" rel="stylesheet" />
+<link href="/assets/7942af6b/css/bootstrap.css?v=1489065529" rel="stylesheet" />
+<link href="/assets/44e8300d/dist/sweetalert.css?v=1489065529" rel="stylesheet" />
+<link href="/leaflet/leaflet.css?v=1492786568" rel="stylesheet" />
+<link href="/css/chosen.min.css?v=1483691700" rel="stylesheet" />
+<link href="/css/switch.jquery.css?v=1486483141" rel="stylesheet" />
+<link href="/css/style.css?v=1504074984" rel="stylesheet" />    <link rel="stylesheet" href="/fonts/font-awesome-4.6.3/css/font-awesome.min.css" />
     </head>
 <body>
     <div id="main_page_container">
@@ -24,6 +24,7 @@
             <div class="">
                 <a href="/" class="ajax"><img src="/img/logo.png" alt="" /></a>
                 <div class="user-navigation">
+                                            <a href="/business/index" class="ajax">SIGN UP TO BE A GREEN BUSINESSES</a>                    
                     <a href="/business/search" class="ajax">FIND GREEN BUSINESSES</a>                                        <div class="select-wrapper">
                                                     <a class="btn btn-default logout ajax" href="/site/login">Login</a>                                            </div>
                 </div>
@@ -59,8 +60,12 @@
     </div>
 
 <form id="w0" class="registration-container ajax" action="/business/registration" method="post">
-<input type="hidden" name="_csrf" value="eFUwY0tCc0IAAngtenYfAx9hQi8iGBQIDRMDBiAJRXIqbFUrJAQnOg==" />    <h1>Registration</h1>
+<input type="hidden" name="_csrf" value="NjNvc1pFQ3ZbBVccLhp3PX5cFRUvJ3UYV2MjPhAcMTkDBCBBIzI3AQ==" />    <h1>Registration</h1>
     <p class="sub-title">Tell us a little about your business so that we can get your profile started</p>
+    <p class="sub-title">For your security GreenBiz Tracker supports the following browsers:
+        <br />Chrome, Safari, IE 11, Edge and Firefox.
+        <br />For the best experience, we recommend downloading the newest version of your preferred browser.
+    </p>
             <p class="green-title reg-title">contact info</p>
         <div class="row">
             <div class="col-md-4">
@@ -83,11 +88,11 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <div class="form-group field-user-phone required has-success">
+                    <div class="form-group field-user-phone has-error">
 
-<input type="text" id="user-phone" class="form-control" name="User[phone]" placeholder="Phone Number" aria-required="true" data-plugin-inputmask="inputmask_e4f2ec36" aria-invalid="false" />
+<input type="text" id="user-phone" class="form-control" name="User[phone]" placeholder="Phone Number" data-plugin-inputmask="inputmask_e4f2ec36" aria-invalid="true" />
 
-<div class="help-block"></div>
+<div class="help-block">Phone cannot be blank.</div>
 </div>                </div>
             </div>
         </div>
@@ -144,11 +149,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <div class="form-group field-business-street_address required has-success">
+                <div class="form-group field-business-street_address required has-error">
 
-<input type="text" id="business-street_address" class="form-control" name="Business[street_address]" placeholder="Street Address" aria-required="true" aria-invalid="false" />
+<input type="text" id="business-street_address" class="form-control" name="Business[street_address]" placeholder="Street Address" aria-required="true" aria-invalid="true" />
 
-<div class="help-block"></div>
+<div class="help-block">Street Address cannot be blank.</div>
 </div>            </div>
         </div>
     </div>
@@ -165,9 +170,10 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <div class="form-group field-cities required">
 
-<select id="cities" class="form-control" name="Business[city_id]" aria-required="true"><option value="">Select city</option></select>
+                <div class="form-group field-cities required has-success">
+
+<select id="cities" class="form-control" name="Business[city_id]" aria-required="true" aria-invalid="false"><option value="">Select city</option><option value="2062" data-state-id="1418" data-state-name="StateMGTogcs" data-program-id="1474">CityMGT1amlx</option></select>
 
 <div class="help-block"></div>
 </div>            </div>
@@ -182,7 +188,7 @@
 </div>
                 <div class="form-group field-business-state_id required">
 
-<input type="hidden" id="business-state_id" class="form-control" name="Business[state_id]" placeholder="State" aria-required="true" />
+<input type="hidden" id="business-state_id" class="form-control" name="Business[state_id]" placeholder="State" aria-required="true" value="1418" />
 
 <div class="help-block"></div>
 </div>            </div>
@@ -200,12 +206,10 @@
         </div>
         <div class="col-md-6 wrap-select">
             <div class="form-group">
-                <span class="fa fa-angle-down custom"></span>
+
                 <div class="form-group field-business-sector_id required">
 
-<select id="business-sector_id" class="form-control" name="Business[sector_id]" aria-required="true">
-<option value="">Business Type</option>
-</select>
+<select id="business-sector_id" class="form-control" name="Business[sector_id]" aria-required="true"><option value="">Select type</option></select>
 
 <div class="help-block"></div>
 </div>            </div>
@@ -254,7 +258,6 @@
                                         <div class="form-group registration-field">
                     <p>Are there other business locations?</p>
                     <div class="registration-field-btn">
-                        <input type="hidden" value="0" name="Business[other_business_locations]" />
                         <input type="radio" name="Business[other_business_locations]" value="1" id="checkbox-i0" class="yes-btn" />
                         <label for="checkbox-i0" class="btn btn-green-outline">Yes</label>
                         <input type="radio" name="Business[other_business_locations]" value="0" id="checkbox-0-n" class="no-btn" />
@@ -264,7 +267,6 @@
                                             <div class="form-group registration-field">
                     <p>Are there hazardous materials or waste on site?</p>
                     <div class="registration-field-btn">
-                        <input type="hidden" value="0" name="Business[hazardous_materials]" />
                         <input type="radio" name="Business[hazardous_materials]" value="1" id="checkbox-i1" class="yes-btn" />
                         <label for="checkbox-i1" class="btn btn-green-outline">Yes</label>
                         <input type="radio" name="Business[hazardous_materials]" value="0" id="checkbox-1-n" class="no-btn" />
@@ -274,7 +276,6 @@
                                             <div class="form-group registration-field">
                     <p>Is there a pool or spa on site?</p>
                     <div class="registration-field-btn">
-                        <input type="hidden" value="0" name="Business[pool_or_spa]" />
                         <input type="radio" name="Business[pool_or_spa]" value="1" id="checkbox-i2" class="yes-btn" />
                         <label for="checkbox-i2" class="btn btn-green-outline">Yes</label>
                         <input type="radio" name="Business[pool_or_spa]" value="0" id="checkbox-2-n" class="no-btn" />
@@ -284,7 +285,6 @@
                                             <div class="form-group registration-field">
                     <p>Is there an Emergency Back-Up Generator on site?</p>
                     <div class="registration-field-btn">
-                        <input type="hidden" value="0" name="Business[have_backup]" />
                         <input type="radio" name="Business[have_backup]" value="1" id="checkbox-i3" class="yes-btn" />
                         <label for="checkbox-i3" class="btn btn-green-outline">Yes</label>
                         <input type="radio" name="Business[have_backup]" value="0" id="checkbox-3-n" class="no-btn" />
@@ -300,21 +300,18 @@
             <div class="buttons-group">
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_air]" />
                         <input type="checkbox" name="Business[permits_air]" value="1" id="checkbox-permits_air" />
                         <label for="checkbox-permits_air" class="btn">Air</label>
                     </div>
                 </div>
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_hazardous_materials]" />
                         <input type="checkbox" name="Business[permits_hazardous_materials]" value="1" id="checkbox-permits_hazardous_materials" />
                         <label for="checkbox-permits_hazardous_materials" class="btn">Hazardous materials</label>
                     </div>
                 </div>
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_hazardous_waste]" />
                         <input type="checkbox" name="Business[permits_hazardous_waste]" value="1" id="checkbox-permits_hazardous_waste" />
                         <label for="checkbox-permits_hazardous_waste" class="btn">Hazardous waste</label>
                     </div>
@@ -323,21 +320,18 @@
             <div class="buttons-group">
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_storm_water]" />
                         <input type="checkbox" name="Business[permits_storm_water]" value="1" id="checkbox-permits_storm_water" />
                         <label for="checkbox-permits_storm_water" class="btn">Storm water</label>
                     </div>
                 </div>
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_wastewater]" />
                         <input type="checkbox" name="Business[permits_wastewater]" value="1" id="checkbox-permits_wastewater" />
                         <label for="checkbox-permits_wastewater" class="btn">Wastewater</label>
                     </div>
                 </div>
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_food_safety]" />
                         <input type="checkbox" name="Business[permits_food_safety]" value="1" id="checkbox-permits_food_safety" />
                         <label for="checkbox-permits_food_safety" class="btn">Food safety</label>
                     </div>
@@ -346,21 +340,18 @@
             <div class="buttons-group">
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_fire_code]" />
                         <input type="checkbox" name="Business[permits_fire_code]" value="1" id="checkbox-permits_fire_code" />
                         <label for="checkbox-permits_fire_code" class="btn">Fire code</label>
                     </div>
                 </div>
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_fire_under_tanks]" />
                         <input type="checkbox" name="Business[permits_fire_under_tanks]" value="1" id="checkbox-permits_fire_under_tanks" />
                         <label for="checkbox-permits_fire_under_tanks" class="btn">Underground storage tanks</label>
                     </div>
                 </div>
                             <div class="col-md-4 wrap">
                     <div class="form-group">
-                        <input type="hidden" value="0" name="Business[permits_fire_above_tanks]" />
                         <input type="checkbox" name="Business[permits_fire_above_tanks]" value="1" id="checkbox-permits_fire_above_tanks" />
                         <label for="checkbox-permits_fire_above_tanks" class="btn">Above ground storage tanks</label>
                     </div>
@@ -385,7 +376,37 @@
             </div>
                 </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 wrap-select">
+            <p class="green-title reg-title">How did you learn about GreenBiz Tracker?</p>
+            <div class="form-group">
+                <div class="form-group field-business-referrer_id">
 
+<select id="business-referrer_id" class="form-control handle-target-show" name="Business[referrer_id]" data-target=".referrer-other" data-event-value="10">
+<option value="">Select...</option>
+<option value="1">Another Green Business</option>
+<option value="2">Local Government</option>
+<option value="3">Event </option>
+<option value="4">Search engine</option>
+<option value="5">Advertisement</option>
+<option value="6">Friend</option>
+<option value="7">Social Media</option>
+<option value="8">Chamber of Commerce</option>
+<option value="9">You contacted me!</option>
+<option value="10">Other (Please specify)</option>
+</select>
+
+<div class="help-block"></div>
+</div>            </div>
+            <div class="form-group">
+                <div class="form-group field-business-referrer_other">
+
+<input type="text" id="business-referrer_other" class="form-control referrer-other" name="Business[referrer_other]" style="display: none;" />
+
+<div class="help-block"></div>
+</div>            </div>
+        </div>
+    </div>
     <div class="row radio-checkbox">
         <div class="col-md-12">
             <div class="form-group">
@@ -417,7 +438,7 @@
         </div>
 
         <div class="yii-debug-toolbar__block yii-debug-toolbar__ajax" style="display: block;">
-            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter yii-debug-toolbar__label_success">1</span>
+            AJAX <span class="yii-debug-toolbar__label yii-debug-toolbar__ajax_counter yii-debug-toolbar__label_success">15</span>
             <div class="yii-debug-toolbar__ajax_info">
                 <table>
                     <thead>
@@ -429,40 +450,40 @@
                         <th>Profile</th>
                     </tr>
                     </thead>
-                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/city-and-sectors-by-zip?zip=70807&amp;withOutProgram=0">/ajax/city-and-sectors-by-zip?zip=70807&amp;withOutProgram=0</td><td class="yii-debug-toolbar__ajax_request_duration">45 ms</td> <td><a href="/debug/default/view?tag=5936c0dcd909d">5936c0dcd909d</a></td></tr></tbody>
+                    <tbody class="yii-debug-toolbar__ajax_requests"><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">78 ms</td> <td><a href="/debug/default/view?tag=59a80dc871439">59a80dc871439</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">81 ms</td> <td><a href="/debug/default/view?tag=59a80dc8b005a">59a80dc8b005a</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">78 ms</td> <td><a href="/debug/default/view?tag=59a80dca46a17">59a80dca46a17</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">79 ms</td> <td><a href="/debug/default/view?tag=59a80dcb8b8b6">59a80dcb8b8b6</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">78 ms</td> <td><a href="/debug/default/view?tag=59a80dccc0315">59a80dccc0315</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">80 ms</td> <td><a href="/debug/default/view?tag=59a80dce183b9">59a80dce183b9</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">78 ms</td> <td><a href="/debug/default/view?tag=59a80dce55e68">59a80dce55e68</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=undefined">/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=undefined</td><td class="yii-debug-toolbar__ajax_request_duration">46 ms</td> <td><a href="/debug/default/view?tag=59a80dce6d774">59a80dce6d774</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=undefined">/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=undefined</td><td class="yii-debug-toolbar__ajax_request_duration">48 ms</td> <td><a href="/debug/default/view?tag=59a80dceabe09">59a80dceabe09</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=undefined">/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=undefined</td><td class="yii-debug-toolbar__ajax_request_duration">46 ms</td> <td><a href="/debug/default/view?tag=59a80dceea45a">59a80dceea45a</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=undefined">/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=undefined</td><td class="yii-debug-toolbar__ajax_request_duration">46 ms</td> <td><a href="/debug/default/view?tag=59a80dcf341e9">59a80dcf341e9</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/city-and-sectors-by-zip?zip=18570&amp;withOutProgram=0">/ajax/city-and-sectors-by-zip?zip=18570&amp;withOutProgram=0</td><td class="yii-debug-toolbar__ajax_request_duration">49 ms</td> <td><a href="/debug/default/view?tag=59a80dce7fa9e">59a80dce7fa9e</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">79 ms</td> <td><a href="/debug/default/view?tag=59a80dcfc9fa1">59a80dcfc9fa1</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>GET</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=1474">/ajax/sectors-by-program?showWithTiers=1&amp;deepdrop=1&amp;programId=1474</td><td class="yii-debug-toolbar__ajax_request_duration">51 ms</td> <td><a href="/debug/default/view?tag=59a80dd1bfbb1">59a80dd1bfbb1</a></td></tr><tr class="yii-debug-toolbar__ajax_request"><td>POST</td><td><span class="yii-debug-toolbar__ajax_request_status yii-debug-toolbar__label_success">200</span></td><td class="yii-debug-toolbar__ajax_request_url" title="/business/validate">/business/validate</td><td class="yii-debug-toolbar__ajax_request_duration">84 ms</td> <td><a href="/debug/default/view?tag=59a80dd1f232e">59a80dd1f232e</a></td></tr></tbody>
                 </table>
             </div>
         </div>
 
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=config&amp;tag=5936c0d598b14">
+    <a href="/debug/default/view?panel=config&amp;tag=59a80dc4e813c">
         <span class="yii-debug-toolbar__label">2.0.11.2</span>
         PHP
         <span class="yii-debug-toolbar__label">5.5.35</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=request&amp;tag=5936c0d598b14" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
-    <a href="/debug/default/view?panel=request&amp;tag=5936c0d598b14" title="Action: app\controllers\BusinessController::actionRegistration()">Route <span class="yii-debug-toolbar__label">business/registration</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=59a80dc4e813c" title="Status code: 200 OK">Status <span class="yii-debug-toolbar__label yii-debug-toolbar__label_success">200</span></a>
+    <a href="/debug/default/view?panel=request&amp;tag=59a80dc4e813c" title="Action: app\controllers\BusinessController::actionRegistration()">Route <span class="yii-debug-toolbar__label">business/registration</span></a>
 </div>
                     
 
 <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=log&amp;tag=5936c0d598b14" title="Logged 19 messages">Log
-        <span class="yii-debug-toolbar__label">19</span>
+    <a href="/debug/default/view?panel=log&amp;tag=59a80dc4e813c" title="Logged 20 messages">Log
+        <span class="yii-debug-toolbar__label">20</span>
     </a>
         </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=profiling&amp;tag=5936c0d598b14" title="Total request processing time was 98 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">98 ms</span></a>
-    <a href="/debug/default/view?panel=profiling&amp;tag=5936c0d598b14" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">10.780 MB</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=59a80dc4e813c" title="Total request processing time was 103 ms">Time <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">103 ms</span></a>
+    <a href="/debug/default/view?panel=profiling&amp;tag=59a80dc4e813c" title="Peak memory consumption">Memory <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">11.318 MB</span></a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=db&amp;tag=5936c0d598b14" title="Executed 6 database queries which took 3 ms.">
-        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">6</span> <span class="yii-debug-toolbar__label">3 ms</span>
+    <a href="/debug/default/view?panel=db&amp;tag=59a80dc4e813c" title="Executed 7 database queries which took 3 ms.">
+        DB <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">7</span> <span class="yii-debug-toolbar__label">3 ms</span>
     </a>
 </div>
                     <div class="yii-debug-toolbar__block">
-    <a href="/debug/default/view?panel=assets&amp;tag=5936c0d598b14" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12</span></a>
+    <a href="/debug/default/view?panel=assets&amp;tag=59a80dc4e813c" title="Number of asset bundles loaded">Asset Bundles <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">12</span></a>
 </div>
                                                             <div class="yii-debug-toolbar__block">
     <a href="/debug/default/view?panel=user">
@@ -1120,31 +1141,38 @@ a.yii-debug-toolbar__label:focus {
         proxied.apply(this, Array.prototype.slice.call(arguments));
     };
 
-})();</script><script src="/assets/6b040846/jquery.js"></script>
-<script src="/assets/a83e0e94/yii.js"></script>
-<script src="/assets/a83e0e94/yii.validation.js"></script>
-<script src="/assets/cbe07863/jquery.inputmask.bundle.js"></script>
-<script src="/assets/ff1e5823/js/strength-validation.js"></script>
-<script src="/assets/a83e0e94/yii.activeForm.js"></script>
-<script src="/assets/5463e113/jquery-ui.js"></script>
-<script src="/assets/7942af6b/js/bootstrap.js"></script>
-<script src="/assets/44e8300d/dist/sweetalert.min.js"></script>
-<script src="/leaflet/leaflet.js"></script>
-<script src="/leaflet/lib.shp/catiline.js"></script>
-<script src="/leaflet/lib.shp/leaflet.shpfile.js"></script>
-<script src="/js/chosen.jquery.min.js"></script>
-<script src="/js/switch.jquery.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/global.prod.js"></script>
+})();</script><script src="/assets/6b040846/jquery.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.validation.js?v=1489065529"></script>
+<script src="/assets/cbe07863/jquery.inputmask.bundle.js?v=1494592787"></script>
+<script src="/assets/ff1e5823/js/strength-validation.js?v=1489065529"></script>
+<script src="/assets/a83e0e94/yii.activeForm.js?v=1489065529"></script>
+<script src="/assets/5463e113/jquery-ui.js?v=1489065529"></script>
+<script src="/assets/7942af6b/js/bootstrap.js?v=1489065529"></script>
+<script src="/assets/44e8300d/dist/sweetalert.min.js?v=1489065529"></script>
+<script src="/leaflet/leaflet.js?v=1492786568"></script>
+<script src="/leaflet/leaflet-pip.js?v=1503921516"></script>
+<script src="/leaflet/lib.shp/catiline.js?v=1492786568"></script>
+<script src="/leaflet/lib.shp/leaflet.shpfile.js?v=1492786568"></script>
+<script src="/js/jquery.debounce.js?v=1498744100"></script>
+<script src="/js/chosen.jquery.min.js?v=1483691700"></script>
+<script src="/js/switch.jquery.js?v=1499948167"></script>
+<script src="/js/app.js?v=1504184569"></script>
+<script src="/js/global.prod.js?v=1503482339"></script>
+<script src="/js/iframe-resizer/iframeResizer.contentWindow.min.js?v=1499846670"></script>
 <script type="text/javascript">jQuery(document).ready(function () {
 var inputmask_e4f2ec36 = {"mask":"(999) 999-9999"};
 jQuery("#user-phone").inputmask(inputmask_e4f2ec36);
 jQuery("#business-phone").inputmask(inputmask_e4f2ec36);
-jQuery('#w0').yiiActiveForm([{"id":"user-first_name","name":"first_name","container":".field-user-first_name","input":"#user-first_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"First Name cannot be blank."});yii.validation.string(value, messages, {"message":"First Name must be a string.","max":255,"tooLong":"First Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-last_name","name":"last_name","container":".field-user-last_name","input":"#user-last_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Last Name cannot be blank."});yii.validation.string(value, messages, {"message":"Last Name must be a string.","max":255,"tooLong":"Last Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-phone","name":"phone","container":".field-user-phone","input":"#user-phone","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"A phone number should contain 10 digit.","skipOnEmpty":1});}},{"id":"user-email","name":"email","container":".field-user-email","input":"#user-email","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});yii.validation.email(value, messages, {"pattern":/^[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/,"fullPattern":/^[^@]*&lt;[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?&gt;$/,"allowName":false,"message":"Email is not a valid email address.","enableIDN":false,"skipOnEmpty":1});}},{"id":"user-password","name":"password","container":".field-user-password","input":"#user-password","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});if ((
+jQuery('#w0').yiiActiveForm([{"id":"user-first_name","name":"first_name","container":".field-user-first_name","input":"#user-first_name","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"First Name cannot be blank."});yii.validation.string(value, messages, {"message":"First Name must be a string.","max":255,"tooLong":"First Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-last_name","name":"last_name","container":".field-user-last_name","input":"#user-last_name","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Last Name cannot be blank."});yii.validation.string(value, messages, {"message":"Last Name must be a string.","max":255,"tooLong":"Last Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"user-phone","name":"phone","container":".field-user-phone","input":"#user-phone","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {if ((
+                    function (attribute, value) {
+                        return $("#user-type").val() != 5;
+                    }
+                )(attribute, value)) { yii.validation.required(value, messages, {"message":"Phone cannot be blank."}); }yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"A phone number should contain 10 digit.","skipOnEmpty":1});}},{"id":"user-email","name":"email","container":".field-user-email","input":"#user-email","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Email cannot be blank."});yii.validation.email(value, messages, {"pattern":/^[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/,"fullPattern":/^[^@]*&lt;[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?&gt;$/,"allowName":false,"message":"Email is not a valid email address.","enableIDN":false,"skipOnEmpty":1});}},{"id":"user-password","name":"password","container":".field-user-password","input":"#user-password","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Password cannot be blank."});if ((
                     function (attribute, value) {
                         return false;
                     }
-                )(attribute, value)) { kvStrengthValidator.validate(value, messages, {"strError":"Password must be a string","userField":"#user-username","min":8,"minError":"Password should contain at least one upper case character, one lower case character, one digit. Length should be minimum 8 characters.","allowSpaces":false,"allowSpacesError":"Password should contain at least one upper case character, one lower case character, one digit. Length should be minimum 8 characters.","hasUser":true,"hasUserError":"Password cannot contain the username","hasEmail":true,"hasEmailError":"Password cannot contain an email address","lower":1,"lowerError":"Password should contain at least one upper case character, one lower case character, one digit. Length should be minimum 8 characters.","upper":1,"upperError":"Password should contain at least one upper case character, one lower case character, one digit. Length should be minimum 8 characters.","digit":1,"digitError":"Password should contain at least one upper case character, one lower case character, one digit. Length should be minimum 8 characters.","special":0,"specialError":"Password should contain at least one upper case character, one lower case character, one digit. Length should be minimum 8 characters."}); }}},{"id":"user-new_password","name":"new_password","container":".field-user-new_password","input":"#user-new_password","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Confirm Password cannot be blank."});yii.validation.compare(value, messages, {"operator":"==","type":"string","compareAttribute":"user-password","message":"Password and Confirm password don't match"});}},{"id":"business-name","name":"name","container":".field-business-name","input":"#business-name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Name cannot be blank."});yii.validation.string(value, messages, {"message":"Name must be a string.","max":255,"tooLong":"Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-phone","name":"phone","container":".field-business-phone","input":"#business-phone","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"A phone number should contain 10 digit.","skipOnEmpty":1});}},{"id":"business-street_address","name":"street_address","container":".field-business-street_address","input":"#business-street_address","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Street Address cannot be blank."});yii.validation.string(value, messages, {"message":"Street Address must be a string.","max":255,"tooLong":"Street Address should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-zip","name":"zip","container":".field-business-zip","input":"#business-zip","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Zip cannot be blank."});yii.validation.regularExpression(value, messages, {"pattern":/^\d{5}(-\d{4})?$/,"not":false,"message":"Zip code is incorrect","skipOnEmpty":1});}},{"id":"business-city_id","name":"city_id","container":".field-cities","input":"#cities","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"City must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"City cannot be blank."});}},{"id":"business-state_name","name":"state_name","container":".field-business-state_name","input":"#business-state_name","validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"State Name must be a string.","max":255,"tooLong":"State Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-state_id","name":"state_id","container":".field-business-state_id","input":"#business-state_id","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"State must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"State cannot be blank."});}},{"id":"business-website","name":"website","container":".field-business-website","input":"#business-website","validate":function (attribute, value, messages, deferred, $form) {yii.validation.url(value, messages, {"pattern":/^(http|https):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i,"message":"Website is not a valid URL.","enableIDN":false,"skipOnEmpty":1,"defaultScheme":"https"});}},{"id":"business-sector_id","name":"sector_id","container":".field-business-sector_id","input":"#business-sector_id","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Business Type must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Business Type cannot be blank."});}},{"id":"business-employees_number","name":"employees_number","container":".field-business-employees_number","input":"#business-employees_number","validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Employees number must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Employees number cannot be blank."});}},{"id":"business-business_square_footage","name":"business_square_footage","container":".field-business-business_square_footage","input":"#business-business_square_footage","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Business Square Footage must be a number.","skipOnEmpty":1});}},{"id":"business-landscape_square_footage","name":"landscape_square_footage","container":".field-business-landscape_square_footage","input":"#business-landscape_square_footage","validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Landscape Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Landscape Square Footage must be a number.","skipOnEmpty":1});}}], []);
+                )(attribute, value)) { kvStrengthValidator.validate(value, messages, {"strError":"Password must be a string","userField":"#user-username","min":8,"minError":"Password should contain at least one upper case character, one lower case character, one digit, and one special character. The length should be a minimum of 8 characters.","allowSpaces":false,"allowSpacesError":"Password should contain at least one upper case character, one lower case character, one digit, and one special character. The length should be a minimum of 8 characters.","hasUser":true,"hasUserError":"Password cannot contain the username","hasEmail":true,"hasEmailError":"Password cannot contain an email address","lower":1,"lowerError":"Password should contain at least one upper case character, one lower case character, one digit, and one special character. The length should be a minimum of 8 characters.","upper":1,"upperError":"Password should contain at least one upper case character, one lower case character, one digit, and one special character. The length should be a minimum of 8 characters.","digit":1,"digitError":"Password should contain at least one upper case character, one lower case character, one digit, and one special character. The length should be a minimum of 8 characters.","special":0,"specialError":"Password should contain at least one upper case character, one lower case character, one digit, and one special character. The length should be a minimum of 8 characters."}); }}},{"id":"user-new_password","name":"new_password","container":".field-user-new_password","input":"#user-new_password","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Confirm Password cannot be blank."});yii.validation.compare(value, messages, {"operator":"==","type":"string","compareAttribute":"user-password","message":"Password and Confirm password don't match"});}},{"id":"business-name","name":"name","container":".field-business-name","input":"#business-name","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Name cannot be blank."});yii.validation.string(value, messages, {"message":"Name must be a string.","max":255,"tooLong":"Name should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-phone","name":"phone","container":".field-business-phone","input":"#business-phone","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Phone cannot be blank."});yii.validation.string(value, messages, {"message":"Phone must be a string.","max":16,"tooLong":"Phone should contain at most 16 characters.","skipOnEmpty":1});yii.validation.regularExpression(value, messages, {"pattern":/^((\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4})|^(([0-9]{3}|[0-9]{3}-)[0-9]{3}-[0-9]{4})|^([0-9]{10})$/,"not":false,"message":"A phone number should contain 10 digit.","skipOnEmpty":1});}},{"id":"business-street_address","name":"street_address","container":".field-business-street_address","input":"#business-street_address","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Street Address cannot be blank."});yii.validation.string(value, messages, {"message":"Street Address must be a string.","max":255,"tooLong":"Street Address should contain at most 255 characters.","skipOnEmpty":1});}},{"id":"business-zip","name":"zip","container":".field-business-zip","input":"#business-zip","enableAjaxValidation":true,"validateOnType":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Zip cannot be blank."});yii.validation.regularExpression(value, messages, {"pattern":/^\d{5}(-\d{4})?$/,"not":false,"message":"Zip code is incorrect","skipOnEmpty":1});}},{"id":"business-city_id","name":"city_id","container":".field-cities","input":"#cities","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"City must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"City cannot be blank."});}},{"id":"business-state_name","name":"state_name","container":".field-business-state_name","input":"#business-state_name","enableAjaxValidation":true},{"id":"business-state_id","name":"state_id","container":".field-business-state_id","input":"#business-state_id","enableAjaxValidation":true},{"id":"business-website","name":"website","container":".field-business-website","input":"#business-website","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.url(value, messages, {"pattern":/^(http|https):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i,"message":"Website is not a valid URL.","enableIDN":false,"skipOnEmpty":1,"defaultScheme":"https"});}},{"id":"business-sector_id","name":"sector_id","container":".field-business-sector_id","input":"#business-sector_id","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Business Type must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Business Type cannot be blank."});}},{"id":"business-employees_number","name":"employees_number","container":".field-business-employees_number","input":"#business-employees_number","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Employees number must be an integer.","skipOnEmpty":1});yii.validation.required(value, messages, {"message":"Employees number cannot be blank."});}},{"id":"business-business_square_footage","name":"business_square_footage","container":".field-business-business_square_footage","input":"#business-business_square_footage","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Business Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Business Square Footage must be a number.","skipOnEmpty":1});}},{"id":"business-landscape_square_footage","name":"landscape_square_footage","container":".field-business-landscape_square_footage","input":"#business-landscape_square_footage","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.required(value, messages, {"message":"Landscape Square Footage cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Landscape Square Footage must be a number.","skipOnEmpty":1});}},{"id":"business-referrer_id","name":"referrer_id","container":".field-business-referrer_id","input":"#business-referrer_id","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Referrer Id must be an integer.","skipOnEmpty":1});}},{"id":"business-referrer_other","name":"referrer_other","container":".field-business-referrer_other","input":"#business-referrer_other","enableAjaxValidation":true,"validate":function (attribute, value, messages, deferred, $form) {yii.validation.string(value, messages, {"message":"Referrer Other must be a string.","max":255,"tooLong":"Referrer Other should contain at most 255 characters.","skipOnEmpty":1});}}], {"validationUrl":"\/business\/validate"});
 });</script>
 <script type="text/javascript">jQuery(window).on('load', function () {
             $('#w0').yiiActiveForm('add',
@@ -1162,7 +1190,7 @@ jQuery('#w0').yiiActiveForm([{"id":"user-first_name","name":"first_name","contai
                     );
                 }
             });
-});</script><div class="modal fade in" role="dialog" style="display: none;" id="popup">
+});</script><div class="modal" role="dialog" style="display: none;" id="popup">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -1178,7 +1206,7 @@ jQuery('#w0').yiiActiveForm([{"id":"user-first_name","name":"first_name","contai
     $(function(){
        app.init();
 
-        app.pageTools.setInitialPageData({"title":"Registration new business","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/leaflet\/leaflet.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
+        app.pageTools.setInitialPageData({"title":"Registration new business","loadedAssets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/jquery.debounce.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/js\/iframe-resizer\/iframeResizer.contentWindow.min.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/leaflet\/leaflet.js","\/leaflet\/leaflet-pip.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]},"assets":{"js":["\/assets\/a83e0e94\/yii.validation.js","\/assets\/a83e0e94\/yii.js","\/assets\/6b040846\/jquery.js","\/assets\/cbe07863\/jquery.inputmask.bundle.js","\/assets\/ff1e5823\/js\/strength-validation.js","\/assets\/a83e0e94\/yii.activeForm.js","\/js\/jquery.debounce.js","\/js\/chosen.jquery.min.js","\/js\/switch.jquery.js","\/js\/app.js","\/js\/global.prod.js","\/js\/iframe-resizer\/iframeResizer.contentWindow.min.js","\/assets\/5463e113\/jquery-ui.js","\/assets\/7942af6b\/js\/bootstrap.js","\/assets\/44e8300d\/dist\/sweetalert.min.js","\/leaflet\/leaflet.js","\/leaflet\/leaflet-pip.js","\/leaflet\/lib.shp\/catiline.js","\/leaflet\/lib.shp\/leaflet.shpfile.js"],"css":["\/css\/chosen.min.css","\/css\/switch.jquery.css","\/css\/style.css","\/assets\/5463e113\/themes\/smoothness\/jquery-ui.css","\/assets\/7942af6b\/css\/bootstrap.css","\/assets\/44e8300d\/dist\/sweetalert.css","\/leaflet\/leaflet.css"]}});
     });
 </script>
 

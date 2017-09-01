@@ -4,8 +4,11 @@ namespace Page;
 class ComplianceCheckTypeList extends \AcceptanceTester
 {
     public static function URL()                   {return parent::$URL_UserAccess.'/compliance-check-type/index';}
+    public static function UrlPageNumber($number) { return parent::$URL_UserAccess."/compliance-check-type/index?page=$number"; }
+    
     public static $Title                           = 'h1';
     public static $ComplianceCheckTypeRow          = 'table[class*=table] tbody>tr';
+    public static $SummaryCount                    = '.summary>b:last-of-type';
     
     public static $CreateComplianceCheckTypeButton = 'a.btn-success';
    
