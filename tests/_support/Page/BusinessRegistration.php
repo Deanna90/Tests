@@ -109,6 +109,7 @@ class BusinessRegistration
     public static function Permits_Name_ByName($name)         { return "//*[@class='buttons-group']//label[contains(text(), '$name')]";}
     public static function Permits_ButtonLabel_ByName($name)  { return "//*[@class='buttons-group']//label[contains(text(), '$name')]";}
     
+    public static $HowDidYouLearnAboutGBProgramSelect    = '#business-referrer_id';
     
     public static $CitySelect                  = '#cities';
     public static $StateSelect                 = '#business-state_name';

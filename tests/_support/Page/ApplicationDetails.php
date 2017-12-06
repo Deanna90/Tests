@@ -40,6 +40,8 @@ class ApplicationDetails extends \AcceptanceTester
     public static $BusinessAddress_BusinessInfoTab         = '.company-status h5+span';
     public static $City_Zip_ShortStateName_BusinessInfoTab = '.company-status>span:nth-of-type(2)';
     public static $Phone_BusinessInfoTab                   = '.company-status>span:nth-of-type(3)';
+    public static $Sector_BusinessInfoTab                  = '.company-status>span:nth-of-type(4)';
+    
     //Contact Info
     public static $ContactNameField_BusinessInfoTab     = '#businesscontactform_1-full_name';
     public static $PhoneNumberField_BusinessInfoTab     = '#business_phone_disabled_input';
@@ -174,10 +176,10 @@ class ApplicationDetails extends \AcceptanceTester
     //--------------------------Business Profile Tab----------------------------
     //--------------------------------------------------------------------------
     
-    public static $BusinessName_BusinessProfileTab                    = '.company-profile-info>p:first-of-type';
-    public static $Address_BusinessProfileTab                         = '.company-profile-info>p:nth-of-type(2)';
-    public static $City_BusinessProfileTab                            = '.company-profile-info>p:nth-of-type(3)';
-    public static $Zip_BusinessProfileTab                             = '.company-profile-info>p:nth-of-type(4)';
+    public static $BusinessNameField_BusinessProfileTab               = '#businessform-name';
+    public static $AddressField_BusinessProfileTab                    = '#businessform-street_address';
+    public static $City_BusinessProfileTab                            = '.company-profile-info>p:nth-of-type(1)';
+    public static $Zip_BusinessProfileTab                             = '.company-profile-info>p:nth-of-type(2)';
     
     public static $PhoneField_BusinessProfileTab                      = '#businessform-phone';
     public static $FaxField_BusinessProfileTab                        = '#businessform-fax';
@@ -187,7 +189,10 @@ class ApplicationDetails extends \AcceptanceTester
     public static $TwitterLinkField_BusinessProfileTab                = '#businessform-social_twitter';
     public static $LinkedInField_BusinessProfileTab                   = '#businessform-social_linkedin';
     
-    public static $SectorSelect_BusinessProfileTab                    = '#businessform-sector_id';
+    public static $ZipCodeSelect_BusinessProfileTab                   = '#businessform-zip';
+    public static $CitySelect_BusinessProfileTab                      = '#cities';
+    public static $ProgramSelect_BusinessProfileTab                   = '#program_id';
+    public static $SectorSelect_BusinessProfileTab                    = '#sector_id';
     public static $BusinessTypeSelect_BusinessProfileTab              = '#businessform-category_id';
     public static $BusinessCategorySelect_BusinessProfileTab          = "[name='BusinessForm[sub_category_id]']";
     

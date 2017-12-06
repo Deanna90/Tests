@@ -4,7 +4,7 @@ namespace Page;
 class MeasureCreate extends \AcceptanceTester
 {
     public static function URL()        { return parent::$URL_UserAccess.'/measure/create';}
-    public static $Title                   = 'h1';
+    public static $Title                   = 'h3';
     public static $MeasureInfoBlockTitle   = '.row>div:nth-of-type(1) .panel-heading';
     public static $MeasurePointsBlockTitle = '.row>div:nth-of-type(2) .panel-heading';
     
@@ -68,7 +68,9 @@ class MeasureCreate extends \AcceptanceTester
     
     public static function QuestionField_MultipleQuestionAndNumber($number)        {$a = $number + 1; return ".multiple-questions-and-digit-container>div>div:nth-of-type($a) input";}
     public static function DeleteQuestionButton_MultipleQuestionAndNumber($number) {$a = $number + 1; return ".multiple-questions-and-digit-container>div>div:nth-of-type($a) .delete-row";}
-
+    
+    public static function ReamOrLbsSelect_MultipleQuestionAndNumber($number)      {$a = $number + 1; return ".multiple-questions-and-digit-container>div>div:nth-of-type($a) select";}
+    
     public static function AnswerField_MultipleQuestionAndNumber($number)        {$a = $number +1; return "[class*=opt]>div>div:nth-of-type($a) input";}
     public static function DeleteAnswerButton_MultipleQuestionAndNumber($number) {$a = $number +1; return "[class*=opt]>div>div:nth-of-type($a) .delete-row";}
     

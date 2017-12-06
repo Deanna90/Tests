@@ -139,11 +139,11 @@ class BusinessStatusesCest
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
-    public function Help1_15_CreateChecklistForTier3(\Step\Acceptance\Checklist $I) {
+    public function Help1_15_CreateChecklistForTier2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program;
         $programDestination = $this->program;
         $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -486,7 +486,7 @@ class BusinessStatusesCest
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
         $I->wait(2);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BisinessInfoTab);
-        $I->wait(5);
+        $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -578,7 +578,7 @@ class BusinessStatusesCest
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
         $I->wait(2);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BisinessInfoTab);
-        $I->wait(5);
+        $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -844,7 +844,7 @@ class BusinessStatusesCest
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BisinessInfoTab, $status);
         $I->wait(2);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BisinessInfoTab);
-        $I->wait(5);
+        $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -1045,6 +1045,99 @@ class BusinessStatusesCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertification_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Disqualified_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
+    }
+    
+    public function DeleteBusiness1(AcceptanceTester $I){
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
+        $I->wait(2);
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_DeleteApplicationButton);
+        $I->wait(3);
+        $I->click(".sweet-alert .confirm");
+        $I->wait(5);
+        $I->canSeeInCurrentUrl(Page\Dashboard::URL());
+    }
+    
+    public function CheckFilterAfterBusiness1Deleting(AcceptanceTester $I){
+        $I->wait(1);
+        $I->amOnPage(\Page\Dashboard::URL());
+        $I->wait(2);
+        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
+        $I->canSee('2', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
+        
+        $I->canSee('2', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmisiion_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::PhoneConsult_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::SiteVisit_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Audit_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ComplianceCheck_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier1_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertification_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Disqualified_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
+    }
+    
+    public function DeleteProgram(AcceptanceTester $I){
+        $I->amOnPage(\Page\ProgramList::URL());
+        $I->wait(2);
+        $I->click(Page\ProgramList::DeleteButtonLine('1'));
+        $I->wait(3);
+        $I->acceptPopup();
+        $I->wait(5);
+    }
+    
+    public function CheckFilterAfterProgramDeleting(AcceptanceTester $I){
+        $I->wait(1);
+        $I->amOnPage(\Page\Dashboard::URL());
+        $I->wait(2);
+        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
+        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
+        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmisiion_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::PhoneConsult_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::SiteVisit_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Audit_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ComplianceCheck_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier1_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertification_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Disqualified_Filter));
         

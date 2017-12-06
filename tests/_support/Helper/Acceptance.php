@@ -246,6 +246,7 @@ SCRIPT;
                 break;
             case "Business not found":
                 $I->canSee("Business not found");
+                break;
         }
     }
     
@@ -255,16 +256,28 @@ SCRIPT;
     public function cantSeePageNotFound($I) {
         $I->wait(1);
         $I->cantSee("Page not found");
+        $I->cantSee("Business not found");
         $I->cantSeeInTitle("Not Found (#404)");
     }
     
     /**     
      * @param \AcceptanceTester $I           
      */
-    public function canSeePageForbiddenAccess($I) {
+    public function canSeePageForbiddenAccess($I, $text = 'Not allowed') {
         $I->wait(1);
 //        $I->canSee("You are not allowed to perform this action.")||$I->canSee("Access Denied!");
         $I->canSeeInTitle("Forbidden (#403)");
+        switch ($text) {
+            case "Not allowed":
+                $I->canSee("You are not allowed to perform this action.");
+                break;
+            case "Access denied":
+                $I->canSee("Access Denied!");
+                break;
+            default:
+                $I->canSee("$text");
+                break;
+        }
     }
     
     /**     
@@ -296,4 +309,21 @@ SCRIPT;
         return($this->getModule('WebDriver')->_getUrl());
     } 
     
+    /**     
+     * @param \AcceptanceTester $I           
+     */
+    public function canSeeElementIsDisabled($I, $element, $selector='css') {
+        $I->wait(1);
+        $selector == 'xpath' ? $symb = '@' : $symb = '';
+        $I->canSeeElementInDOM($element."[".$symb."disabled]");
+    }
+    
+    /**     
+     * @param \AcceptanceTester $I           
+     */
+    public function cantSeeElementIsDisabled($I, $element, $selector='css') {
+        $I->wait(1);
+        $selector == 'xpath' ? $symb = '@' : $symb = '';
+        $I->cantSeeElementInDOM($element."[".$symb."disabled]");
+    }
 }

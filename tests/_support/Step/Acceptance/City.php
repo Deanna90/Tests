@@ -3,12 +3,12 @@ namespace Step\Acceptance;
 
 class City extends \AcceptanceTester
 {
-    public function CreateCity($name = null, $state = null, $zips = null)
+    public function CreateCity($name = null, $state = null, $zips = null, $county = null)
     {
         $I = $this;
         $I->wantTo("Create City");
         $I->amOnPage(\Page\CityCreate::URL());
-        $I->wait(1);
+        $I->wait(2);
         $I->waitForElement(\Page\CityCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\CityCreate::$NameField, $name);
@@ -16,11 +16,15 @@ class City extends \AcceptanceTester
         if (isset($state)){
             $I->selectOption(\Page\CityCreate::$StateSelect, $state);
         }
+        if (isset($county)){
+            $I->wait(4);
+            $I->selectOption(\Page\CityCreate::$CountySelect, $county);
+        }
         if (isset($zips)){
             $I->fillField(\Page\CityCreate::$ZipsField, $zips);
         }
         $I->click(\Page\CityCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(3);
     }  
     
     public function UpdateCity($row, $name = null, $state = null, $zips = null)
@@ -115,7 +119,7 @@ class City extends \AcceptanceTester
             $I->canSee($name, \Page\CityList::NameLine($row));
         }
         if (isset($state)){
-            $I->canSee($shortName, \Page\CityList::StateLine($row));
+            $I->canSee($state, \Page\CityList::StateLine($row));
         }
         if (isset($createdDate)){
             $I->canSee($createdDate, \Page\CityList::CreatedLine($row));

@@ -11,6 +11,13 @@ class VideoTutorialsUpdate extends \AcceptanceTester
     public static $CategorySelect         = '#video-category_id';
     public static $CategoryOption         = '#video-category_id option';
     
+    public static $StateSelect            = '#video_states_list_chosen';
+    public static $StateOption            = '#video_states_list_chosen ul>li';
+    public static function selectStateOption($number)    { return "#video_states_list_chosen>div>ul>li:nth-of-type($number)";}
+    public static function selectStateByName($name)      { return "//*[@id='video_states_list_chosen']//*[@class='chosen-results']/li[text()='$name']";}
+    public static function SelectedStateOption($number)  { return "#video_states_list_chosen>ul>li.search-choice:nth-of-type($number)";}
+    public static function SelectedStateByName($name)    { return "//*[@id='video_states_list_chosen']/ul/li[@class='search-choice']/span[text()='$name']";}
+    
     public static $UserTypesSelect        = '#video_user_types_chosen';
     public static $UserTypesOption        = '#video_user_types_chosen ul>li';
     public static function selectUserTypesOption($number)    { return "#video_user_types_chosen>div>ul>li:nth-of-type($number)";}
@@ -26,7 +33,8 @@ class VideoTutorialsUpdate extends \AcceptanceTester
     public static $UploadedVideo          = 'video';
     
     public static $CategorySelectLabel    = '[for=video-category_id]';
-    public static $UserTypesSelectLabel   = '[for=landingmapprogram-subdomain]';
+    public static $StateSelectLabel       = '[for=video-states_list]';
+    public static $UserTypesSelectLabel   = '[for=video-user_types]';
     public static $TitleLabel             = '[for=video-title]';
     public static $DescriptionLabel       = '[for=video-description]';
     

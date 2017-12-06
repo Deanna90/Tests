@@ -14,12 +14,14 @@ class BusinessDashboard
     public static $City_Zip_ShortStateName_BusinessInfo = "[class='company-status']>span:nth-of-type(2)";
     public static $Phone_BusinessInfo                   = "[class='company-status']>span:nth-of-type(3)";
     public static $Website_BusinessInfo                 = "[class='company-status']>span:nth-of-type(4)";
+    public static $Sector_BusinessInfo                  = "[class='company-status']>span:nth-of-type(5)";
     public static $BusinessType_BusinessInfo            = ".row>div:first-of-type .content>div:nth-last-of-type(2).short-articles span";
     public static $BusinessCategory_BusinessInfo        = ".row>div:first-of-type .content>div:nth-last-of-type(1).short-articles span";
 
     //Tier Status 
-    public static $SectorAndTier_TierStatus     = '#businesscontactform_1-email';
-    public static $TierDescription_TierStatus   = '#businesscontactform_1-email';
+    public static function Tier_TierStatus($number)             { return ".company-status.short-articles>h4:nth-of-type($number)";}
+    public static function TierDescription_TierStatus($number)  { return ".company-status.short-articles>h4:nth-of-type($number)+p+p";}
+    public static function StatusForTier_TierStatus($number)    { return ".company-status.short-articles>h4:nth-of-type($number)+p";}
     
     //Contact Information
     public static function CoordinatorName($row)            { return ".contact-info-list>li:nth-of-type($row) a";}

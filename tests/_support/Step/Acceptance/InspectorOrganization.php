@@ -43,6 +43,8 @@ class InspectorOrganization extends \AcceptanceTester
         if (isset($zip)){
             $I->fillField(\Page\InspectorOrganizationCreate::$ZipCodeField, $zip);
         }
+        $I->scrollTo(\Page\InspectorOrganizationCreate::$CreateButton);
+        $I->wait(1);
         $I->click(\Page\InspectorOrganizationCreate::$CreateButton);
         $I->wait(5);
     }  
@@ -51,9 +53,9 @@ class InspectorOrganization extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\InspectorOrganizationList::$URL);
-        $I->wait(1);
+        $I->wait(3);
         $I->click(\Page\InspectorOrganizationList::UpdateButtonLine($row));
-        $I->wait(1);
+        $I->wait(3);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\InspectorOrganizationUpdate::$NameField, $name);

@@ -27,14 +27,25 @@ class BusinessChecklistView extends \AcceptanceTester
     public static $LeftMenu_WastewaterGroupButton          = '.wastewater-group';
     public static $LeftMenu_WaterGroupButton               = '.water-group';
     
-    public static function LeftMenu_Subgroup_ByName($subgroup) { return "//*[@class='sub-menu active']//li/a[text()='$subgroup']";}
-    public static function LeftMenu_Subgroup($row)             { return ".sub-menu.active li:nth-of-type($row)>a";}
+    public static function LeftMenu_Subgroup_ByName($subgroup)       { return "//*[@class='sub-menu active']//li/a[text()='$subgroup']";}
+    public static function LeftMenu_Subgroup($row)                   { return ".sub-menu.active li:nth-of-type($row)>a";}
+    public static function LeftMenu_PrintSecondTierButton($Tiername) { return "//a[text()[contains(., '$Tiername')]]";}
     
     public static $LeftMenu_DeleteApplicationButton        = '.delete-app-btn';
     public static $LeftMenu_BusinessLoginButton            = "a[href*='business/login']";
     public static $LeftMenu_PrintFirstTierButton           = '#checklist-number option';
     public static $LeftMenu_PrintSecondTierButton          = '#checklist-number option';
     public static $LeftMenu_PrintThirdTierButton           = '#checklist-number option';
+    
+    public static $LeftMenu_TierProgressTitle                    = '[class=col-md-3]>div:nth-of-type(2) .row>div:first-of-type p';
+    public static function LeftMenu_TierName($row)               { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(1)";}
+    public static function LeftMenu_CompletedMeasuresLabel($row) { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(2)";}
+    public static function LeftMenu_EarnedPointsLabel($row)      { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(4)";}
+    public static function LeftMenu_CompletedMeasuresInfo($row)  { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(3)";}
+    public static function LeftMenu_EarnedPointsInfo($row)       { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(5)";}
+    public static function LeftMenu_CompletedMeasuresCount($row) { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(3)>span";}
+    public static function LeftMenu_EarnedPointsCount($row)      { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(5)>span";}
+    public static $LeftMenu_TotalPointsEarnedInfo                = '[class=col-md-3]>div:nth-of-type(2) .row>div:last-of-type>p';
     
     public static $BusinessInfoTab              = '#checklist-number [selected]';
     public static $RecordsTab                   = '#checklist-number option';
@@ -43,11 +54,15 @@ class BusinessChecklistView extends \AcceptanceTester
    
     public static $TotalPointsBlock             = '.no-padd-left';
     public static $TotalPointsTitle             = '.no-padd-left .p-label';
-    public static $TotalPointsInfo              = '.no-padd-left .p-small';
+    public static $TotalPointsInfo_ProgressBar   = '.row>div:nth-of-type(3).info-block p>span';
     
-    public static $TotalMeasuresBlock           = '.info-block';
-    public static $TotalMeasuresTitle           = '.info-block .p-label';
-    public static $TotalMeasuresInfo            = '.info-block .p-small';
+    public static $TotalMeasuresBlock            = '.info-block';
+    public static $TotalMeasuresTitle            = '.info-block .p-label';
+    public static $TotalMeasuresInfo_ProgressBar = '.row>div:nth-of-type(2).info-block p>span';
+    
+    public static $TotalPointsText_RightBlock    = '.text-center>div>p:first-of-type';
+    public static $TotalPointsCount_RightBlock   = '.text-center>div>p:last-of-type';
+    public static $TierDescription_RightBlock    = '.text-center>p';
     
     //--------------------------------------------------------------------------
     //-----------------------------Business Info Tab----------------------------
@@ -115,8 +130,10 @@ class BusinessChecklistView extends \AcceptanceTester
     public static $CoreProgressBarInfo           = '#measures-form>div:first-of-type .progress-wrapper+span';
     public static $ElectiveProgressBarInfo       = '#measures-form>div:nth-last-of-type(3) .progress-wrapper+span';
     
-    public static $FirstMeasuresTitle            = '#measures-form>div:first-of-type h3';
-    public static $SecondMeasuresTitle           = '#measures-form>div:nth-of-type(2) h3';
+    public static $CoreMeasuresTitle             = "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]";
+    public static $ElectiveMeasuresTitle         = "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]";
+    
+    public static $InfoAboutCountToCompleteElectiveMeasures   = "//*[@id='measures-form']//div[contains(h3/text(), 'Elective measures')]/div/p[1]";
     
     public static function Core_MeasureDescription_ByDesc($desc)        { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]//p[contains(text(), '$desc')]";}
     public static function Elective_MeasureDescription_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]//p[contains(text(), '$desc')]";}

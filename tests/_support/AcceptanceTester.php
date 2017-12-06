@@ -92,6 +92,8 @@ class AcceptanceTester extends \Codeception\Actor
     }
     
     public static function LogIn_TRUEorFALSE($I) {
+        $I->amOnPage("/");
+        $I->wait(2);
         if($I->getAmount($I, \Page\Header::$LogoutButton) == 0){
             self::$LoggedIn = FALSE;
         }
@@ -102,10 +104,11 @@ class AcceptanceTester extends \Codeception\Actor
     
     public static function SelectDefaultState($I, $name)
     {
+        $I->comment("Select $name state as default for system:");
         $I->click(\Page\MainMenu::$StateSelect);
-        $I->wait(1);
+        $I->wait(5);
         $I->click(\Page\MainMenu::selectStateOptionByName($name));
-        $I->wait(1);
+        $I->wait(8);
     }
     
     ////////////////////////////////////////////////////////////////////////////

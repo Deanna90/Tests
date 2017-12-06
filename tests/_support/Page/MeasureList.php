@@ -70,12 +70,12 @@ class MeasureList extends \AcceptanceTester
     public static function ViewTipButtonLine($row)   { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-last-of-type>a"; }
     
     //By description value
-    public static function IdLine_ByDescValue($desc)              { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$desc')]/td[1]"; }
-    public static function DescriptionLine_ByDescValue($desc)     { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$desc')]/td[2]"; }
-    public static function StatusLine_ByDescValue($desc)          { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$desc')]/td[4]"; }
-    public static function UpdateButtonLine_ByDescValue($desc)    { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$desc')]//a[@title='Update']"; }
-    public static function CreateTipButtonLine_ByDescValue($desc) { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$desc')]/td[6]/a"; }
-    public static function ViewTipButtonLine_ByDescValue($desc)   { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$desc')]/td[6]/a"; }
+    public static function IdLine_ByDescValue($desc)              { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$desc')]/td[1]"; }
+    public static function DescriptionLine_ByDescValue($desc)     { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$desc')]/td[2]"; }
+    public static function StatusLine_ByDescValue($desc)          { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$desc')]/td[4]"; }
+    public static function UpdateButtonLine_ByDescValue($desc)    { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$desc')]//a[@title='Update']"; }
+    public static function CreateTipButtonLine_ByDescValue($desc) { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$desc')]/td[6]/a"; }
+    public static function ViewTipButtonLine_ByDescValue($desc)   { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$desc')]/td[6]/a"; }
     
     const ViewTipButtonName   = "View"; 
     const CreateTipButtonName = "Create"; 

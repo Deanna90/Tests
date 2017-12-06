@@ -23,13 +23,18 @@ class RegistrationStarted
     public static $PreviousButton_Footer      = '.success.save-buttons>div:first-of-type a.btn-md';
     public static $ReviewButton_Footer        = '.success.save-buttons>div:last-of-type a.btn-md';
     
-    public static $TotalPointsBlock           = '.no-padd-left';
-    public static $TotalPointsTitle           = '.no-padd-left .p-label';
-    public static $TotalPointsInfo            = '.no-padd-left .p-small';
+    public static $TotalPointsBlock              = '.no-padd-left';
+    public static $TotalPointsTitle              = '.no-padd-left .p-label';
+    public static $TotalPointsInfo_ProgressBar   = '.row>div:nth-of-type(3).info-block p>span';
     
-    public static $TotalMeasuresBlock         = '.info-block';
-    public static $TotalMeasuresTitle         = '.info-block .p-label';
-    public static $TotalMeasuresInfo          = '.info-block .p-small';
+    public static $TotalMeasuresBlock                 = '.info-block';
+    public static $TotalMeasuresTitle                 = '.info-block .p-label';
+    public static $TotalMeasuresInfo_ProgressBar      = '.row>div:nth-of-type(2).info-block p>span';
+    public static $TotalCompletedMeasures_ProgressBar = '.flex-reverse .progress-bar';
+    
+    public static $TotalPointsText_RightBlock    = '.text-center>div:nth-of-type(2)>div:first-of-type>p:nth-of-type(1)';
+    public static $TotalPointsCount_RightBlock   = '.text-center>div:nth-of-type(2)>div:first-of-type>p:nth-of-type(2)';
+    public static $TierDescription_RightBlock    = '.text-center>div:nth-of-type(2)>div:last-of-type>p:nth-of-type(1)';
     
     public static $GetStartedButton           = '[type=submit][class*=success]';
     public static $HowToUseThisAppButton      = '#checklist-number [selected]';
@@ -43,6 +48,25 @@ class RegistrationStarted
     public static $LeftMenu_TransportationGroupButton      = '.transportation-group';
     public static $LeftMenu_WastewaterGroupButton          = '.wastewater-group';
     public static $LeftMenu_WaterGroupButton               = '.water-group';
+    
+    public static $LeftMenu_GetStarted_ProgressBar               = '.getstarted-group .progress-bar';
+    public static $LeftMenu_EnergyGroup_ProgressBar              = '.energy-group .progress-bar';
+    public static $LeftMenu_GeneralGroup_ProgressBar             = '.general-group .progress-bar';
+    public static $LeftMenu_PollutionPreventionGroup_ProgressBar = '.pollution-prevention-group .progress-bar';
+    public static $LeftMenu_SolidWasteGroup_ProgressBar          = '.solid-waste-group .progress-bar';
+    public static $LeftMenu_TransportationGroup_ProgressBar      = '.transportation-group .progress-bar';
+    public static $LeftMenu_WastewaterGroup_ProgressBar          = '.wastewater-group .progress-bar';
+    public static $LeftMenu_WaterGroup_ProgressBar               = '.water-group .progress-bar';
+    
+    public static $LeftMenu_TierProgressTitle                    = '[class=col-md-3]>div:nth-of-type(2) .row>div:first-of-type p';
+    public static function LeftMenu_TierName($row)               { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(1)";}
+    public static function LeftMenu_CompletedMeasuresLabel($row) { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(2)";}
+    public static function LeftMenu_EarnedPointsLabel($row)      { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(4)";}
+    public static function LeftMenu_CompletedMeasuresInfo($row)  { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(3)";}
+    public static function LeftMenu_EarnedPointsInfo($row)       { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(5)";}
+    public static function LeftMenu_CompletedMeasuresCount($row) { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(3)>span";}
+    public static function LeftMenu_EarnedPointsCount($row)      { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(5)>span";}
+    public static $LeftMenu_TotalPointsEarnedInfo                = '[class=col-md-3]>div:nth-of-type(2) .row>div:last-of-type>p';
     
     public static function LeftMenu_Subgroup_ByName($subgroup) { return "//*[@class='sub-menu active']//li/a[text()='$subgroup']";}
     public static function LeftMenu_Subgroup($row)             { return ".sub-menu.active li:nth-of-type($row)>a";}
@@ -66,7 +90,7 @@ class RegistrationStarted
     public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/span";}
     
     public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
-    public static function SubmeasureLink_ByMeasureDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span/a";}
+    public static function SubmeasureLink_ByMeasureDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span//a";}
     public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//select";}
     public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//input";}
     public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
@@ -77,8 +101,14 @@ class RegistrationStarted
     public static $CoreProgressBarInfo           = '#measures-form>div:first-of-type .progress-wrapper+span';
     public static $ElectiveProgressBarInfo       = '#measures-form>div:nth-last-of-type(3) .progress-wrapper+span';
     
-    public static $FirstMeasuresTitle            = '#measures-form>div:first-of-type h3';
-    public static $SecondMeasuresTitle           = '#measures-form>div:nth-of-type(2) h3';
+    public static $CoreCompletedProgressBar      = '#measures-form>div:first-of-type .progress-wrapper .progress-bar';
+    public static $ElectiveCompletedProgressBar  = '#measures-form>div:nth-last-of-type(3) .progress-wrapper .progress-bar';
+    
+    public static $CoreMeasuresTitle             = "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]";
+    public static $ElectiveMeasuresTitle         = "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]";
+    
+    public static $InfoAboutCountToCompleteElectiveMeasures   = "//*[@id='measures-form']//div[contains(h3/text(), 'Elective measures')]/div/p[1]";
+    
     
     public static function Core_MeasureDescription_ByDesc($desc)        { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]//p[contains(text(), '$desc')]";}
     public static function Elective_MeasureDescription_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]//p[contains(text(), '$desc')]";}

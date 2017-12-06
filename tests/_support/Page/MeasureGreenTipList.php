@@ -44,11 +44,11 @@ class MeasureGreenTipList extends \AcceptanceTester
     public static function DeleteButtonLine($row)    { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Delete]"; }
     
     //By description value
-    public static function IdLine_ByMeasureDescValue($measDesc)              { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$measDesc')]/td[1]"; }
-    public static function MeasureLine_ByMeasureDescValue($measDesc)         { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$measDesc')]/td[2]"; }
-    public static function DescriptionLine_ByMeasureDescValue($measDesc)     { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$measDesc')]/td[3]"; }
-    public static function ProgramsLine_ByMeasureDescValue($measDesc)        { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$measDesc')]/td[4]"; }
-    public static function UpdateButtonLine_ByMeasureDescValue($measDesc)    { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$measDesc')]//*[@title='Update']"; }
-    public static function DeleteButtonLine_ByMeasureDescValue($measDesc)    { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$measDesc')]//*[@title='Delete']"; }
+    public static function IdLine_ByMeasureDescValue($measDesc)              { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$measDesc')]/td[1]"; }
+    public static function MeasureLine_ByMeasureDescValue($measDesc)         { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$measDesc')]/td[2]"; }
+    public static function DescriptionLine_ByMeasureDescValue($measDesc)     { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$measDesc')]/td[3]"; }
+    public static function ProgramsLine_ByMeasureDescValue($measDesc)        { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$measDesc')]/td[4]"; }
+    public static function UpdateButtonLine_ByMeasureDescValue($measDesc)    { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$measDesc')]//*[@title='Update']"; }
+    public static function DeleteButtonLine_ByMeasureDescValue($measDesc)    { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$measDesc')]//*[@title='Delete']"; }
 
 }

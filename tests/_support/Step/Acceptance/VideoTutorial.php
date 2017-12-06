@@ -3,9 +3,10 @@ namespace Step\Acceptance;
 
 class VideoTutorial extends \AcceptanceTester
 {
-    public function CreateVideo($title = null, $description = null, $userTypes = null, $videoFile = 'videoo.mp4', $category = null)
+    public function CreateVideo($title = null, $description = null, $userTypes = null, $state =null, $videoFile = 'videoo.mp4', $category = null)
     {
         $I = $this;
+        $I->comment("Create Video Tutorial:");
         $I->amOnPage(\Page\VideoTutorialsCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\VideoTutorialsCreate::$TitleField);
@@ -14,12 +15,21 @@ class VideoTutorial extends \AcceptanceTester
         }
         if (isset($description)){
             $I->fillField(\Page\VideoTutorialsCreate::$DescriptionField, $description);
+            $I->wait(2);
+        }
+        if (isset($state)){
+            for ($i=1, $c= count($state); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\VideoTutorialsCreate::$StateSelect);
+                $I->wait(2);
+                $I->click(\Page\VideoTutorialsCreate::selectStateByName($state[$k]));
+            }
         }
         if (isset($userTypes)){
             for ($i=1, $c= count($userTypes); $i<=$c; $i++){
                 $k = $i-1;
                 $I->click(\Page\VideoTutorialsCreate::$UserTypesSelect);
-                $I->wait(1);
+                $I->wait(2);
                 $I->click(\Page\VideoTutorialsCreate::selectUserTypesByName($userTypes[$k]));
             }
         }
@@ -30,12 +40,13 @@ class VideoTutorial extends \AcceptanceTester
             $I->fillField(\Page\VideoTutorialsCreate::$CategorySelect, $category);
         }
         $I->click(\Page\VideoTutorialsCreate::$CreateButton);
-        $I->wait(60);
+        $I->wait(130);
     }  
     
     public function GetVideoTutorialOnPageInList($title)
     {
         $I = $this;
+        $I->comment("Get Video on list. Get id, page number and row:");
         $I->amOnPage(\Page\VideoTutorialsList::URL());
         $I->wait(1);
         $count = $I->grabTextFrom(\Page\VideoTutorialsList::$SummaryCount);

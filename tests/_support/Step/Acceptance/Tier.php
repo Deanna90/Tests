@@ -55,7 +55,7 @@ class Tier extends \AcceptanceTester
             }
         }
         if (isset($tier3)){
-            $I->click(\Page\TierManage::$Tier1Button_LeftMenu);
+            $I->click(\Page\TierManage::$Tier3Button_LeftMenu);
             $I->wait(3);
             switch ($tier3OptIn){
                 case 'yes':

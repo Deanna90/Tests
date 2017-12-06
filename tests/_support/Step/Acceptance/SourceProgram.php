@@ -6,6 +6,7 @@ class SourceProgram extends \AcceptanceTester
     public function CreateSourceProgram($title = null, $content = null, $file = 'null', $color = '#0b0749', $subdomain = null)
     {
         $I = $this;
+        $I->comment("Create Source Program:");
         $I->amOnPage(\Page\SourceProgramCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\SourceProgramCreate::$TitleField);
@@ -31,6 +32,7 @@ class SourceProgram extends \AcceptanceTester
     public function GetSourceProgramOnPageInList($title)
     {
         $I = $this;
+        $I->comment("Get Source Program on list. Get id, page number and row:");
         $I->amOnPage(\Page\SourceProgramList::URL());
         $I->wait(1);
         $count = $I->grabTextFrom(\Page\SourceProgramList::$SummaryCount);

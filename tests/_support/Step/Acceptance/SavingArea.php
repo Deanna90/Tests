@@ -3,8 +3,9 @@ namespace Step\Acceptance;
 
 class SavingArea extends \AcceptanceTester
 {
-    public function CreateSavingArea($name = null, $units = null, $shortUnits = null, $moneyConversionRate = null, $visualRepresentation = 'ignore', $color = '#421717', 
-                                $visualUnits = null, $image = null, $visualUnitsConversionRate = null, $visualName = null, $status ='ignore')
+    public function CreateSavingArea($name = null, $units = null, $shortUnits = null, $moneyConversionRate = null, $visualRepresentation = 'ignore', $chartColor = '#421717', 
+                                $visualUnits = null, $image = null, $visualUnitsConversionRate = null, $visualName = null, $backgroundColor = '#df9d9d', $tileColor = '#921010', 
+                                $status ='ignore')
     {
         $I = $this;
         $I->amOnPage(\Page\SavingAreaCreate::URL());
@@ -46,8 +47,14 @@ class SavingArea extends \AcceptanceTester
             case 'ignore':
                 break;
         }
-        if (isset($color)){
-            $I->fillField(\Page\SavingAreaCreate::$ChartColorField, $color);
+        if (isset($chartColor)){
+            $I->fillField(\Page\SavingAreaCreate::$ChartColorField, $chartColor);
+        }
+        if (isset($backgroundColor)){
+            $I->fillField(\Page\SavingAreaCreate::$BackgroundColorField, $backgroundColor);
+        }
+        if (isset($tileColor)){
+            $I->fillField(\Page\SavingAreaCreate::$TileColorField, $tileColor);
         }
         switch ($status) {
             case 'yes':
@@ -61,6 +68,8 @@ class SavingArea extends \AcceptanceTester
             case 'ignore':
                 break;
         }
+        $I->scrollTo(\Page\SavingAreaCreate::$CreateButton);
+        $I->wait(1);
         $I->click(\Page\SavingAreaCreate::$CreateButton);
         $I->wait(1);
     }  

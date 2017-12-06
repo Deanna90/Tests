@@ -27,9 +27,11 @@ class MeasureFormulasPopup
     public static function OpenBracketToolLinkLine($number)    { return ".formulas-list>div:nth-of-type($number) [title='open bracket']";}
     public static function CloseBracketToolLinkLine($number)   { return ".formulas-list>div:nth-of-type($number) [title='close bracket]";}
     
-    public static function VariableToolLinkLine($title)           { return ".formulas-list>div:nth-of-type($number) [title=$title]";}
-    public static function VariableOptToolLinkLine($number, $opt) { return ".formulas-list>div:nth-of-type($number) ul>div:nth-of-type($opt)";}
+    public static function VariableToolLinkLine($number, $title)                      { return ".formulas-list>div:nth-of-type($number) [title=$title]";}
+    public static function VariableOptToolLinkLine($number, $opt)                     { return ".formulas-list>div:nth-of-type($number) ul>div:nth-of-type($opt)";}
+    public static function VariableOptToolLinkLine_ByVariableName($number, $variable) { return ".formulas-list>div:nth-of-type($number) [title*='$variable']";}
     
+    //Measure with Questions and Number submeasure
     public static function GlobalVariableSelectLine_ByQuestionAndNumber($question, $number)  { return "//*[@class='formulas-list']/form/div[contains(div[1]/text(), '$question') and contains(div[2]/text(), '$number')]//select";}
     public static function GlobalVariableOptionLine_ByQuestionAndNumber($question, $number)  { return "//*[@class='formulas-list']/form/div[contains(div[1]/text(), '$question') and contains(div[2]/text(), '$number')]//select/option";}
 

@@ -9,7 +9,7 @@ class SavingAreaList extends \AcceptanceTester
     public static $Title                         = 'h1';
     public static $SavingAreaRow                 = 'table[class*=table] tbody>tr';
     public static $SummaryCount                  = '.summary>b:last-of-type';
-    public static $EmptyListLabel               = 'tr .empty';
+    public static $EmptyListLabel                = 'tr .empty';
     
     public static $CreateSavingAreaButton        = 'a.btn-green-lite';
     
@@ -25,4 +25,15 @@ class SavingAreaList extends \AcceptanceTester
     public static function HasVisualRepresentationLine($row)  { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(3)"; }
     public static function StatusLine($row)                   { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(4)"; }
     public static function UpdateButtonLine($row)             { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Update]"; }
+    
+    const GreenhouseGasEmissionsSaved = 'Greenhouse Gas Emissions Saved';
+    const EnergySaved                 = 'Energy Saved';
+    const SolidWasteDiverted          = 'Solid Waste Diverted';
+    const WaterSaved                  = 'Water Saved';
+    const FuelSaved                   = 'Fuel Saved';
+    const HazardousWasteReduced       = 'Hazardous Waste Reduced';
+    const MercuryReduced              = 'Mercury Reduced';
+    const GreaseRecycled              = 'Grease Recycled';
+    const VOC                         = 'VOC';
+    const Therms                      = 'Therms';
 }

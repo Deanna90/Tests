@@ -8,13 +8,14 @@ class EssentialCriteria extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\EssentialCriteriaList::URL());
-        $I->wait(1);
-        $I->click(\Page\EssentialCriteriaList::$CreateECButton);
         $I->wait(2);
+        $I->click(\Page\EssentialCriteriaList::$CreateECButton);
+        $I->wait(5);
         if (isset($number)){
-            $I->click(Page\EssentialCriteriaCreate::$NumberSelect);
-            $I->wait(1);
+            $I->click(\Page\EssentialCriteriaCreate::$NumberSelect);
+            $I->wait(2);
             $I->selectOption(\Page\EssentialCriteriaCreate::$NumberSelect, $number);
+            $I->wait(1);
         }
         if (isset($status)){
             $I->selectOption(\Page\EssentialCriteriaCreate::$StateSelect, $status);
@@ -26,7 +27,7 @@ class EssentialCriteria extends \AcceptanceTester
             $I->fillField(\Page\EssentialCriteriaCreate::$StatusSelect, $state);
         }
         $I->click(\Page\EssentialCriteriaCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(4);
     }  
 
     public function ManageEssentialCriteria($descs = null, $statuses = null, $extension = null)
@@ -70,7 +71,7 @@ class EssentialCriteria extends \AcceptanceTester
     {
         $I = $this;
         $I->wait(3);
-        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton);
+        $I->waitForElement(\Page\EssentialCriteriaManage::$VersionHistoryTab);
         $I->click(\Page\EssentialCriteriaManage::$VersionHistoryTab);
         $I->wait(1);
         $I->click(\Page\EssentialCriteriaManage::PublishButtonLine_VersionHistoryTab($row));

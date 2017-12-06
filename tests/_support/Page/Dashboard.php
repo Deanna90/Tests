@@ -37,6 +37,7 @@ class Dashboard extends \AcceptanceTester
     
     public static function BusinessLink_ByBusName($business)             { return "//h4/a[text()='$business']";}
     public static function MeasuresCompletedInfo_ByBusName($business)    { return "//div[contains(h4/a/text(), '$business')]/div/div[1]/div[1]/div/span";}
+    public static function MeasuresCompleted_PrograssBar_ByBusName($business)    { return "//div[contains(h4/a/text(), '$business')]/div/div[1]/div[1]/div//*[@class='progress-wrapper']/div/div";}
     public static function NoChecklistInfo_ByBusName($business)          { return "//div[contains(h4/a/text(), '$business')]/div/div[1]/div[1]/p";}
     public static function StatusOfBusiness_ByBusName($business)         { return "//div[contains(h4/a/text(), '$business')]/div/div[1]/div[1]/div[2]//strong";}
     public static function Date_StatusOfBus_ByBusName($business)         { return "//div[contains(h4/a/text(), '$business')]/div/div[1]/div[1]/div[2]//span/span";}

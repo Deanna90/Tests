@@ -7,7 +7,7 @@ class State extends \AcceptanceTester
     public function CreateState($name = null, $shortName = null, $weighted = 'No')
     {
         $I = $this;
-        $I->wantTo("Create State");
+        $I->comment("Create State:");
         $I->amOnPage(\Page\StateCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\StateCreate::$NameField);
@@ -37,7 +37,7 @@ class State extends \AcceptanceTester
     public function UpdateState($id, $name = null, $shortName = null, $weighted = 'ignore')
     {
         $I = $this;
-        $I->wantTo("Update State");
+        $I->wantTo("Update State:");
         $I->amOnPage(\Page\StateUpdate::URL($id));
         $I->wait(1);
         $I->waitForElement(\Page\StateUpdate::$UpdateButton);
@@ -68,6 +68,7 @@ class State extends \AcceptanceTester
     {
         $I = $this;
         $I->wait(1);
+        $I->comment("Check correct values on state update page:");
         $I->waitForElement(\Page\StateUpdate::$UpdateButton);
         if (isset($name)){
             $I->canSeeInField(\Page\StateUpdate::$NameField, $name);
@@ -84,7 +85,7 @@ class State extends \AcceptanceTester
     public function GetStateRowNumber($name)
     {
         $I = $this;
-        $I->wantTo("Get State Row Number On List");
+        $I->comment("Get State Row Number On List:");
         $I->amOnPage(\Page\StateList::URL());
         $I->wait(1);
         $count = $I->getAmount($I, \Page\StateList::$StateRow);
@@ -100,6 +101,7 @@ class State extends \AcceptanceTester
     public function GetStateOnPageInList($name)
     {
         $I = $this;
+        $I->comment("Get State On List. Get id, page number and row:");
         $I->amOnPage(\Page\StateList::URL());
         $I->wait(1);
         $count = $I->grabTextFrom(\Page\StateList::$SummaryCount);
@@ -125,6 +127,7 @@ class State extends \AcceptanceTester
     public function GetAllStatesNames()
     {
         $I = $this;
+        $I->comment("Get all States names from list:");
         $I->amOnPage(\Page\StateList::URL());
         $I->wait(1);
         $states = [];
@@ -145,7 +148,7 @@ class State extends \AcceptanceTester
     public function CheckValuesOnStateListPage($row, $name = null, $shortName = null, $weighted = null, $createdDate = null, $updatedDate = null, $status = 'active')
     {
         $I = $this;
-        $I->wantTo("Check Saved Values On State List Page");
+        $I->comment("Check correct Saved Values On State List Page:");
 //        $I->amOnPage(\Page\StateList::URL());
         $I->wait(1);
         $I->waitForElement(\Page\StateList::$CreateStateButton);

@@ -499,7 +499,7 @@ class MeasureGreenTipCest
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));       
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
-        $I->wait(1);
+        $I->wait(3);
         $I->seeInCurrentUrl(\Page\MeasureGreenTipCreate::URL($this->idMeasure6));
     }
     
@@ -748,11 +748,11 @@ class MeasureGreenTipCest
     /**
      * @group quantitative
      */
-    public function Help1_15_CreateChecklistForTier3(\Step\Acceptance\Checklist $I) {
+    public function Help1_15_CreateChecklistForTier2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programDestination = $this->program1;
         $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -1195,13 +1195,6 @@ class MeasureGreenTipCest
         $grTip    = $this->gt1_program1;
         
         $I->wait(2);
-//        $I->waitForElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
-//        if($I->getAmount($I, \Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton.'.active') == 0) {
-//            $I->click(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
-//        }
-//        $I->wait(2);
-//        $I->waitForElement(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
-//        $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_Business, $this->id_audSubgroup1_Energy));
         $I->wait(2);
         $I->seeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));

@@ -32,6 +32,10 @@ class MeasureUpdate extends \AcceptanceTester
     public static function NoQuestion_AnswerButton($row)                             { return ".panel-body>div:nth-of-type($row) .registration-field-btn .no-btn";}
     public static function YesOrNoQuestion_AnswerButton($row, $answer)               { return ".panel-body>div:nth-of-type($row) .registration-field-btn .$answer-btn";}
     
+    public static function SavingAreaLabel($area)        { return "//*[contains(@class, 'panel-body')]//*[contains(text(), '$area')]";}
+    public static function FormulaForSavingArea($area)   { return "//*[contains(@class, 'panel-body')]//*[contains(text(), '$area')]/following-sibling::div";}
+    
+    
     public static $AuditGroupSelect       = '#measure-audit_group_id';
     public static $AuditSubgroupSelect    = '#subgroups';
     public static $StateDisableSelect     = '#measure-state_id';
@@ -72,6 +76,8 @@ class MeasureUpdate extends \AcceptanceTester
     public static function QuestionField_MultipleQuestionAndNumber($number)        {$a = $number + 1; return ".multiple-questions-and-digit-container>div:nth-of-type($a) input";}
     public static function DeleteQuestionButton_MultipleQuestionAndNumber($number) {$a = $number + 1; return ".multiple-questions-and-digit-container>div:nth-of-type($a) .delete-row";}
 
+    public static function ReamOrLbsSelect_MultipleQuestionAndNumber($number)      {$a = $number + 1; return ".multiple-questions-and-digit-container>div:nth-of-type($a) #multiplequestionanddigit-units";}
+    
     public static function AnswerField_MultipleQuestionAndNumber($number)        {$a = $number; return "[class*=opt]>div:nth-of-type($a) input";}
     public static function DeleteAnswerButton_MultipleQuestionAndNumber($number) {$a = $number; return "[class*=opt]>div:nth-of-type($a) .delete-row";}
     

@@ -401,6 +401,7 @@ class SystemTourCest
         
         $I->CreateEssentialCriteria($number);
         $I->CheckSavedValuesOnManageEssentialCriteriaPage($descs, $statuses);
+        $this->statnew2 = $I->ManageEssentialCriteria($descs, $this->statuses2);
         $I->reloadPage();
         $I->PublishECStatus();
     }
@@ -411,7 +412,6 @@ class SystemTourCest
         
         $I->CreateEssentialCriteria($number);
         $I->CheckSavedValuesOnManageEssentialCriteriaPage($descs, $this->statnew1);
-        $this->statnew2 = $I->ManageEssentialCriteria($descs, $this->statuses2);
         $I->reloadPage();
         $I->PublishECStatus();
     }
@@ -433,11 +433,11 @@ class SystemTourCest
         $I->PublishChecklistStatus();
     }
     
-    public function CreateChecklistForTier3_DefaultSector_Program1(\Step\Acceptance\Checklist $I) {
+    public function CreateChecklistForTier2_DefaultSector_Program1(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->progName1;
         $programDestination = $this->progName1;
         $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_Energy;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -461,11 +461,11 @@ class SystemTourCest
         $I->PublishChecklistStatus();
     }
     
-    public function CreateChecklistForTier3_DefaultSector_Program2(\Step\Acceptance\Checklist $I) {
+    public function CreateChecklistForTier2_DefaultSector_Program2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->progName2;
         $programDestination = $this->progName2;
         $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_Energy;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -490,11 +490,11 @@ class SystemTourCest
         $I->PublishChecklistStatus();
     }
     
-    public function CreateChecklistForTier3_Sector1_Program1(\Step\Acceptance\Checklist $I) {
+    public function CreateChecklistForTier2_Sector1_Program1(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->progName1;
         $programDestination = $this->progName1;
         $sectorDestination  = $this->sector11;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_Energy;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -606,7 +606,7 @@ class SystemTourCest
 //        $I->canSee('Get started', 'a.btn-green-lite');
     }
     //['elective', 'core', 'elective', 'core', 'elective', 'elective', 'elective', 'not set', 'core'];
-    public function CompletAllMeasuregs(AcceptanceTester $I) {
+    public function CompletAllMeasures2(AcceptanceTester $I) {
         $I->wait(1);
         $I->amOnPage(Page\RegistrationStarted::$URL_Started);
         $I->wait(3);

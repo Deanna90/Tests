@@ -15,11 +15,12 @@ class Measure extends \AcceptanceTester
     
     public function CreateMeasure($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
                                    $questions = null, $options = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $points = null, $yesNoNameArray = null, 
-                                   $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null)
+                                   $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null, $reamOrLbs = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\MeasureCreate::URL());
         $I->wait(1);
+        $I->amOnPage(\Page\MeasureCreate::URL());
+        $I->wait(4);
         $I->waitForElement(\Page\MeasureCreate::$DescriptionField);
         if (isset($desc)){
             $I->fillField(\Page\MeasureCreate::$DescriptionField, $desc);
@@ -28,34 +29,51 @@ class Measure extends \AcceptanceTester
             $I->selectOption(\Page\MeasureCreate::$AuditGroupSelect, $auditGroup);
         }
         if (isset($auditSubgroup)){
-            $I->wait(2);
+            $I->wait(4);
             $I->click(\Page\MeasureCreate::$AuditSubgroupSelect);
-            $I->wait(2);
+            $I->wait(4);
             $I->selectOption(\Page\MeasureCreate::$AuditSubgroupSelect, $auditSubgroup);
+            $I->wait(4);
         }
         switch ($quantitative){
             case 'yes':
                 $I->click(\Page\MeasureCreate::$IsQuantitativeToggleButton);
-                $I->wait(3);
-                $I->waitForElement(\Page\MeasureCreate::$SubmeasureTypeSelect);
+                $I->wait(7);
+//                $I->waitForElement(\Page\MeasureCreate::$SubmeasureTypeSelect, 60);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(3);
+                    $I->wait(7);
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
+                                $I->wait(4);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->click(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
+                                    $I->scrollTo(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
                                     $I->wait(1);
+                                    $I->click(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
+                                    $I->wait(2);
                                     $I->fillField(\Page\MeasureCreate::QuestionField_MultipleQuestionAndNumber($i), $questions[$k]);
                                 }
                             }
+                            if (isset($reamOrLbs)){
+                                $I->wait(4);
+                                for ($i=1, $c= count($reamOrLbs); $i<=$c; $i++){
+                                    $k = $i-1;
+                                    $I->wait(1);
+                                    $I->click(\Page\MeasureCreate::ReamOrLbsSelect_MultipleQuestionAndNumber($i));
+                                    $I->wait(1);
+                                    $I->selectOption(\Page\MeasureCreate::ReamOrLbsSelect_MultipleQuestionAndNumber($i), $reamOrLbs[$k]);
+                                }  
+                            }
                             if (isset($options)){
+                                $I->wait(4);
                                 for ($i=1, $c= count($options); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->click(\Page\MeasureCreate::$AddAnswerButton_MultipleQuestionAndNumber);
+                                    $I->scrollTo(\Page\MeasureCreate::$AddAnswerButton_MultipleQuestionAndNumber);
                                     $I->wait(1);
+                                    $I->click(\Page\MeasureCreate::$AddAnswerButton_MultipleQuestionAndNumber);
+                                    $I->wait(2);
                                     $I->fillField(\Page\MeasureCreate::AnswerField_MultipleQuestionAndNumber($i), $options[$k]);
                                 }  
                             }
@@ -65,9 +83,11 @@ class Measure extends \AcceptanceTester
                             break;
                         case 'Number':
                             if (isset($questions)){
-                                $I->wait(1);
+                                $I->wait(4);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
+                                    $I->scrollTo(\Page\MeasureCreate::$AddAnswerButton_Number);
+                                    $I->wait(1);
                                     $I->click(\Page\MeasureCreate::$AddAnswerButton_Number);
                                     $I->wait(2);
                                     $I->fillField(\Page\MeasureCreate::AnswerField_Number($i), $questions[$k]);
@@ -75,16 +95,19 @@ class Measure extends \AcceptanceTester
                             }
                             break;
                         case 'Popup Therms':
+                            $I->wait(4);
                             if (isset($popupDesc)){
                                 $I->fillField(\Page\MeasureCreate::$PopupDescriptionField_PopupTherms, $popupDesc);
                             }
                             break;
                         case 'Popup Lighting':
+                            $I->wait(4);
                             if (isset($popupDesc)){
                                 $I->fillField(\Page\MeasureCreate::$PopupDescriptionField_PopupLighting, $popupDesc);
                             }
                             break;
                         case 'Popup Waste diversion':
+                            $I->wait(4);
                             if (isset($popupDesc)){
                                 $I->fillField(\Page\MeasureCreate::$PopupDescriptionField_PopupWasteDiversion, $popupDesc);
                             }
@@ -96,25 +119,31 @@ class Measure extends \AcceptanceTester
                 break;
             case 'no':
                 $I->click(\Page\MeasureCreate::$HaveMultipleAnswersToggleButton);
-                $I->wait(3);
+                $I->wait(5);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(2);
+                    $I->wait(3);
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
+                                $I->wait(4);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->click(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
+                                    $I->scrollTo(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
                                     $I->wait(1);
+                                    $I->click(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
+                                    $I->wait(2);
                                     $I->fillField(\Page\MeasureCreate::QuestionField_MultipleQuestionAndNumber($i), $questions[$k]);
                                 }
                             }
                             if (isset($options)){
+                                $I->wait(4);
                                 for ($i=1, $c= count($options); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->click(\Page\MeasureCreate::$AddAnswerButton_MultipleQuestionAndNumber);
+                                    $I->scrollTo(\Page\MeasureCreate::$AddAnswerButton_MultipleQuestionAndNumber);
                                     $I->wait(1);
+                                    $I->click(\Page\MeasureCreate::$AddAnswerButton_MultipleQuestionAndNumber);
+                                    $I->wait(2);
                                     $I->fillField(\Page\MeasureCreate::AnswerField_MultipleQuestionAndNumber($i), $options[$k]);
                                 }  
                             }
@@ -124,10 +153,13 @@ class Measure extends \AcceptanceTester
                             break;
                         case 'Multiple question':
                             if (isset($questions)){
+                                $I->wait(4);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
-                                    $I->click(\Page\MeasureCreate::$AddAnswerButton_MultipleAnswers);
+                                    $I->scrollTo(\Page\MeasureCreate::$AddAnswerButton_MultipleAnswers);
                                     $I->wait(1);
+                                    $I->click(\Page\MeasureCreate::$AddAnswerButton_MultipleAnswers);
+                                    $I->wait(2);
                                     $I->fillField(\Page\MeasureCreate::AnswerField_MultipleAnswers($i), $questions[$k]);
                                 }
                             }
@@ -144,33 +176,42 @@ class Measure extends \AcceptanceTester
                 break;
         }
         if (isset($points)){
+            $I->scrollTo(\Page\MeasureCreate::$Title);
+            $I->wait(1);
             $I->fillField(\Page\MeasureCreate::$PointsField, $points);
         }
         if (isset($yesNoNameArray)){
+            $I->scrollTo(\Page\MeasureCreate::$Title);
+            $I->wait(1);
             for ($i=1, $c= count($yesNoNameArray); $i<=$c; $i++){
                 $k = $i-1;
                 $I->click(\Page\MeasureCreate::YesOrNoQuestion_AnswerButtonLabel_ByName($yesNoNameArray[$k], $yesNoValueArray[$k]));
-                $I->wait(1);
+                $I->wait(2);
             }
         }
         if (isset($sectionNameArray)){
+            $I->scrollTo(\Page\MeasureCreate::$Title);
+            $I->wait(1);
             for ($i=1, $c= count($sectionNameArray); $i<=$c; $i++){
                 $k = $i-1;
                 $I->click(\Page\MeasureCreate::SectionsQuestion_Section_ByName($sectionNameArray[$k], $sectionValueArray[$k]));
-                $I->wait(1);
+                $I->wait(2);
             }
         }
         if (isset($state)){
             $I->canSeeOptionIsSelected(\Page\MeasureCreate::$StateDisableSelect, $state);
         }
-        $I->wait(2);
+        $I->wait(3);
+        $I->scrollTo(\Page\MeasureCreate::$CreateButton);
+        $I->wait(3);
         $I->click(\Page\MeasureCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(6);
     }  
     
     public function CheckSavedValuesOnMeasureUpdatePage($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
                            $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $quantToggleStatus = 'ignore', 
-                           $multipAnswerToggleStatus ='ignore', $points = null, $yesNoNameArray = null, $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null)
+                           $multipAnswerToggleStatus ='ignore', $points = null, $yesNoNameArray = null, $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null, 
+                           $reamOrLbs = null)
     {
         $I = $this;
         $I->wait(2);
@@ -220,6 +261,13 @@ class Measure extends \AcceptanceTester
                                 for ($i=1, $c= count($answers); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->canSeeInField(\Page\MeasureUpdate::AnswerField_MultipleQuestionAndNumber($i), $answers[$k]);
+                                }  
+                            }
+                            if (isset($reamOrLbs)){
+                                for ($i=1, $c= count($reamOrLbs); $i<=$c; $i++){
+                                    $k = $i-1;
+                                    $I->wait(1);
+                                    $I->canSeeOptionIsSelected(\Page\MeasureUpdate::ReamOrLbsSelect_MultipleQuestionAndNumber($i), $reamOrLbs[$k]);
                                 }  
                             }
                             if (isset($requiredTotalAnswers)){
@@ -380,7 +428,7 @@ class Measure extends \AcceptanceTester
     }
     
     public function UpdateMeasure($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
-                                   $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $points = null)
+                                   $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $points = null, $reamOrLbs = null)
     {
         $I = $this;
         $I->amOnPage(\Page\MeasureList::URL());
@@ -421,6 +469,13 @@ class Measure extends \AcceptanceTester
                                     $I->click(\Page\MeasureUpdate::$AddAnswerButton_MultipleQuestionAndNumber);
                                     $I->wait(1);
                                     $I->fillField(\Page\MeasureUpdate::AnswerField_MultipleQuestionAndNumber($i), $answers[$k]);
+                                }  
+                            }
+                            if (isset($reamOrLbs)){
+                                for ($i=1, $c= count($reamOrLbs); $i<=$c; $i++){
+                                    $k = $i-1;
+                                    $I->wait(1);
+                                    $I->selectOption(\Page\MeasureUpdate::ReamOrLbsSelect_MultipleQuestionAndNumber($i), $reamOrLbs[$k]);
                                 }  
                             }
                             if (isset($requiredTotalAnswers)){

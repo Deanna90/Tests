@@ -16,6 +16,8 @@ class SavingAreaCreate extends \AcceptanceTester
     public static $VisualUnitsConversionRateField   = '#savingarea-visual_units_conversion_rate';
     public static $VisualNameField                  = '#savingarea-visual_name';
     public static $ChartColorField                  = '#savingarea-chart_color';
+    public static $BackgroundColorField             = '#savingarea-tile_background_color';
+    public static $TileColorField                   = '#savingarea-tile_color';
     
     public static $ImageFileUpload                  = '#savingarea-imagefile';
     

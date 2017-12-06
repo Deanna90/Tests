@@ -6,6 +6,7 @@ class PopupThermOption extends \AcceptanceTester
     public function CreateThermOption($name = null, $thermsCount = null)
     {
         $I = $this;
+        $I->comment("Create Therm Option:");
         $I->amOnPage(\Page\PopupThermOptionCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\PopupThermOptionCreate::$NameField);
@@ -23,6 +24,7 @@ class PopupThermOption extends \AcceptanceTester
     {
         $I = $this;
         $I->wait(1);
+        $I->comment("Update Therm Option:");
         $I->waitForElement(\Page\PopupThermOptionUpdate::$UpdateButton);
         if (isset($name)){
             $I->fillField(\Page\PopupThermOptionUpdate::$NameField, $name);
@@ -38,6 +40,7 @@ class PopupThermOption extends \AcceptanceTester
     {
         $I = $this;
         $I->wait(1);
+        $I->comment("Check correct saved values on therm option update page:");
         $I->waitForElement(\Page\PopupThermOptionUpdate::$UpdateButton);
         if (isset($name)){
             $I->canSeeInField(\Page\PopupThermOptionUpdate::$NameField, $name);
@@ -50,6 +53,7 @@ class PopupThermOption extends \AcceptanceTester
     public function GetThermOptionRowNumber($name)
     {
         $I = $this;
+        
         $I->amOnPage(\Page\PopupThermOptionList::$URL);
         $I->wait(1);
         $count = $I->getAmount($I, \Page\PopupThermOptionList::$ThermOptionRow);
@@ -65,6 +69,7 @@ class PopupThermOption extends \AcceptanceTester
     public function GetThermOptionOnPageInList($name)
     {
         $I = $this;
+        $I->comment("Get Therm Option on list. Get id, page number and row:");
         $I->amOnPage(\Page\PopupThermOptionList::URL());
         $I->wait(1);
         $count = $I->grabTextFrom(\Page\PopupThermOptionList::$SummaryCount);
@@ -91,6 +96,7 @@ class PopupThermOption extends \AcceptanceTester
     public function CheckValuesOnThermsListPage($row, $name = null, $thermsCount = null, $status = 'active')
     {
         $I = $this;
+        $I->comment("Check correct saved values on Therm Options List:");
         $I->amOnPage(\Page\PopupThermOptionList::URL());
         $I->wait(1);
         $I->waitForElement(\Page\PopupThermOptionList::$CreatePopupThermsOptionButton);

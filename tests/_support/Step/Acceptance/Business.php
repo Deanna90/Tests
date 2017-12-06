@@ -49,9 +49,9 @@ class Business extends \AcceptanceTester
             $I->fillField(\Page\BusinessRegistration::$ZipField, $zip);
         }
         if (isset($city)){
-            $I->wait(1);
+            $I->wait(5);
             $I->click(\Page\BusinessRegistration::$CitySelect);
-            $I->wait(2);
+            $I->wait(3);
             $I->selectOption(\Page\BusinessRegistration::$CitySelect, $city);
         }
         if (isset($state)){
@@ -61,6 +61,7 @@ class Business extends \AcceptanceTester
             $I->fillField(\Page\BusinessRegistration::$BusinessWebsiteField, $website);
         }
         if (isset($businessType)){
+            $I->wait(2);
             $I->selectOption(\Page\BusinessRegistration::$BusinessTypeSelect, $businessType);
         }
         if (isset($employees)){
@@ -73,27 +74,35 @@ class Business extends \AcceptanceTester
             $I->fillField(\Page\BusinessRegistration::$LandscapeSquareFootageField, $landscapeFootage);
         }
         if (isset($aboutActivateValueArray)){
+            $I->scrollTo(\Page\BusinessRegistration::$NumberOfEmployeesField);
+            $I->wait(1);
             for ($c= count($aboutActivateValueArray), $i=$c; $i>=1; $i--){
                 $k = $i-1;
                 $I->makeElementVisible([$aboutActivateValueArray[$k]], $style = 'display');
-                $I->wait(2);
+                $I->wait(3);
                 $I->comment("1");
                 $I->click($aboutActivateValueArray[$k]);
                 $I->wait(1);
             }
         }
         if (isset($permitsActivateArray)){
+            $I->scrollTo(\Page\BusinessRegistration::$NumberOfEmployeesField);
+            $I->wait(1);
             for ($c= count($permitsActivateArray), $i=$c; $i>=1; $i--){
                 $k = $i-1;
                 $I->makeElementVisible([$permitsActivateArray[$k]], $style = 'display');
                 $I->wait(2);
                 $I->comment("1");
+                $I->scrollTo($permitsActivateArray[$k]);
+                $I->wait(1);
                 $I->click($permitsActivateArray[$k]);
                 $I->wait(1);
             }
         }
         switch ($agree){
             case 'on':
+                $I->scrollTo(\Page\BusinessRegistration::$AgreeLabel);
+                $I->wait(1);
                 $I->click(\Page\BusinessRegistration::$AgreeLabel);
                 $I->wait(1);
                 break;
@@ -102,6 +111,8 @@ class Business extends \AcceptanceTester
             case 'ignore':
                 break;
         }
+        $I->scrollTo(\Page\BusinessRegistration::$SubmitButton);
+        $I->wait(1);
         $I->click(\Page\BusinessRegistration::$SubmitButton);
         $I->wait(2);
     }  

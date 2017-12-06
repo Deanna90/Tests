@@ -140,11 +140,11 @@ class RecordsAndNeedsRenewalListCest
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
-    public function Help1_15_CreateChecklistForTier3(\Step\Acceptance\Checklist $I) {
+    public function Help1_15_CreateChecklistForTier2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program;
         $programDestination = $this->program;
         $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -163,7 +163,7 @@ class RecordsAndNeedsRenewalListCest
     //--------------------------------------------------------------------------Business register-----------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
-    public function MeasExtension1_17_Business1_Register(Step\Acceptance\Business $I)
+    public function Business1_Register(Step\Acceptance\Business $I)
     {
         $firstName        = $I->GenerateNameOf("firnam");
         $lastName         = $I->GenerateNameOf("lasnam");
@@ -180,6 +180,7 @@ class RecordsAndNeedsRenewalListCest
         $employees        = '455';
         $busFootage       = '234';
         $landscapeFootage = '666';
+        
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
@@ -208,6 +209,7 @@ class RecordsAndNeedsRenewalListCest
 //        $employees        = '455';
 //        $busFootage       = '234';
 //        $landscapeFootage = '666';
+//        
 //        $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
 //                $employees, $busFootage, $landscapeFootage);
 //        $I->wait(8);
@@ -236,6 +238,7 @@ class RecordsAndNeedsRenewalListCest
 //        $employees        = '455';
 //        $busFootage       = '234';
 //        $landscapeFootage = '666';
+//        
 //        $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
 //                $employees, $busFootage, $landscapeFootage);
 //        $I->wait(8);
@@ -270,7 +273,7 @@ class RecordsAndNeedsRenewalListCest
 //        $I->comment("Business1 id: $this->busId1. Business2 id: $this->busId2. Business3 id: $this->busId3.");
     }
     
-    public function Help1_18_NeedRenewalEmpty(AcceptanceTester $I){
+    public function NeedRenewalListIsEmpty(AcceptanceTester $I){
         $I->wait(1);
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->wait(2);
@@ -280,7 +283,7 @@ class RecordsAndNeedsRenewalListCest
         $I->cantSeeElement(\Page\NeedRenewalList::CompanyNameLine_ByBusName($this->business3));
     }
     
-    public function Help1_18_ChangeStatusToInProcess(AcceptanceTester $I){
+    public function ChangeStatusToInProcess(AcceptanceTester $I){
         $status           = \Page\ApplicationDetails::InProcessStatus;
         $recognitionDate  = "(not set)";
         $lastModifiedDate = "(not set)";
@@ -313,7 +316,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, '');
     }
     
-    public function Help1_18_ChangeStatusToRecognized(AcceptanceTester $I){
+    public function ChangeStatusToRecognized(AcceptanceTester $I){
         $status           = \Page\BusinessChecklistView::RecognizedStatus;
         $Renew            = strtotime("+1 year", strtotime($this->todayDate));
         $lastModifiedDate = "(not set)";
@@ -345,7 +348,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeRecognitionDate1(AcceptanceTester $I){
+    public function ChangeRecognitionDate1(AcceptanceTester $I){
 //        $recognitionDate = '10/25/2016'; //9 month before today
 //        $renewalDate     = '10/25/2017';
         
@@ -383,7 +386,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeRecognitionDate2(AcceptanceTester $I){
+    public function ChangeRecognitionDate2(AcceptanceTester $I){
 //        $recognitionDate = '10/24/2016'; //9 month+1 day before today
 //        $renewalDate     = '10/24/2017';
         $Recog            = strtotime("-9 months -1 day", strtotime($this->todayDate));
@@ -420,7 +423,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeRecognitionDate3(AcceptanceTester $I){
+    public function ChangeRecognitionDate3(AcceptanceTester $I){
 //        $recognitionDate = '10/26/2016'; // (9 month-1 day) before today
 //        $renewalDate     = '10/26/2017';
         $Recog            = strtotime("-9 months +1 day", strtotime($this->todayDate));
@@ -456,7 +459,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeRecognitionDate4(AcceptanceTester $I){
+    public function ChangeRecognitionDate4(AcceptanceTester $I){
         //        $recognitionDate = '07/25/2016'; // 1 year before today
         //        $renewalDate     = '07/25/2017';
         $Recog            = strtotime("-1 year", strtotime($this->todayDate));
@@ -492,7 +495,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeRecognitionDate5(AcceptanceTester $I){
+    public function ChangeRecognitionDate5(AcceptanceTester $I){
 //        $recognitionDate = '07/25/2015'; //2 years before today
 //        $renewalDate     = '07/25/2016';
         $Recog            = strtotime("-2 year", strtotime($this->todayDate));
@@ -528,7 +531,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeRecognitionDate6(AcceptanceTester $I){
+    public function ChangeRecognitionDate6(AcceptanceTester $I){
 //        $recognitionDate = '07/20/2015'; // (2years + 1 day) before today
 //        $renewalDate     = '07/20/2016';
         $Recog            = strtotime("-2 year -1 day", strtotime($this->todayDate));
@@ -564,7 +567,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeRecognitionDate7(AcceptanceTester $I){
+    public function ChangeRecognitionDate7(AcceptanceTester $I){
 //        $recognitionDate = '07/26/2015'; // (2years - 1 day) before today
 //        $renewalDate     = '07/26/2016';
         $Recog            = strtotime("-2 years +1 day", strtotime($this->todayDate));
@@ -601,7 +604,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeStatusToInProcessFromRecognized(AcceptanceTester $I){
+    public function ChangeStatusToInProcessFromRecognized(AcceptanceTester $I){
         $status           = \Page\ApplicationDetails::InProcessStatus;
         $Recog            = strtotime("-2 years +1 day", strtotime($this->todayDate));
         $Renew            = strtotime("-1 year +1 day", strtotime($this->todayDate));
@@ -635,7 +638,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeStatusToRecognizedFromInProcess(AcceptanceTester $I){
+    public function ChangeStatusToRecognizedFromInProcess(AcceptanceTester $I){
         $status           = \Page\ApplicationDetails::RecognizedStatus;
         $Recog            = strtotime("-2 years +1 day", strtotime($this->todayDate));
         $Renew            = strtotime("-1 year +1 day", strtotime($this->todayDate));
@@ -669,7 +672,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeStatusToInProcessFromRecognized2(AcceptanceTester $I){
+    public function ChangeStatusToInProcessFromRecognized2(AcceptanceTester $I){
         $status           = \Page\ApplicationDetails::InProcessStatus;
         $Recog            = strtotime("-2 years +1 day", strtotime($this->todayDate));
         $Renew            = strtotime("-1 year +1 day", strtotime($this->todayDate));
@@ -703,7 +706,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeStatusToRecognizedFromInProcess2(AcceptanceTester $I){
+    public function ChangeStatusToRecognizedFromInProcess2(AcceptanceTester $I){
         $status           = \Page\ApplicationDetails::RecognizedStatus;
         $Recog            = strtotime("-2 years +1 day", strtotime($this->todayDate));
         $Renew            = strtotime("-1 year +1 day", strtotime($this->todayDate));
@@ -737,7 +740,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeStatusToRequiresRenewalFromRecognized2(AcceptanceTester $I){
+    public function ChangeStatusToRequiresRenewalFromRecognized2(AcceptanceTester $I){
         $status                 = \Page\ApplicationDetails::RequiresRenewalStatus;
         $Recog                  = strtotime("-2 years +1 day", strtotime($this->todayDate));
         $Renew                  = strtotime("-1 year +1 day", strtotime($this->todayDate));
@@ -790,13 +793,13 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->wait(2);
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
         $I->canSee(Page\ApplicationDetails::InProcessStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDateRecords, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDateRecords, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
         $I->canSeeElement(Page\ApplicationDetails::ViewButtonLine_RecordsTab('1'));
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('2'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('2'));
         $I->canSee(Page\ApplicationDetails::ArchivedStatus, Page\ApplicationDetails::StatusLine_RecordsTab('2'));
         $I->canSee($recognitionDateArchive, Page\ApplicationDetails::RecognitionLine_RecordsTab('2'));
         $I->canSee($renewalDateArchive, Page\ApplicationDetails::RenewalLine_RecordsTab('2'));
@@ -808,7 +811,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
-    public function Help1_18_ChangeStatusToRecognizedFromInProcess_Recertification(AcceptanceTester $I){
+    public function ChangeStatusToRecognizedFromInProcess_Recertification(AcceptanceTester $I){
         $status                 = \Page\ApplicationDetails::RecognizedStatus;
         $RecogArchive           = strtotime("-2 years +1 day", strtotime($this->todayDate));
         $RenewArchive           = strtotime("-1 year +1 day", strtotime($this->todayDate));
@@ -841,7 +844,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->wait(2);
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
         $I->canSee($status, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDateDefault, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDateDefault, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
@@ -870,7 +873,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->wait(2);
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
         $I->canSee(Page\ApplicationDetails::RecognizedStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDate, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
@@ -888,13 +891,17 @@ class RecordsAndNeedsRenewalListCest
     }
     
     public function ManageNeedRenewalApplicantEmail(Step\Acceptance\Notification $I){
-        $subject = "New subjject (need renewal edited)";
-        $body    = "Neew body value (need renewal edited)";
+        $trigger      = Page\ApplicantEmailTextList::RequiresRenewal_Trigger;
+        $programArray = [$this->program];
+        $subject      = "New subjject (need renewal edited)";
+        $body         = "Neew body value (need renewal edited)";
         
         $I->wait(1);
-        $app = $I->GetApplicantEmailTextOnPageInList(Page\ApplicantEmailTextList::RequiresRenewal_Trigger, 'All');
-        $applicantId = $app['id'];
-        $I->ManageApplicantEmailText($applicantId, $subject, $body);
+        $I->CreateApplicantEmailText($subject, $body, $programArray, $trigger);
+        $I->wait(3);
+//        $app = $I->GetApplicantEmailTextOnPageInList(Page\ApplicantEmailTextList::RequiresRenewal_Trigger, 'All');
+//        $applicantId = $app['id'];
+//        $I->ManageApplicantEmailText($applicantId, $subject, $body);
     }
     
     public function CheckRenotifyFunctionOnNeedRenewalListPage(AcceptanceTester $I){
@@ -921,7 +928,7 @@ class RecordsAndNeedsRenewalListCest
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId1));
         $I->wait(2);
-        $I->canSee($this->business1, Page\ApplicationDetails::SenderLine_CommunicationTab('1'));
+        $I->canSee($this->program, Page\ApplicationDetails::SenderLine_CommunicationTab('1'));
         $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('1'));
         $I->canSee('2 seconds ago', Page\ApplicationDetails::SentLine_CommunicationTab('1'));
         $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('1'));
@@ -932,7 +939,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->wait(2);
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
         $I->canSee(Page\ApplicationDetails::RecognizedStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDate, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
@@ -977,7 +984,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->wait(2);
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
         $I->canSee(Page\ApplicationDetails::RecognizedStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDatePlus3Months, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
@@ -1000,7 +1007,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->wait(2);
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
         $I->canSee(Page\ApplicationDetails::RecognizedStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDatePlus6Months, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
@@ -1024,7 +1031,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->wait(2);
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
         $I->canSee(Page\ApplicationDetails::RecognizedStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDatePlus9Months, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
@@ -1066,7 +1073,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->wait(2);
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
-        $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
+        $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
         $I->canSee(Page\ApplicationDetails::DecertifiedStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDate, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
@@ -1117,7 +1124,7 @@ class RecordsAndNeedsRenewalListCest
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
         $I->canSee(\Page\Dashboard::Decertified_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business1));
+        $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
+        $I->canSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business1));
     }
 }

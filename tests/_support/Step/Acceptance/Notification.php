@@ -12,12 +12,9 @@ class Notification extends \AcceptanceTester
         if (isset($subject)){
             $I->fillField(\Page\ApplicantEmailTextCreate::$SubjectField, $subject);
         }
-        if (isset($body)){
-            $I->fillCkEditorTextarea(\Page\ApplicantEmailTextCreate::$BodyField, $body);
-        }
         if (isset($trigger)){
             $I->selectOption(\Page\ApplicantEmailTextCreate::$TriggerSelect, $trigger);
-            $I->wait(2);
+            $I->wait(3);
         }
         if (isset($programArray)){
             for ($i=1, $c= count($programArray); $i<=$c; $i++){
@@ -28,11 +25,14 @@ class Notification extends \AcceptanceTester
                 $I->click(\Page\ApplicantEmailTextCreate::selectProgramByName($programArray[$k]));
             }
         }
+        if (isset($body)){
+            $I->fillCkEditorTextarea(\Page\ApplicantEmailTextCreate::$BodyField, $body);
+        }
         if (isset($state)){
             $I->canSeeOptionIsSelected(\Page\ApplicantEmailTextCreate::$StateSelect, $state);
         }
         $I->click(\Page\ApplicantEmailTextCreate::$SaveButton);
-        $I->wait(2);
+        $I->wait(3);
     }  
     
     public function GetApplicantEmailTextOnPageInList($trigger, $program)

@@ -14,18 +14,19 @@ class Program extends \AcceptanceTester
         }
         if (isset($state)){
             $I->selectOption(\Page\ProgramCreate::$StateSelect, $state);
+            $I->wait(3);
         }
         if (isset($cityArray)){
             for ($i=1, $c= count($cityArray); $i<=$c; $i++){
                 $k = $i-1;
                 $I->click(\Page\ProgramCreate::$CitySelect);
-                $I->wait(2);
+                $I->wait(3);
                 $I->click(\Page\ProgramCreate::selectCityOptionByName($cityArray[$k]));
             }
         }
         $I->selectOption(\Page\ProgramCreate::$RecertificationCycleSelect, $recerticationCycle);
         $I->click(\Page\ProgramCreate::$CreateButton);
-        $I->wait(1);
+        $I->wait(3);
     }  
     
     public function GetProgramOnPageInList($name)

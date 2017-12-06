@@ -175,11 +175,11 @@ class FewProgramsCest
     
     //--------------------------Create Checklists-------------------------------
     
-    public function Help2_5_9_CreateChecklistForTier3_Program1(\Step\Acceptance\Checklist $I) {
+    public function Help2_5_9_CreateChecklistForTier2_Program1(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programDestination = $this->program1;
         $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -210,11 +210,11 @@ class FewProgramsCest
         $I->canSeeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
-    public function Help2_5_10_CreateChecklistForTier3_Program2(\Step\Acceptance\Checklist $I) {
+    public function Help2_5_10_CreateChecklistForTier2_Program2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programDestination = $this->program2;
         $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -245,11 +245,11 @@ class FewProgramsCest
         $I->canSeeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
-    public function Help2_5_11_CreateChecklistForTier3_Program3(\Step\Acceptance\Checklist $I) {
+    public function Help2_5_11_CreateChecklistForTier2_Program3(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program3;
         $programDestination = $this->program3;
         $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
@@ -264,7 +264,7 @@ class FewProgramsCest
         
         $I->wait(1);
         $I->reloadPage();
-        $I->wait(1);
+        $I->wait(3);
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
         $I->wait(1);
         $I->click(Page\ChecklistManage::$PreviewButton);

@@ -7,7 +7,7 @@ class AuditSubGroup extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\AuditSubgroupCreate::URL());
-        $I->wait(1);
+        $I->wait(2);
         $I->waitForElement(\Page\AuditSubgroupCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\AuditSubgroupCreate::$NameField, $name);

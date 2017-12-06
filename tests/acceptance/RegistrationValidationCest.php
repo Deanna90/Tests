@@ -212,11 +212,11 @@ class RegistrationValidationCest
      * @group email
      */
     
-    public function Help1_15_CreateChecklistForTier3(\Step\Acceptance\Checklist $I) {
+    public function Help1_15_CreateChecklistForTier2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program;
         $programDestination = $this->program;
         $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);

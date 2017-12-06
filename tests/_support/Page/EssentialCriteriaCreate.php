@@ -3,7 +3,8 @@ namespace Page;
 
 class EssentialCriteriaCreate extends \AcceptanceTester
 {
-    public static function URL($stateId)  { return parent::$URL_UserAccess."/checklist/create-criteria?state_id=$stateId";}
+    public static function URL($stateId)         { return parent::$URL_UserAccess."/checklist/create-criteria?state_id=$stateId";}
+    public static function URL_WithoutStateId()  { return parent::$URL_UserAccess."/checklist/create-criteria";}
     public static $Title                  = 'h1';
     
     public static $CreateButton           = '[type=submit][class*=success]';

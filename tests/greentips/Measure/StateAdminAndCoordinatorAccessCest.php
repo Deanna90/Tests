@@ -47,7 +47,7 @@ class StateAdminAndCoordinatorAccessCest
     }
     
     public function FewProg2_5_CreateMeasure1forEnergy(\Step\Acceptance\Measure $I) {
-        $desc           = $this->measure1Desc = $I->GenerateNameOf("Description");
+        $desc           = $this->measure1Desc = $I->GenerateNameOf("Description1");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
         $quantitative   = 'yes';
@@ -65,7 +65,7 @@ class StateAdminAndCoordinatorAccessCest
     }
     
     public function FewProg2_5_CreateMeasure2forEnergy(\Step\Acceptance\Measure $I) {
-        $desc           = $this->measure2Desc = $I->GenerateNameOf("Description");
+        $desc           = $this->measure2Desc = $I->GenerateNameOf("Description2");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
         $quantitative   = 'yes';
@@ -82,7 +82,7 @@ class StateAdminAndCoordinatorAccessCest
     }
     
     public function FewProg2_5_CreateMeasure3forEnergy(\Step\Acceptance\Measure $I) {
-        $desc           = $this->measure3Desc = $I->GenerateNameOf("Description");
+        $desc           = $this->measure3Desc = $I->GenerateNameOf("Description3");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
         $quantitative   = 'yes';
@@ -99,7 +99,7 @@ class StateAdminAndCoordinatorAccessCest
     }
     
     public function FewProg2_5_CreateMeasure4forEnergy(\Step\Acceptance\Measure $I) {
-        $desc           = $this->measure4Desc = $I->GenerateNameOf("Description");
+        $desc           = $this->measure4Desc = $I->GenerateNameOf("Description4");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
         $quantitative   = 'yes';
@@ -139,11 +139,11 @@ class StateAdminAndCoordinatorAccessCest
     
     //--------------------------Create Checklists-------------------------------
     
-    public function Help2_5_9_CreateChecklistForTier3_Program1(\Step\Acceptance\Checklist $I) {
+    public function Help2_5_9_CreateChecklistForTier2_Program1(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programDestination = $this->program1;
         $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statuses);
@@ -151,11 +151,11 @@ class StateAdminAndCoordinatorAccessCest
         $I->PublishChecklistStatus();
     }
     
-    public function Help2_5_9_CreateChecklistForTier3_Program2(\Step\Acceptance\Checklist $I) {
+    public function Help2_5_9_CreateChecklistForTier2_Program2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programDestination = $this->program2;
         $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statuses);
@@ -175,9 +175,9 @@ class StateAdminAndCoordinatorAccessCest
         $phone     = '(675) 455-4333';
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
-        $I->wait(1);
-        $I->click(Page\UserUpdate::$AddStateButton);
         $I->wait(2);
+        $I->click(Page\UserUpdate::$AddStateButton);
+        $I->wait(4);
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
         $I->wait(1);
@@ -194,14 +194,14 @@ class StateAdminAndCoordinatorAccessCest
         $phone     = '(675) 455-4333';
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
-        $I->wait(1);
-        $I->click(Page\UserUpdate::$AddStateButton);
         $I->wait(2);
+        $I->click(Page\UserUpdate::$AddStateButton);
+        $I->wait(4);
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddProgramButton);
-        $I->wait(2);
+        $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
         $I->wait(1);
@@ -217,11 +217,11 @@ class StateAdminAndCoordinatorAccessCest
         $descMeasure = $this->measure1Desc;
         
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
+        $I->wait(4);
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($descMeasure));
-        $I->wait(1);
+        $I->wait(3);
         $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
-        $I->wait(1);
+        $I->wait(2);
         $I->canSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
         $I->canSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program2));
         if($I->getAmount($I, \Page\MeasureGreenTipCreate::$ProgramOption) != 2){
@@ -399,9 +399,9 @@ class StateAdminAndCoordinatorAccessCest
     
     public function FewProg2_5_6_CheckOnlyProgram1OptionPresentInProgramSelectOnGreentipCreatePage(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure3));
-        $I->wait(2);
+        $I->wait(3);
         $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
-        $I->wait(1);
+        $I->wait(3);
         $I->canSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
         $I->cantSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program2));
         if($I->getAmount($I, \Page\MeasureGreenTipCreate::$ProgramOption) != 1){

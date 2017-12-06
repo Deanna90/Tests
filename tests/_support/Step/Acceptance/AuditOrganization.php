@@ -43,6 +43,8 @@ class AuditOrganization extends \AcceptanceTester
         if (isset($zip)){
             $I->fillField(\Page\AuditOrganizationCreate::$ZipCodeField, $zip);
         }
+        $I->scrollTo(\Page\AuditOrganizationCreate::$CreateButton);
+        $I->wait(1);
         $I->click(\Page\AuditOrganizationCreate::$CreateButton);
         $I->wait(5);
     }
@@ -61,6 +63,8 @@ class AuditOrganization extends \AcceptanceTester
         if (isset($status)){
             $I->selectOption(\Page\AuditOrganizationUpdate::$StatusSelect, $status);
         }
+        $I->scrollTo(\Page\AuditOrganizationUpdate::$UpdateButton);
+        $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$UpdateButton);
         $I->wait(2);
     }

@@ -25,7 +25,7 @@ class Sector extends \AcceptanceTester
             $I->selectOption(\Page\SectorCreate::$StatusSelect, $status);
         }
         $I->click(\Page\SectorCreate::$CreateButton);
-        $I->wait(1);
+        $I->wait(3);
     } 
     
     public function UpdateSector($name = null, $program = null, $newName = null)
@@ -40,7 +40,7 @@ class Sector extends \AcceptanceTester
         $I->fillField(\Page\SectorRenameWindow::$NameField, $newName);
         $I->wait(1);
         $I->click(\Page\SectorRenameWindow::$UpdateButton);
-        $I->wait(1);
+        $I->wait(3);
     } 
     
     public function CheckInFieldsOnSectorUpdatePage($name = null, $state = null, $zips = null)
@@ -100,15 +100,18 @@ class Sector extends \AcceptanceTester
         return $city;
     }
     
-    public function CheckValuesOnSectorListPage($name = null, $program = null, $status = 'active')
+    public function CheckValuesOnSectorListPage($name = null, $program = null, $status = 'active', $countBus = '0')
     {
         $I = $this;
         $I->amOnPage(\Page\SectorList::URL());
-        $I->wait(1);
+        $I->wait(2);
         $I->waitForElement(\Page\SectorList::$CreateSectorButton);
         $I->canSeeElement(\Page\SectorList::NameLine_ByNameValue($name, $program));
         if (isset($status)){
             $I->canSee($status, \Page\SectorList::StatusLine_ByNameValue($name, $program));
+        }
+        if (isset($countBus)){
+            $I->canSee($countBus, \Page\SectorList::CountOfBusinessesLine_ByNameValue($name, $program));
         }
     }
     

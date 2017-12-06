@@ -419,9 +419,6 @@ class ChecklistCreateCest
         
         $I->CreateEssentialCriteria($number);
         $I->CheckSavedValuesOnManageEssentialCriteriaPage($descs, $statuses);
-        $this->statnewEC3 = $I->ManageEssentialCriteria($descs, $this->statusesEC3, $this->extensionsEC3);
-        $I->reloadPage();
-        $I->PublishECStatus();
     }
     
     public function CreateEssentialCriteriaForTier2(\Step\Acceptance\EssentialCriteria $I) {
@@ -431,6 +428,9 @@ class ChecklistCreateCest
         
         $I->CreateEssentialCriteria($number);
         $I->CheckSavedValuesOnManageEssentialCriteriaPage($descs, $statuses);
+        $this->statnewEC3 = $I->ManageEssentialCriteria($descs, $this->statusesEC3, $this->extensionsEC3);
+        $I->reloadPage();
+        $I->PublishECStatus();
     }
     
     //--------------------------------------------------------------------------Create Checklist--------------------------------------------------------------------------------------
@@ -958,13 +958,13 @@ class ChecklistCreateCest
     
     //$statusesEC3        = ['elective',     'elective', 'not set', 'not set',  'core', 'core'];
     //$extensionsEC3      = ['Default',         'Large Landscape',         'Default',         'Large Landscape',         'Large Building', 'Default'];
-    public function CreateChecklist_ForTier3_SP_Program1_PD_Program2_SD_Sector2_PC_Program1_SC_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
+    public function CreateChecklist_ForTier2_SP_Program1_PD_Program2_SD_Sector2_PC_Program1_SC_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programCriteria    = $this->program1;
         $sectorCriteria     = $this->sector1;
         $programDestination = $this->program2;
         $sectorDestination  = $this->sector2;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         $statusesNew        = $this->statnewEC3;
         $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];
@@ -973,13 +973,13 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
-    public function CreateChecklist_ForTier3_SP_Program1_PD_Program1_SD_Sector1_PC_Program2_SC_Sector2_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
+    public function CreateChecklist_ForTier2_SP_Program1_PD_Program1_SD_Sector1_PC_Program2_SC_Sector2_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programCriteria    = $this->program2;
         $sectorCriteria     = $this->sector2;
         $programDestination = $this->program1;
         $sectorDestination  = $this->sector1;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         $statusesNew        = $this->statnewEC3;
         $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];
@@ -988,13 +988,13 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
-    public function CreateChecklist_ForTier3_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
+    public function CreateChecklist_ForTier2_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programCriteria    = $this->program2;
         $sectorCriteria     = Page\SectorList::DefaultSectorOfficeRetail;
         $programDestination = $this->program2;
         $sectorDestination  = Page\SectorList::DefaultSectorOfficeRetail;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         $statusesNew        = $this->statnewEC3;
         $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];
@@ -1003,11 +1003,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
-    public function CreateChecklist_ForTier3_SP_EssencialCriteria_PD_Program2_SD_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
+    public function CreateChecklist_ForTier2_SP_EssencialCriteria_PD_Program2_SD_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program2;
         $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         $statusesNew        = $this->statnewEC3;
         $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];
@@ -1016,11 +1016,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
-    public function CreateChecklist_ForTier3_SP_EssencialCriteria_PD_Program1_SD_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
+    public function CreateChecklist_ForTier2_SP_EssencialCriteria_PD_Program1_SD_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program1;
         $sectorDestination  = $this->sector1;
-        $tier               = '3';
+        $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         $statusesNew        = $this->statnewEC3;
         $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];

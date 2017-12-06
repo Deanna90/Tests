@@ -3,17 +3,27 @@ namespace Page;
 
 class ChecklistManage extends \AcceptanceTester
 {
-    public static function URL($id)       { return parent::$URL_UserAccess."/checklist/measures?id==$id";}
+    public static function URL($id)                 { return parent::$URL_UserAccess."/checklist/measures?id=$id";}
+    public static function URL_VersionTab($id)      { return parent::$URL_UserAccess."/checklist/version?id=$id";}
+    public static function URL_DefineTotalTab($id)  { return parent::$URL_UserAccess."/checklist/define-total?id=$id&type=tier";}
+    public static function URL_PointsTab($id)       { return parent::$URL_UserAccess."/checklist/points?id=$id";}
+    
     public static $Title                  = 'h2';
     public static $StatusTitle            = 'h2+p>span:first-of-type';
     public static $TierTitle              = 'h2+p>span:last-of-type';
     
-    public static $VersionHistoryTab            = '.tabs>ul>li:nth-of-type(1) a';
-    public static $ManageMeasuresTab            = '.tabs>ul>li:nth-of-type(2) a';
-    public static $DefineTotalMeasuresNeededTab = '.tabs>ul>li:nth-of-type(3) a';
-    public static $PointsTab                    = '.tabs>ul>li:nth-of-type(4) a';
+    public static $VersionHistoryTab            = '.right-column-checklist>div>div.tabs>ul>li:nth-of-type(1) a';
+    public static $ManageMeasuresTab            = '.right-column-checklist>div>div.tabs>ul>li:nth-of-type(2) a';
+    public static $DefineTotalMeasuresNeededTab = '.right-column-checklist>div>div.tabs>ul>li:nth-of-type(3) a';
+    public static $PointsTab                    = '.right-column-checklist>div>div.tabs>ul>li:last-of-type a';
+    
+    public static $OnlyViewModeAlert = '.title-block+div.alert';
+    const OnlyViewModeMessage        = "Tier is available in view mode only, because checklist is in use. Please clone the checklist to create a draft version.";
     
     //-----Version History Tab-----
+    public static $VersionRow           = 'table[class*=version-history] tbody>tr';
+    public static $SummaryCount         = '.summary>b:last-of-type';
+    
     public static $IdLinkHead_VersionHistoryTab                = '.version-history tr>th:nth-last-of-type(5) a';
     public static $StatusHead_VersionHistoryTab                = '.version-history tr>th:nth-last-of-type(4)';
     public static $UpdatedLinkHead_VersionHistoryTab           = '.version-history tr>th:nth-last-of-type(3) a';
@@ -27,6 +37,8 @@ class ChecklistManage extends \AcceptanceTester
     public static function EditButtonLine_VersionHistoryTab($row)     { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Edit']";}
     public static function CloneButtonLine_VersionHistoryTab($row)    { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Clone']";}
     public static function PublishButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Publish']";}
+    public static function UnPublishButtonLine_VersionHistoryTab($row){ return "//table[@class='version-history define setup']//tr[$row]//a[text()='UnPublish']";}
+    public static function ArchiveButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Archive']";}
     
     //-----Manage Measure Tab-----
     public static $SaveButton                                      = '.btn-green-lite.send-form';
@@ -50,42 +62,88 @@ class ChecklistManage extends \AcceptanceTester
     
     public static $ChangeTierButton_ManageMeasureTab               = '.btn-green-outline';
     
+    public static $Filter_ByExtensionSelect                        = "#filter-measure_extensions";
+    public static $Filter_ByStatusSelect                           = "#filter-type";
+    public static $Filter_ByQuantitativeSelect                     = "#filter-is_quantitative";
+    public static $Filter_ByAuditGroupSelect                       = "#filter-audit_group_id";
+    public static $Filter_ByAuditSubgroupSelect                    = "#filter-audit_subgroup_id";
+    
+    public static $Search_ByKeywordField                           = "#filter-keyword";
+    public static $Search_ByNumberField                            = "#filter-measure_id";
+     
     public static $IncludedMeasuresForm                            = '#number-of-included-measures';
     public static $IncludedMeasuresForm_Title                      = '.green-title';
     public static $IncludedMeasuresForm_CoreTitle                  = '.included-measures>fieldset:first-of-type legend';
     public static $IncludedMeasuresForm_DefaultCoreValue           = '.core-measures-req>p:nth-of-type(1) span';
     public static $IncludedMeasuresForm_LBCoreValue                = '.core-measures-req>p:nth-of-type(2) span';
     public static $IncludedMeasuresForm_LLCoreValue                = '.core-measures-req>p:nth-of-type(3) span';
-//    public static $IncludedMeasuresForm_LB_LLCoreValue             = '.core-measures-req>p:nth-of-type(4) span';
+    public static $IncludedMeasuresForm_LB_LLCoreValue             = '.core-measures-req>p:nth-of-type(4) span';
     public static $IncludedMeasuresForm_TotalCoreRequiredValue     = '.core-measures-req>p:nth-of-type(4) span';
     
     public static $IncludedMeasuresForm_DefaultCoreLabel           = '.core-measures-req>p:nth-of-type(1) small';
     public static $IncludedMeasuresForm_LBCoreLabel                = '.core-measures-req>p:nth-of-type(2) small';
     public static $IncludedMeasuresForm_LLCoreLabel                = '.core-measures-req>p:nth-of-type(3) small';
+    public static $IncludedMeasuresForm_LB_LLCoreLabel             = '.core-measures-req>p:nth-of-type(4) small';
     public static $IncludedMeasuresForm_TotalCoreRequiredLabel     = '.core-measures-req>p:nth-of-type(4)';
     
-    public static $IncludedMeasuresForm_ElectiveTitle              = '.included-measures>fieldset:nth-of-type(2) legend';
-    public static $IncludedMeasuresForm_DefaultElectiveValue       = '.elective-measures-req>p:nth-of-type(1) span';
-    public static $IncludedMeasuresForm_LBElectiveValue            = '.elective-measures-req>p:nth-of-type(2) span';
-    public static $IncludedMeasuresForm_LLElectiveValue            = '.elective-measures-req>p:nth-of-type(3) span';
-//    public static $IncludedMeasuresForm_LB_LLElectiveValue         = '.elective-measures-req>p:nth-of-type(4) span';
-    public static $IncludedMeasuresForm_TotalElectiveValue         = '.elective-measures-req>p:nth-of-type(4) span';
-    public static $IncludedMeasuresForm_TotalElectiveRequiredValue = '.elective-measures-req>p:nth-of-type(5) span';
-    public static $IncludedMeasuresForm_TotalValue                 = '.total-req-measures span';
+    public static $IncludedMeasuresForm_ElectiveTitle                = '#included-measures .included-measures>fieldset:nth-of-type(2) legend';
+    public static $IncludedMeasuresForm_DefaultElectiveValue         = '#included-measures .elective-measures-req>p:nth-of-type(1) span';
+    public static $IncludedMeasuresForm_LBElectiveValue              = '#included-measures .elective-measures-req>p:nth-of-type(2) span';
+    public static $IncludedMeasuresForm_LLElectiveValue              = '#included-measures .elective-measures-req>p:nth-of-type(3) span';
+    public static $IncludedMeasuresForm_LB_LLElectiveValue           = '#included-measures .elective-measures-req>p:nth-of-type(4) span';
+    public static $IncludedMeasuresForm_TotalElectiveValue           = '.elective-measures-req>p:nth-of-type(4) span';
+    public static $IncludedMeasuresForm_DefaultElectiveRequiredValue = '#elective-required .elective-measures-req>p:nth-of-type(1) span';
+    public static $IncludedMeasuresForm_LBElectiveRequiredValue      = '#elective-required .elective-measures-req>p:nth-of-type(2) span';
+    public static $IncludedMeasuresForm_LLElectiveRequiredValue      = '#elective-required .elective-measures-req>p:nth-of-type(3) span';
+    public static $IncludedMeasuresForm_LB_LLElectiveRequiredValue   = '#elective-required .elective-measures-req>p:nth-of-type(4) span';
+    public static $IncludedMeasuresForm_TotalValue                   = '.total-req-measures span';
     
-    public static $IncludedMeasuresForm_DefaultElectiveLabel       = '.elective-measures-req>p:nth-of-type(1) small';
-    public static $IncludedMeasuresForm_LBElectiveLabel            = '.elective-measures-req>p:nth-of-type(2) small';
-    public static $IncludedMeasuresForm_LLElectiveLabel            = '.elective-measures-req>p:nth-of-type(3) small';
-    public static $IncludedMeasuresForm_TotalElectiveLabel         = '.elective-measures-req>p:nth-of-type(4)';
-    public static $IncludedMeasuresForm_TotalElectiveRequiredLabel = '.elective-measures-req>p:nth-of-type(5)';
-    public static $IncludedMeasuresForm_TotalLabel                 = '.total-req-measures p';
+    public static $IncludedMeasuresForm_DefaultElectiveLabel         = '#included-measures .elective-measures-req>p:nth-of-type(1) small';
+    public static $IncludedMeasuresForm_LBElectiveLabel              = '#included-measures .elective-measures-req>p:nth-of-type(2) small';
+    public static $IncludedMeasuresForm_LLElectiveLabel              = '#included-measures .elective-measures-req>p:nth-of-type(3) small';
+    public static $IncludedMeasuresForm_LB_LLElectiveLabel           = '#included-measures .elective-measures-req>p:nth-of-type(4) small';
+    public static $IncludedMeasuresForm_TotalElectiveLabel           = '.elective-measures-req>p:nth-of-type(4)';
+    public static $IncludedMeasuresForm_DefaultElectiveRequiredLabel = '#elective-required .elective-measures-req>p:nth-of-type(1)';
+    public static $IncludedMeasuresForm_LBElectiveRequiredLabel      = '#elective-required .elective-measures-req>p:nth-of-type(2)';
+    public static $IncludedMeasuresForm_LLElectiveRequiredLabel      = '#elective-required .elective-measures-req>p:nth-of-type(3)';
+    public static $IncludedMeasuresForm_LB_LLElectiveRequiredLabel   = '#elective-required .elective-measures-req>p:nth-of-type(4)';
+    public static $IncludedMeasuresForm_TotalLabel                   = '.total-req-measures p';
     
-    public static $ConfirmPopup             = '.sweet-alert.visible';
-    public static $ConfirmPopup_Title       = '.sweet-alert.visible h2';
-    public static $ConfirmPopup_OkButton    = '.sweet-alert.visible button.confirm';
-    public static $ConfirmPopup_SuccessIcon = '.sweet-alert.visible .sa-success.animate';
+    //Weighted state
+    public static $IncludedPointsForm_Title                      = '.green-title';
+    public static $IncludedPointsForm_CoreTitle                  = '#included-measures-weighted .included-measures>fieldset:first-of-type legend';
+    public static $IncludedPointsForm_DefaultCoreValue           = '#included-measures-weighted .core-measures-req>p:nth-of-type(1) span';
+    public static $IncludedPointsForm_LBCoreValue                = '#included-measures-weighted .core-measures-req>p:nth-of-type(2) span';
+    public static $IncludedPointsForm_LLCoreValue                = '#included-measures-weighted .core-measures-req>p:nth-of-type(3) span';
+    public static $IncludedPointsForm_LB_LLCoreValue             = '#included-measures-weighted .core-measures-req>p:nth-of-type(4) span';
+    
+    public static $IncludedPointsForm_DefaultCoreLabel           = '#included-measures-weighted .core-measures-req>p:nth-of-type(1) small';
+    public static $IncludedPointsForm_LBCoreLabel                = '#included-measures-weighted .core-measures-req>p:nth-of-type(2) small';
+    public static $IncludedPointsForm_LLCoreLabel                = '#included-measures-weighted .core-measures-req>p:nth-of-type(3) small';
+    public static $IncludedPointsForm_LB_LLCoreLabel             = '#included-measures-weighted .core-measures-req>p:nth-of-type(4) small';
+    
+    public static $IncludedPointsForm_ElectiveTitle                = '#included-measures-weighted .included-measures>fieldset:nth-of-type(2) legend';
+    public static $IncludedPointsForm_DefaultElectiveValue         = '#included-measures-weighted .elective-measures-req>p:nth-of-type(1) span';
+    public static $IncludedPointsForm_LBElectiveValue              = '#included-measures-weighted .elective-measures-req>p:nth-of-type(2) span';
+    public static $IncludedPointsForm_LLElectiveValue              = '#included-measures-weighted .elective-measures-req>p:nth-of-type(3) span';
+    public static $IncludedPointsForm_LB_LLElectiveValue           = '#included-measures-weighted .elective-measures-req>p:nth-of-type(4) span';
+    
+    public static $IncludedPointsForm_DefaultElectiveLabel         = '#included-measures-weighted .elective-measures-req>p:nth-of-type(1) small';
+    public static $IncludedPointsForm_LBElectiveLabel              = '#included-measures-weighted .elective-measures-req>p:nth-of-type(2) small';
+    public static $IncludedPointsForm_LLElectiveLabel              = '#included-measures-weighted .elective-measures-req>p:nth-of-type(3) small';
+    public static $IncludedPointsForm_LB_LLElectiveLabel           = '#included-measures-weighted .elective-measures-req>p:nth-of-type(4) small';
+    
+    public static $ConfirmPopup                                    = '.sweet-alert.visible';
+    public static $ConfirmPopup_Title                              = '.sweet-alert.visible h2';
+    public static $ConfirmPopup_OkButton                           = '.sweet-alert.visible button.confirm';
+    public static $ConfirmPopup_SuccessIcon                        = '.sweet-alert.visible .sa-success.animate';
     
     //-----Define Total Measures Needed Tab-----
+    public static $DefaultTab_DefineTotalTab                       = '.tabs .tabs>ul>li:nth-of-type(1) a';
+    public static $LBTab_DefineTotalTab                            = '.tabs .tabs>ul>li:nth-of-type(2) a';
+    public static $LLTab_DefineTotalTab                            = '.tabs .tabs>ul>li:nth-of-type(3) a';
+    public static $LB_LLTab_DefineTotalTab                         = '.tabs .tabs>ul>li:nth-of-type(4) a';
+    
     public static $FilterMenu_EnergyGroupButton                    = "//ul[@class='filter-menu']/li/a[text()='Energy']";
     public static $FilterMenu_GeneralGroupButton                   = "//ul[@class='filter-menu']/li/a[text()='General']";
     public static $FilterMenu_PollutionPreventionGroupButton       = "//ul[@class='filter-menu']/li/a[text()='Pollution Prevention']";
@@ -94,7 +152,7 @@ class ChecklistManage extends \AcceptanceTester
     public static $FilterMenu_WastewaterGroupButton                = "//ul[@class='filter-menu']/li/a[text()='Wastewater']";
     public static $FilterMenu_Water                                = "//ul[@class='filter-menu']/li/a[text()='Water']";
     
-    public static $GroupTableTitle_DefineTotalTab                    = '.title-row';
+    public static $GroupTableTitle_DefineTotalTab                    = '.title-row p';
     
     public static $SubgroupsHead_DefineTotalTab                      = '.table-striped tr>th:nth-of-type(1)';
     public static $RequiredMeasuresHead_DefineTotalTab               = '.table-striped tr>th:nth-of-type(2)';
@@ -102,14 +160,17 @@ class ChecklistManage extends \AcceptanceTester
     public static $CountOfOptionalEnabledMeasuresHead_DefineTotalTab = '.table-striped tr>th:nth-of-type(4)';
     public static $TotalMeasuresMustCompleteHead_DefineTotalTab      = '.table-striped tr>th:nth-of-type(5)';
     
+    public static $SubgroupRow_DefineTotalTab                        = '.table-striped tbody>tr';
+    
     public static function SubgroupLine_DefineTotalTab($subgroup)                             { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[1]";}
-    public static function RequiredMeasuresLine_DefineTotalTab($subgroup)                     { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[2]/span";}
-    public static function TotalOptionalLine_DefineTotalTab($subgroup)                        { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[3]/span";}
-    public static function CountOfOptionalEnabledMeasuresFieldLine_DefineTotalTab($subgroup)  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[4]//input";}
+    public static function CoreMeasuresLine_DefineTotalTab($subgroup)                         { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[2]/span";}
+    public static function TotalElectiveLine_DefineTotalTab($subgroup)                        { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[3]/span";}
+    public static function CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($subgroup)  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[4]//input";}
     public static function TotalMeasuresMustCompleteLine_DefineTotalTab($subgroup)            { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[5]/span";}
     //-----Points Tab-----
-    public static $RequiredPointsField                      = '#checklist-complete_points';
-    public static $RequiredPointsLabel                      = '[for=checklist-complete_points]';
+    public static $RequiredPointsField                      = '#relcompletepointstochecklist-points';
+    public static $RequiredPointsLabel                      = '[for=relcompletepointstochecklist-points]';
+    public static $Error_RequiredPoints                     = '#relcompletepointstochecklist-points+.help-block';
 
 
 }
