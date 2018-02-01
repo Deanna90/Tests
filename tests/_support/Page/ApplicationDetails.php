@@ -63,6 +63,15 @@ class ApplicationDetails extends \AcceptanceTester
     public static $AddDetailsButton_ComplianceCheck_BusinessInfoTab = 'a#popup_link_1';
     public static $AddDetailsButton_Audits_BusinessInfoTab          = 'a#popup_link_2';
     
+    public static function Category_BusinessInfoTab($row)            { $a = 3*$row+1; return "div.coordinator-audit-status>div:nth-of-type($a)>div";}
+    public static function CategoryStatus_BusinessInfoTab($row)      { $a = 3*$row+2; return "div.coordinator-audit-status>div:nth-of-type($a)>div>span";}
+    public static function CategoryAuditStatus_BusinessInfoTab($row) { $a = 3*$row+3; return "div.coordinator-audit-status>div:nth-of-type($a)>div>span";}
+    public static $CategoryRow_BusinessInfoTab                      = "div.coordinator-audit-status .audit-sub-head";
+    
+    const Grey_ProgressStatus                   = '.circle-little.not-started';
+    const Yellow_ProgressStatus                 = '.circle-little.in-progress';
+    const Green_ProgressStatus                  = '.circle-little.complete';
+    
     //----Statuses in tier tab----
     const InProcessStatus_TierTab               = 'In Process';
     const NotReadyStatus_TierTab                = 'Not Ready';
@@ -72,6 +81,8 @@ class ApplicationDetails extends \AcceptanceTester
     const NotApplicableStatus_TierTab           = 'Not Applicable';
     const ApplicantActionRequiredStatus_TierTab = 'Applicant Action Required';
     const PendingStatus_TierTab                 = 'Pending';
+    
+    public static $GeneralProgramNotesField_BusinessInfoTab     = "[name='Application[notes]']";
     
     //--------------------------Compliance Check Popup--------------------------
     public static $ComplianceCheckPopup                    = '.modal.in';

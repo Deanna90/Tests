@@ -41,8 +41,9 @@ class ChecklistManage extends \AcceptanceTester
     public static function ArchiveButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Archive']";}
     
     //-----Manage Measure Tab-----
-    public static $SaveButton                                      = '.btn-green-lite.send-form';
+    public static $SaveButton                                      = '.btn-green-lite.send-form[data-form=manage-checklist]';
     public static $PreviewButton                                   = '.btn-green-lite.ajax';
+    public static $PrintButton                                     = '.btn-green-lite.no-ajax';
     public static $MeasureRow                                      = '.version-history.manage tr>td:first-of-type>p';
     
     public static $GroupTableTitle_ManageMeasureTab                = '.group-table';
@@ -137,6 +138,16 @@ class ChecklistManage extends \AcceptanceTester
     public static $ConfirmPopup_Title                              = '.sweet-alert.visible h2';
     public static $ConfirmPopup_OkButton                           = '.sweet-alert.visible button.confirm';
     public static $ConfirmPopup_SuccessIcon                        = '.sweet-alert.visible .sa-success.animate';
+    
+    //Print Checklist Popup
+    public static $PrintChecklistPopup                                    = '.modal.in';
+    public static $PrintChecklistPopup_Title                              = '.modal.in h2';
+    public static $PrintChecklistPopup_BusinessSquireField                = '.modal.in #bsf';
+    public static $PrintChecklistPopup_LandscapeSquireField               = '.modal.in #lsf';
+    public static $PrintChecklistPopup_BusinessSquireLabel                = '.modal.in button.confirm';
+    public static $PrintChecklistPopup_LandscapeSquireLabel               = '.modal.in button.confirm';
+    public static $PrintChecklistPopup_GetButton                          = '.modal.in button[type=submit]';
+    public static $PrintChecklistPopup_CloseButton                        = '.modal.in .close';
     
     //-----Define Total Measures Needed Tab-----
     public static $DefaultTab_DefineTotalTab                       = '.tabs .tabs>ul>li:nth-of-type(1) a';

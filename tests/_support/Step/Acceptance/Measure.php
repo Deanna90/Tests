@@ -20,12 +20,14 @@ class Measure extends \AcceptanceTester
         $I = $this;
         $I->wait(1);
         $I->amOnPage(\Page\MeasureCreate::URL());
-        $I->wait(4);
+        $I->wait(5);
         $I->waitForElement(\Page\MeasureCreate::$DescriptionField);
         if (isset($desc)){
             $I->fillField(\Page\MeasureCreate::$DescriptionField, $desc);
         }
         if (isset($auditGroup)){
+            $I->click(\Page\MeasureCreate::$AuditGroupSelect);
+            $I->wait(3);
             $I->selectOption(\Page\MeasureCreate::$AuditGroupSelect, $auditGroup);
         }
         if (isset($auditSubgroup)){
@@ -33,12 +35,12 @@ class Measure extends \AcceptanceTester
             $I->click(\Page\MeasureCreate::$AuditSubgroupSelect);
             $I->wait(4);
             $I->selectOption(\Page\MeasureCreate::$AuditSubgroupSelect, $auditSubgroup);
-            $I->wait(4);
+            $I->wait(6);
         }
         switch ($quantitative){
             case 'yes':
                 $I->click(\Page\MeasureCreate::$IsQuantitativeToggleButton);
-                $I->wait(7);
+                $I->wait(11);
 //                $I->waitForElement(\Page\MeasureCreate::$SubmeasureTypeSelect, 60);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
@@ -46,7 +48,7 @@ class Measure extends \AcceptanceTester
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
-                                $I->wait(4);
+                                $I->wait(6);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->scrollTo(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
@@ -83,7 +85,7 @@ class Measure extends \AcceptanceTester
                             break;
                         case 'Number':
                             if (isset($questions)){
-                                $I->wait(4);
+                                $I->wait(6);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->scrollTo(\Page\MeasureCreate::$AddAnswerButton_Number);
@@ -119,14 +121,14 @@ class Measure extends \AcceptanceTester
                 break;
             case 'no':
                 $I->click(\Page\MeasureCreate::$HaveMultipleAnswersToggleButton);
-                $I->wait(5);
+                $I->wait(11);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(3);
+                    $I->wait(7);
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
-                                $I->wait(4);
+                                $I->wait(6);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->scrollTo(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
@@ -153,7 +155,7 @@ class Measure extends \AcceptanceTester
                             break;
                         case 'Multiple question':
                             if (isset($questions)){
-                                $I->wait(4);
+                                $I->wait(6);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->scrollTo(\Page\MeasureCreate::$AddAnswerButton_MultipleAnswers);

@@ -23,7 +23,8 @@ class ReviewAndSubmit extends \AcceptanceTester
     public static function Review_ElectiveLine_ByName($name)    { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[3]";}
     public static function Review_StatusLine_ByName($name)      { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$name')]/td[4]/span";}
     //For Weighted State
-    public static function Review_PointsLine_ByGroupName($groupName)  { return "//*[@class='registration-table']//tr[contains(td/text(), '$groupName')]/td[3]";}
+    public static function Review_PointsLine_ByGroupName($groupName)                  { return "//*[@class='registration-table']//tr[contains(td/text(), '$groupName')]/td[3]";}
+    public static function Review_StatusInPointsColumnLine_ByGroupName($subgroupName) { return "//*[@class='registration-table']//tr[contains(td/a/text(), '$subgroupName')]/td[3]/span";}
     
     public static $TotalPointsInfo_ProgressBar       = '.registration-table>thead>tr:nth-of-type(3)>th:nth-of-type(3) p>span';
     public static $TotalPoints_ProgressBar           = '.registration-table>thead>tr:nth-of-type(3)>th:nth-of-type(3) .progress-bar';
@@ -35,6 +36,7 @@ class ReviewAndSubmit extends \AcceptanceTester
     const InProgressStatus     = "[@title='In-progress']";
     const NotStartedStatus     = "[@title='Not-started']";
     const ActionRequiredStatus = "[@title='Not-started']";
+    const HelpStatus           = "[@title='Fa fa-question red-flags']";
     
     //Tier Progress Block
     public static $TierProgress_Title                                = '.review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) .row>div:first-of-type p';

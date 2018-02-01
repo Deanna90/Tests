@@ -73,9 +73,9 @@ class EssentialCriteria extends \AcceptanceTester
         $I->wait(3);
         $I->waitForElement(\Page\EssentialCriteriaManage::$VersionHistoryTab);
         $I->click(\Page\EssentialCriteriaManage::$VersionHistoryTab);
-        $I->wait(1);
+        $I->wait(3);
         $I->click(\Page\EssentialCriteriaManage::PublishButtonLine_VersionHistoryTab($row));
-        $I->wait(1);        
+        $I->wait(2);        
         $I->canSee('Published', \Page\EssentialCriteriaManage::$StatusTitle);
     }
     

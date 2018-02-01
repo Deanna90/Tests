@@ -21,16 +21,17 @@ class ChecklistMeasureExtensionCest
     public $measure11Desc, $idMeasure11;
     public $measure12Desc, $idMeasure12;
     public $measuresDesc_SuccessCreated = [];
-    public $city1, $zip1, $program1;
+    public $city1, $zip1, $program1, $county;
     public $statuses    = ['core', 'elective', 'not set', 'core', 'elective', 'not set', 'core', 'elective', 'not set'];
     public $statuses2   = ['core', 'core', 'core', 'elective', 'core', 'elective', 'core', 'not set', 'core'];
     public $extensions  = ['Default', 'Default', 'Default', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
     public $extensions2 = ['Default', 'Large Building', 'Default', 'Large Building', 'Large Building', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
     public $checklistUrl, $id_checklist;
-    public $business1_LB,      $bus1_busSquire_LB      = '30000', $bus1_landSquire_LB      = '999';
-    public $business2_LL,      $bus2_busSquire_LL      = '29999', $bus2_landSquire_LL      = '1000';
-    public $business3_LB_LL,   $bus3_busSquire_LB_LL   = '30001', $bus3_landSquire_LB_LL   = '1001'; 
-    public $business4_Default, $bus4_busSquire_Default = '17500', $bus4_landSquire_Default = '500';
+    public $business_NAanswers, $bus_busSquire_NAanswers  = '45678', $bus_landSquire_NAanswers = '5666';
+    public $business1_LB,       $bus1_busSquire_LB        = '30000', $bus1_landSquire_LB       = '999';
+    public $business2_LL,       $bus2_busSquire_LL        = '29999', $bus2_landSquire_LL       = '1000';
+    public $business3_LB_LL,    $bus3_busSquire_LB_LL     = '30001', $bus3_landSquire_LB_LL    = '1001'; 
+    public $business4_Default,  $bus4_busSquire_Default   = '17500', $bus4_landSquire_Default  = '500';
     
     /**
      * @group admin
@@ -38,7 +39,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help2_1_LoginAsNationalAdmin(AcceptanceTester $I)
+    public function Help_LoginAsNationalAdmin(AcceptanceTester $I)
     {
         $I->LoginAsAdmin($I);
     }
@@ -49,7 +50,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help2_2_CreateState(Step\Acceptance\State $I)
+    public function Help_CreateState(Step\Acceptance\State $I)
     {
         $name = $this->state = $I->GenerateNameOf("StMeasExtens");
         $shortName = 'ME';
@@ -63,7 +64,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help2_3_SelectDefaultState(AcceptanceTester $I)
+    public function Help_SelectDefaultState(AcceptanceTester $I)
     {
         $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
@@ -75,7 +76,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help2_4_CreateAuditSubGroupForEnergyGroup(\Step\Acceptance\AuditSubGroup $I)
+    public function Help_CreateAuditSubGroupForEnergyGroup(\Step\Acceptance\AuditSubGroup $I)
     {
         $name      = $this->audSubgroup1_Energy = $I->GenerateNameOf("EnAudSub1");
         $auditGroup = Page\AuditGroupList::Energy_AuditGroup;
@@ -94,7 +95,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help2_4_CreateAuditSubGroupsForSolidWasteGroup(\Step\Acceptance\AuditSubGroup $I)
+    public function Help_CreateAuditSubGroupsForSolidWasteGroup(\Step\Acceptance\AuditSubGroup $I)
     {
         $name       = $this->audSubgroup1_SolidWaste = $I->GenerateNameOf("SolWasAudSub1");
         $auditGroup = Page\AuditGroupList::SolidWaste_AuditGroup;
@@ -113,7 +114,7 @@ class ChecklistMeasureExtensionCest
      * @group stateadmin
      */
     
-    public function NationalAdmin1_6_CreateStateAdmin_ForCreatedState(\Step\Acceptance\User $I)
+    public function CreateStateAdmin_ForCreatedState(\Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::stateAdminType;
         $email     = $this->emailStateAdmin = $I->GenerateEmail();
@@ -140,7 +141,7 @@ class ChecklistMeasureExtensionCest
      * @group stateadmin
      */
     
-    public function StateAdmin2_LogOut_And_LogInAsStateAdmin(AcceptanceTester $I)
+    public function LogOut_And_LogInAsStateAdmin(AcceptanceTester $I)
     {
         $I->Logout($I);
         $I->wait(1);
@@ -154,7 +155,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure1_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure1_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure1Desc = $I->GenerateNameOf("Description_1_");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -176,7 +177,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure2_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure2_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure2Desc = $I->GenerateNameOf("Description_2_");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -198,7 +199,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure3_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure3_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure3Desc = $I->GenerateNameOf("Description_3_");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -220,7 +221,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure4_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure4_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure4Desc = $I->GenerateNameOf("Description_4_");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -242,7 +243,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure5_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure5_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure5Desc = $I->GenerateNameOf("Description_5_");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -264,7 +265,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure6_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure6_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure6Desc = $I->GenerateNameOf("Description_6_");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -286,7 +287,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure7_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure7_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure7Desc = $I->GenerateNameOf("Description_7_");
         $auditGroup     = \Page\AuditGroupList::SolidWaste_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_SolidWaste;
@@ -308,7 +309,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure8_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure8_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure8Desc = $I->GenerateNameOf("Description_8_");
         $auditGroup     = \Page\AuditGroupList::SolidWaste_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_SolidWaste;
@@ -330,7 +331,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_7_CreateMeasure9_Number_Quant(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure9_Number_Quant(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure9Desc = $I->GenerateNameOf("Description_9_");
         $auditGroup     = \Page\AuditGroupList::SolidWaste_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_SolidWaste;
@@ -346,20 +347,35 @@ class ChecklistMeasureExtensionCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
+    //-------------------------------Create county------------------------------
+    
     /**
      * @group admin
      * @group stateadmin
      * @group coordinator
      */
     
-    public function Help1_6_3_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+    public function CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
         $city    = $this->city1 = $I->GenerateNameOf("CityME1");
         $cityArr = [$city];
         $state   = $this->state;
         $zips    = $this->zip1 = $I->GenerateZipCode();
         $program = $this->program1 = $I->GenerateNameOf("ProgME1");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
@@ -369,7 +385,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function CreateCoordinatorUserWithoutShowInfo_ForProgram2(Step\Acceptance\User $I)
+    public function CreateCoordinatorUser_ForProgram2(Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::coordinatorType;
         $email     = $this->emailCoordinator = $I->GenerateEmail();
@@ -887,7 +903,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_15_Create_Checklist3_ForTier2(\Step\Acceptance\Checklist $I) {
+    public function Help_Create_Checklist3_ForTier2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programDestination = $this->program1;
         $sectorDestination  = 'Office / Retail';
@@ -917,7 +933,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_15_1_CheckLeftColumnAndDefineTotals_OnManageChecklist_BeforeDefineTotalUpdate(AcceptanceTester $I) {
+    public function CheckLeftColumnAndDefineTotals_OnManageChecklist_BeforeDefineTotalUpdate(AcceptanceTester $I) {
         $I->amOnPage($this->checklistUrl);
         $I->wait(2);
         
@@ -1394,7 +1410,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_15_1_CheckDefaultMeasures_Present_Default_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
+    public function CheckDefaultMeasures_Present_Default_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
         $I->wait(3);
         $I->canSee("0 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
@@ -1411,7 +1427,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */ 
     
-    public function MeasExtension1_15_1_CheckDefaultMeasures_Absent_LB_LL_LBAndLL_NotSet_OnChecklistPreview(AcceptanceTester $I) {
+    public function CheckDefaultMeasures_Absent_LB_LL_LBAndLL_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
         $I->wait(3);
         $I->cantSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure3Desc));
@@ -1429,7 +1445,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_15_1_CheckLBMeasures_Present_Default_LB_LbAndLL_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
+    public function CheckLBMeasures_Present_Default_LB_LbAndLL_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
         $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
@@ -1452,8 +1468,6 @@ class ChecklistMeasureExtensionCest
         $I->canSee("Complete at least 1 of the 1 Measures", \Page\ChecklistPreview::$InfoAboutCountToCompleteElectiveMeasures);
         $I->canSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure7Desc));
         $I->canSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure8Desc));
-//        $I->canSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure10Desc));
-//        $I->canSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure11Desc));
     }
     
     /**
@@ -1462,7 +1476,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_15_1_CheckLBMeasures_Absent_LL_NotSet_OnChecklistPreview(AcceptanceTester $I) {
+    public function CheckLBMeasures_Absent_LL_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
         $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
@@ -1476,7 +1490,6 @@ class ChecklistMeasureExtensionCest
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_SolidWaste));
         $I->wait(3);
         $I->cantSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure9Desc));
-//        $I->cantSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure12Desc));
     }
     
     //--------------------------------------------------------------------------LL Extension On Checklist Preview------------------------------------------------------------
@@ -1487,7 +1500,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_15_1_CheckLLMeasures_Present_Default_LL_LbAndLL_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
+    public function CheckLLMeasures_Present_Default_LL_LbAndLL_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
         $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
@@ -1511,7 +1524,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_15_1_CheckLLMeasures_Absent_LB_NotSet_OnChecklistPreview(AcceptanceTester $I) {
+    public function CheckLLMeasures_Absent_LB_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
         $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
@@ -1529,7 +1542,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_15_1_CheckLBAndLLMeasures_Present_AllCoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
+    public function CheckLBAndLLMeasures_Present_AllCoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
         $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
@@ -1562,7 +1575,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_15_1_CheckLBAndLLMeasures_Absent_AllNotSet_OnChecklistPreview(AcceptanceTester $I) {
+    public function CheckLBAndLLMeasures_Absent_AllNotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
         $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
@@ -1584,14 +1597,14 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_16_LogOut(AcceptanceTester $I) {
+    public function Help_LogOut(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(1);
         $I->Logout($I);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------LB business register--------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------Business registration for check N/A answers---------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     /**
@@ -1600,7 +1613,269 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_LargeBusiness_Register(Step\Acceptance\Business $I)
+    public function BusinessRegistration_Check_NA_answers(Step\Acceptance\Business $I)
+    {
+        $firstName        = $I->GenerateNameOf("firnam");
+        $lastName         = $I->GenerateNameOf("lasnam");
+        $phoneNumber      = $I->GeneratePhoneNumber();
+        $email            = $I->GenerateEmail();
+        $password         = $confirmPassword = 'Qq!1111111';
+        $busName          = $this->business_NAanswers = $I->GenerateNameOf("bus_NA");
+        $busPhone         = $I->GeneratePhoneNumber();
+        $address          = $I->GenerateNameOf("addr");
+        $zip              = $this->zip1;
+        $city             = $this->city1;
+        $website          = 'fgfh.fh';
+        $busType          = 'Office / Retail';
+        $employees        = '455';
+        $busFootage       = $this->bus_busSquire_NAanswers;
+        $landscapeFootage = $this->bus_landSquire_NAanswers;
+        
+        $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
+                $employees, $busFootage, $landscapeFootage);
+        $I->wait(9);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NA_CompleteMeasure1_Yes_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure1Desc;
+        $value1   = '10';
+        $value2   = '20';
+                
+        $I->wait(1);
+        $I->comment("Complete Measure1 for NA business: $this->business_NAanswers");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+        $I->wait(2);
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 25%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$ElectiveCompletedProgressBar, ['style' => 'width: 0%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 25%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 34%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 0%;']);
+        $I->canSee("1 of 2 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
+        $I->canSee("0 of 1 required measures completed", \Page\RegistrationStarted::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 1 of the 2 Measures", \Page\RegistrationStarted::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("1 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NA_CompleteMeasure8_NA_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure8Desc;
+                
+        $I->wait(1);
+        $I->comment("Complete Measure8 for NA business: $this->business_NAanswers");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
+        $I->wait(2);
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure8']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'na');
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
+        $I->assertEquals('true', $readonly);
+        $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 25%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$ElectiveCompletedProgressBar, ['style' => 'width: 0%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 25%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 34%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 0%;']);
+        $I->canSee("0 of 1 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 0 of the 1 Measures", \Page\RegistrationStarted::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("1 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NA_CompleteMeasure7_NA_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure7Desc;
+                
+        $I->wait(1);
+        $I->comment("Complete Measure7 for NA business: $this->business_NAanswers");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
+        $I->wait(2);
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure7]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure7']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'na');
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
+        $I->assertEquals('true', $readonly);
+        $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), 'readonly');
+        $I->assertEquals('true', $readonly);
+        $I->canSee("2 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$ElectiveCompletedProgressBar, ['style' => 'width: 0%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 34%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 0 of the 1 Measures", \Page\RegistrationStarted::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("2 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NA_CompleteMeasure5_Yes_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure5Desc;
+        $value1   = '11';
+                
+        $I->wait(1);
+        $I->comment("Complete Measure5 for NA business: $this->business_NAanswers");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+        $I->wait(2);
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $I->canSee("3 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 75%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$ElectiveCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 75%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 67%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSee("1 of 2 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 1 of the 2 Measures", \Page\RegistrationStarted::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("3 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
+        
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NA_CompleteMeasure4_NA_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure4Desc;
+                
+        $I->wait(1);
+        $I->comment("Complete Measure4 for NA business: $this->business_NAanswers");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+        $I->wait(2);
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'na');
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
+        $I->assertEquals('true', $readonly);
+        $I->canSee("4 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$ElectiveCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 1 of the 2 Measures", \Page\RegistrationStarted::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("4 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckOnReviewPage_AfterComplitingMeasures_NA(AcceptanceTester $I) {
+        $I->wait(1);
+        $I->comment("After Compliting Measures - Check on Review Page - NA LB&LL");
+        $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
+        $I->wait(2);
+        $I->canSee("4 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
+        $I->canSee("2 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSee("1 /0", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::CompleteStatus);
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_LogOutFromBusinessNA(AcceptanceTester $I){
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->wait(1);
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------LB business registration----------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function LargeBusiness_Business1Registration(Step\Acceptance\Business $I)
     {
         $firstName        = $I->GenerateNameOf("firnam");
         $lastName         = $I->GenerateNameOf("lasnam");
@@ -1629,7 +1904,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_1_CheckMeasuresPresent_LB_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
+    public function CheckMeasuresPresent_LB_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LB, LB&LL, Default measures with core&elective status are present in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
@@ -1672,7 +1947,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_1_CheckMeasuresAbsent_LL_NotSet(AcceptanceTester $I) {
+    public function CheckMeasuresAbsent_LL_NotSet(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LL measures and measures with not set status are absent in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
@@ -1812,14 +2087,14 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_18_LogOutFromBusiness1(AcceptanceTester $I){
+    public function Help_LogOutFromBusiness1(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->wait(1);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------LL business register--------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------LL business registration----------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     /**
@@ -1828,7 +2103,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_LargeLandscape_Register(Step\Acceptance\Business $I)
+    public function LargeLandscape_Business2Registration(Step\Acceptance\Business $I)
     {
         $firstName        = $I->GenerateNameOf("firnam");
         $lastName         = $I->GenerateNameOf("lasnam");
@@ -1857,7 +2132,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_1_CheckMeasuresPresent_LL_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
+    public function CheckMeasuresPresent_LL_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LL, LB&LL, Default measures with core&elective status are present in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
@@ -1886,7 +2161,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_1_CheckMeasuresAbsent_LB_NotSet(AcceptanceTester $I) {
+    public function CheckMeasuresAbsent_LB_NotSet(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LB measures and measures with not set status are absent in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
@@ -2017,14 +2292,14 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_18_LogOutFromBusiness2(AcceptanceTester $I){
+    public function Help_LogOutFromBusiness2(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->wait(1);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------LB&LL business register-----------------------------------------------------------------------------
+    //--------------------------------------------------------------------------LB&LL business registration-------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     /**
@@ -2033,7 +2308,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_LargeBusinessAndLargeLandscape_Register(Step\Acceptance\Business $I)
+    public function LargeBusinessAndLargeLandscape_Business3Registration(Step\Acceptance\Business $I)
     {
         $firstName        = $I->GenerateNameOf("firnam");
         $lastName         = $I->GenerateNameOf("lasnam");
@@ -2062,7 +2337,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_1_CheckMeasuresPresent_LL_LB_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
+    public function CheckMeasuresPresent_LL_LB_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LL, LB, LB&LL, Default measures with core&elective status are present in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
@@ -2107,7 +2382,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_1_CheckMeasuresAbsent_NotSet(AcceptanceTester $I) {
+    public function CheckMeasuresAbsent_NotSet(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that measures with not set status are absent in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
@@ -2245,14 +2520,14 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_18_LogOutFromBusiness3(AcceptanceTester $I){
+    public function Help_LogOutFromBusiness3(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->wait(1);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------Default business register---------------------------------------------------------------------------
+    //--------------------------------------------------------------------------Default business registration-----------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     /**
@@ -2261,7 +2536,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_Default_Register(Step\Acceptance\Business $I)
+    public function Default_Business4Registration(Step\Acceptance\Business $I)
     {
         $firstName        = $I->GenerateNameOf("firnam");
         $lastName         = $I->GenerateNameOf("lasnam");
@@ -2290,7 +2565,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_1_CheckMeasuresPresent_Default_CoreAndElective(AcceptanceTester $I) {
+    public function CheckMeasuresPresent_Default_CoreAndElective(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that Default measures with core&elective status are present in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
@@ -2316,7 +2591,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function MeasExtension1_17_1_CheckMeasuresAbsent_LL_LB_LBAndLL_NotSet(AcceptanceTester $I) {
+    public function CheckMeasuresAbsent_LL_LB_LBAndLL_NotSet(AcceptanceTester $I) {
         $I->wait(1);
         $I->comment("Check that LL, LB, LB&LL measures and measures with not set status are absent in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
@@ -2450,7 +2725,7 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function Help1_18_LogOutFromBusiness4(AcceptanceTester $I){
+    public function Help_LogOutFromBusiness4(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->wait(1);
@@ -2466,20 +2741,24 @@ class ChecklistMeasureExtensionCest
     public function CheckBusinessesOnDashboard(AcceptanceTester $I){
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(3);
+        $I->comment("Check business with NA answers:");
+        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_ProgressBar_ByBusName($this->business_NAanswers), ['style' => 'width: 100%;']);
+        $I->canSee("4 / 4 measures completed", \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business_NAanswers));
+        
         $I->comment("Check Default business:");
-        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_PrograssBar_ByBusName($this->business4_Default), ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_ProgressBar_ByBusName($this->business4_Default), ['style' => 'width: 100%;']);
         $I->canSee("2 / 2 measures completed", \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business4_Default));
         
         $I->comment("Check LB business:");
-        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_PrograssBar_ByBusName($this->business1_LB), ['style' => 'width: 66%;']);
+        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_ProgressBar_ByBusName($this->business1_LB), ['style' => 'width: 66%;']);
         $I->canSee("2 / 3 measures completed", \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business1_LB));
         
         $I->comment("Check LL business:");
-        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_PrograssBar_ByBusName($this->business2_LL), ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_ProgressBar_ByBusName($this->business2_LL), ['style' => 'width: 50%;']);
         $I->canSee("2 / 4 measures completed", \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_LL));
         
         $I->comment("Check LB+LL business:");
-        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_PrograssBar_ByBusName($this->business3_LB_LL), ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_ProgressBar_ByBusName($this->business3_LB_LL), ['style' => 'width: 50%;']);
         $I->canSee("2 / 4 measures completed", \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_LB_LL));
     }
 }

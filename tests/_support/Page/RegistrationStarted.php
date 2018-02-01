@@ -32,9 +32,9 @@ class RegistrationStarted
     public static $TotalMeasuresInfo_ProgressBar      = '.row>div:nth-of-type(2).info-block p>span';
     public static $TotalCompletedMeasures_ProgressBar = '.flex-reverse .progress-bar';
     
-    public static $TotalPointsText_RightBlock    = '.text-center>div:nth-of-type(2)>div:first-of-type>p:nth-of-type(1)';
-    public static $TotalPointsCount_RightBlock   = '.text-center>div:nth-of-type(2)>div:first-of-type>p:nth-of-type(2)';
-    public static $TierDescription_RightBlock    = '.text-center>div:nth-of-type(2)>div:last-of-type>p:nth-of-type(1)';
+    public static $TotalPointsText_RightBlock    = '.text-center>div:nth-of-type(1)>p:nth-of-type(1)';
+    public static $TotalPointsCount_RightBlock   = '.text-center>div:nth-of-type(1)>p:nth-of-type(2)';
+    public static $TierDescription_RightBlock    = '.text-center>div:nth-of-type(1)>p:nth-of-type(1)';
     
     public static $GetStartedButton           = '[type=submit][class*=success]';
     public static $HowToUseThisAppButton      = '#checklist-number [selected]';

@@ -19,7 +19,7 @@ class AuditSubGroup extends \AcceptanceTester
             $I->selectOption(\Page\AuditSubgroupCreate::$StateSelect, $state);
         }
         $I->click(\Page\AuditSubgroupCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(3);
     } 
 
     public function GetAuditSubgroupOnPageInList($name)

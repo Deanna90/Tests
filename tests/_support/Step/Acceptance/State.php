@@ -31,7 +31,7 @@ class State extends \AcceptanceTester
                 break;
         }
         $I->click(\Page\StateCreate::$CreateButton);
-        $I->wait(1);
+        $I->wait(3);
     }  
     
     public function UpdateState($id, $name = null, $shortName = null, $weighted = 'ignore')

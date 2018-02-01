@@ -37,6 +37,15 @@ class BusinessChecklistView extends \AcceptanceTester
     public static $LeftMenu_PrintSecondTierButton          = '#checklist-number option';
     public static $LeftMenu_PrintThirdTierButton           = '#checklist-number option';
     
+    public static $LeftMenu_ApplicationDetails_ProgressBar       = '.getstarted-group .progress-bar';
+    public static $LeftMenu_EnergyGroup_ProgressBar              = '.energy-group .progress-bar';
+    public static $LeftMenu_GeneralGroup_ProgressBar             = '.general-group .progress-bar';
+    public static $LeftMenu_PollutionPreventionGroup_ProgressBar = '.pollution-prevention-group .progress-bar';
+    public static $LeftMenu_SolidWasteGroup_ProgressBar          = '.solid-waste-group .progress-bar';
+    public static $LeftMenu_TransportationGroup_ProgressBar      = '.transportation-group .progress-bar';
+    public static $LeftMenu_WastewaterGroup_ProgressBar          = '.wastewater-group .progress-bar';
+    public static $LeftMenu_WaterGroup_ProgressBar               = '.water-group .progress-bar';
+    
     public static $LeftMenu_TierProgressTitle                    = '[class=col-md-3]>div:nth-of-type(2) .row>div:first-of-type p';
     public static function LeftMenu_TierName($row)               { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(1)";}
     public static function LeftMenu_CompletedMeasuresLabel($row) { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(2)";}
@@ -47,18 +56,19 @@ class BusinessChecklistView extends \AcceptanceTester
     public static function LeftMenu_EarnedPointsCount($row)      { $a = $row + 1; return "[class=col-md-3]>div:nth-of-type(2) .row>div:nth-of-type($a)>p:nth-of-type(5)>span";}
     public static $LeftMenu_TotalPointsEarnedInfo                = '[class=col-md-3]>div:nth-of-type(2) .row>div:last-of-type>p';
     
-    public static $BusinessInfoTab              = '#checklist-number [selected]';
-    public static $RecordsTab                   = '#checklist-number option';
-    public static $CommunicationTab             = '#checklist-number option';
-    public static $BusinessProfileTab           = '#checklist-number option';
+    public static $BusinessInfoTab               = '#checklist-number [selected]';
+    public static $RecordsTab                    = '#checklist-number option';
+    public static $CommunicationTab              = '#checklist-number option';
+    public static $BusinessProfileTab            = '#checklist-number option';
    
-    public static $TotalPointsBlock             = '.no-padd-left';
-    public static $TotalPointsTitle             = '.no-padd-left .p-label';
+    public static $TotalPointsBlock              = '.no-padd-left';
+    public static $TotalPointsTitle              = '.no-padd-left .p-label';
     public static $TotalPointsInfo_ProgressBar   = '.row>div:nth-of-type(3).info-block p>span';
     
-    public static $TotalMeasuresBlock            = '.info-block';
-    public static $TotalMeasuresTitle            = '.info-block .p-label';
-    public static $TotalMeasuresInfo_ProgressBar = '.row>div:nth-of-type(2).info-block p>span';
+    public static $TotalMeasuresBlock                 = '.info-block';
+    public static $TotalMeasuresTitle                 = '.info-block .p-label';
+    public static $TotalMeasuresInfo_ProgressBar      = '.row>div:nth-of-type(2).info-block p>span';
+    public static $TotalCompletedMeasures_ProgressBar = '.flex-reverse .progress-bar';
     
     public static $TotalPointsText_RightBlock    = '.text-center>div>p:first-of-type';
     public static $TotalPointsCount_RightBlock   = '.text-center>div>p:last-of-type';
@@ -78,39 +88,41 @@ class BusinessChecklistView extends \AcceptanceTester
     const ExpiredStatus         = 'Expired';
     const RejectedStatus        = 'Rejected';
     
-    public static $StatusSelect_BisinessInfoTab          = '#application_dropdown_1';
-    public static $RecognitionDateField_BisinessInfoTab  = '#recognition_date_input';
-    public static $SaveDateButton_BisinessInfoTab        = 'button#recognition_date_save_button';
-    public static $AddNewChecklistButton_BisinessInfoTab = 'a.btn-renew';
+    public static $StatusSelect_BusinessInfoTab          = '#application_dropdown_1';
+    public static $RecognitionDateField_BusinessInfoTab  = '#recognition_date_input';
+    public static $SaveDateButton_BusinessInfoTab        = 'button#recognition_date_save_button';
+    public static $AddNewChecklistButton_BusinessInfoTab = 'a.btn-renew';
     
-    public static $BusinessAddress_BisinessInfoTab = 'button#recognition_date_save_button';
-    public static $City_BisinessInfoTab            = 'button#recognition_date_save_button';
-    public static $ZipCode_BisinessInfoTab         = 'button#recognition_date_save_button';
-    public static $Phone_BisinessInfoTab           = 'button#recognition_date_save_button';
+    public static $BusinessAddress_BusinessInfoTab = 'button#recognition_date_save_button';
+    public static $City_BusinessInfoTab            = 'button#recognition_date_save_button';
+    public static $ZipCode_BusinessInfoTab         = 'button#recognition_date_save_button';
+    public static $Phone_BusinessInfoTab           = 'button#recognition_date_save_button';
     //Contact Info
-    public static $ContactNameField_BisinessInfoTab     = 'button#recognition_date_save_button';
-    public static $PhoneNumberField_BisinessInfoTab     = 'button#recognition_date_save_button';
-    public static $EmailField_BisinessInfoTab           = 'button#recognition_date_save_button';
-    public static $ManageContactsButton_BisinessInfoTab = 'a#popup_link_0';
+    public static $ContactNameField_BusinessInfoTab     = 'button#recognition_date_save_button';
+    public static $PhoneNumberField_BusinessInfoTab     = 'button#recognition_date_save_button';
+    public static $EmailField_BusinessInfoTab           = 'button#recognition_date_save_button';
+    public static $ManageContactsButton_BusinessInfoTab = 'a#popup_link_0';
     //Tier Statuses
-    public static $TierStatusTitle_BisinessInfoTab      = 'button#recognition_date_save_button';
-    public static function TierName_BisinessInfoTab($row)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
-    public static function TierStatus_BisinessInfoTab($row)   { return "[class*=margin-top]>div:nth-of-type($row) .p-label";}
-    public static $TierPromotionsTitle_BisinessInfoTab     = 'button#recognition_date_save_button';
+    public static $TierStatusTitle_BusinessInfoTab         = 'button#recognition_date_save_button';
+    public static function TierName_BusinessInfoTab($row)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
+    public static function TierStatus_BusinessInfoTab($row)   { return "[class*=margin-top]>div:nth-of-type($row) .p-label";}
+    public static $TierPromotionsTitle_BusinessInfoTab     = 'button#recognition_date_save_button';
     
-    public static function TierTab_BisinessInfoTab($tierNumber)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
-    public static $ApplicationStatusSelect_BisinessInfoTab          = '#application_dropdown_2';
-    public static $PhoneConsultStatusSelect_BisinessInfoTab         = '#application_dropdown_3';
-    public static $ComplianceCheckStatusSelect_BisinessInfoTab      = '#application_dropdown_4';
-    public static $SiteVisitStatusSelect_BisinessInfoTab            = '#application_dropdown_5';
-    public static $AuditsStatusSelect_BisinessInfoTab               = '#application_dropdown_6';
-    public static $RecognitionTasksStatusSelect_BisinessInfoTab     = '#application_dropdown_7';
-    public static $AddDetailsButton_ComplianceCheck_BisinessInfoTab = 'a#popup_link_1';
-    public static $AddDetailsButton_Audits_BisinessInfoTab          = 'a#popup_link_2';
+    public static function TierTab_BusinessInfoTab($tierNumber)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
+    public static $ApplicationStatusSelect_BusinessInfoTab          = '#application_dropdown_2';
+    public static $PhoneConsultStatusSelect_BusinessInfoTab         = '#application_dropdown_3';
+    public static $ComplianceCheckStatusSelect_BusinessInfoTab      = '#application_dropdown_4';
+    public static $SiteVisitStatusSelect_BusinessInfoTab            = '#application_dropdown_5';
+    public static $AuditsStatusSelect_BusinessInfoTab               = '#application_dropdown_6';
+    public static $RecognitionTasksStatusSelect_BusinessInfoTab     = '#application_dropdown_7';
+    public static $AddDetailsButton_ComplianceCheck_BusinessInfoTab = 'a#popup_link_1';
+    public static $AddDetailsButton_Audits_BusinessInfoTab          = 'a#popup_link_2';
     
     
-    
+    public static $MeasureRow           = '.row.measure-container';
     //Checklist View
+    public static function MeasureDescription($row)              { return "(//*[@class='row measure-container'])[$row]/div[1]/p";}
+    public static function MeasureToggleButton($row)             { return "(//*[@id='relmeasuretobusiness-answer_type'])[$row]";}
     public static function MeasureDescription_ByDesc($desc)      { return "//*[@id='measures-form']//p[contains(text(), '$desc')]";}
 //    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
     public static function MeasureGreenTip($grTip)               { return "//*[@class='short-articles link-green no-ajax'][contains(h4/text(), 'Measure')]//*[text()='$grTip']";}
@@ -119,7 +131,13 @@ class BusinessChecklistView extends \AcceptanceTester
     public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/span";}
     public static function Savings_ByDesc($desc)                 { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/div";}
     
+    public static function FlagCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//*[contains(@for, 'flag')]";}
+    public static function PostCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//*[contains(@for, 'post')]";}
+    public static function HelpCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//*[contains(@for, 'help')]";}
+    
+    
     public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
+    public static function SubmeasureLink_ByMeasureDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span//a";}
     public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//select";}
     public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//input";}
     public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
@@ -130,8 +148,11 @@ class BusinessChecklistView extends \AcceptanceTester
     public static $CoreProgressBarInfo           = '#measures-form>div:first-of-type .progress-wrapper+span';
     public static $ElectiveProgressBarInfo       = '#measures-form>div:nth-last-of-type(3) .progress-wrapper+span';
     
-    public static $CoreMeasuresTitle             = "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]";
-    public static $ElectiveMeasuresTitle         = "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]";
+    public static $CoreCompletedProgressBar      = '#measures-form>div:first-of-type .progress-wrapper .progress-bar';
+    public static $ElectiveCompletedProgressBar  = '#measures-form>div:nth-last-of-type(3) .progress-wrapper .progress-bar';
+    
+    public static $CoreMeasuresTitle             = '//*[@id="measures-form"]//div[contains(div/h3/text(), "Core measures")]';
+    public static $ElectiveMeasuresTitle         = '//*[@id="measures-form"]//div[contains(div/h3/text(), "Elective measures")]';
     
     public static $InfoAboutCountToCompleteElectiveMeasures   = "//*[@id='measures-form']//div[contains(h3/text(), 'Elective measures')]/div/p[1]";
     
@@ -155,4 +176,39 @@ class BusinessChecklistView extends \AcceptanceTester
     public static $ThermsPopup_SaveChangesButton        = '.modal.in button[type=submit]';
     public static $ThermsPopup_CloseButton              = '.modal.in .close';
 
+    //----------------------------Lighting Popup--------------------------------
+    
+    const LightingPopup                                                 = '.modal.in';
+    public static $LightingPopup_BuildingTypeSelect                     = '.modal.in #building_type_id_0';
+    public static $LightingPopup_BuildingTypeSelectLabel                = '.modal.in [for=building_type_id_0]';
+    
+    public static function LightingPopup_ReplacementFixtureSelect($number)         { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='replacement_lighting_id']";}
+    public static function LightingPopup_ReplacementFixtureQuantityField($number)  { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='replacement_quantity']";}
+    public static function LightingPopup_ExistingFixtureField($number)             { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='existing_lighting_id']";}
+    public static function LightingPopup_ExistingFixtureQuantityField($number)     { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='existing_quantity']";}
+    public static function LightingPopup_EnergySavingsField($number)               { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='total_energy_saving']";}
+    public static function LightingPopup_ExteriorCheckbox($number)                 { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [id*='building_space']";}
+    public static function LightingPopup_DeleteOptionButton($number)               { $a=$number+1; return ".modal.in .lighting-section-2> div:nth-of-type($a) [data-action=delete]";}
+    
+    public static $LightingPopup_AddOptionButton          = '.modal.in [data-action=add]';
+    public static $LightingPopup_SaveChangesButton        = '.modal.in button[type=submit]';
+    public static $LightingPopup_CloseButton              = '.modal.in .close';
+    
+    //-----------------------------Waste Diversion Popup---------------------------------
+    
+    const WasteDiversionPopup                                          = '.modal.in';
+    public static $WasteDiversionPopup_BeforeGBTab                     = ".modal.in [href='#tab-before']";
+    public static $WasteDiversionPopup_AfterGBTab                      = ".modal.in [href='#tab-after']";
+    
+    public static function WasteDiversionPopup_CommoditySelect($row, $beforeOrAfter)              { return "#commodity_id_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_ContainerTypeSelect($row, $beforeOrAfter)          { return "#container_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_ContainersField($row, $beforeOrAfter)              { return "#containers_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_CollectionPerWeekField($row, $beforeOrAfter)       { return "#pick_up_to_week_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_CompactedToggleButton($row, $beforeOrAfter)        { return "[name='rows[$row][$beforeOrAfter][compacted]']+div";}
+    public static function WasteDiversionPopup_CompactedToggleButtonSelect($row, $beforeOrAfter)  { return "[name='rows[$row][$beforeOrAfter][compacted]']";}
+    
+    public static function WasteDiversionPopup_SaveChangesButton($beforeOrAfter)        { return ".modal.in #tab-$beforeOrAfter tbody>tr:first-of-type button[type=submit]";}
+    public static $WasteDiversionPopup_CloseButton              = '.modal.in .close';
+    public static $WasteDiversionPopup_SaveButton_NoAnswer      = '.modal.in .close-popup';
+    
 }

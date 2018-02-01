@@ -4,7 +4,7 @@ namespace Page;
 class MeasureFormulasPopup
 {
     public static $PopupForm           = '.modal-content';
-    public static $Title               = 'h2';
+    public static $Title               = '.modal-content h2';
     public static $AddSavingAreaButton = '#in_popup_popup_link_0';
     public static $ReorderButton       = '.reorder-button';
     public static $SaveOrderButton     = '.modal-content .btn-primary';

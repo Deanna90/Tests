@@ -13,7 +13,7 @@ class ChecklistUpdateCest
     public $measure5Desc, $idMeasure5;
     public $measure6Desc, $idMeasure6;
     public $measuresDesc_SuccessCreated = [];
-    public $city1, $zip1, $program1, $sector1;
+    public $city1, $zip1, $program1, $sector1, $county;
     public $city2, $zip2, $program2;
     public $statusesDefault   = ['not set',  'not set',  'not set', 'not set',  'not set',  'not set'];
     public $statuses2         = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
@@ -33,12 +33,12 @@ class ChecklistUpdateCest
     public $busId1, $busId2, $busId3;
 
 
-    public function Help2_1_LoginAsNationalAdmin(AcceptanceTester $I)
+    public function Help_LoginAsNationalAdmin(AcceptanceTester $I)
     {
         $I->LoginAsAdmin($I);
     }
     
-    public function Help2_2_CreateState(Step\Acceptance\State $I)
+    public function Help_CreateState(Step\Acceptance\State $I)
     {
         $name = $this->state = $I->GenerateNameOf("StCheckCreate");
         $shortName = 'ChCr';
@@ -48,13 +48,13 @@ class ChecklistUpdateCest
         $this->todayDate  = date("m/d/Y");
     }
     
-    public function Help2_3_SelectDefaultState(AcceptanceTester $I)
+    public function Help_SelectDefaultState(AcceptanceTester $I)
     {
         $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
     }
     
-    public function Help2_4_CreateAuditSubGroupForEnergyGroup(\Step\Acceptance\AuditSubGroup $I)
+    public function Help_CreateAuditSubGroupForEnergyGroup(\Step\Acceptance\AuditSubGroup $I)
     {
         $name      = $this->audSubgroup1_Energy = $I->GenerateNameOf("EnAudSub1");
         $auditGroup = Page\AuditGroupList::Energy_AuditGroup;
@@ -64,7 +64,7 @@ class ChecklistUpdateCest
         $I->wait(3);
     }
     
-    public function Help2_4_CreateAuditSubGroupsForSolidWasteGroup(\Step\Acceptance\AuditSubGroup $I)
+    public function Help_CreateAuditSubGroupsForSolidWasteGroup(\Step\Acceptance\AuditSubGroup $I)
     {
         $name       = $this->audSubgroup1_SolidWaste = $I->GenerateNameOf("SolWasAudSub1");
         $auditGroup = Page\AuditGroupList::SolidWaste_AuditGroup;
@@ -74,7 +74,7 @@ class ChecklistUpdateCest
         $I->wait(3);
     }
     
-    public function Help1_7_CreateMeasure1(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure1(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure1Desc = $I->GenerateNameOf("Description_1");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -91,7 +91,7 @@ class ChecklistUpdateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure2(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure2(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure2Desc = $I->GenerateNameOf("Description_2");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -108,7 +108,7 @@ class ChecklistUpdateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure3(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure3(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure3Desc = $I->GenerateNameOf("Description_3");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -125,7 +125,7 @@ class ChecklistUpdateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure4(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure4(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure4Desc = $I->GenerateNameOf("Description_4");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -142,7 +142,7 @@ class ChecklistUpdateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure5(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure5(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure5Desc = $I->GenerateNameOf("Description_5");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -159,7 +159,7 @@ class ChecklistUpdateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure6(\Step\Acceptance\Measure $I) {
+    public function Help_CreateMeasure6(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure6Desc = $I->GenerateNameOf("Description_6");
         $auditGroup     = \Page\AuditGroupList::SolidWaste_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_SolidWaste;
@@ -175,25 +175,35 @@ class ChecklistUpdateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_6_3_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+    //-------------------------------Create county------------------------------
+    
+    
+    public function Help_CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
+    }
+    
+    public function Help_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
         $city    = $this->city1 = $I->GenerateNameOf("CityChCr1");
         $cityArr = [$city];
         $state   = $this->state;
         $zips    = $this->zip1 = $I->GenerateZipCode();
         $program = $this->program1 = $I->GenerateNameOf("ProgChCr1");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
-    public function Help1_6_3_CreateCity2_And_Program2(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+    public function Help_CreateCity2_And_Program2(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
         $city    = $this->city2 = $I->GenerateNameOf("CityChCr2");
         $cityArr = [$city];
         $state   = $this->state;
         $zips    = $this->zip2 = $I->GenerateZipCode();
         $program = $this->program2 = $I->GenerateNameOf("ProgChCr2");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
@@ -232,7 +242,7 @@ class ChecklistUpdateCest
         $I->PublishChecklistStatus();
     }
     
-    public function Help1_16_LogOut(AcceptanceTester $I) {
+    public function Help_LogOut(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(1);
         $I->Logout($I);
@@ -242,7 +252,7 @@ class ChecklistUpdateCest
     //--------------------------------------------------------------------------Business1 register-------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
-    public function MeasExtension1_17_LargeBusiness_Register(Step\Acceptance\Business $I)
+    public function LargeBusiness_Register(Step\Acceptance\Business $I)
     {
         $firstName        = $I->GenerateNameOf("firnam");
         $lastName         = $I->GenerateNameOf("lasnam");
@@ -266,7 +276,7 @@ class ChecklistUpdateCest
         $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
     }
     
-    public function Help1_18_LogOutFromBusiness1_And_LoginAsAdmin(AcceptanceTester $I){
+    public function Help_LogOutFromBusiness1_And_LoginAsAdmin(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->wait(1);
@@ -283,7 +293,7 @@ class ChecklistUpdateCest
         $I->comment("Business1 id: $this->busId1.");
     }
     
-    public function MeasExtension1_15_1_CheckDefaultMeasures_Present_Default_CoreAndElective_OnChecklistPreview(Step\Acceptance\Checklist $I) {
+    public function CheckDefaultMeasures_Present_Default_CoreAndElective_OnChecklistPreview(Step\Acceptance\Checklist $I) {
         $I->amOnPage($this->checklistUrl1);
         $I->wait(3);
         $I->canSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
@@ -414,7 +424,7 @@ class ChecklistUpdateCest
         $I->cantSeeElement(\Page\BusinessChecklistView::$LeftMenu_TransportationGroupButton);
     }
     
-    public function Help1_16_LogOuth(AcceptanceTester $I) {
+    public function Help_LogOuth(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(1);
         $I->Logout($I);
@@ -448,7 +458,7 @@ class ChecklistUpdateCest
         $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
     }
     
-    public function Help1_18_LogOutFromBusiness2_And_LoginAsAdmin(AcceptanceTester $I){
+    public function Help_LogOutFromBusiness2_And_LoginAsAdmin(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->wait(1);
@@ -590,7 +600,7 @@ class ChecklistUpdateCest
         $I->wait(2);
         $I->canSee("Checklist was successfully updated");
         $I->reloadPage();
-        $I->wait(1);
+        $I->wait(2);
         $I->PublishChecklistStatus();
         $I->wait(4);
         $I->cantSee("Error");

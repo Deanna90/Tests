@@ -117,12 +117,18 @@ class Business extends \AcceptanceTester
         $I->wait(2);
     }  
     
-//    public function makeElementVisible($el, $css)
-//	{
-//		$I = $this;
-//		foreach ($el as $key) {
-//			$I->executeJS('$(\''.$key.'\').attr("style","'.$css.'");');
-//		}
-//        }       
+    public function GetCategoryRowOnTierTab($name)
+	{
+            $I = $this;
+            $I->wait(1);
+            $count = $I->getAmount($I, \Page\ApplicationDetails::$CategoryRow_BusinessInfoTab);
+            for($i=1; $i<=$count; $i++){
+                if($I->grabTextFrom(\Page\ApplicationDetails::Category_BusinessInfoTab($i)) == $name){
+                    break;
+                }
+            }
+            $I->comment("Audit group $name is on $i row");
+            return $i;
+        }       
 	
 }

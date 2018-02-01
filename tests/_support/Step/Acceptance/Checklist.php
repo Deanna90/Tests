@@ -12,25 +12,25 @@ class Checklist extends \AcceptanceTester
             $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
             $I->wait(2);
             $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
-            $I->wait(2);
+            $I->wait(3);
         }
         if (isset($programCriteria)){
             $I->click(\Page\ChecklistCreate::$ProgramCriteriaSelect);
             $I->wait(3);
             $I->selectOption(\Page\ChecklistCreate::$ProgramCriteriaSelect, $programCriteria);
-            $I->wait(3);
+            $I->wait(5);
         }
         if (isset($sectorCriteria)){
             $I->click(\Page\ChecklistCreate::$SectorCriteriaSelect);
             $I->wait(3);
             $I->selectOption(\Page\ChecklistCreate::$SectorCriteriaSelect, $sectorCriteria);
-            $I->wait(3);
+            $I->wait(4);
         }
         if (isset($programDestination)){
             $I->click(\Page\ChecklistCreate::$ProgramDestinationSelect);
             $I->wait(3);
             $I->selectOption(\Page\ChecklistCreate::$ProgramDestinationSelect, $programDestination);
-            $I->wait(4);
+            $I->wait(5);
         }
         if (isset($sectorDestination)){
             $I->click(\Page\ChecklistCreate::$SectorDestinationSelect);
@@ -41,7 +41,7 @@ class Checklist extends \AcceptanceTester
         if (isset($tier)){
             $I->wait(4);
             $I->click(\Page\ChecklistCreate::$TierSelect);
-            $I->wait(2);
+            $I->wait(3);
             $I->selectOption(\Page\ChecklistCreate::$TierSelect, $tier);
         }
         $I->wait(3);
@@ -51,12 +51,13 @@ class Checklist extends \AcceptanceTester
         $I->wait(6);
         $I->waitForElement('.confirm', 100);
         $I->click('.confirm');
+        $I->wait(2);
     }  
     
     public function ManageChecklist($descs = null, $statuses = null, $extension = null)
     {
         $I = $this;
-        $I->wait(3);
+        $I->wait(6);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab);
         if (isset($descs) && isset($statuses)){
             $countDesc = count($descs);
@@ -85,9 +86,9 @@ class Checklist extends \AcceptanceTester
             }
         }
         $I->scrollTo(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(5);
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(2);
+        $I->wait(4);
 //        $I->click(\Page\ChecklistManage::$ConfirmPopup_OkButton);
         $I->wait(2);
         return $statusesNew;

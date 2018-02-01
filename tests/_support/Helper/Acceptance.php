@@ -326,4 +326,13 @@ SCRIPT;
         $selector == 'xpath' ? $symb = '@' : $symb = '';
         $I->cantSeeElementInDOM($element."[".$symb."disabled]");
     }
+    
+    /**     
+     * @param \Webdriver        $webdriver            
+     */
+    public function pressEscapeButton()
+    {
+        $escapeKey = \Facebook\WebDriver\WebDriverKeys::ESCAPE;
+        $this->getModule('WebDriver')->webDriver->getKeyboard()->sendKeys([$escapeKey]);
+    }
 }

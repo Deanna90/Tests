@@ -166,5 +166,17 @@ class AcceptanceTester extends \Codeception\Actor
                 $I->executeJS('$(\''.$key.'\').attr("style","'.$value.'");');
             }
     } 
+    
+    public function makeElementNotVisible($cssSelector, $style = 'position'){
+	$I = $this;
+        switch ($style){
+            case 'position':
+                $value = 'position: inherit';
+                break;
+        }
+            foreach ($cssSelector as $key) {
+                $I->executeJS('$(\''.$key.'\').attr("style","'.$value.'");');
+            }
+    } 
    
 }

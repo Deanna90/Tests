@@ -9,12 +9,12 @@ class Notification extends \AcceptanceTester
         $I->amOnPage(\Page\ApplicantEmailTextCreate::URL());
         $I->wait(1);
         $I->waitForElement(\Page\ApplicantEmailTextCreate::$SubjectField);
-        if (isset($subject)){
-            $I->fillField(\Page\ApplicantEmailTextCreate::$SubjectField, $subject);
-        }
         if (isset($trigger)){
             $I->selectOption(\Page\ApplicantEmailTextCreate::$TriggerSelect, $trigger);
             $I->wait(3);
+        }
+        if (isset($subject)){
+            $I->fillField(\Page\ApplicantEmailTextCreate::$SubjectField, $subject);
         }
         if (isset($programArray)){
             for ($i=1, $c= count($programArray); $i<=$c; $i++){

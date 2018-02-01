@@ -14,7 +14,7 @@ class Program extends \AcceptanceTester
         }
         if (isset($state)){
             $I->selectOption(\Page\ProgramCreate::$StateSelect, $state);
-            $I->wait(3);
+            $I->wait(4);
         }
         if (isset($cityArray)){
             for ($i=1, $c= count($cityArray); $i<=$c; $i++){

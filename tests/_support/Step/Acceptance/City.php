@@ -17,7 +17,7 @@ class City extends \AcceptanceTester
             $I->selectOption(\Page\CityCreate::$StateSelect, $state);
         }
         if (isset($county)){
-            $I->wait(4);
+            $I->wait(5);
             $I->selectOption(\Page\CityCreate::$CountySelect, $county);
         }
         if (isset($zips)){

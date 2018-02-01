@@ -3,9 +3,12 @@
 
 class ChecklistCreateCest
 {
-    public $state;
+    public $state, $idState;
     public $audSubgroup1_Energy;
     public $audSubgroup1_SolidWaste;
+    public $emailStateAdmin, $emailCoordinator;
+    public $password = 'Qq!1111111';
+    public $idStateAdmin, $idCoordinator;
     public $measure1Desc, $idMeasure1;
     public $measure2Desc, $idMeasure2;
     public $measure3Desc, $idMeasure3;
@@ -13,7 +16,7 @@ class ChecklistCreateCest
     public $measure5Desc, $idMeasure5;
     public $measure6Desc, $idMeasure6;
     public $measuresDesc_SuccessCreated = [];
-    public $city1, $zip1, $program1, $sector1;
+    public $city1, $zip1, $program1, $sector1, $county;
     public $city2, $zip2, $program2, $sector2;
     public $statusesDefault           = ['not set',  'not set',  'not set', 'not set',  'not set',  'not set'];
     public $statusesEC1               = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
@@ -29,26 +32,93 @@ class ChecklistCreateCest
     public $extensionsProg2Sector2      = ['Large Building',  'Large Building',  'Large Building',  'Large Building',  'Large Building',  'Large Building'];
     public $checklistUrl, $statnewEC1, $statnewEC3;
     
-    public function Help2_1_LoginAsNationalAdmin(AcceptanceTester $I)
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_LoginAsNationalAdmin(AcceptanceTester $I)
     {
         $I->LoginAsAdmin($I);
     }
     
-    public function Help2_2_CreateState(Step\Acceptance\State $I)
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateState(Step\Acceptance\State $I)
     {
         $name = $this->state = $I->GenerateNameOf("StCheckCreate");
         $shortName = 'ChCr';
         
         $I->CreateState($name, $shortName);
+        $state = $I->GetStateOnPageInList($name);
+        $this->idState = $state['id'];
     }
     
-    public function Help2_3_SelectDefaultState(AcceptanceTester $I)
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_SelectDefaultState(AcceptanceTester $I)
     {
         $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
     }
     
-    public function Help2_4_CreateAuditSubGroupForEnergyGroup(\Step\Acceptance\AuditSubGroup $I)
+    //---------------------------Create State Admin-----------------------------
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function CreateStateAdmin_ForCreatedState(\Step\Acceptance\User $I)
+    {
+        $userType  = Page\UserCreate::stateAdminType;
+        $email     = $this->emailStateAdmin = $I->GenerateEmail();
+        $firstName = $I->GenerateNameOf('firnam');
+        $lastName  = $I->GenerateNameOf('lastnam');
+        $password  = $confirmPassword = $this->password;
+        $phone     = $I->GeneratePhoneNumber();
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
+        $I->wait(1);
+        $I->reloadPage();
+        $I->wait(4);
+        $I->click(Page\UserUpdate::$AddStateButton);
+        $I->wait(3);
+        $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
+        $I->click(Page\UserUpdate::$AddButton_AddStateForm);
+        $I->wait(2);
+        $stateAdmin = $I->GetUserOnPageInList($email, $userType);
+        $this->idStateAdmin = $stateAdmin['id'];
+    }
+    
+    //--------------------------------------------------------------------------Login As State Admin------------------------------------------------------------------------------------
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function LogOut_And_LogInAsStateAdmin(AcceptanceTester $I)
+    {
+        $I->Logout($I);
+        $I->wait(1);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
+        $I->wait(2);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateAuditSubGroupForEnergyGroup(\Step\Acceptance\AuditSubGroup $I)
     {
         $name      = $this->audSubgroup1_Energy = $I->GenerateNameOf("EnAudSub1");
         $auditGroup = Page\AuditGroupList::Energy_AuditGroup;
@@ -58,7 +128,13 @@ class ChecklistCreateCest
         $I->wait(3);
     }
     
-    public function Help2_4_CreateAuditSubGroupsForSolidWasteGroup(\Step\Acceptance\AuditSubGroup $I)
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateAuditSubGroupsForSolidWasteGroup(\Step\Acceptance\AuditSubGroup $I)
     {
         $name       = $this->audSubgroup1_SolidWaste = $I->GenerateNameOf("SolWasAudSub1");
         $auditGroup = Page\AuditGroupList::SolidWaste_AuditGroup;
@@ -68,7 +144,13 @@ class ChecklistCreateCest
         $I->wait(3);
     }
     
-    public function Help1_7_CreateMeasure1(\Step\Acceptance\Measure $I) {
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateMeasure1(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure1Desc = $I->GenerateNameOf("Description_1");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -85,7 +167,13 @@ class ChecklistCreateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure2(\Step\Acceptance\Measure $I) {
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateMeasure2(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure2Desc = $I->GenerateNameOf("Description_2");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -102,7 +190,13 @@ class ChecklistCreateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure3(\Step\Acceptance\Measure $I) {
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateMeasure3(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure3Desc = $I->GenerateNameOf("Description_3");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -119,7 +213,13 @@ class ChecklistCreateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure4(\Step\Acceptance\Measure $I) {
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateMeasure4(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure4Desc = $I->GenerateNameOf("Description_4");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -136,7 +236,13 @@ class ChecklistCreateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure5(\Step\Acceptance\Measure $I) {
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateMeasure5(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure5Desc = $I->GenerateNameOf("Description_5");
         $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_Energy;
@@ -153,7 +259,13 @@ class ChecklistCreateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_7_CreateMeasure6(\Step\Acceptance\Measure $I) {
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateMeasure6(\Step\Acceptance\Measure $I) {
         $desc           = $this->measure6Desc = $I->GenerateNameOf("Description_6");
         $auditGroup     = \Page\AuditGroupList::SolidWaste_AuditGroup;
         $auditSubgroup  = $this->audSubgroup1_SolidWaste;
@@ -169,29 +281,62 @@ class ChecklistCreateCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    public function Help1_6_3_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+    //-------------------------------Create county------------------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
         $city    = $this->city1 = $I->GenerateNameOf("CityChCr1");
         $cityArr = [$city];
         $state   = $this->state;
         $zips    = $this->zip1 = $I->GenerateZipCode();
         $program = $this->program1 = $I->GenerateNameOf("ProgChCr1");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
-    public function Help1_6_3_CreateCity2_And_Program2(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCity2_And_Program2(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
         $city    = $this->city2 = $I->GenerateNameOf("CityChCr2");
         $cityArr = [$city];
         $state   = $this->state;
         $zips    = $this->zip2 = $I->GenerateZipCode();
         $program = $this->program2 = $I->GenerateNameOf("ProgChCr2");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
     //--------------------------------------------------------------------------Create Sectors-----------------------------------------------------------------------------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateSectorForProgram1(\Step\Acceptance\Sector $I)
     {
@@ -200,9 +345,15 @@ class ChecklistCreateCest
         $state     = $this->state;
         $program   = $this->program1;
         
-        $I->CreateSector($name, $state, $program);
+        $I->CreateSector($name, $state, $program, null, $this->idState);
         $I->wait(2);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateSectorForProgram2(\Step\Acceptance\Sector $I)
     {
@@ -211,13 +362,66 @@ class ChecklistCreateCest
         $state     = $this->state;
         $program   = $this->program2;
         
-        $I->CreateSector($name, $state, $program);
+        $I->CreateSector($name, $state, $program, null, $this->idState);
+        $I->wait(2);
+    }
+    
+    //----------------------------Create Coordinator----------------------------
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function CreateCoordinatorUserWithoutShowInfo_ForProgram2(Step\Acceptance\User $I)
+    {
+        $userType  = Page\UserCreate::coordinatorType;
+        $email     = $this->emailCoordinator = $I->GenerateEmail();
+        $firstName = $I->GenerateNameOf('firnam');
+        $lastName  = $I->GenerateNameOf('lastnam');
+        $password  = $confirmPassword = $this->password;
+        $phone     = $I->GeneratePhoneNumber();
+        
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
+        $I->wait(1);
+        $I->reloadPage();
+        $I->wait(6);
+        $I->click(Page\UserUpdate::$AddStateButton);
+        $I->wait(3);
+        $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
+        $I->click(Page\UserUpdate::$AddButton_AddStateForm);
+        $I->wait(2);
+        $I->click(Page\UserUpdate::$AddProgramButton);
+        $I->wait(6);
+        $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
+        $I->wait(2);
+        $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
+        $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
+        $I->wait(3);
+        $coordinator = $I->GetUserOnPageInList($email, $userType);
+        $this->idCoordinator = $coordinator['id'];
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsCoordinator(AcceptanceTester $I)
+    {
+        $I->Logout($I);
+        $I->wait(1);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
         $I->wait(2);
     }
     
     //--------------------------------------------------------------------------Create Checklist--------------------------------------------------------------------------------------
     
     //------------------Create Checklists Without Created EC--------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_EssencialCriteria_PD_Program1_SD_OfficeRetail(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -230,6 +434,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssencialCriteria_PD_Program2_SD_OfficeRetail(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program2;
@@ -240,6 +449,32 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function CreateChecklist_SP_EssencialCriteria_PD_Program2_SD_OfficeRetail_ForCoordinator(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
+        $programDestination = $this->program2;
+        
+        $I->amOnPage(\Page\ChecklistCreate::URL());
+        $I->wait(6);
+        $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
+        $I->wait(2);
+        $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
+        $I->wait(2);
+        $I->click(\Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(3);
+        $I->cantSee($programDestination, \Page\ChecklistCreate::$ProgramDestinationOption);
+        $I->wait(4);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_EssencialCriteria_PD_Program1_SD_Sector1(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -252,6 +487,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssencialCriteria_PD_Program2_SD_Sector2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program2;
@@ -262,6 +502,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_Program1_PD_Program1_SD_OfficeRetail(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
@@ -276,6 +522,11 @@ class ChecklistCreateCest
         $I->wait(1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programDestination = $this->program2;
@@ -286,6 +537,32 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_ForCoordinator(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = $this->program2;
+        $programDestination = $this->program2;
+        
+        $I->amOnPage(\Page\ChecklistCreate::URL());
+        $I->wait(6);
+        $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
+        $I->wait(2);
+        $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
+        $I->wait(2);
+        $I->click(\Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(3);
+        $I->cantSee($programDestination, \Page\ChecklistCreate::$ProgramDestinationOption);
+        $I->wait(4);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_Program1_PD_Program1_SD_Sector1(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
@@ -298,6 +575,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_Program2_PD_Program2_SD_Sector2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programDestination = $this->program2;
@@ -308,7 +590,13 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
-    //
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function CreateChecklist_SP_Program1_PD_Program1_SD_OfficeRetail_PC_Program1_SC_OfficeRetail(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programCriteria    = $this->program1;
@@ -321,6 +609,11 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     */
     
     public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
@@ -335,6 +628,41 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
     
+    /**
+     * @group coordinator
+     */
+    
+    public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail_ForCoordinator(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = $this->program2;
+        $programCriteria    = $this->program2;
+        $sectorCriteria     = Page\SectorList::DefaultSectorOfficeRetail;
+        $programDestination = $this->program2;
+        
+        $I->amOnPage(\Page\ChecklistCreate::URL());
+        $I->wait(6);
+        $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
+        $I->wait(2);
+        $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
+        $I->wait(2);
+        $I->click(\Page\ChecklistCreate::$ProgramCriteriaSelect);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistCreate::$ProgramCriteriaSelect, $programCriteria);
+        $I->wait(3);
+        $I->click(\Page\ChecklistCreate::$SectorCriteriaSelect);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistCreate::$SectorCriteriaSelect, $sectorCriteria);
+        $I->wait(3);
+        $I->click(\Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(3);
+        $I->cantSee($programDestination, \Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(4);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programCriteria    = $this->program2;
@@ -347,6 +675,42 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function CreateChecklist_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail_ForCoordinator(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
+        $programCriteria    = $this->program2;
+        $sectorCriteria     = Page\SectorList::DefaultSectorOfficeRetail;
+        $programDestination = $this->program2;
+        
+        $I->amOnPage(\Page\ChecklistCreate::URL());
+        $I->wait(6);
+        $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
+        $I->wait(2);
+        $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
+        $I->wait(2);
+        $I->click(\Page\ChecklistCreate::$ProgramCriteriaSelect);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistCreate::$ProgramCriteriaSelect, $programCriteria);
+        $I->wait(3);
+        $I->click(\Page\ChecklistCreate::$SectorCriteriaSelect);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistCreate::$SectorCriteriaSelect, $sectorCriteria);
+        $I->wait(3);
+        $I->click(\Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(3);
+        $I->cantSee($programDestination, \Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(4);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_EssentialCriteria_PD_Program1_SD_Sector1_PC_Program2_SC_Sector2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -361,6 +725,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_Sector2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programCriteria    = $this->program2;
@@ -373,6 +742,41 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function CreateChecklist_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_Sector2_ForCoordinator(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
+        $programCriteria    = $this->program2;
+        $sectorCriteria     = $this->sector2;
+        $programDestination = $this->program2;
+        
+        $I->amOnPage(\Page\ChecklistCreate::URL());
+        $I->wait(6);
+        $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
+        $I->wait(2);
+        $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
+        $I->wait(2);
+        $I->click(\Page\ChecklistCreate::$ProgramCriteriaSelect);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistCreate::$ProgramCriteriaSelect, $programCriteria);
+        $I->wait(3);
+        $I->click(\Page\ChecklistCreate::$SectorCriteriaSelect);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistCreate::$SectorCriteriaSelect, $sectorCriteria);
+        $I->wait(3);
+        $I->click(\Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(3);
+        $I->cantSee($programDestination, \Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(4);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     */
     
     public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_PC_Program1_SC_OfficeRetail(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
@@ -387,6 +791,42 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
     
+    /**
+     * @group coordinator
+     */
+    
+    public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_PC_Program1_SC_OfficeRetail_ForCoordinator(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = $this->program2;
+        $programCriteria    = $this->program1;
+        $sectorCriteria     = Page\SectorList::DefaultSectorOfficeRetail;
+        $programDestination = $this->program2;
+        
+        $I->amOnPage(\Page\ChecklistCreate::URL());
+        $I->wait(6);
+        $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
+        $I->wait(2);
+        $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
+        $I->wait(2);
+        $I->click(\Page\ChecklistCreate::$ProgramCriteriaSelect);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistCreate::$ProgramCriteriaSelect, $programCriteria);
+        $I->wait(3);
+        $I->click(\Page\ChecklistCreate::$SectorCriteriaSelect);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistCreate::$SectorCriteriaSelect, $sectorCriteria);
+        $I->wait(3);
+        $I->click(\Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(3);
+        $I->cantSee($programDestination, \Page\ChecklistCreate::$ProgramDestinationSelect);
+        $I->wait(4);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function CreateChecklist_SP_Program2_PD_Program1_SD_Sector1_PC_Program2_SC_Sector2(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programCriteria    = $this->program2;
@@ -400,7 +840,25 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
     }
     
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsAdmin(AcceptanceTester $I)
+    {
+        $I->Logout($I);
+        $I->wait(1);
+        $I->LoginAsAdmin($I);
+        $I->wait(2);
+    }
+    
     //--------------------------------------------------------------------------Create EC----------------------------------------------------------------------------------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateEssentialCriteriaForTier1(\Step\Acceptance\EssentialCriteria $I) {
         $number = '1';
@@ -412,6 +870,12 @@ class ChecklistCreateCest
         $I->PublishECStatus();
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function CreateEssentialCriteriaForTier3(\Step\Acceptance\EssentialCriteria $I) {
         $number   = '3';
         $descs    = $this->measuresDesc_SuccessCreated;
@@ -420,6 +884,12 @@ class ChecklistCreateCest
         $I->CreateEssentialCriteria($number);
         $I->CheckSavedValuesOnManageEssentialCriteriaPage($descs, $statuses);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateEssentialCriteriaForTier2(\Step\Acceptance\EssentialCriteria $I) {
         $number   = '2';
@@ -433,9 +903,29 @@ class ChecklistCreateCest
         $I->PublishECStatus();
     }
     
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsCoordinator2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->wait(1);
+        $I->Logout($I);
+        $I->wait(1);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
+        $I->wait(2);
+    }
+    
     //--------------------------------------------------------------------------Create Checklist--------------------------------------------------------------------------------------
     
     //------------------Create Checklists With Created EC-----------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_EssencialCriteria_PD_Program1_SD_OfficeRetail_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -448,6 +938,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssencialCriteria_PD_Program2_SD_OfficeRetail_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program2;
@@ -458,6 +953,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_EssencialCriteria_PD_Program1_SD_Sector1_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -471,6 +972,11 @@ class ChecklistCreateCest
         $I->wait(1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssencialCriteria_PD_Program2_SD_Sector2_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program2;
@@ -481,6 +987,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_Program1_PD_Program1_SD_OfficeRetail_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
@@ -495,6 +1007,11 @@ class ChecklistCreateCest
         $I->wait(1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programDestination = $this->program2;
@@ -505,6 +1022,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_Program1_PD_Program1_SD_Sector1_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
@@ -517,6 +1040,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_Program2_PD_Program2_SD_Sector2_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programDestination = $this->program2;
@@ -527,7 +1055,13 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
-    //
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function CreateChecklist_SP_Program1_PD_Program1_SD_OfficeRetail_PC_Program1_SC_OfficeRetail_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programCriteria    = $this->program1;
@@ -540,6 +1074,11 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     */
     
     public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
@@ -554,6 +1093,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programCriteria    = $this->program2;
@@ -566,6 +1110,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_EssentialCriteria_PD_Program1_SD_Sector1_PC_Program2_SC_Sector2_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -580,6 +1130,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_Sector2_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programCriteria    = $this->program2;
@@ -592,6 +1147,11 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     */
     
     public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_PC_Program1_SC_OfficeRetail_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
@@ -606,6 +1166,12 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function CreateChecklist_SP_Program2_PD_Program1_SD_Sector1_PC_Program2_SC_Sector2_PublishedEC(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programCriteria    = $this->program2;
@@ -619,11 +1185,31 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsAdmin2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->wait(1);
+        $I->Logout($I);
+        $I->wait(1);
+        $I->LoginAsAdmin($I);
+        $I->wait(2);
+    }
+    
     //--------------------------Create Help Checklist---------------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     //$statusesProg1OfficeRetail = ['core',     'core',     'core',    'not set',  'core',     'not set'];
     //$extensionsProg1OfficeRetail = ['Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape'];
-    public function Help1_15_CreateChecklistForTier1_Program1_OfficeRetail(\Step\Acceptance\Checklist $I) {
+    public function Help_CreateChecklistForTier1_Program1_OfficeRetail(\Step\Acceptance\Checklist $I) {
 //        $sourceProgram      = $this->program1;
         $programDestination = $this->program1;
         $sectorDestination  = Page\SectorList::DefaultSectorOfficeRetail;
@@ -637,9 +1223,15 @@ class ChecklistCreateCest
         $I->PublishChecklistStatus();
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     //$statusesProg1Sector1      = ['elective', 'not set',  'not set', 'not set',  'elective', 'elective'];
     //$extensionsProg1Sector1      = ['Default',         'Default',         'Default',         'Default',         'Default',         'Default'];
-    public function Help1_15_CreateChecklistForTier1_Program1_Sector1(\Step\Acceptance\Checklist $I) {
+    public function Help_CreateChecklistForTier1_Program1_Sector1(\Step\Acceptance\Checklist $I) {
 //        $sourceProgram      = $this->program1;
         $programDestination = $this->program1;
         $sectorDestination  = $this->sector1;
@@ -653,9 +1245,15 @@ class ChecklistCreateCest
         $I->PublishChecklistStatus();
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     //$statusesProg2Sector2      = ['core',     'elective', 'not set', 'elective', 'elective', 'elective'];
     //$extensionsProg2Sector2      = ['Large Building',  'Large Building',  'Large Building',  'Large Building',  'Large Building',  'Large Building'];
-    public function Help1_15_CreateChecklistForTier1_Program2_Sector2(\Step\Acceptance\Checklist $I) {
+    public function Help_CreateChecklistForTier1_Program2_Sector2(\Step\Acceptance\Checklist $I) {
 //        $sourceProgram      = $this->program1;
         $programDestination = $this->program2;
         $sectorDestination  = $this->sector2;
@@ -669,9 +1267,29 @@ class ChecklistCreateCest
         $I->PublishChecklistStatus();
     }
     
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsCoordinator3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->wait(1);
+        $I->Logout($I);
+        $I->wait(1);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
+        $I->wait(2);
+    }
+    
     //--------------------------------------------------------------------------Create Checklist--------------------------------------------------------------------------------------
     
     //-------------Create Checklists With Created EC & Checklists---------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_EssencialCriteria_PD_Program1_SD_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -684,6 +1302,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssencialCriteria_PD_Program2_SD_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program2;
@@ -694,6 +1317,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_SP_EssencialCriteria_PD_Program1_SD_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -706,6 +1335,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_EssencialCriteria_PD_Program2_SD_Sector2_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program2;
@@ -716,6 +1350,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     //$statusesEC1                 = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1               = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
@@ -735,6 +1375,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_Program2_PD_Program2_SD_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programDestination = $this->program2;
@@ -745,6 +1390,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     //$statusesEC1                 = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1               = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
@@ -764,6 +1415,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_SP_Program2_PD_Program2_SD_Sector2_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program2;
         $programDestination = $this->program2;
@@ -774,6 +1430,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     //$statusesEC1                 = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1               = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
@@ -795,6 +1457,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     //$statusesEC1                 = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1               = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
     //
@@ -812,6 +1479,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     //$statusesEC1                 = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1               = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
     //
@@ -828,6 +1500,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statnewEC1, $this->extensionsEC1);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     //$statusesEC1                   = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1                 = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
@@ -848,6 +1526,11 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     */
     
     //$statusesEC1                   = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1                 = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
@@ -870,6 +1553,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     //$statusesEC1                 = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1               = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
     //
@@ -890,6 +1578,12 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     //$statusesEC1                   = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1                 = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
     //
@@ -909,6 +1603,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     //$statusesEC1                   = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1                 = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
@@ -933,6 +1633,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     //$statusesEC1                   = ['core',     'elective', 'not set', 'not set',  'elective', 'not set'];
     //$extensionsEC1                 = ['Large Landscape', 'Default',         'Default',         'Default',         'Large Landscape', 'Default'];
     //
@@ -956,6 +1661,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     //$statusesEC3        = ['elective',     'elective', 'not set', 'not set',  'core', 'core'];
     //$extensionsEC3      = ['Default',         'Large Landscape',         'Default',         'Large Landscape',         'Large Building', 'Default'];
     public function CreateChecklist_ForTier2_SP_Program1_PD_Program2_SD_Sector2_PC_Program1_SC_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
@@ -973,6 +1683,12 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function CreateChecklist_ForTier2_SP_Program1_PD_Program1_SD_Sector1_PC_Program2_SC_Sector2_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programCriteria    = $this->program2;
@@ -987,6 +1703,11 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     */
     
     public function CreateChecklist_ForTier2_SP_EssentialCriteria_PD_Program2_SD_OfficeRetail_PC_Program2_SC_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
@@ -1003,6 +1724,11 @@ class ChecklistCreateCest
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_ForTier2_SP_EssencialCriteria_PD_Program2_SD_OfficeRetail_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
         $programDestination = $this->program2;
@@ -1015,6 +1741,12 @@ class ChecklistCreateCest
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
     
     public function CreateChecklist_ForTier2_SP_EssencialCriteria_PD_Program1_SD_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;

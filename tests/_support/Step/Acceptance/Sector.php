@@ -4,10 +4,15 @@ namespace Step\Acceptance;
 class Sector extends \AcceptanceTester
 {
     
-    public function CreateSector($name = null, $state = null, $program = null, $status = null)
+    public function CreateSector($name = null, $state = null, $program = null, $status = null, $stateId = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\SectorCreate::URL());
+        if (parent::$URL_UserAccess == '/state-admin'){
+            $I->amOnPage(\Page\SectorCreate::URL()."?state_id=$stateId");
+        }
+        else {
+            $I->amOnPage(\Page\SectorCreate::URL());
+        }
         $I->wait(2);
         $I->waitForElement(\Page\SectorCreate::$NameField);
         if (isset($name)){
