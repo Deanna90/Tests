@@ -70,12 +70,12 @@ class EssentialCriteria extends \AcceptanceTester
     public function PublishECStatus($row = '1')
     {
         $I = $this;
-        $I->wait(3);
+        $I->wait(4);
         $I->waitForElement(\Page\EssentialCriteriaManage::$VersionHistoryTab);
         $I->click(\Page\EssentialCriteriaManage::$VersionHistoryTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->click(\Page\EssentialCriteriaManage::PublishButtonLine_VersionHistoryTab($row));
-        $I->wait(2);        
+        $I->wait(3);        
         $I->canSee('Published', \Page\EssentialCriteriaManage::$StatusTitle);
     }
     

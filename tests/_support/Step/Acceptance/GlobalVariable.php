@@ -31,7 +31,7 @@ class GlobalVariable extends \AcceptanceTester
     public function OverrideGlobalVariable($title = null, $name = null, $value = null, $targetType = null, $targetId = null, $units = null)
     {
         $I = $this;
-        $I->wait(3);
+        $I->wait(4);
         if (isset($title)){
             $I->fillField(\Page\GlobalVariableOverride::$TitleField, $title);
         }
@@ -45,9 +45,13 @@ class GlobalVariable extends \AcceptanceTester
             $I->selectOption(\Page\GlobalVariableOverride::$UnitsSelect, $units);
         }
         if (isset($targetType)){
+            $I->click(\Page\GlobalVariableOverride::$TargetTypeSelect);
+            $I->wait(2);
             $I->selectOption(\Page\GlobalVariableOverride::$TargetTypeSelect, $targetType);
         }
         if (isset($targetId)){
+            $I->click(\Page\GlobalVariableOverride::$TargetIdSelect);
+            $I->wait(2);
             $I->selectOption(\Page\GlobalVariableOverride::$TargetIdSelect, $targetId);
         }
         $I->click(\Page\GlobalVariableOverride::$CreateButton);

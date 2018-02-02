@@ -7,7 +7,7 @@ class Checklist extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ChecklistCreate::URL());
-        $I->wait(6);
+        $I->wait(7);
         if (isset($sourceProgram)){
             $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
             $I->wait(2);

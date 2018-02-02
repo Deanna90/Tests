@@ -112,6 +112,9 @@ class User extends \AcceptanceTester
         $I->amOnPage(\Page\UserList::URL($userType));
         $I->wait(1);
         $count = $I->grabTextFrom(\Page\UserList::$SummaryCount);
+        $I->comment("Count1 = $count");
+        $count = str_replace(",", '', $count);
+        $I->comment("Count2 = $count");
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){

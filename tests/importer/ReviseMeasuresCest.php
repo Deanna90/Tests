@@ -3,8 +3,8 @@
 
 class ReviseMeasuresCest
 {
-    public $businessNew, $id_businessNew = "10955", $url_businessNew;
-    public $businessOld, $id_businessOld = '16183', $url_businessOld;
+    public $businessNew, $id_businessNew = "11208", $url_businessNew;
+    public $businessOld, $id_businessOld = '9038', $url_businessOld;
     public $GeneralNew = array(), $GeneralOld = array();
     public $EnergyNew = array(), $EnergyOld = array();
     public $PollutionPreventionNew = array(), $PollutionPreventionOld = array();

@@ -28,6 +28,8 @@ class UserList extends \AcceptanceTester
     public static $TypeLinkHead             = 'table[class*=table] tr>th:nth-of-type(6) a';
     public static $CreatedLinkHead          = 'table[class*=table] tr>th:nth-of-type(7) a';
     
+    public static $EmailRow                 = 'table[class*=table] tbody>tr>td:nth-of-type(2)';
+    public static $TypeRow                  = 'table[class*=table] tbody>tr>td:nth-of-type(6)';
     
     public static function IdLine($row)           { return "table[class*=table] tbody>tr:nth-of-type($row)>td:first-of-type"; }
     public static function EmailLine($row)        { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(2)"; }
