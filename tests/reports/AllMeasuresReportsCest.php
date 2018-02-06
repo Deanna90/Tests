@@ -2464,7 +2464,7 @@ class AllMeasuresReportsCest
         $number_FuelSavedArea = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::FuelSaved);
         $I->canSee($areaSum_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_FuelSavedArea));
         
-        $I->canSee($savingMeas2_Daily_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_FuelSavedArea));
+        $I->canSee($savingMeas2_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_FuelSavedArea));
         
         $number_GreenhouseGasEmissionsSaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::GreenhouseGasEmissionsSaved);
         $I->canSee($areaSum_GreenhouseGasEmissionsSaved." $this->shortUnits_GreenhouseGasEmissionsSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_GreenhouseGasEmissionsSaved));

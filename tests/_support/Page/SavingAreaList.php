@@ -33,7 +33,7 @@ class SavingAreaList extends \AcceptanceTester
     const FuelSaved                   = 'Fuel Saved';
     const HazardousWasteReduced       = 'Hazardous Waste Reduced';
     const MercuryReduced              = 'Mercury Reduced';
-    const GreaseRecycled              = 'Grease Recycled';
-    const VOC                         = 'VOC';
-    const Therms                      = 'Therms';
+    const GreaseRecycled              = 'Fats, Oils, and Grease Saved';
+    const VOC                         = 'VOCs Saved';
+    const Therms                      = 'Therms saved';
 }

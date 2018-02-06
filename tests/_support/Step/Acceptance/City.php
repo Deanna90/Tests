@@ -24,7 +24,7 @@ class City extends \AcceptanceTester
             $I->fillField(\Page\CityCreate::$ZipsField, $zips);
         }
         $I->click(\Page\CityCreate::$CreateButton);
-        $I->wait(3);
+        $I->wait(4);
     }  
     
     public function UpdateCity($row, $name = null, $state = null, $zips = null)
