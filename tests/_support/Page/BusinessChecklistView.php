@@ -127,21 +127,21 @@ class BusinessChecklistView extends \AcceptanceTester
 //    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
     public static function MeasureGreenTip($grTip)               { return "//*[@class='short-articles link-green no-ajax'][contains(h4/text(), 'Measure')]//*[text()='$grTip']";}
     public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//p[contains(text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
-    public static function MeasureToggleButton2_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type']";}
+    public static function MeasureToggleButton2_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div//p/text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type']";}
     public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/span";}
     public static function Savings_ByDesc($desc)                 { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/div";}
     
-    public static function FlagCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//*[contains(@for, 'flag')]";}
-    public static function PostCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//*[contains(@for, 'post')]";}
-    public static function HelpCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//*[contains(@for, 'help')]";}
+    public static function FlagCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div//p/text(), '$desc')]//*[contains(@for, 'flag')]";}
+    public static function PostCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div//p/text(), '$desc')]//*[contains(@for, 'post')]";}
+    public static function HelpCheckboxLabel_ByDesc($desc)            { return "//*[@id='measures-form']//li/div[contains(div//p/text(), '$desc')]//*[contains(@for, 'help')]";}
     
     
-    public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//li/div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
-    public static function SubmeasureLink_ByMeasureDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span//a";}
-    public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//select";}
-    public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//input";}
-    public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
-    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-3-items')]";}
+    public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//li/div[contains(div//p/text(), '$desc')]//ul/li[$row]/div/span";}
+    public static function SubmeasureLink_ByMeasureDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(div//p/text(), '$desc')]//ul/li[$row]/div/span//a";}
+    public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div//p/text(), '$desc')]//ul/li[$row]//select";}
+    public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//li[contains(div//p/text(), '$desc')]//ul/li[$row]//input";}
+    public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div//p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
+    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div//p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-3-items')]";}
     
     public static function AuditGreenTip_ByTipDesc($grTip)              { return "//*[@class='right-column-block']//h4[text()='$grTip']/i";}
     

@@ -683,7 +683,7 @@ class RequiresRenewalCest
         $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 20%;']);
         $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 20%;']);
         $I->canSeeElement(\Page\BusinessChecklistView::$ElectiveCompletedProgressBar, ['style' => 'width: 0%;']);
-        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 20%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 20%;']);
         $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 20%;']);
         $I->canSee("1 of 5 required measures completed", \Page\BusinessChecklistView::$CoreProgressBarInfo);
         $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$ElectiveProgressBarInfo);
@@ -720,7 +720,7 @@ class RequiresRenewalCest
         $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 20%;']);
         $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 20%;']);
         $I->canSeeElement(\Page\BusinessChecklistView::$ElectiveCompletedProgressBar, ['style' => 'width: 0%;']);
-        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 20%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 20%;']);
         $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 20%;']);
         $I->canSee("1 of 5 required measures completed", \Page\BusinessChecklistView::$CoreProgressBarInfo);
         $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$ElectiveProgressBarInfo);

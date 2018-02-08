@@ -33,7 +33,7 @@ class Measure extends \AcceptanceTester
         if (isset($auditSubgroup)){
             $I->wait(5);
             $I->click(\Page\MeasureCreate::$AuditSubgroupSelect);
-            $I->wait(4);
+            $I->wait(5);
             $I->selectOption(\Page\MeasureCreate::$AuditSubgroupSelect, $auditSubgroup);
             $I->wait(6);
         }
