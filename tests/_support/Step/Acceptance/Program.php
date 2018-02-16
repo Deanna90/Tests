@@ -7,7 +7,7 @@ class Program extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ProgramCreate::URL());
-        $I->wait(1);
+        $I->wait(2);
         $I->waitForElement(\Page\ProgramCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\ProgramCreate::$NameField, $name);

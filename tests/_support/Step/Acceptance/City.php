@@ -8,7 +8,7 @@ class City extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Create City");
         $I->amOnPage(\Page\CityCreate::URL());
-        $I->wait(2);
+        $I->wait(3);
         $I->waitForElement(\Page\CityCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\CityCreate::$NameField, $name);
@@ -18,13 +18,15 @@ class City extends \AcceptanceTester
         }
         if (isset($county)){
             $I->wait(5);
+            $I->click(\Page\CityCreate::$CountySelect);
+            $I->wait(1);
             $I->selectOption(\Page\CityCreate::$CountySelect, $county);
         }
         if (isset($zips)){
             $I->fillField(\Page\CityCreate::$ZipsField, $zips);
         }
         $I->click(\Page\CityCreate::$CreateButton);
-        $I->wait(4);
+        $I->wait(5);
     }  
     
     public function UpdateCity($row, $name = null, $state = null, $zips = null)

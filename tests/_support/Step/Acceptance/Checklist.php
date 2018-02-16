@@ -98,11 +98,12 @@ class Checklist extends \AcceptanceTester
     {
         $I = $this;
         $I->wait(4);
-        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab);
+        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 15);
+        $I->wait(2);
         $I->click(\Page\ChecklistManage::$VersionHistoryTab);
-        $I->wait(4);
+        $I->wait(8);
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab($row));
-        $I->wait(2);        
+        $I->wait(3);        
         $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
     }
     

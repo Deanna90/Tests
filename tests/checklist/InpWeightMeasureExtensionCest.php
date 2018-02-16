@@ -33,7 +33,7 @@ class InpWeightMeasureExtensionCest
     public $extensions_Error3 = ['Default', 'Large Building', 'Default', 'Large Building', 'Large Building', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
     public $extensions_Error3_Saved = ['Default', 'Large Building', 'Default', 'Large Building', 'Large Building', 'Default', 'Large Building', 'Large Building', 'Default'];
     public $checklistUrl, $id_checklist;
-    public $business_NAanswers, $bus_busSquire_NAanswers  = '45678', $bus_landSquire_NAanswers = '5666';
+    public $business_NAanswers, $bus_busSquire_NAanswers  = '45678', $bus_landSquire_NAanswers  = '5666';
     public $business1_LB,       $bus1_busSquire_LB        = '30000', $bus1_landSquire_LB        = '999';
     public $business2_LL,       $bus2_busSquire_LL        = '29999', $bus2_landSquire_LL        = '1000';
     public $business3_LB_LL,    $bus3_busSquire_LB_LL     = '30001', $bus3_landSquire_LB_LL     = '1001'; 
@@ -453,535 +453,535 @@ class InpWeightMeasureExtensionCest
      * @group coordinator
      */
     
-//    public function Create_Checklist1_ForTier2_ForExtensionUpdatingTest(\Step\Acceptance\Checklist $I) {
-//        $sourceProgram      = $this->program1;
-//        $programDestination = $this->program1;
-//        $sectorDestination  = 'Office / Retail';
-//        $tier               = '2';
-//        $descs              = $this->measuresDesc_SuccessCreated;
-//        
-//        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-//        
-//        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-//        $I->wait(3);
-//        $I->ManageChecklist($descs, $this->statuses, $this->extensions);
-//        $this->checklistUrl = $I->grabFromCurrentUrl();
-//        $I->comment("Url1: $this->checklistUrl");
-//        $u1 = explode('=', $this->checklistUrl);
-//        $urlEnd = $u1[1];
-//        $u2 = explode('&', $urlEnd);
-//        $this->id_checklist = $u2[0];
-//        $I->comment("Checklist1 (For Extensions Updating Test) id: $this->id_checklist");
-//        $I->reloadPage();
-//    }
-//    
-//    /**
-//     * @group admin
-//     * @group stateadmin
-//     * @group coordinator
-//     */
-//    
-//    public function UpdateDefineTotalsValuesForChecklist1(\Step\Acceptance\Checklist $I) {
-//        $points_Default = '3';
-//        $points_LB      = '18';
-//        $points_LL      = '12';
-//        $points_LL_LB   = '27';
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->UpdateChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
-//        $I->wait(2);
-//        $I->CheckSavedChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
-//    }
-//    
-//    /**
-//     * @group admin
-//     * @group stateadmin
-//     * @group coordinator
-//     */
-//    
-//    public function ChangeExtensionStatusesInChecklist1_CheckCorrectDefineTotalsValuesAfterExtensionsUpdating(\Step\Acceptance\Checklist $I) {
-//        $points_Default = '3';
-//        $points_LB      = '18';
-//        $points_LL      = '12';
-//        $points_LL_LB   = '27';
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions1);
-//        $I->wait(3);
-//        $I->reloadPage();
-//        $I->wait(3);
-//        $I->comment("                                             ");
-//        $I->canSee('Core', \Page\ChecklistManage::$IncludedMeasuresForm_CoreTitle);
-//        $I->canSee('Default:', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreLabel);
-//        $I->canSee('Lg Building:', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreLabel);
-//        $I->canSee('Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreLabel);
-//        $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreLabel);
-//        
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('Elective', \Page\ChecklistManage::$IncludedMeasuresForm_ElectiveTitle);
-//        $I->canSee('Default:', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveLabel);
-//        $I->canSee('Lg Building:', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveLabel);
-//        $I->canSee('Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveLabel);
-//        $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveLabel);
-//        
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-//        
-//        $I->comment("---Points:---");
-//        $I->canSee('Core', \Page\ChecklistManage::$IncludedPointsForm_CoreTitle);
-//        $I->canSee('Default:', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreLabel);
-//        $I->canSee('Large Building:', \Page\ChecklistManage::$IncludedPointsForm_LBCoreLabel);
-//        $I->canSee('Large Landscape:', \Page\ChecklistManage::$IncludedPointsForm_LLCoreLabel);
-//        $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreLabel);
-//        
-//        $I->canSee('11', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
-//        $I->canSee('11', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
-//        
-//        $I->canSee('Elective', \Page\ChecklistManage::$IncludedPointsForm_ElectiveTitle);
-//        $I->canSee('Default:', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveLabel);
-//        $I->canSee('Large Building:', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveLabel);
-//        $I->canSee('Large Landscape:', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveLabel);
-//        $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveLabel);
-//        
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
-//        $I->canSee('8', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
-//        $I->canSee('7', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
-//        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
-//        $I->wait(1);
-//        
-//        $I->CheckSavedChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
-//    }
-//    
-//    /**
-//     * @group admin
-//     * @group stateadmin
-//     * @group coordinator
-//     */
-//    
-//    public function ChangeExtensionStatusesInChecklist1_CheckError(\Step\Acceptance\Checklist $I) {
-//        $points_Default = '3';
-//        $points_LB      = '18';
-//        $points_LL      = '12';
-//        $points_LL_LB   = '27';
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error1);
-//        $I->wait(4);
-//        $I->canSee("Checklist was not updated! You can't change measures.");
-//        $I->click(".confirm");
-//        $I->wait(2);
-//        $I->reloadPage();
-//        $I->wait(3);
-//        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions1_Saved);
-//        $I->wait(1);
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error2);
-//        $I->wait(4);
-//        $I->canSee("Checklist was not updated! You can't change measures.");
-//        $I->click(".confirm");
-//        $I->wait(2);
-//        $I->reloadPage();
-//        $I->wait(3);
-//        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions1_Saved);
-//        $I->wait(1);
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error3);
-//        $I->wait(4);
-//        $I->canSee("Checklist was not updated! You can't change measures.");
-//        $I->click(".confirm");
-//        $I->wait(2);
-//        $I->reloadPage();
-//        $I->wait(3);
-//        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions1_Saved);
-//        $I->wait(1);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-//        
-//        $I->comment("---Points:---");
-//        $I->canSee('11', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
-//        $I->canSee('11', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
-//        
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
-//        $I->canSee('8', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
-//        $I->canSee('7', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
-//        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
-//        $I->wait(1);
-//        
-//        $I->CheckSavedChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
-//    }
-//    
-//    /**
-//     * @group admin
-//     * @group stateadmin
-//     * @group coordinator
-//     */
-//    
-//    public function ChangePointsAtFirstAndNextChangeExtensionStatusesInChecklist1_CheckSavingValues(\Step\Acceptance\Checklist $I) {
-//        $points_Default_1 = '3';
-//        $points_LB_1      = '18';
-//        $points_LL_1      = '9';
-//        $points_LL_LB_1   = '27';
-//        
-//        $points_Default_2 = '1';
-//        $points_LB_2      = '16';
-//        $points_LL_2      = '9';
-//        $points_LL_LB_2   = '27';
-//        
-//        $points_Default_3 = '1';
-//        $points_LB_3      = '16';
-//        $points_LL_3      = '1';
-//        $points_LL_LB_3   = '27';
-//        
-//    // $extensions_Error1 = ['Large Building', 'Large Building', 'Default', 'Default', 'Default',  'Large Building', 'Large Building', 'Large Building', 'Large Building'];
-//    // $statuses          = ['core',           'elective',       'not set', 'core',    'elective', 'not set',        'core',           'elective',       'not set'];
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->UpdateChecklistPoints($points_Default = null, $points_LB = null, $points_LL_1, $points_LL_LB = null);
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error1);
-//        $I->wait(4);
-//        $I->cantSee("Checklist was not updated! You can't change measures.");
-//        $I->wait(2);
-//        $I->reloadPage();
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error1_Saved);
-//        $I->wait(1);
-//        $I->CheckSavedChecklistPoints($points_Default_1, $points_LB_1, $points_LL_1, $points_LL_LB_1);
-//        $I->comment("                                             ");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-//        
-//        $I->comment("---Points:---");
-//        $I->canSee('4', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
-//        $I->canSee('4', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
-//        
-//        $I->canSee('5', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
-//        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
-//        $I->canSee('5', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
-//        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
-//        $I->wait(1);
-//        
-//    // $extensions_Error2 = ['Default', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
-//    // $statuses          = ['core',    'elective',        'not set',         'core',            'elective',        'not set',         'core',           'elective',       'not set'];
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error2);
-//        $I->wait(4);
-//        $I->canSee("Checklist was not updated! You can't change measures.");
-//        $I->wait(2);
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->UpdateChecklistPoints($points_Default_2, $points_LB_2, $points_LL = null, $points_LL_LB = null);
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error2);
-//        $I->wait(4);
-//        $I->cantSee("Checklist was not updated! You can't change measures.");
-//        $I->wait(2);
-//        $I->reloadPage();
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error2_Saved);
-//        $I->wait(1);
-//        $I->CheckSavedChecklistPoints($points_Default_2, $points_LB_2, $points_LL_2, $points_LL_LB_2);
-//        $I->comment("                                             ");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-//        
-//        $I->comment("---Points:---");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
-//        $I->canSee('8', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
-//        $I->canSee('5', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
-//        
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
-//        $I->canSee('8', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
-//        $I->canSee('7', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
-//        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
-//        $I->wait(1);
-//        
-//        // $extensions_Error3 = ['Default', 'Large Building', 'Default', 'Large Building', 'Large Building', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
-//        // $statuses          = ['core',    'elective',       'not set', 'core',           'elective',       'not set',         'core',           'elective',       'not set'];
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error3);
-//        $I->wait(4);
-//        $I->canSee("Checklist was not updated! You can't change measures.");
-//        $I->wait(2);
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->UpdateChecklistPoints($points_Default = null, $points_LB = null, $points_LL_3, $points_LL_LB = null);
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error3);
-//        $I->wait(4);
-//        $I->cantSee("Checklist was not updated! You can't change measures.");
-//        $I->wait(2);
-//        $I->reloadPage();
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error3_Saved);
-//        $I->wait(1);
-//        $I->CheckSavedChecklistPoints($points_Default_3, $points_LB_3, $points_LL_3, $points_LL_LB_3);
-//        $I->comment("                                             ");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-//        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-//        
-//        $I->comment("---Points:---");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
-//        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
-//        
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
-//        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
-//        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
-//        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
-//        $I->wait(1);        
-//    }
-//    
-//    /**
-//     * @group admin
-//     * @group stateadmin
-//     * @group coordinator
-//     */
-//    
-//    //For Test Statuses Updating
-//    public function Create_Checklist2_ForTier2_ForStatusesUpdatingTest(\Step\Acceptance\Checklist $I) {
-//        $sourceProgram      = $this->program1;
-//        $programDestination = $this->program1;
-//        $sectorDestination  = 'Office / Retail';
-//        $tier               = '2';
-//        $descs              = $this->measuresDesc_SuccessCreated;
-//        
-//        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-//        $I->wait(3);
-//        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-//        $I->wait(2);
-//        $I->ManageChecklist($descs, $this->statuses, $this->extensions);
-//        $this->checklistUrl = $I->grabFromCurrentUrl();
-//        $I->comment("Url1: $this->checklistUrl");
-//        $u1 = explode('=', $this->checklistUrl);
-//        $urlEnd = $u1[1];
-//        $u2 = explode('&', $urlEnd);
-//        $this->id_checklist = $u2[0];
-//        $I->comment("Checklist2 (For Statuses Updating Test) id: $this->id_checklist");
-//        $I->reloadPage();
-//    }
-//    
-//    /**
-//     * @group admin
-//     * @group stateadmin
-//     * @group coordinator
-//     */
-//    
-//    public function UpdateDefineTotalsValuesForChecklist2(\Step\Acceptance\Checklist $I) {
-//        $points_Default = '3';
-//        $points_LB      = '18';
-//        $points_LL      = '12';
-//        $points_LL_LB   = '27';
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->UpdateChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
-//        $I->wait(1);
-//        $I->CheckSavedChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
-//    }
-//    
-//    /**
-//     * @group admin
-//     * @group stateadmin
-//     * @group coordinator
-//     */
-//    
-//    public function ChangeStatusesInChecklist2_CheckCorrectDefineTotalsValuesAfterStatusesUpdating(\Step\Acceptance\Checklist $I) {
-//        $points_Default1 = '21'; $coreD = "15";     $elecD = "6";
-//        $points_LB1      = '28'; $coreLB = "22";    $elecLB = "6";
-//        $points_LL1      = '30'; $coreLL = "20";    $elecLL = "10";
-//        $points_LL_LB1   = '37'; $coreLB_LL = "27"; $elecLB_LL = "10";
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses1);
-//        $I->wait(3);
-//        $I->reloadPage();
-//        $I->wait(2);
-//        $I->comment("                                             ");
-//        $I->canSee('4', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-//        $I->canSee('5', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-//        $I->canSee('5', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-//        $I->canSee('6', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-//        
-//        $I->comment("---Points:---");
-//        $I->canSee($coreD, \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
-//        $I->canSee($coreLB, \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
-//        $I->canSee($coreLL, \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
-//        $I->canSee($coreLB_LL, \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
-//        
-//        $I->canSee($elecD, \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
-//        $I->canSee($elecLB, \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
-//        $I->canSee($elecLL, \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
-//        $I->canSee($elecLB_LL, \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
-//        $I->wait(1);        
-//    }
-//    
-//    /**
-//     * @group admin
-//     * @group stateadmin
-//     * @group coordinator
-//     */
-//    
-//    public function ChangeStatusesInChecklist2_CheckError(\Step\Acceptance\Checklist $I) {
-//        $points_Default = '3';
-//        $points_LB      = '18';
-//        $points_LL      = '12';
-//        $points_LL_LB   = '27';
-//        
-//        $points_Default_Upd = '1';
-//        $points_LB_Upd      = '1';
-//        $points_LL_Upd      = '12';
-//        $points_LL_LB_Upd   = '12';
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(3);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses_Error2);
-//        $I->wait(4);
-//        $I->canSee("Checklist was not updated! You can't change measures.");
-//        $I->click(".confirm");
-//        $I->wait(2);
-//        $I->reloadPage();
-//        $I->wait(3);
-//        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses1, $this->statuses1_ExtenSaved);
-//        $I->wait(1);
-//        
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->UpdateChecklistPoints($points_Default_Upd, $points_LB_Upd, $points_LL1 = null, $points_LL_LB_Upd);
-//        $I->wait(3);
-//        $I->amOnPage($this->checklistUrl);
-//        $I->wait(3);
-//        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-//        $I->wait(2);
-//        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses_Error2);
-//        $I->wait(4);
-//        $I->reloadPage();
-//        $I->wait(2);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
-//        
-//        $I->comment("                                             ");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-//        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-//        
-//        $I->comment("---Points:---");
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
-//        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
-//        $I->canSee('6', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
-//        $I->canSee('6', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
-//        
-//        $I->canSee('6', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
-//        $I->canSee('6', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
-//        $I->canSee('10', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
-//        $I->canSee('10', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
-//        $I->wait(1);
-//        
-//        $I->CheckSavedChecklistPoints($points_Default_Upd, $points_LB_Upd, $points_LL_Upd, $points_LL_LB_Upd);
-//    }
+    public function Create_Checklist1_ForTier2_ForExtensionUpdatingTest(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = $this->program1;
+        $programDestination = $this->program1;
+        $sectorDestination  = 'Office / Retail';
+        $tier               = '2';
+        $descs              = $this->measuresDesc_SuccessCreated;
+        
+        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        
+        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->wait(3);
+        $I->ManageChecklist($descs, $this->statuses, $this->extensions);
+        $this->checklistUrl = $I->grabFromCurrentUrl();
+        $I->comment("Url1: $this->checklistUrl");
+        $u1 = explode('=', $this->checklistUrl);
+        $urlEnd = $u1[1];
+        $u2 = explode('&', $urlEnd);
+        $this->id_checklist = $u2[0];
+        $I->comment("Checklist1 (For Extensions Updating Test) id: $this->id_checklist");
+        $I->reloadPage();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateDefineTotalsValuesForChecklist1(\Step\Acceptance\Checklist $I) {
+        $points_Default = '3';
+        $points_LB      = '18';
+        $points_LL      = '12';
+        $points_LL_LB   = '27';
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->UpdateChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
+        $I->wait(2);
+        $I->CheckSavedChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function ChangeExtensionStatusesInChecklist1_CheckCorrectDefineTotalsValuesAfterExtensionsUpdating(\Step\Acceptance\Checklist $I) {
+        $points_Default = '3';
+        $points_LB      = '18';
+        $points_LL      = '12';
+        $points_LL_LB   = '27';
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions1);
+        $I->wait(3);
+        $I->reloadPage();
+        $I->wait(3);
+        $I->comment("                                             ");
+        $I->canSee('Core', \Page\ChecklistManage::$IncludedMeasuresForm_CoreTitle);
+        $I->canSee('Default:', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreLabel);
+        $I->canSee('Lg Building:', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreLabel);
+        $I->canSee('Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreLabel);
+        $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreLabel);
+        
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        
+        $I->comment("                                             ");
+        $I->canSee('Elective', \Page\ChecklistManage::$IncludedMeasuresForm_ElectiveTitle);
+        $I->canSee('Default:', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveLabel);
+        $I->canSee('Lg Building:', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveLabel);
+        $I->canSee('Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveLabel);
+        $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveLabel);
+        
+        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
+        
+        $I->comment("---Points:---");
+        $I->canSee('Core', \Page\ChecklistManage::$IncludedPointsForm_CoreTitle);
+        $I->canSee('Default:', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreLabel);
+        $I->canSee('Large Building:', \Page\ChecklistManage::$IncludedPointsForm_LBCoreLabel);
+        $I->canSee('Large Landscape:', \Page\ChecklistManage::$IncludedPointsForm_LLCoreLabel);
+        $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreLabel);
+        
+        $I->canSee('11', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
+        $I->canSee('11', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
+        
+        $I->canSee('Elective', \Page\ChecklistManage::$IncludedPointsForm_ElectiveTitle);
+        $I->canSee('Default:', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveLabel);
+        $I->canSee('Large Building:', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveLabel);
+        $I->canSee('Large Landscape:', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveLabel);
+        $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveLabel);
+        
+        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
+        $I->canSee('8', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
+        $I->canSee('7', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
+        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
+        $I->wait(1);
+        
+        $I->CheckSavedChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function ChangeExtensionStatusesInChecklist1_CheckError(\Step\Acceptance\Checklist $I) {
+        $points_Default = '3';
+        $points_LB      = '18';
+        $points_LL      = '12';
+        $points_LL_LB   = '27';
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error1);
+        $I->wait(4);
+        $I->canSee("Checklist was not updated! You can't change measures.");
+        $I->click(".confirm");
+        $I->wait(3);
+        $I->reloadPage();
+        $I->wait(3);
+        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions1_Saved);
+        $I->wait(1);
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error2);
+        $I->wait(4);
+        $I->canSee("Checklist was not updated! You can't change measures.");
+        $I->click(".confirm");
+        $I->wait(3);
+        $I->reloadPage();
+        $I->wait(3);
+        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions1_Saved);
+        $I->wait(1);
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error3);
+        $I->wait(4);
+        $I->canSee("Checklist was not updated! You can't change measures.");
+        $I->click(".confirm");
+        $I->wait(3);
+        $I->reloadPage();
+        $I->wait(3);
+        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions1_Saved);
+        $I->wait(1);
+        
+        $I->comment("                                             ");
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        
+        $I->comment("                                             ");
+        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
+        
+        $I->comment("---Points:---");
+        $I->canSee('11', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
+        $I->canSee('11', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
+        
+        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
+        $I->canSee('8', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
+        $I->canSee('7', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
+        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
+        $I->wait(1);
+        
+        $I->CheckSavedChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function ChangePointsAtFirstAndNextChangeExtensionStatusesInChecklist1_CheckSavingValues(\Step\Acceptance\Checklist $I) {
+        $points_Default_1 = '3';
+        $points_LB_1      = '18';
+        $points_LL_1      = '9';
+        $points_LL_LB_1   = '27';
+        
+        $points_Default_2 = '1';
+        $points_LB_2      = '16';
+        $points_LL_2      = '9';
+        $points_LL_LB_2   = '27';
+        
+        $points_Default_3 = '1';
+        $points_LB_3      = '16';
+        $points_LL_3      = '1';
+        $points_LL_LB_3   = '27';
+        
+    // $extensions_Error1 = ['Large Building', 'Large Building', 'Default', 'Default', 'Default',  'Large Building', 'Large Building', 'Large Building', 'Large Building'];
+    // $statuses          = ['core',           'elective',       'not set', 'core',    'elective', 'not set',        'core',           'elective',       'not set'];
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->UpdateChecklistPoints($points_Default = null, $points_LB = null, $points_LL_1, $points_LL_LB = null);
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error1);
+        $I->wait(4);
+        $I->cantSee("Checklist was not updated! You can't change measures.");
+        $I->wait(2);
+        $I->reloadPage();
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error1_Saved);
+        $I->wait(1);
+        $I->CheckSavedChecklistPoints($points_Default_1, $points_LB_1, $points_LL_1, $points_LL_LB_1);
+        $I->comment("                                             ");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        
+        $I->comment("                                             ");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
+        
+        $I->comment("---Points:---");
+        $I->canSee('4', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
+        $I->canSee('4', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
+        
+        $I->canSee('5', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
+        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
+        $I->canSee('5', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
+        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
+        $I->wait(1);
+        
+    // $extensions_Error2 = ['Default', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
+    // $statuses          = ['core',    'elective',        'not set',         'core',            'elective',        'not set',         'core',           'elective',       'not set'];
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error2);
+        $I->wait(4);
+        $I->canSee("Checklist was not updated! You can't change measures.");
+        $I->wait(2);
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->UpdateChecklistPoints($points_Default_2, $points_LB_2, $points_LL = null, $points_LL_LB = null);
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error2);
+        $I->wait(4);
+        $I->cantSee("Checklist was not updated! You can't change measures.");
+        $I->wait(2);
+        $I->reloadPage();
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error2_Saved);
+        $I->wait(1);
+        $I->CheckSavedChecklistPoints($points_Default_2, $points_LB_2, $points_LL_2, $points_LL_LB_2);
+        $I->comment("                                             ");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        
+        $I->comment("                                             ");
+        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
+        
+        $I->comment("---Points:---");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
+        $I->canSee('8', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
+        $I->canSee('5', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
+        
+        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
+        $I->canSee('8', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
+        $I->canSee('7', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
+        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
+        $I->wait(1);
+        
+        // $extensions_Error3 = ['Default', 'Large Building', 'Default', 'Large Building', 'Large Building', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
+        // $statuses          = ['core',    'elective',       'not set', 'core',           'elective',       'not set',         'core',           'elective',       'not set'];
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error3);
+        $I->wait(4);
+        $I->canSee("Checklist was not updated! You can't change measures.");
+        $I->wait(2);
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->UpdateChecklistPoints($points_Default = null, $points_LB = null, $points_LL_3, $points_LL_LB = null);
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error3);
+        $I->wait(4);
+        $I->cantSee("Checklist was not updated! You can't change measures.");
+        $I->wait(2);
+        $I->reloadPage();
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions_Error3_Saved);
+        $I->wait(1);
+        $I->CheckSavedChecklistPoints($points_Default_3, $points_LB_3, $points_LL_3, $points_LL_LB_3);
+        $I->comment("                                             ");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        
+        $I->comment("                                             ");
+        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
+        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
+        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
+        
+        $I->comment("---Points:---");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
+        $I->canSee('12', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
+        
+        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
+        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
+        $I->canSee('0', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
+        $I->canSee('15', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
+        $I->wait(1);        
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    //For Test Statuses Updating
+    public function Create_Checklist2_ForTier2_ForStatusesUpdatingTest(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = $this->program1;
+        $programDestination = $this->program1;
+        $sectorDestination  = 'Office / Retail';
+        $tier               = '2';
+        $descs              = $this->measuresDesc_SuccessCreated;
+        
+        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $I->wait(3);
+        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->wait(2);
+        $I->ManageChecklist($descs, $this->statuses, $this->extensions);
+        $this->checklistUrl = $I->grabFromCurrentUrl();
+        $I->comment("Url1: $this->checklistUrl");
+        $u1 = explode('=', $this->checklistUrl);
+        $urlEnd = $u1[1];
+        $u2 = explode('&', $urlEnd);
+        $this->id_checklist = $u2[0];
+        $I->comment("Checklist2 (For Statuses Updating Test) id: $this->id_checklist");
+        $I->reloadPage();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateDefineTotalsValuesForChecklist2(\Step\Acceptance\Checklist $I) {
+        $points_Default = '3';
+        $points_LB      = '18';
+        $points_LL      = '12';
+        $points_LL_LB   = '27';
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->UpdateChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
+        $I->wait(1);
+        $I->CheckSavedChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function ChangeStatusesInChecklist2_CheckCorrectDefineTotalsValuesAfterStatusesUpdating(\Step\Acceptance\Checklist $I) {
+        $points_Default1 = '21'; $coreD = "15";     $elecD = "6";
+        $points_LB1      = '28'; $coreLB = "22";    $elecLB = "6";
+        $points_LL1      = '30'; $coreLL = "20";    $elecLL = "10";
+        $points_LL_LB1   = '37'; $coreLB_LL = "27"; $elecLB_LL = "10";
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses1);
+        $I->wait(3);
+        $I->reloadPage();
+        $I->wait(2);
+        $I->comment("                                             ");
+        $I->canSee('4', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
+        $I->canSee('5', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
+        $I->canSee('5', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
+        $I->canSee('6', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        
+        $I->comment("                                             ");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
+        
+        $I->comment("---Points:---");
+        $I->canSee($coreD, \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
+        $I->canSee($coreLB, \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
+        $I->canSee($coreLL, \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
+        $I->canSee($coreLB_LL, \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
+        
+        $I->canSee($elecD, \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
+        $I->canSee($elecLB, \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
+        $I->canSee($elecLL, \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
+        $I->canSee($elecLB_LL, \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
+        $I->wait(1);        
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function ChangeStatusesInChecklist2_CheckError(\Step\Acceptance\Checklist $I) {
+        $points_Default = '3';
+        $points_LB      = '18';
+        $points_LL      = '12';
+        $points_LL_LB   = '27';
+        
+        $points_Default_Upd = '1';
+        $points_LB_Upd      = '1';
+        $points_LL_Upd      = '12';
+        $points_LL_LB_Upd   = '12';
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(3);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses_Error2);
+        $I->wait(4);
+        $I->canSee("Checklist was not updated! You can't change measures.");
+        $I->click(".confirm");
+        $I->wait(3);
+        $I->reloadPage();
+        $I->wait(3);
+        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses1, $this->statuses1_ExtenSaved);
+        $I->wait(1);
+        
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->UpdateChecklistPoints($points_Default_Upd, $points_LB_Upd, $points_LL1 = null, $points_LL_LB_Upd);
+        $I->wait(3);
+        $I->amOnPage($this->checklistUrl);
+        $I->wait(3);
+        $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
+        $I->wait(2);
+        $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses_Error2);
+        $I->wait(4);
+        $I->reloadPage();
+        $I->wait(2);
+        
+        $I->comment("                                             ");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        
+        $I->comment("                                             ");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
+        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
+        
+        $I->comment("---Points:---");
+        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_DefaultCoreValue);
+        $I->canSee('1', \Page\ChecklistManage::$IncludedPointsForm_LBCoreValue);
+        $I->canSee('6', \Page\ChecklistManage::$IncludedPointsForm_LLCoreValue);
+        $I->canSee('6', \Page\ChecklistManage::$IncludedPointsForm_LB_LLCoreValue);
+        
+        $I->canSee('6', \Page\ChecklistManage::$IncludedPointsForm_DefaultElectiveValue);
+        $I->canSee('6', \Page\ChecklistManage::$IncludedPointsForm_LBElectiveValue);
+        $I->canSee('10', \Page\ChecklistManage::$IncludedPointsForm_LLElectiveValue);
+        $I->canSee('10', \Page\ChecklistManage::$IncludedPointsForm_LB_LLElectiveValue);
+        $I->wait(1);
+        
+        $I->CheckSavedChecklistPoints($points_Default_Upd, $points_LB_Upd, $points_LL_Upd, $points_LL_LB_Upd);
+    }
     
     /**
      * @group admin
@@ -1029,58 +1029,58 @@ class InpWeightMeasureExtensionCest
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$PointsTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("-----DEFAULT TAB-----");
         $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, '3');
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("You don`t have assigned measures to $this->state state.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("-----LARGE BUILDING TAB-----");
         $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, '3');
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("You don`t have assigned measures to $this->state state.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("-----LARGE LANDSCAPE TAB-----");
         $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, '3');
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("You don`t have assigned measures to $this->state state.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("-----LARGE BUILDING+LARGE LANDSCAPE TAB-----");
         $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, '3');
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("You don`t have assigned measures to $this->state state.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-        $I->wait(2);
+        $I->wait(4);
         $I->ManageChecklist($descs, $this->statuses, $this->extensions);
         $this->checklistUrl = $I->grabFromCurrentUrl();
         $I->comment("Url1: $this->checklistUrl");
@@ -1153,57 +1153,57 @@ class InpWeightMeasureExtensionCest
         $points_LL_LB_input   = $max_points_LL_LB + 1;
         
         $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
+        $I->wait(4);
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$PointsTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("-----DEFAULT TAB-----");
         $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_Default_input);
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("-----LARGE BUILDING TAB-----");
         $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LB_input);
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("-----LARGE LANDSCAPE TAB-----");
         $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LL_input);
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("-----LARGE BUILDING+LARGE LANDSCAPE TAB-----");
         $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LL_LB_input);
         $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
     }
@@ -1277,7 +1277,7 @@ class InpWeightMeasureExtensionCest
     public function CheckDefaultMeasures_Present_Default_CoreAndElective_OnPrintChecklist(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPrint::URl($this->id_checklist, $this->bus4_busSquire_Default, $this->bus4_landSquire_Default));
         $I->wait(3);
-        $I->pressKey('#print-preview', \WebDriverKeys::ESCAPE);
+        $I->pressKey('#print-preview .cancel', \WebDriverKeys::ESCAPE);
         $I->wait(3);
         $I->canSee("GreenBiz Tracker", \Page\ChecklistPrint::$Title);
         $I->canSee("Office / Retail - Tier 2", \Page\ChecklistPrint::$SectorAndTierTitle);
@@ -1308,7 +1308,7 @@ class InpWeightMeasureExtensionCest
     public function CheckDefaultMeasures_Absent_LB_LL_LBAndLL_NotSet_OnPrintChecklist(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPrint::URl($this->id_checklist, $this->bus4_busSquire_Default, $this->bus4_landSquire_Default));
         $I->wait(3);
-        $I->pressKey('#print-preview', \Facebook\WebDriver\WebDriverKeys::ESCAPE);
+        $I->pressKey('#print-preview .cancel', \Facebook\WebDriver\WebDriverKeys::ESCAPE);
         $I->wait(3);
         $I->cantSeeElement(\Page\ChecklistPrint::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(\Page\ChecklistPrint::MeasureDescription_ByDesc($this->measure4Desc));

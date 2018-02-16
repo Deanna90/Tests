@@ -191,7 +191,7 @@ class BusinessStatusesCest
         $landscapeFootage = '666';
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(9);
+        $I->wait(12);
         $I->canSeeInCurrentUrl(\Page\RegistrationStarted::$URL_Started);
     }
     
@@ -220,7 +220,7 @@ class BusinessStatusesCest
         $landscapeFootage = '666';
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(9);
+        $I->wait(12);
         $I->canSeeInCurrentUrl(\Page\RegistrationStarted::$URL_Started);
     }
     
@@ -249,7 +249,7 @@ class BusinessStatusesCest
         $landscapeFootage = '666';
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(9);
+        $I->wait(12);
         $I->canSeeInCurrentUrl(\Page\RegistrationStarted::$URL_Started);
     }
     

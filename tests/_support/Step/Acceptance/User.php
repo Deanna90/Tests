@@ -143,7 +143,7 @@ class User extends \AcceptanceTester
         $I->fillField(\Page\UserList::$ByNameEmailSearchField, $email);
         $I->wait(1);
         $I->pressKey(\Page\UserList::$ByNameEmailSearchField, \WebDriverKeys::ENTER);
-        $I->wait(3);
+        $I->wait(5);
         if (isset($email)){
             $I->canSee($email, \Page\UserList::EmailLine(1));
         }

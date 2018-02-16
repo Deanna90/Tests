@@ -46,7 +46,7 @@ class ApplicationDetails extends \AcceptanceTester
     public static $ContactNameField_BusinessInfoTab     = '#businesscontactform_1-full_name';
     public static $PhoneNumberField_BusinessInfoTab     = '#business_phone_disabled_input';
     public static $EmailField_BusinessInfoTab           = '#businesscontactform_1-email';
-    public static $ManageContactsButton_BusinessInfoTab = 'a#popup_link_0';
+    public static $ManageContactsButton_BusinessInfoTab = 'a#popup_link_1';
     //Tier Statuses
     public static $TierStatusTitle_BusinessInfoTab            = 'button#recognition_date_save_button';
     public static function TierName_BusinessInfoTab($row)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
@@ -60,8 +60,8 @@ class ApplicationDetails extends \AcceptanceTester
     public static $SiteVisitStatusSelect_BusinessInfoTab            = '#application_dropdown_5';
     public static $AuditsStatusSelect_BusinessInfoTab               = '#application_dropdown_6';
     public static $RecognitionTasksStatusSelect_BusinessInfoTab     = '#application_dropdown_7';
-    public static $AddDetailsButton_ComplianceCheck_BusinessInfoTab = 'a#popup_link_1';
-    public static $AddDetailsButton_Audits_BusinessInfoTab          = 'a#popup_link_2';
+    public static $AddDetailsButton_ComplianceCheck_BusinessInfoTab = 'a#popup_link_2';
+    public static $AddDetailsButton_Audits_BusinessInfoTab          = 'a#popup_link_3';
     
     public static function Category_BusinessInfoTab($row)            { $a = 3*$row+1; return "div.coordinator-audit-status>div:nth-of-type($a)>div";}
     public static function CategoryStatus_BusinessInfoTab($row)      { $a = 3*$row+2; return "div.coordinator-audit-status>div:nth-of-type($a)>div>span";}
