@@ -6,10 +6,10 @@ class CompanyProfile
     public static $URL                                                = "/user/business/profile";
     
     public static $BusinessName_BusinessProfileTab                    = '.company-profile-info>p:nth-of-type(1)';
-    public static $Address_BusinessProfileTab                         = '.company-profile-info>p:nth-of-type(2)';
-    public static $City_BusinessProfileTab                            = '.company-profile-info>p:nth-of-type(3)';
-    public static $Zip_BusinessProfileTab                             = '.company-profile-info>p:nth-of-type(4)';
+    public static $City_BusinessProfileTab                            = '.company-profile-info>p:nth-of-type(2)';
+    public static $Zip_BusinessProfileTab                             = '.company-profile-info>p:nth-of-type(3)';
     
+    public static $AddressField_BusinessProfileTab                    = '#businessform-street_address';
     public static $PhoneField_BusinessProfileTab                      = '#businessform-phone';
     public static $FaxField_BusinessProfileTab                        = '#businessform-fax';
     public static $EmailField_BusinessProfileTab                      = '#businessform-email';

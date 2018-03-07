@@ -17,4 +17,16 @@ class Report extends \AcceptanceTester
         $I->comment("Saving area: $area is on $i column");
         return $i;
     }
+    
+    public function CheckMoneySavedValueIfThatIsNotZero($moneySaved, $selector)
+    {
+        $I = $this;
+        if($moneySaved == '0'){
+            $I->cantSeeElement($selector);
+        }
+        else {
+            $I->canSee("$$moneySaved", $selector);
+        }
+    }
+    
 }

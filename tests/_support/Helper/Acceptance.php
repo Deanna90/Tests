@@ -237,15 +237,18 @@ SCRIPT;
     /**     
      * @param \AcceptanceTester $I           
      */
-    public function canSeePageNotFound($I, $text = 'Page not found') {
+    public function canSeePageNotFound($I, $text = 'Page') {
         $I->wait(1);
         $I->canSeeInTitle("Not Found (#404)");
         switch ($text) {
-            case "Page not found":
+            case "Page":
                 $I->canSee("Page not found");
                 break;
-            case "Business not found":
+            case "Business":
                 $I->canSee("Business not found");
+                break;
+            case "User":
+                $I->canSee("Unknown user type");
                 break;
         }
     }

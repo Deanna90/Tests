@@ -30,7 +30,10 @@ class EssentialCriteriaManage extends \AcceptanceTester
     public static $IdOfPublishedEC_VersionHistoryTab               = "//table[@class='version-history define setup']//tr[contains(td[3]/text(),'Published')]/td[2]";
     
     //-----Manage Measure Tab-----
-    public static $SaveButton                                      = '.btn.send-form';
+    public static $SaveButton_Header                               = 'div>div.title-block:first-child .btn.send-form[data-form=manage-checklist]';
+    public static $SaveButton_Footer                               = 'div>div.title-block:last-child .btn.send-form[data-form=manage-checklist]';
+    public static $PreviewButton                                   = '.btn[href*=preview]';
+    public static $PrintButton                                     = '.btn.send-form[href*=print]';
     
     public static $GroupTableTitle_ManageMeasureTab                = '.group-table';
     public static $SubgroupTableTitle_ManageMeasureTab             = '.sub-group-table';

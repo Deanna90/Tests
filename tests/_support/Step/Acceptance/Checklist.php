@@ -16,32 +16,32 @@ class Checklist extends \AcceptanceTester
         }
         if (isset($programCriteria)){
             $I->click(\Page\ChecklistCreate::$ProgramCriteriaSelect);
-            $I->wait(3);
+            $I->wait(4);
             $I->selectOption(\Page\ChecklistCreate::$ProgramCriteriaSelect, $programCriteria);
             $I->wait(5);
         }
         if (isset($sectorCriteria)){
             $I->click(\Page\ChecklistCreate::$SectorCriteriaSelect);
-            $I->wait(3);
+            $I->wait(4);
             $I->selectOption(\Page\ChecklistCreate::$SectorCriteriaSelect, $sectorCriteria);
             $I->wait(4);
         }
         if (isset($programDestination)){
             $I->click(\Page\ChecklistCreate::$ProgramDestinationSelect);
-            $I->wait(3);
+            $I->wait(4);
             $I->selectOption(\Page\ChecklistCreate::$ProgramDestinationSelect, $programDestination);
             $I->wait(5);
         }
         if (isset($sectorDestination)){
             $I->click(\Page\ChecklistCreate::$SectorDestinationSelect);
-            $I->wait(3);
+            $I->wait(4);
             $I->selectOption(\Page\ChecklistCreate::$SectorDestinationSelect, $sectorDestination);
             $I->wait(4);
         }
         if (isset($tier)){
             $I->wait(4);
             $I->click(\Page\ChecklistCreate::$TierSelect);
-            $I->wait(3);
+            $I->wait(4);
             $I->selectOption(\Page\ChecklistCreate::$TierSelect, $tier);
         }
         $I->wait(3);
@@ -49,7 +49,7 @@ class Checklist extends \AcceptanceTester
         $I->wait(1);
         $I->click(\Page\ChecklistCreate::$SaveButton);
         $I->wait(6);
-        $I->waitForElement('.confirm', 100);
+        $I->waitForElement('.confirm', 150);
         $I->click('.confirm');
         $I->wait(2);
     }  
@@ -97,11 +97,19 @@ class Checklist extends \AcceptanceTester
     public function PublishChecklistStatus($row = '1')
     {
         $I = $this;
-        $I->wait(4);
+        $checklistUrl = $I->grabFromCurrentUrl();
+        $I->comment("Url tier checklist: $checklistUrl");
+        $u1 = explode('=', $checklistUrl);
+        $urlEnd = $u1[1];
+        $u2 = explode('&', $urlEnd);
+        $id_checklist = $u2[0];
+        $I->comment("Tier checklist id: $id_checklist");
+        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($id_checklist));
+        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 15);
-        $I->wait(2);
-        $I->click(\Page\ChecklistManage::$VersionHistoryTab);
-        $I->wait(8);
+//        $I->wait(2);
+//        $I->click(\Page\ChecklistManage::$VersionHistoryTab);
+        $I->wait(10);
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab($row));
         $I->wait(3);        
         $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);

@@ -1037,10 +1037,10 @@ class FewBusinessesWithSameProgramForUserCest
         $I->amOnPage(\Page\CompanyProfile::$URL);
         $I->wait(2);
         $I->canSee($this->business1, \Page\CompanyProfile::$BusinessName_BusinessProfileTab);
-        $I->canSee($this->addressBus1, \Page\CompanyProfile::$Address_BusinessProfileTab);
         $I->canSee($this->city, \Page\CompanyProfile::$City_BusinessProfileTab);
         $I->canSee($this->zips, \Page\CompanyProfile::$Zip_BusinessProfileTab);
         
+        $I->canSeeInField(\Page\CompanyProfile::$AddressField_BusinessProfileTab, $this->addressBus1);
         $I->canSeeInField(\Page\CompanyProfile::$PhoneField_BusinessProfileTab, $this->phoneBus1);
         $I->canSeeInField(\Page\CompanyProfile::$FaxField_BusinessProfileTab, '');
         $I->canSeeInField(\Page\CompanyProfile::$EmailField_BusinessProfileTab, '');

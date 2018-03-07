@@ -319,7 +319,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -364,7 +364,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -409,7 +409,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -454,7 +454,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -499,7 +499,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -544,7 +544,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
         $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
@@ -591,7 +591,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -638,7 +638,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->canSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
         $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
@@ -685,7 +685,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -730,7 +730,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -775,7 +775,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -822,7 +822,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
         $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
@@ -869,7 +869,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -914,7 +914,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -959,7 +959,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -1004,7 +1004,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->canSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
         $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
@@ -1051,7 +1051,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -1096,7 +1096,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->canSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -1141,7 +1141,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -1186,7 +1186,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->canSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
         $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
@@ -1233,7 +1233,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
         $I->wait(8);
         $I->amOnPage(\Page\Dashboard::URL());
@@ -1280,7 +1280,7 @@ class BusinessStatusesCest
         $I->wait(2);
         $I->cantSee(\Page\BusinessChecklistView::DecertifiedStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
@@ -1324,7 +1324,7 @@ class BusinessStatusesCest
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
         $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
+        $I->wait(4);
         $I->amOnPage(\Page\Dashboard::URL());
         $I->wait(2);
         $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));

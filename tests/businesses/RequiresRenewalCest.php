@@ -111,6 +111,24 @@ class RequiresRenewalCest
         $this->id_audSubgroup1_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
+    //---------------------------Create popup therm option----------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NationalAdmin1_5_3_PopupThermOptionCreate(Step\Acceptance\PopupThermOption $I)
+    {
+        $name        = $this->thermName = $I->GenerateNameOf("therm");
+        $thermsCount = $this->thermCount = '5';
+                
+        $I->wait(1);
+        $I->CreateThermOption($name, $thermsCount);
+        $I->wait(2);
+    }
+    
     //------------------------------Create measures-----------------------------
     
     /**
@@ -514,7 +532,8 @@ class RequiresRenewalCest
         $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
         $I->wait(5);
-        $I->click(".confirm");
+        $I->click(".modal.in .close");
+        $I->wait(5);
         $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
         $I->canSee("Tier 2", \Page\BusinessChecklistView::LeftMenu_TierName('1'));
         $I->canSee("0 of 5 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
@@ -780,7 +799,9 @@ class RequiresRenewalCest
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
-        $I->wait(4);
+        $I->wait(5);
+        $I->click(".modal.in .close");
+        $I->wait(5);
         $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
         $I->canSee("Tier 2", \Page\BusinessChecklistView::LeftMenu_TierName('1'));
         $I->canSee("1 of 5 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
@@ -952,7 +973,7 @@ class RequiresRenewalCest
         $I->selectOption(Page\BusinessChecklistView::ThermsPopup_OptionSelect_Section2('1'), $this->thermName);
         $I->wait(1);
         $I->fillField(Page\BusinessChecklistView::ThermsPopup_TotalEstimatedField_Section2('1'), '25');
-        $I->wait(3);
+        $I->wait(6);
         $I->click(\Page\BusinessChecklistView::$ThermsPopup_SaveChangesButton);
         $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
         $I->wait(1);
@@ -1018,7 +1039,7 @@ class RequiresRenewalCest
         $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
         $I->wait(3);
         $I->makeElementVisible(["[data-measure_id=$this->idMeasure6]"], $style = 'visibility');
-        $I->wait(3);
+        $I->wait(5);
         $I->selectOption(\Page\BusinessChecklistView::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
         $I->wait(3);
         $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);

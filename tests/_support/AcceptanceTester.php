@@ -21,7 +21,7 @@ use Codeception\Module\Cli;
 */
 class AcceptanceTester extends \Codeception\Actor
 {
-    protected static $LoggedIn, $URL_UserAccess, $AddTagA;
+    public static $LoggedIn, $URL_UserAccess, $AddTagA;
     
     use _generated\AcceptanceTesterActions;
 

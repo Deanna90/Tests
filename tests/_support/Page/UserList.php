@@ -5,10 +5,10 @@ class UserList extends \AcceptanceTester
 {
     public static function URL($type)                    { return parent::$URL_UserAccess."/user/index?type=$type";}
     public static function UrlPageNumber($number, $type) { return parent::$URL_UserAccess."/user/index?type=$type&page=$number"; }
-    public static $Title                = 'h1';
-    public static $UserRow              = 'table[class*=table] tbody>tr';
-    public static $SummaryCount         = '.summary>b:last-of-type';
-    public static $EmptyListLabel               = 'tr .empty';
+    public static $Title                    = 'h1';
+    public static $UserRow                  = 'table[class*=table] tbody>tr';
+    public static $SummaryCount             = '.summary>b:last-of-type';
+    public static $EmptyListLabel           = 'tr .empty';
     
     //Search
     public static $ByNameEmailSearchField   = '#filter-name';

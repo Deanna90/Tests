@@ -1219,7 +1219,13 @@ class ChecklistCreateCest
         $I->CreateChecklist(null, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statusesProg1OfficeRetail, $this->extensionsProg1OfficeRetail);
         $this->checklistUrl = $I->grabFromCurrentUrl();
-        $I->reloadPage();
+        $I->comment("Url tier2 checklist: $this->checklistUrl");
+        $u1 = explode('=', $this->checklistUrl);
+        $urlEnd = $u1[1];
+        $u2 = explode('&', $urlEnd);
+        $id_checklist = $u2[0];
+        $I->comment("Checklist id: $id_checklist");
+        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($id_checklist));
         $I->PublishChecklistStatus();
     }
     
@@ -1241,7 +1247,13 @@ class ChecklistCreateCest
         $I->CreateChecklist(null, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statusesProg1Sector1, $this->extensionsProg1Sector1);
         $this->checklistUrl = $I->grabFromCurrentUrl();
-        $I->reloadPage();
+        $I->comment("Url tier2 checklist: $this->checklistUrl");
+        $u1 = explode('=', $this->checklistUrl);
+        $urlEnd = $u1[1];
+        $u2 = explode('&', $urlEnd);
+        $id_checklist = $u2[0];
+        $I->comment("Checklist id: $id_checklist");
+        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($id_checklist));
         $I->PublishChecklistStatus();
     }
     
@@ -1263,7 +1275,13 @@ class ChecklistCreateCest
         $I->CreateChecklist(null, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statusesProg2Sector2, $this->extensionsProg2Sector2);
         $this->checklistUrl = $I->grabFromCurrentUrl();
-        $I->reloadPage();
+        $I->comment("Url tier2 checklist: $this->checklistUrl");
+        $u1 = explode('=', $this->checklistUrl);
+        $urlEnd = $u1[1];
+        $u2 = explode('&', $urlEnd);
+        $id_checklist = $u2[0];
+        $I->comment("Checklist id: $id_checklist");
+        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($id_checklist));
         $I->PublishChecklistStatus();
     }
     

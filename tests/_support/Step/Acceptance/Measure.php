@@ -40,8 +40,7 @@ class Measure extends \AcceptanceTester
         switch ($quantitative){
             case 'yes':
                 $I->click(\Page\MeasureCreate::$IsQuantitativeToggleButton);
-                $I->wait(11);
-//                $I->waitForElement(\Page\MeasureCreate::$SubmeasureTypeSelect, 60);
+                $I->wait(12);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
                     $I->wait(7);
@@ -121,7 +120,7 @@ class Measure extends \AcceptanceTester
                 break;
             case 'no':
                 $I->click(\Page\MeasureCreate::$HaveMultipleAnswersToggleButton);
-                $I->wait(11);
+                $I->wait(12);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
                     $I->wait(7);

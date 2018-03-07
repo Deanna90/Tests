@@ -20,11 +20,11 @@ class UsersAccessCest
     public $statusesT1_Coordinator        = ['core',  'core',  'elective',  'elective',  'elective',  'elective',  'elective',  'core',  'core',  'core',  'elective', 'core'];
     public $extensions_Coordinator        = ['Default', 'Default', 'Default', 'Default', 'Default', 'Default', 'Default', 'Default', 'Default', 'Default', 'Default', 'Default'];
     public $statusesT3_Coordinator        = ['core',  'core',  'core',  'core',  'core',  'core',  'core',  'core',  'core',  'core',  'core', 'core'];
-    public $emailStateAdmin, $emailCoordinator1, $emailCoordinator2, $emailInspector, $emailAuditor;
-    public $firstName_StateAdmin, $firstName_Coordinator1, $firstName_Coordinator2, $firstName_Inspector, $firstName_Auditor;
-    public $lastName_StateAdmin, $lastName_Coordinator1, $lastName_Coordinator2, $lastName_Inspector, $lastName_Auditor;
+    public $emailStateAdmin, $emailCoordinator1_Prog2, $emailCoordinator2_Prog1_Prog2, $emailInspector_Prog2, $emailInspector_Prog1_Prog2, $emailAuditor_Prog2, $emailAuditor2_Prog2;
+    public $firstName_StateAdmin, $firstName_Coordinator1_Prog2, $firstName_Coordinator2, $firstName_Inspector_Prog2, $firstName_Auditor_Prog2;
+    public $lastName_StateAdmin, $lastName_Coordinator1_Prog2, $lastName_Coordinator2, $lastName_Inspector_Prog2, $lastName_Auditor_Prog2;
     public $idStateAdmin, $idCoordinator1, $idCoordinator2, $idInspector, $idAuditor;
-    public $nameInspector, $nameAuditor;
+    public $nameInspector_Prog2, $nameAuditor;
     public $mainMenu_NationalAdmin = ['Dashboard', 'Programs', 'Measures', 'Green Tips', 'Checklists', 'Tiers', 'Users', 'States', 'Notification', 'Reports', 'Resources', 'Video Tutorials'];
     public $mainMenu_StateAdmin    = ['Dashboard', 'Programs', 'Measures', 'Green Tips', 'Checklists', 'Tiers', 'Users', 'Notification', 'Reports', 'Video Tutorials'];
     public $mainMenu_Coordinator   = ['Dashboard', 'Sector', 'Measures', 'Green Tips', 'Checklists', 'Tier', 'Users', 'Notification', 'Video Tutorials', "Reports"];
@@ -32,8 +32,8 @@ class UsersAccessCest
     public $mainMenu_Inspector     = ['Dashboard', 'Video Tutorials', 'Communication'];
     public $measuresDesc_SuccessCreated = [];
     public $password = 'Qq!1111111';
-    public $business1, $business2, $business3, $busId1, $busId2, $busId3;
-    public $bus3_email, $bus3_phone, $bus3_userFullName;
+    public $business1_Prog1, $business2_Prog2, $business3_Prog2, $busId1, $busId2, $busId3;
+    public $bus1_email_Prog1, $bus1_phone_Prog1, $bus2_email_Prog2, $bus2_phone_Prog2, $bus3_email_Prog2, $bus3_phone_Prog2, $bus3_userFullName, $bus1_firstName_Prog1, $bus2_firstName_Prog2, $bus3_firstName_Prog2, $bus1_lastName_Prog1, $bus2_lastName_Prog2, $bus3_lastName_Prog2;
     public $tier1Name, $tier2Name;
     public $todayDate = [];
 
@@ -253,7 +253,9 @@ class UsersAccessCest
         $I->reloadPage();
         $I->wait(6);
         $I->click(Page\UserUpdate::$AddStateButton);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitForElement(Page\UserUpdate::$StateSelect_AddStateForm, 150);
+        $I->wait(2);
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
         $I->wait(4);
@@ -551,7 +553,7 @@ class UsersAccessCest
     public function StateAdmin2_7_CreateCoordinatorUserWithoutShowInfo_ForProgram2(Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::coordinatorType;
-        $email     = $this->emailCoordinator1 = $I->GenerateEmail();
+        $email     = $this->emailCoordinator1_Prog2 = $I->GenerateEmail();
         $firstName = $I->GenerateNameOf('firnam');
         $lastName  = $I->GenerateNameOf('lastnam');
         $password  = $confirmPassword = $this->password;
@@ -565,7 +567,7 @@ class UsersAccessCest
         $I->wait(4);
         $I->click(Page\UserUpdate::$AddProgramButton);
         $I->wait(5);
-        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 60);
+        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 150);
         $I->wait(2);
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
@@ -579,7 +581,7 @@ class UsersAccessCest
     public function StateAdmin2_8_CreateCoordinatorUserWithShowInfo_ForProgram2_Program1(Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::coordinatorType;
-        $email     = $this->emailCoordinator2 = $I->GenerateEmail();
+        $email     = $this->emailCoordinator2_Prog1_Prog2 = $I->GenerateEmail();
         $firstName = $I->GenerateNameOf('firnam');
         $lastName  = $I->GenerateNameOf('lastnam');
         $password  = $confirmPassword = $this->password;
@@ -593,16 +595,18 @@ class UsersAccessCest
         $I->wait(1);
         $I->click(Page\UserUpdate::$AddProgramButton);
         $I->wait(5);
-        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 60);
+        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 150);
         $I->wait(2);
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(5);
+        $I->waitForElement(Page\UserUpdate::$AddProgramButton, 150);
+        $I->wait(2);
         $I->click(Page\UserUpdate::$AddProgramButton);
         $I->wait(5);
-        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 60);
+        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 150);
         $I->wait(2);
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
@@ -617,33 +621,31 @@ class UsersAccessCest
     {
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
         $I->wait(3);
-        $I->canSee('2', Page\UserList::$SummaryCount);
+        $I->canSee('3', Page\UserList::$SummaryCount);
         
         $I->comment("---Check Master admin absent in All Users list---");
         $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
         $I->cantSee('master admin', \Page\UserList::$TypeRow);
         
-        $I->comment("-------Check State admin absent in All Users list-------");
-        $I->cantSee($this->emailStateAdmin, \Page\UserList::$EmailRow);
-        $I->cantSee('state admin', \Page\UserList::$TypeRow);
-//        $user1 = $I->GetUserOnPageInList($this->emailStateAdmin, Page\UserCreate::allType);
-//        $row = $user1['row'];
-//        $I->canSee($this->emailStateAdmin, \Page\UserList::EmailLine($row));
-//        $I->canSee($this->firstName_StateAdmin, \Page\UserList::FirstNameLine($row));
-//        $I->canSee($this->lastName_StateAdmin, \Page\UserList::LastNameLine($row));
-//        $I->canSee('active', \Page\UserList::StatusLine($row));
-//        $I->canSee('state admin', \Page\UserList::TypeLine($row));
-//        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
-//        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
-//        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-//        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->comment("-------Check State admin present in All Users list------");
+        $user1 = $I->GetUserOnPageInList($this->emailStateAdmin, Page\UserCreate::allType);
+        $row = $user1['row'];
+        $I->canSee($this->emailStateAdmin, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_StateAdmin, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_StateAdmin, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('state admin', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------Check Coordinator1 in All Users list-------");
-        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1, Page\UserCreate::allType);
+        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
         $row = $user2['row'];
-        $I->canSee($this->emailCoordinator1, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Coordinator1, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Coordinator1, \Page\UserList::LastNameLine($row));
+        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
         $I->canSee('coordinator', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
@@ -652,9 +654,9 @@ class UsersAccessCest
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------Check Coordinator2 in All Users list-------");
-        $user3 = $I->GetUserOnPageInList($this->emailCoordinator2, Page\UserCreate::allType);
+        $user3 = $I->GetUserOnPageInList($this->emailCoordinator2_Prog1_Prog2, Page\UserCreate::allType);
         $row = $user3['row'];
-        $I->canSee($this->emailCoordinator2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::EmailLine($row));
         $I->canSee($this->firstName_Coordinator2, \Page\UserList::FirstNameLine($row));
         $I->canSee($this->lastName_Coordinator2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
@@ -739,7 +741,7 @@ class UsersAccessCest
     {
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailCoordinator1, $this->password, $I, 'coordinator');
+        $I->LoginAsUser($this->emailCoordinator1_Prog2, $this->password, $I, 'coordinator');
     }
     
     //--------------------------------Main Menu---------------------------------
@@ -1057,15 +1059,20 @@ class UsersAccessCest
     {
         $I->wait(1);
         $I->amOnPage(\Page\EssentialCriteriaList::URL());
-        $I->canSeePageNotFound($I);
+        $I->wait(2);
+        $I->canSee($this->idEC_StAdm, Page\EssentialCriteriaList::IdLine('1'));
+        $I->canSeeElement(Page\EssentialCriteriaList::ManageButtonLine('1'));
         $I->cantSeeElement(Page\EssentialCriteriaList::$CreateECButton);
         $I->amOnPage(Page\EssentialCriteriaCreate::URL($this->idState));
         $I->canSeePageForbiddenAccess($I);
         $I->cantSeeElement(Page\EssentialCriteriaCreate::$NumberSelect);
         $I->amOnPage(Page\EssentialCriteriaManage::URL($this->idEC_StAdm));
         $I->wait(1);
-        $I->cantSeeElement(Page\EssentialCriteriaManage::$ChangeTierButton_ManageMeasureTab);
-        $I->canSeeInCurrentUrl(\Page\ChecklistList::URL());
+        $I->canSeeElement(Page\EssentialCriteriaManage::$SaveButton_Header.'.disabled');
+        $I->canSeeElement(Page\EssentialCriteriaManage::$SaveButton_Footer.'.disabled');
+        $I->canSeeElement(Page\EssentialCriteriaManage::$PrintButton);
+        $I->canSeeElement(Page\EssentialCriteriaManage::$PreviewButton);
+        $I->canSeeInCurrentUrl(\Page\EssentialCriteriaManage::URL($this->idEC_StAdm));
     }
     
     //------------------------No ability to notifications-----------------------
@@ -1264,13 +1271,13 @@ class UsersAccessCest
     
     public function Coordinator3_12_CreateInspectorUser(Step\Acceptance\User $I)
     {
-        $userType            = Page\UserCreate::inspectorType;
-        $email               = $this->emailInspector = $I->GenerateEmail();
-        $firstName           = $I->GenerateNameOf('firnam');
-        $lastName            = $I->GenerateNameOf('lastnam');
-        $password            = $confirmPassword = $this->password;
-        $phone               = $I->GeneratePhoneNumber();
-        $this->nameInspector = $firstName." ".$lastName;
+        $userType                  = Page\UserCreate::inspectorType;
+        $email                     = $this->emailInspector_Prog2 = $I->GenerateEmail();
+        $firstName                 = $I->GenerateNameOf('firnam');
+        $lastName                  = $I->GenerateNameOf('lastnam');
+        $password                  = $confirmPassword = $this->password;
+        $phone                     = $I->GeneratePhoneNumber();
+        $this->nameInspector_Prog2 = $firstName." ".$lastName;
         
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
@@ -1286,7 +1293,7 @@ class UsersAccessCest
     public function Coordinator3_13_CreateAuditorUser(Step\Acceptance\User $I)
     {
         $userType          = Page\UserCreate::auditorType;
-        $email             = $this->emailAuditor = $I->GenerateEmail();
+        $email             = $this->emailAuditor_Prog2 = $I->GenerateEmail();
         $firstName         = $I->GenerateNameOf('firnam');
         $lastName          = $I->GenerateNameOf('lastnam');
         $password          = $confirmPassword = $this->password;
@@ -1306,7 +1313,7 @@ class UsersAccessCest
     {
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
         $I->wait(3);
-        $I->canSee('2', Page\UserList::$SummaryCount);
+        $I->canSee('3', Page\UserList::$SummaryCount);
         
         $I->comment("-------Check Master admin absent in All Users list-------");
         $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
@@ -1316,19 +1323,28 @@ class UsersAccessCest
         $I->cantSee($this->emailStateAdmin, \Page\UserList::$EmailRow);
         $I->cantSee('state admin', \Page\UserList::$TypeRow);
         
-        $I->comment("-------Check Coordinator1 absent in All Users list-------");
-        $I->cantSee($this->emailCoordinator1, \Page\UserList::$EmailRow);
-        $I->cantSee('coordinator', \Page\UserList::$TypeRow);
+        $I->comment("-------Check Coordinator1 present in All Users list------");
+        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
+        $row = $user2['row'];
+        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------Check Coordinator2 absent in All Users list-------");
-        $I->cantSee($this->emailCoordinator2, \Page\UserList::$EmailRow);
+        $I->cantSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::$EmailRow);
         
         $I->comment("------------Check Inspector in All Users list------------");
-        $user2 = $I->GetUserOnPageInList($this->emailInspector, Page\UserCreate::allType);
+        $user2 = $I->GetUserOnPageInList($this->emailInspector_Prog2, Page\UserCreate::allType);
         $row = $user2['row'];
-        $I->canSee($this->emailInspector, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Inspector, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Inspector, \Page\UserList::LastNameLine($row));
+        $I->canSee($this->emailInspector_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Inspector_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Inspector_Prog2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
         $I->canSee('inspector', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
@@ -1337,11 +1353,11 @@ class UsersAccessCest
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------------Check Auditor in All Users list-------------");
-        $user3 = $I->GetUserOnPageInList($this->emailAuditor, Page\UserCreate::allType);
+        $user3 = $I->GetUserOnPageInList($this->emailAuditor_Prog2, Page\UserCreate::allType);
         $row = $user3['row'];
-        $I->canSee($this->emailAuditor, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Auditor, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Auditor, \Page\UserList::LastNameLine($row));
+        $I->canSee($this->emailAuditor_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Auditor_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Auditor_Prog2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
         $I->canSee('auditor', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
@@ -1355,7 +1371,7 @@ class UsersAccessCest
     {
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailInspector, $this->password, $I, 'inspector');
+        $I->LoginAsUser($this->emailInspector_Prog2, $this->password, $I, 'inspector');
     }
     
     //-------------------------Inspector Main Menu------------------------------
@@ -1404,7 +1420,7 @@ class UsersAccessCest
     {
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailAuditor, $this->password, $I, 'auditor');
+        $I->LoginAsUser($this->emailAuditor_Prog2, $this->password, $I, 'auditor');
     }
     
     //---------------------------Auditor Main Menu------------------------------
@@ -1453,7 +1469,7 @@ class UsersAccessCest
     {
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailCoordinator1, $this->password, $I, 'coordinator');
+        $I->LoginAsUser($this->emailCoordinator1_Prog2, $this->password, $I, 'coordinator');
     }
     
     //----------------Coordinator create Inspector Organization-----------------
@@ -1471,12 +1487,12 @@ class UsersAccessCest
         $I->click(\Page\InspectorOrganizationUpdate::$AddMemberButton);
         $I->wait(4);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, 60);
-        $I->selectOption(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, $this->nameInspector);
+        $I->selectOption(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, $this->nameInspector_Prog2);
         $I->wait(2);
         $I->click(\Page\InspectorOrganizationUpdate::$AddButton_AddMemberForm);
         $I->wait(2);
         $I->waitForElement(Page\InspectorOrganizationUpdate::$NameField, 30);
-        $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->nameInspector));
+        $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->nameInspector_Prog2));
         $I->wait(2);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
         $I->wait(5);
@@ -1559,7 +1575,7 @@ class UsersAccessCest
     {
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailInspector, $this->password, $I, 'inspector');
+        $I->LoginAsUser($this->emailInspector_Prog2, $this->password, $I, 'inspector');
     }
     
     //-------------------------Inspector Main Menu------------------------------
@@ -1608,7 +1624,7 @@ class UsersAccessCest
     {
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailAuditor, $this->password, $I, 'auditor');
+        $I->LoginAsUser($this->emailAuditor_Prog2, $this->password, $I, 'auditor');
     }
     
     //-------------------------Auditor Main Menu------------------------------
@@ -1711,7 +1727,7 @@ class UsersAccessCest
         $I->wait(1);
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailCoordinator1, $this->password, $I, 'coordinator');
+        $I->LoginAsUser($this->emailCoordinator1_Prog2, $this->password, $I, 'coordinator');
     }
     
     //------------------Coordinator create Checklist For Tier 1-----------------
@@ -1781,12 +1797,12 @@ class UsersAccessCest
     //-----------Business registration. Program&Sector with checklist-----------
     public function Business13_BusinessRegister_WithChecklist_Program2_OfficeRetail(Step\Acceptance\Business $I)
     {
-        $firstName        = $I->GenerateNameOf("fnUserAccess");
-        $lastName         = $I->GenerateNameOf("lnUserAccess");
-        $phoneNumber      = $this->bus3_phone = $I->GeneratePhoneNumber();
-        $email            = $this->bus3_email = $I->GenerateEmail();
+        $firstName        = $this->bus3_firstName_Prog2 = $I->GenerateNameOf("fnUserAccess3");
+        $lastName         = $this->bus3_lastName_Prog2 = $I->GenerateNameOf("lnUserAccess3");
+        $phoneNumber      = $this->bus3_phone_Prog2 = $I->GeneratePhoneNumber();
+        $email            = $this->bus3_email_Prog2 = $I->GenerateEmail();
         $password         = $confirmPassword = $this->password;
-        $busName          = $this->business3 = $I->GenerateNameOf("busnamUA");
+        $busName          = $this->business3_Prog2 = $I->GenerateNameOf("busnamUA3");
         $busPhone         = $I->GeneratePhoneNumber();
         $address          = $I->GenerateNameOf("addr");;
         $zip              = $this->zip2;
@@ -1806,11 +1822,11 @@ class UsersAccessCest
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton);
         $I->canSee("Print $this->tier1Name", Page\RegistrationStarted::LeftMenu_PrintTierButton(1));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator1));
-        $I->canSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator2));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator1_Prog2));
+        $I->canSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator2_Prog1_Prog2));
         $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailStateAdmin));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailAuditor));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailInspector));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailAuditor_Prog2));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailInspector_Prog2));
     }
     
     public function Business13_1_CheckGreenTipForMeasure1_Quant_MultipleQuesAndNumber(AcceptanceTester $I) {
@@ -1834,14 +1850,14 @@ class UsersAccessCest
         $I->wait(1);
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailCoordinator2, $this->password, $I, 'coordinator');
+        $I->LoginAsUser($this->emailCoordinator2_Prog1_Prog2, $this->password, $I, 'coordinator');
     }
     
     public function Coordinator13_2_1_CheckAllUsersListPage(\Step\Acceptance\User $I)
     {
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
         $I->wait(3);
-        $I->canSee('3', Page\UserList::$SummaryCount);
+        $I->canSee('4', Page\UserList::$SummaryCount);
         
         $I->comment("-------Check Master admin absent in All Users list-------");
         $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
@@ -1852,18 +1868,27 @@ class UsersAccessCest
         $I->cantSee('state admin', \Page\UserList::$TypeRow);
         
         $I->comment("-------Check Coordinator1 absent in All Users list-------");
-        $I->cantSee($this->emailCoordinator1, \Page\UserList::$EmailRow);
-        $I->cantSee('coordinator', \Page\UserList::$TypeRow);
+        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
+        $row = $user2['row'];
+        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------Check Coordinator2 absent in All Users list-------");
-        $I->cantSee($this->emailCoordinator2, \Page\UserList::$EmailRow);
+        $I->cantSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::$EmailRow);
         
         $I->comment("------------Check Inspector in All Users list------------");
-        $user2 = $I->GetUserOnPageInList($this->emailInspector, Page\UserCreate::allType);
+        $user2 = $I->GetUserOnPageInList($this->emailInspector_Prog2, Page\UserCreate::allType);
         $row = $user2['row'];
-        $I->canSee($this->emailInspector, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Inspector, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Inspector, \Page\UserList::LastNameLine($row));
+        $I->canSee($this->emailInspector_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Inspector_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Inspector_Prog2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
         $I->canSee('inspector', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
@@ -1872,11 +1897,11 @@ class UsersAccessCest
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------------Check Auditor in All Users list-------------");
-        $user3 = $I->GetUserOnPageInList($this->emailAuditor, Page\UserCreate::allType);
+        $user3 = $I->GetUserOnPageInList($this->emailAuditor_Prog2, Page\UserCreate::allType);
         $row = $user3['row'];
-        $I->canSee($this->emailAuditor, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Auditor, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Auditor, \Page\UserList::LastNameLine($row));
+        $I->canSee($this->emailAuditor_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Auditor_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Auditor_Prog2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
         $I->canSee('auditor', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
@@ -1885,13 +1910,13 @@ class UsersAccessCest
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("----------Check Business3 user in All Users list---------");
-        $user3 = $I->GetUserOnPageInList($this->bus3_email, Page\UserCreate::allType);
+        $user3 = $I->GetUserOnPageInList($this->bus3_email_Prog2, Page\UserCreate::allType);
         $row = $user3['row'];
-        $I->canSee($this->bus3_email, \Page\UserList::EmailLine($row));
-//        $I->canSee($this->firstName_Auditor, \Page\UserList::FirstNameLine($row));
-//        $I->canSee($this->lastName_Auditor, \Page\UserList::LastNameLine($row));
+        $I->canSee($this->bus3_email_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->bus3_firstName_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->bus3_lastName_Prog2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
-        $I->canSee('auditor', \Page\UserList::TypeLine($row));
+        $I->canSee('business', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
         $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
@@ -1919,7 +1944,7 @@ class UsersAccessCest
         $I->wait(1);
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailCoordinator1, $this->password, $I, 'coordinator');
+        $I->LoginAsUser($this->emailCoordinator1_Prog2, $this->password, $I, 'coordinator');
     }
     
     //------------------Coordinator create Checklist For Tier 2-----------------
@@ -1946,12 +1971,12 @@ class UsersAccessCest
     //------------Business registration. Program without checklist--------------
     public function Business13_7_BusinessRegister_WithoutChecklist_Program1(Step\Acceptance\Business $I)
     {
-        $firstName        = $I->GenerateNameOf("fnUserAccess");
-        $lastName         = $I->GenerateNameOf("lnUserAccess");
-        $phoneNumber      = $I->GeneratePhoneNumber();
-        $email            = $I->GenerateEmail();
+        $firstName        = $this->bus1_firstName_Prog1 = $I->GenerateNameOf("fnUserAccess1");
+        $lastName         = $this->bus1_lastName_Prog1 = $I->GenerateNameOf("lnUserAccess1");
+        $phoneNumber      = $this->bus1_phone_Prog1 = $I->GeneratePhoneNumber();
+        $email            = $this->bus1_email_Prog1 = $I->GenerateEmail();
         $password         = $confirmPassword = $this->password;
-        $busName          = $this->business1 = $I->GenerateNameOf("busnamUA");
+        $busName          = $this->business1_Prog1 = $I->GenerateNameOf("busnamUA1");
         $busPhone         = $I->GeneratePhoneNumber();
         $address          = $I->GenerateNameOf("addr");
         $zip              = $this->zip1;
@@ -1970,11 +1995,11 @@ class UsersAccessCest
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton);
         $I->canSee("Print Tier 2", Page\RegistrationStarted::LeftMenu_PrintTierButton(1));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator1));
-        $I->canSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator2));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator1_Prog2));
+        $I->canSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator2_Prog1_Prog2));
         $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailStateAdmin));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailAuditor));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailInspector));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailAuditor_Prog2));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailInspector_Prog2));
     }
     
     public function Business13_8_LogOutfv(AcceptanceTester $I) {
@@ -1987,12 +2012,12 @@ class UsersAccessCest
     //------------Business registration. Sector without checklist--------------
     public function Business13_9_BusinessRegister_WithoutChecklist_Program2_Sector2(Step\Acceptance\Business $I)
     {
-        $firstName        = $I->GenerateNameOf("fnUserAccess");
-        $lastName         = $I->GenerateNameOf("lnUserAccess");
-        $phoneNumber      = $I->GeneratePhoneNumber();
-        $email            = $I->GenerateEmail();
+        $firstName        = $this->bus2_firstName_Prog2 = $I->GenerateNameOf("fnUserAccess2");
+        $lastName         = $this->bus2_lastName_Prog2 = $I->GenerateNameOf("lnUserAccess2");
+        $phoneNumber      = $this->bus2_phone_Prog2 = $I->GeneratePhoneNumber();
+        $email            = $this->bus2_email_Prog2 = $I->GenerateEmail();
         $password         = $confirmPassword = $this->password;
-        $busName          = $this->business2 = $I->GenerateNameOf("busnamUA");
+        $busName          = $this->business2_Prog2 = $I->GenerateNameOf("busnamUA2");
         $busPhone         = $I->GeneratePhoneNumber();
         $address          = $I->GenerateNameOf("addr");
         $zip              = $this->zip2;
@@ -2011,11 +2036,11 @@ class UsersAccessCest
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton);
         $I->canSee("Print Tier 2", Page\RegistrationStarted::LeftMenu_PrintTierButton(1));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator1));
-        $I->canSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator2));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator1_Prog2));
+        $I->canSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailCoordinator2_Prog1_Prog2));
         $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailStateAdmin));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailAuditor));
-        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailInspector));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailAuditor_Prog2));
+        $I->cantSeeElement(Page\RegistrationStarted::CoordinatorEmail_ByEmail($this->emailInspector_Prog2));
     }
     
     public function Business13_10_LogOut2(AcceptanceTester $I) {
@@ -2024,7 +2049,7 @@ class UsersAccessCest
         $I->wait(1);
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailCoordinator1, $this->password, $I, 'coordinator');
+        $I->LoginAsUser($this->emailCoordinator1_Prog2, $this->password, $I, 'coordinator');
     }
     
     //----------------------------Coordinator Dashboard-------------------------
@@ -2053,29 +2078,29 @@ class UsersAccessCest
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         
-        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
-        $I->cantSee(\Page\Dashboard::NoChecklistText, \Page\Dashboard::NoChecklistInfo_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::TierName_ByBusName($this->business1));
+        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1_Prog1));
+        $I->cantSee(\Page\Dashboard::NoChecklistText, \Page\Dashboard::NoChecklistInfo_ByBusName($this->business1_Prog1));
+        $I->cantSeeElement(\Page\Dashboard::StatusOfBusiness_ByBusName($this->business1_Prog1));
+        $I->cantSeeElement(\Page\Dashboard::TierName_ByBusName($this->business1_Prog1));
         
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
-        $I->canSee('0 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2));
+        $I->canSee('0 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2_Prog2));
+        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2_Prog2));
         
-        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3));
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
-        $I->canSee('0 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3));
+        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3_Prog2));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2));
+        $I->canSee('0 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
+        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3_Prog2));
         
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(4);
@@ -2101,28 +2126,28 @@ class UsersAccessCest
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         
-        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
-        $I->cantSee(\Page\Dashboard::NoChecklistText, \Page\Dashboard::NoChecklistInfo_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::TierName_ByBusName($this->business1));
+        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1_Prog1));
+        $I->cantSee(\Page\Dashboard::NoChecklistText, \Page\Dashboard::NoChecklistInfo_ByBusName($this->business1_Prog1));
+        $I->cantSeeElement(\Page\Dashboard::StatusOfBusiness_ByBusName($this->business1_Prog1));
+        $I->cantSeeElement(\Page\Dashboard::TierName_ByBusName($this->business1_Prog1));
         
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
-        $I->canSee('0 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2));
+        $I->canSee('0 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2_Prog2));
+        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2_Prog2));
         
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
-        $I->canSee('0 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2));
+        $I->canSee('0 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
+        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3_Prog2));
         
         $I->SelectDefaultState($I, $this->program2);
         $I->wait(1);
@@ -2148,28 +2173,28 @@ class UsersAccessCest
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         
-        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
-        $I->cantSee(\Page\Dashboard::NoChecklistText, \Page\Dashboard::NoChecklistInfo_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::TierName_ByBusName($this->business1));
+        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1_Prog1));
+        $I->cantSee(\Page\Dashboard::NoChecklistText, \Page\Dashboard::NoChecklistInfo_ByBusName($this->business1_Prog1));
+        $I->cantSeeElement(\Page\Dashboard::StatusOfBusiness_ByBusName($this->business1_Prog1));
+        $I->cantSeeElement(\Page\Dashboard::TierName_ByBusName($this->business1_Prog1));
         
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
-        $I->canSee('0 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2));
+        $I->canSee('0 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2_Prog2));
+        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2_Prog2));
         
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
-        $I->canSee('0 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2));
+        $I->canSee('0 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
+        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3_Prog2));
         
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(4);
@@ -2195,32 +2220,32 @@ class UsersAccessCest
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         
-        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
-        $I->cantSee(\Page\Dashboard::NoChecklistText, \Page\Dashboard::NoChecklistInfo_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
-        $I->cantSeeElement(\Page\Dashboard::TierName_ByBusName($this->business1));
+        $I->cantSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1_Prog1));
+        $I->cantSee(\Page\Dashboard::NoChecklistText, \Page\Dashboard::NoChecklistInfo_ByBusName($this->business1_Prog1));
+        $I->cantSeeElement(\Page\Dashboard::StatusOfBusiness_ByBusName($this->business1_Prog1));
+        $I->cantSeeElement(\Page\Dashboard::TierName_ByBusName($this->business1_Prog1));
         
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
-        $I->canSee('0 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2));
+        $I->canSee('0 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2_Prog2));
+        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2_Prog2));
         
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
-        $I->canSee('0 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3));
+        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2));
+        $I->canSee('0 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
+        $I->canSee("$this->tier1Name", \Page\Dashboard::TierName_ByBusName($this->business3_Prog2));
     }
     
     public function GetBusiness2ID(AcceptanceTester $I) {
-        $url2 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2), 'href');
+        $url2 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2), 'href');
         $I->comment("Url2: $url2");
         $u2 = explode('=', $url2);
         $this->busId2 = $u2[1];
@@ -2228,7 +2253,7 @@ class UsersAccessCest
     }
     
     public function GetBusiness3ID(AcceptanceTester $I) {
-        $url3 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business3), 'href');
+        $url3 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2), 'href');
         $I->comment("Url3: $url3");
         $u3 = explode('=', $url3);
         $this->busId3 = $u3[1];
@@ -2247,7 +2272,7 @@ class UsersAccessCest
         $I->wait(2);
         $I->selectOption(\Page\ApplicationDetails::ComplianceCheckPopup_OrganizationSelectByName($this->nameComplianceCheck_StAdm), $this->InspectorOrganization1_Coordinator);
         $I->wait(3);
-        $I->selectOption(\Page\ApplicationDetails::ComplianceCheckPopup_InspectorSelectByName($this->nameComplianceCheck_StAdm), $this->nameInspector);
+        $I->selectOption(\Page\ApplicationDetails::ComplianceCheckPopup_InspectorSelectByName($this->nameComplianceCheck_StAdm), $this->nameInspector_Prog2);
         $I->wait(3);
         $I->click(\Page\ApplicationDetails::$ComplianceCheckPopup_UpdateButton);
         $I->wait(5);
@@ -2273,6 +2298,92 @@ class UsersAccessCest
         $I->wait(5);
     }
     
+    public function Coordinator14_4_CheckAllUsersListPage(\Step\Acceptance\User $I)
+    {
+        $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
+        $I->wait(3);
+        $I->canSee('5', Page\UserList::$SummaryCount);
+        
+        $I->comment("-------Check Master admin absent in All Users list-------");
+        $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
+        $I->cantSee('master admin', \Page\UserList::$TypeRow);
+        
+        $I->comment("--------Check State admin absent in All Users list-------");
+        $I->cantSee($this->emailStateAdmin, \Page\UserList::$EmailRow);
+        $I->cantSee('state admin', \Page\UserList::$TypeRow);
+        
+        $I->comment("-------Check Coordinator1 absent in All Users list-------");
+        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
+        $row = $user2['row'];
+        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("-------Check Coordinator2 absent in All Users list-------");
+        $I->cantSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::$EmailRow);
+        
+        $I->comment("------------Check Inspector in All Users list------------");
+        $user2 = $I->GetUserOnPageInList($this->emailInspector_Prog2, Page\UserCreate::allType);
+        $row = $user2['row'];
+        $I->canSee($this->emailInspector_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Inspector_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Inspector_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('inspector', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("-------------Check Auditor in All Users list-------------");
+        $user3 = $I->GetUserOnPageInList($this->emailAuditor_Prog2, Page\UserCreate::allType);
+        $row = $user3['row'];
+        $I->canSee($this->emailAuditor_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Auditor_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Auditor_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('auditor', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("------Check Business1 user absent in All Users list------");
+        $I->cantSee($this->bus1_email_Prog1, \Page\UserList::$EmailRow);
+        
+        $I->comment("----------Check Business2 user in All Users list---------");
+        $user3 = $I->GetUserOnPageInList($this->bus2_email_Prog2, Page\UserCreate::allType);
+        $row = $user3['row'];
+        $I->canSee($this->bus2_email_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->bus2_firstName_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->bus2_lastName_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('business', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("----------Check Business3 user in All Users list---------");
+        $user3 = $I->GetUserOnPageInList($this->bus3_email_Prog2, Page\UserCreate::allType);
+        $row = $user3['row'];
+        $I->canSee($this->bus3_email_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->bus3_firstName_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->bus3_lastName_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('business', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+    }
+    
     //-----------------------Login as Created Inspector-------------------------
     public function Inspector15_LogOut_And_LogInAsInspector(AcceptanceTester $I)
     {
@@ -2280,7 +2391,7 @@ class UsersAccessCest
         $I->wait(1);
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailInspector, $this->password, $I, 'inspector');
+        $I->LoginAsUser($this->emailInspector_Prog2, $this->password, $I, 'inspector');
     }
     
     //-----------------------Inspector Dashboard With Task----------------------
@@ -2291,12 +2402,12 @@ class UsersAccessCest
         $I->cantSeePageNotFound($I);
         $I->cantSeePageForbiddenAccess($I);
         $I->cantSeeElement(Page\Dashboard::$EmptyListLabel);
-        $I->canSeeElement(Page\Dashboard::CompanyNameLine_ByBusinessNameAndReviewType_InspDashboard($this->business3, $this->nameComplianceCheck_StAdm));
-        $I->canSeeOptionIsSelected(Page\Dashboard::AuditStatusSelectLine_ByBusinessNameAndReviewType($this->business3, $this->nameComplianceCheck_StAdm), \Page\ApplicationDetails::InProcessStatus_TierTab);
-        $I->canSee($this->city2, Page\Dashboard::CityLine_ByBusinessNameAndReviewType($this->business3, $this->nameComplianceCheck_StAdm));
-        $I->canSee($this->bus3_phone, Page\Dashboard::PhoneLine_ByBusinessNameAndReviewType($this->business3, $this->nameComplianceCheck_StAdm));
-        $I->canSee($this->bus3_email, Page\Dashboard::EmailLine_ByBusinessNameAndReviewType($this->business3, $this->nameComplianceCheck_StAdm));
-        $I->canSee($this->bus3_userFullName, Page\Dashboard::ContactLine_ByBusinessNameAndReviewType($this->business3, $this->nameComplianceCheck_StAdm));
+        $I->canSeeElement(Page\Dashboard::CompanyNameLine_ByBusinessNameAndReviewType_InspDashboard($this->business3_Prog2, $this->nameComplianceCheck_StAdm));
+        $I->canSeeOptionIsSelected(Page\Dashboard::AuditStatusSelectLine_ByBusinessNameAndReviewType($this->business3_Prog2, $this->nameComplianceCheck_StAdm), \Page\ApplicationDetails::InProcessStatus_TierTab);
+        $I->canSee($this->city2, Page\Dashboard::CityLine_ByBusinessNameAndReviewType($this->business3_Prog2, $this->nameComplianceCheck_StAdm));
+        $I->canSee($this->bus3_phone_Prog2, Page\Dashboard::PhoneLine_ByBusinessNameAndReviewType($this->business3_Prog2, $this->nameComplianceCheck_StAdm));
+        $I->canSee($this->bus3_email_Prog2, Page\Dashboard::EmailLine_ByBusinessNameAndReviewType($this->business3_Prog2, $this->nameComplianceCheck_StAdm));
+        $I->canSee($this->bus3_userFullName, Page\Dashboard::ContactLine_ByBusinessNameAndReviewType($this->business3_Prog2, $this->nameComplianceCheck_StAdm));
         $I->canSee('1', Page\Dashboard::$TasksSummaryCount);
     }
     
@@ -2304,10 +2415,10 @@ class UsersAccessCest
     {
         $I->amOnPage(Page\Dashboard::URL_InspAud());
         $I->wait(2);
-        $I->canSeeElement(Page\Dashboard::CompanyNameLine_ByBusinessNameAndReviewType_InspDashboard($this->business3, $this->nameComplianceCheck_StAdm));
-        $I->selectOption(Page\Dashboard::AuditStatusSelectLine_ByBusinessNameAndReviewType($this->business3, $this->nameComplianceCheck_StAdm), \Page\ApplicationDetails::PassedStatus_TierTab);
+        $I->canSeeElement(Page\Dashboard::CompanyNameLine_ByBusinessNameAndReviewType_InspDashboard($this->business3_Prog2, $this->nameComplianceCheck_StAdm));
+        $I->selectOption(Page\Dashboard::AuditStatusSelectLine_ByBusinessNameAndReviewType($this->business3_Prog2, $this->nameComplianceCheck_StAdm), \Page\ApplicationDetails::PassedStatus_TierTab);
         $I->wait(1);
-        $I->click(\Page\Dashboard::UpdateButtonLine_ByBusinessNameAndReviewType($this->business3, $this->nameComplianceCheck_StAdm));
+        $I->click(\Page\Dashboard::UpdateButtonLine_ByBusinessNameAndReviewType($this->business3_Prog2, $this->nameComplianceCheck_StAdm));
         $I->wait(5);
     }
     
@@ -2316,7 +2427,7 @@ class UsersAccessCest
     {
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailAuditor, $this->password, $I, 'auditor');
+        $I->LoginAsUser($this->emailAuditor_Prog2, $this->password, $I, 'auditor');
     }
     
     //------------------------Auditor Dashboard With Task-----------------------
@@ -2327,12 +2438,12 @@ class UsersAccessCest
         $I->cantSeePageNotFound($I);
         $I->cantSeePageForbiddenAccess($I);
         $I->cantSeeElement(Page\Dashboard::$EmptyListLabel);
-        $I->canSeeElement(Page\Dashboard::CompanyNameLine_ByBusinessNameAndReviewType_InspDashboard($this->business3, \Page\AuditGroupList::Energy_AuditGroup));
-        $I->canSeeOptionIsSelected(Page\Dashboard::AuditStatusSelectLine_ByBusinessNameAndReviewType($this->business3, Page\AuditGroupList::Energy_AuditGroup), \Page\ApplicationDetails::InProcessStatus_TierTab);
-        $I->canSee($this->city2, Page\Dashboard::CityLine_ByBusinessNameAndReviewType($this->business3, Page\AuditGroupList::Energy_AuditGroup));
-        $I->canSee($this->bus3_phone, Page\Dashboard::PhoneLine_ByBusinessNameAndReviewType($this->business3, Page\AuditGroupList::Energy_AuditGroup));
-        $I->canSee($this->bus3_email, Page\Dashboard::EmailLine_ByBusinessNameAndReviewType($this->business3, Page\AuditGroupList::Energy_AuditGroup));
-        $I->canSee($this->bus3_userFullName, Page\Dashboard::ContactLine_ByBusinessNameAndReviewType($this->business3, Page\AuditGroupList::Energy_AuditGroup));
+        $I->canSeeElement(Page\Dashboard::CompanyNameLine_ByBusinessNameAndReviewType_InspDashboard($this->business3_Prog2, \Page\AuditGroupList::Energy_AuditGroup));
+        $I->canSeeOptionIsSelected(Page\Dashboard::AuditStatusSelectLine_ByBusinessNameAndReviewType($this->business3_Prog2, Page\AuditGroupList::Energy_AuditGroup), \Page\ApplicationDetails::InProcessStatus_TierTab);
+        $I->canSee($this->city2, Page\Dashboard::CityLine_ByBusinessNameAndReviewType($this->business3_Prog2, Page\AuditGroupList::Energy_AuditGroup));
+        $I->canSee($this->bus3_phone_Prog2, Page\Dashboard::PhoneLine_ByBusinessNameAndReviewType($this->business3_Prog2, Page\AuditGroupList::Energy_AuditGroup));
+        $I->canSee($this->bus3_email_Prog2, Page\Dashboard::EmailLine_ByBusinessNameAndReviewType($this->business3_Prog2, Page\AuditGroupList::Energy_AuditGroup));
+        $I->canSee($this->bus3_userFullName, Page\Dashboard::ContactLine_ByBusinessNameAndReviewType($this->business3_Prog2, Page\AuditGroupList::Energy_AuditGroup));
         $I->canSee('1', Page\Dashboard::$TasksSummaryCount);
     }
     
@@ -2340,9 +2451,9 @@ class UsersAccessCest
     {
         $I->amOnPage(Page\Dashboard::URL_InspAud());
         $I->wait(2);
-        $I->selectOption(Page\Dashboard::AuditStatusSelectLine_ByBusinessNameAndReviewType($this->business3, Page\AuditGroupList::Energy_AuditGroup), \Page\ApplicationDetails::PassedStatus_TierTab);
+        $I->selectOption(Page\Dashboard::AuditStatusSelectLine_ByBusinessNameAndReviewType($this->business3_Prog2, Page\AuditGroupList::Energy_AuditGroup), \Page\ApplicationDetails::PassedStatus_TierTab);
         $I->wait(1);
-        $I->click(\Page\Dashboard::UpdateButtonLine_ByBusinessNameAndReviewType($this->business3, \Page\AuditGroupList::Energy_AuditGroup));
+        $I->click(\Page\Dashboard::UpdateButtonLine_ByBusinessNameAndReviewType($this->business3_Prog2, \Page\AuditGroupList::Energy_AuditGroup));
         $I->wait(5);
     }
     
@@ -2352,7 +2463,7 @@ class UsersAccessCest
         $I->wait(1);
         $I->Logout($I);
         $I->wait(1);
-        $I->LoginAsUser($this->emailCoordinator1, $this->password, $I, 'coordinator');
+        $I->LoginAsUser($this->emailCoordinator1_Prog2, $this->password, $I, 'coordinator');
     }
     
     //----------------------------Coordinator Dashboard-------------------------
@@ -2360,11 +2471,11 @@ class UsersAccessCest
         $I->amOnPage(Page\Dashboard::URL());
         $I->wait(4);
         //Application statuses on dashboard
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
         
         $I->canSee("2", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         $I->canSee("2", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -2429,11 +2540,11 @@ class UsersAccessCest
         $I->amOnPage(Page\Dashboard::URL());
         $I->wait(4);
         //Application statuses on dashboard
-        $I->canSee(\Page\Dashboard::PassedStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::PassedStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::PassedStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3));
-        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3));
+        $I->canSee(\Page\Dashboard::PassedStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::PassedStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::PassedStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
         
         $I->canSee("2", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         $I->canSee("2", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -2457,6 +2568,115 @@ class UsersAccessCest
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
         $I->canSee("0", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
     }
+    
+    //--------------------------------------------------------------------------Login As Coordinator2------------------------------------------------------------------------------------
+    
+    public function Coordinator18_LogOut_And_LoginAsCoordinator2(AcceptanceTester $I) {
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->LogIn_TRUEorFALSE($I);
+        $I->wait(1);
+        $I->Logout($I);
+        $I->wait(1);
+        $I->LoginAsUser($this->emailCoordinator2_Prog1_Prog2, $this->password, $I, 'coordinator');
+    }
+    
+    public function Coordinator18_1_CheckAllUsersListPage(\Step\Acceptance\User $I)
+    {
+        $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
+        $I->wait(3);
+        $I->canSee('6', Page\UserList::$SummaryCount);
+        
+        $I->comment("-------Check Master admin absent in All Users list-------");
+        $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
+        $I->cantSee('master admin', \Page\UserList::$TypeRow);
+        
+        $I->comment("--------Check State admin absent in All Users list-------");
+        $I->cantSee($this->emailStateAdmin, \Page\UserList::$EmailRow);
+        $I->cantSee('state admin', \Page\UserList::$TypeRow);
+        
+        $I->comment("-------Check Coordinator1 absent in All Users list-------");
+        $I->cantSee($this->emailCoordinator1_Prog2, \Page\UserList::$EmailRow);
+        
+        $I->comment("-------Check Coordinator2 absent in All Users list-------");
+        $user2 = $I->GetUserOnPageInList($this->emailCoordinator2_Prog1_Prog2, Page\UserCreate::allType);
+        $row = $user2['row'];
+        $I->canSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("------------Check Inspector in All Users list------------");
+        $user2 = $I->GetUserOnPageInList($this->emailInspector_Prog2, Page\UserCreate::allType);
+        $row = $user2['row'];
+        $I->canSee($this->emailInspector_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Inspector_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Inspector_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('inspector', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("-------------Check Auditor in All Users list-------------");
+        $user3 = $I->GetUserOnPageInList($this->emailAuditor_Prog2, Page\UserCreate::allType);
+        $row = $user3['row'];
+        $I->canSee($this->emailAuditor_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Auditor_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Auditor_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('auditor', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("------Check Business1 user absent in All Users list------");
+        $user3 = $I->GetUserOnPageInList($this->bus1_email_Prog1, Page\UserCreate::allType);
+        $row = $user3['row'];
+        $I->canSee($this->bus1_email_Prog1, \Page\UserList::EmailLine($row));
+        $I->canSee($this->bus1_firstName_Prog1, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->bus1_lastName_Prog1, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('business', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("----------Check Business2 user in All Users list---------");
+        $user3 = $I->GetUserOnPageInList($this->bus2_email_Prog2, Page\UserCreate::allType);
+        $row = $user3['row'];
+        $I->canSee($this->bus2_email_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->bus2_firstName_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->bus2_lastName_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('business', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        $I->comment("----------Check Business3 user in All Users list---------");
+        $user3 = $I->GetUserOnPageInList($this->bus3_email_Prog2, Page\UserCreate::allType);
+        $row = $user3['row'];
+        $I->canSee($this->bus3_email_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->bus3_firstName_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->bus3_lastName_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee('active', \Page\UserList::StatusLine($row));
+        $I->canSee('business', \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+    }
+    
+    
     //--------------------------------------------------------------------------Login As State Admin------------------------------------------------------------------------------------
     
     public function Help1_LogOut_And_LogInAsStateAdmin2(AcceptanceTester $I)
@@ -2780,7 +3000,7 @@ class UsersAccessCest
     public function StateAdmin_CreateInspectorUser(Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::inspectorType;
-        $email     = $this->emailInspector = $I->GenerateEmail();
+        $email     = $this->emailInspector_Prog1_Prog2 = $I->GenerateEmail();
         $firstName = $I->GenerateNameOf('firnam');
         $lastName  = $I->GenerateNameOf('lastnam');
         $password  = $confirmPassword = $this->password;
@@ -2794,7 +3014,7 @@ class UsersAccessCest
         $I->cantSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
         $I->click(\Page\UserUpdate::$AddProgramButton);
         $I->wait(5);
-        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 60);
+        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 150);
         $I->wait(2);
         $I->selectOption(\Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(\Page\UserUpdate::$AddButton_AddProgramForm);
@@ -2803,7 +3023,7 @@ class UsersAccessCest
         $I->cantSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
         $I->click(\Page\UserUpdate::$AddProgramButton);
         $I->wait(5);
-        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 60);
+        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 150);
         $I->wait(2);
         $I->selectOption(\Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(\Page\UserUpdate::$AddButton_AddProgramForm);
@@ -2818,7 +3038,7 @@ class UsersAccessCest
     public function StateAdmin_CreateAuditorUser(Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::auditorType;
-        $email     = $this->emailAuditor = $I->GenerateEmail();
+        $email     = $this->emailAuditor2_Prog2 = $I->GenerateEmail();
         $firstName = $I->GenerateNameOf('firnam');
         $lastName  = $I->GenerateNameOf('lastnam');
         $password  = $confirmPassword = $this->password;
@@ -2832,7 +3052,7 @@ class UsersAccessCest
         $I->cantSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
         $I->click(\Page\UserUpdate::$AddProgramButton);
         $I->wait(5);
-        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 60);
+        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 150);
         $I->wait(2);
         $I->selectOption(\Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(\Page\UserUpdate::$AddButton_AddProgramForm);
@@ -2841,7 +3061,7 @@ class UsersAccessCest
         $I->cantSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
         $I->click(\Page\UserUpdate::$AddProgramButton);
         $I->wait(5);
-        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 60);
+        $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 150);
         $I->wait(2);
         $I->selectOption(\Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(\Page\UserUpdate::$AddButton_AddProgramForm);

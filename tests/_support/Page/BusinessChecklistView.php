@@ -141,7 +141,7 @@ class BusinessChecklistView extends \AcceptanceTester
     public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div//p/text(), '$desc')]//ul/li[$row]//select";}
     public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//li[contains(div//p/text(), '$desc')]//ul/li[$row]//input";}
     public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div//p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
-    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div//p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-3-items')]";}
+    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//select[contains(@class, 'form-control popup-switcher')]";}
     
     public static function AuditGreenTip_ByTipDesc($grTip)              { return "//*[@class='right-column-block']//h4[text()='$grTip']/i";}
     

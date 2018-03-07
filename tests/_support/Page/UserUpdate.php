@@ -7,7 +7,11 @@ class UserUpdate
     public static function URL($id)       { return  "/master-admin/user/update?id=$id";}
 
     public static $Title                  = 'h1';
+    public static $Breadcrumb_Home        = '.breadcrumb>li:first-of-type a';
+    public static $Breadcrumb_UserType    = '.breadcrumb>li:nth-of-type(2) a';
+    public static $Breadcrumb_CurrentUser = '.breadcrumb>li:nth-of-type(3)';
     
+    public static $BackToListButton       = '.left-column-buttons>a.btn-success';
     public static $UpdateButton           = '.user-form [type=submit]';
     
     public static $EmailField             = '#user-email';

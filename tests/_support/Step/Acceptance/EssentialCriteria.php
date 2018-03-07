@@ -34,7 +34,7 @@ class EssentialCriteria extends \AcceptanceTester
     {
         $I = $this;
         $I->wait(3);
-        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton);
+        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton_Header);
         if (isset($descs) && isset($statuses)){
             $countDesc = count($descs);
             $countStat = count($statuses);
@@ -62,7 +62,7 @@ class EssentialCriteria extends \AcceptanceTester
                 $I->selectOption(\Page\EssentialCriteriaManage::MeasureExtensionSelectLine_ManageMeasureTab($descs[$i]), $extensionsNew[$i]);
             }
         }
-        $I->click(\Page\EssentialCriteriaManage::$SaveButton);
+        $I->click(\Page\EssentialCriteriaManage::$SaveButton_Header);
         $I->wait(2);
         return $statusesNew;
     }
@@ -94,19 +94,19 @@ class EssentialCriteria extends \AcceptanceTester
     {
         $I = $this;
         $I->wait(3);
-        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton);
+        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton_Header);
         $I->click(\Page\EssentialCriteriaManage::$PointsTab);
         $I->wait(1);
         $I->fillField(\Page\EssentialCriteriaManage::$RequiredPointsField);
         $I->wait(1);        
-        $I->click(\Page\EssentialCriteriaManage::$SaveButton);
+        $I->click(\Page\EssentialCriteriaManage::$SaveButton_Header);
     }
     
     public function CheckSavedValuesOnManageEssentialCriteriaPage($descs = null, $statuses = null)
     {
         $I = $this;
         $I->wait(3);
-        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton);
+        $I->waitForElement(\Page\EssentialCriteriaManage::$SaveButton_Header);
         if (isset($descs) && isset($statuses)){
             $countDesc = count($descs);
             $countDesc--;

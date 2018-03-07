@@ -7,14 +7,14 @@ class Program extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ProgramCreate::URL());
-        $I->wait(2);
+        $I->wait(3);
         $I->waitForElement(\Page\ProgramCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\ProgramCreate::$NameField, $name);
         }
         if (isset($state)){
             $I->selectOption(\Page\ProgramCreate::$StateSelect, $state);
-            $I->wait(4);
+            $I->wait(5);
         }
         if (isset($cityArray)){
             for ($i=1, $c= count($cityArray); $i<=$c; $i++){

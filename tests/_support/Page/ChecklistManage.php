@@ -179,9 +179,9 @@ class ChecklistManage extends \AcceptanceTester
     public static function CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($subgroup)  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[4]//input";}
     public static function TotalMeasuresMustCompleteLine_DefineTotalTab($subgroup)            { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[5]/span";}
     //-----Points Tab-----
-    public static $RequiredPointsField                      = '#relcompletepointstochecklist-points';
-    public static $RequiredPointsLabel                      = '[for=relcompletepointstochecklist-points]';
-    public static $Error_RequiredPoints                     = '#relcompletepointstochecklist-points+.help-block';
+    public static $RequiredPointsField                      = '#relcompletepointstochecklist-cumulative_points';
+    public static $RequiredPointsLabel                      = '[for=relcompletepointstochecklist-cumulative_points]';
+    public static $Error_RequiredPoints                     = '#relcompletepointstochecklist-cumulative_points+.help-block';
 
 
 }

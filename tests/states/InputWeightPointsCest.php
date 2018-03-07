@@ -16,7 +16,7 @@ class InputWeightPointsCest
     public $measure8Desc, $idMeasure8, $pointsMeas8 = "8";
     public $measure9Desc, $idMeasure9, $pointsMeas9 = "9";
     public $measuresDesc_SuccessCreated = [], $points = '10', $completePoints = '0', $coreCount = '1', $completeCoreMeasures = '0';
-    public $city1, $zip1, $program1;
+    public $city1, $zip1, $program1, $county;
     public $statuses = ['elective', 'core', 'elective', 'elective', 'elective', 'elective', 'elective', 'elective', 'elective'];
     public $checklistUrl, $id_checklist;
     public $business1, $business2, $id_business1, $id_business2;
@@ -258,6 +258,14 @@ class InputWeightPointsCest
                                             $multipAnswerToggleStatus= 'ignore', $points);
     }
     
+    //-------------------------------Create county------------------------------
+    public function Help_CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
+    }
+    
     public function Help7_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
         $city    = $this->city1 = $I->GenerateNameOf("CityIW1");
         $cityArr = [$city];
@@ -292,409 +300,409 @@ class InputWeightPointsCest
         $I->UpdateChecklistPoints($points);
     }
     
-    public function InputWeight9_1_CheckPoints_OnChecklistPreview(AcceptanceTester $I) {
-        $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas1 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure1Desc));
-        $I->canSee("$this->pointsMeas2 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure2Desc));
-        $I->canSee("$this->pointsMeas3 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure3Desc));
-        $I->canSee("$this->pointsMeas4 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure4Desc));
-        $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_SolidWaste));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas5 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure5Desc));
-        $I->canSee("$this->pointsMeas6 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure6Desc));
-        $I->wait(3);
-        $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup2_SolidWaste));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas7 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure7Desc));
-        $I->canSee("$this->pointsMeas8 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure8Desc));
-        $I->canSee("$this->pointsMeas9 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure9Desc));
-    }
-    
-    public function InputWeight9_2_CheckTotalPointsForChecklist_OnChecklistPreview(AcceptanceTester $I) {
-        $completePoints = '0';
-        $points         = $this->points;
-        
-        $I->wait(1);
-        $I->comment("Check total points value: $points on checklist preview page. Completed points value: $completePoints");
-        $I->amOnPage($this->checklistUrl);
-        $I->wait(2);
-        $I->click(Page\ChecklistManage::$PreviewButton);
-        $I->wait(3);
-        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
-        if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
-            $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
-        }
-        $I->wait(3);
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
-    }
-    
-    public function Help10_LogOut(AcceptanceTester $I) {
-        $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
-        $I->Logout($I);
-    }
-    
-    public function InputWeight11_BusinessRegister(Step\Acceptance\Business $I)
-    {
-        $firstName        = $I->GenerateNameOf("firnam");
-        $lastName         = $I->GenerateNameOf("lasnam");
-        $phoneNumber      = $I->GeneratePhoneNumber();
-        $email            = $I->GenerateEmail();
-        $password         = $confirmPassword = 'Qq!1111111';
-        $busName          = $this->business1 = $I->GenerateNameOf("busnam");
-        $busPhone         = $I->GeneratePhoneNumber();
-        $address          = $I->GenerateNameOf("addr");;
-        $zip              = $this->zip1;
-        $city             = $this->city1;
-        $website          = 'fgfh.fh';
-        $busType          = 'Office / Retail';
-        $employees        = '455';
-        $busFootage       = '12222';
-        $landscapeFootage = '995';
-        
-        $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
-                $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
-    }
-    
-    public function InputWeight11_1_CheckPoints_OnBusinessChecklist(AcceptanceTester $I) {
-        $I->wait(1);
-        $I->comment("Check all points value on business checklist pages");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas1 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure1Desc));
-        $I->canSee("$this->pointsMeas2 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure2Desc));
-        $I->canSee("$this->pointsMeas3 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure3Desc));
-        $I->canSee("$this->pointsMeas4 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure4Desc));
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas5 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure5Desc));
-        $I->canSee("$this->pointsMeas6 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure6Desc));
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas7 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure7Desc));
-        $I->canSee("$this->pointsMeas8 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure8Desc));
-        $I->canSee("$this->pointsMeas9 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure9Desc));
-    }
-    
-    public function CheckOnBusiness1_ReviewAndSubmitPage_BeforeCompleteMeasures(AcceptanceTester $I) {
-        $I->wait(1);
-        $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
-        $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
-        $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
-        $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
-        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
-        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup2_SolidWaste));
-        $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
-        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
-    }
-    
-    public function InputWeight11_2_CheckTotalPointsForChecklist_OnBusinessChecklist(AcceptanceTester $I) {
-        $completePoints = '0';
-        $points         = $this->points;
-        
-        $I->wait(1);
-        $I->comment("Check total points value: $points on checklist preview page. Completed points value: $completePoints");
-        $I->comment("------------------------------------------------------------------");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(3);
-        $I->comment("Check correct info in Progress Bar on $this->id_audSubgroup1_Energy subgroup checklist page:");
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
-        
-        $I->comment("Check correct info in Right Block on $this->id_audSubgroup1_Energy subgroup checklist page:");
-        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
-        $I->canSee($completePoints, Page\RegistrationStarted::$TotalPointsCount_RightBlock);
-//        $I->canSee('', Page\RegistrationStarted::$TierDescription_RightBlock);
-        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup1_Energy subgroup checklist page:");
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee("Tier 2", Page\RegistrationStarted::LeftMenu_TierName('1'));
-        $I->canSee("Tier 2 $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
-        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
-        $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('1'));
-        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
-        $I->comment("------------------------------------------------------------------");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(3);
-        $I->comment("Check correct info in Progress Bar for $this->id_audSubgroup1_SolidWaste subgroup:");
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
-        $I->comment("Check correct info in Right Block on $this->id_audSubgroup1_SolidWaste subgroup checklist page:");
-        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
-        $I->canSee($completePoints, Page\RegistrationStarted::$TotalPointsCount_RightBlock);
-//        $I->canSee('', Page\RegistrationStarted::$TierDescription_RightBlock);
-        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup1_SolidWaste subgroup checklist page:");
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee("Tier 2", Page\RegistrationStarted::LeftMenu_TierName('1'));
-        $I->canSee("Tier 2 $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
-        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
-        $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('1'));
-        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
-        $I->comment("------------------------------------------------------------------");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
-        $I->wait(3);
-        $I->comment("Check correct info in Progress Bar for $this->id_audSubgroup2_SolidWaste subgroup:");
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
-        
-        $I->comment("Check correct info in Right Block on $this->id_audSubgroup2_SolidWaste subgroup checklist page:");
-        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
-        $I->canSee($completePoints, Page\RegistrationStarted::$TotalPointsCount_RightBlock);
-//        $I->canSee('', Page\RegistrationStarted::$TierDescription_RightBlock);
-        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup2_SolidWaste subgroup checklist page:");
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee("Tier 2", Page\RegistrationStarted::LeftMenu_TierName('1'));
-        $I->canSee("Tier 2 $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
-        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
-        $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('1'));
-        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
-    }
-    
-    
-    public function InputWeight11_3_CompleteMeasure1(AcceptanceTester $I) {
-        $measDesc = $this->measure1Desc;
-        $value1   = '11';
-        $value2   = '22';
-                
-        $I->wait(1);
-        $I->comment("Complete Measure1 with $this->pointsMeas1 and save. Check completed points value after saving.");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
-        $I->wait(2);
-        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
-        $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
-        $I->wait(1);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(3);
-        $this->completePoints = $this->completePoints + $this->pointsMeas1;
-        $completePoints = $this->completePoints;
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
-        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee($completePoints, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
-    }
-    
-    public function InputWeight11_4_CompleteMeasure2(AcceptanceTester $I) {
-        $measDesc = $this->measure2Desc;
-        $value1   = '11';
-        $value2   = '22';
-                
-        $I->wait(1);
-        $I->comment("Complete Measure2 with $this->pointsMeas2 and save. Check completed points value after saving.");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
-        $I->wait(2);
-        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
-        $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
-        $I->wait(1);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(3);
-        $this->completePoints = $this->completePoints + $this->pointsMeas2;
-        $completePoints = $this->completePoints;
-        $this->completeCoreMeasures = $this->completeCoreMeasures + 1;
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
-        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee($completePoints, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
-    }
-    
-    public function InputWeight11_5_CompleteMeasure8(AcceptanceTester $I) {
-        $measDesc = $this->measure8Desc;
-                
-        $I->wait(1);
-        $I->comment("Complete Measure8 with $this->pointsMeas8 and save. Check completed points value after saving.");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
-        $I->wait(2);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
-        $I->wait(2);
-        $I->scrollTo("[data-measure-id='$this->idMeasure8']");
-        $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(3);
-        $completePointsMaxForTier = $this->points;
-        $completePointsFullValue = $this->completePoints + $this->pointsMeas8;
-//        $I->canSee("$completePointsFullValue Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
-        $I->canSee($completePointsFullValue, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
-        $I->canSee("TOTAL POINTS EARNED: $completePointsFullValue", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee($completePointsFullValue, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee("$this->completeCoreMeasures", Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
-    }
-    
-    public function CheckOnBusiness1_ReviewAndSubmitPage_AfterCompleteMeasures(AcceptanceTester $I) {
-        $completePointsFullValue = $this->completePoints + $this->pointsMeas8;
-        
-        $I->wait(1);
-        $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
-        $I->canSee("$this->completeCoreMeasures of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("$completePointsFullValue points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
-        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
-        $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
-        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
-        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup2_SolidWaste));
-        $I->canSee("8", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
-        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
-        $I->canSee("11", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
-    }
-    
-    public function InputWeight11_6_DecompleteMeasure8(AcceptanceTester $I) {
-        $measDesc = $this->measure8Desc;
-                
-        $I->wait(1);
-        $I->comment("Decomplete Measure8 with $this->pointsMeas8 and save. Check completed points value after saving.");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
-        $I->wait(2);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
-        $I->wait(2);
-        $I->scrollTo("[data-measure-id='$this->idMeasure8']");
-        $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'no');
-        $I->wait(2);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(3);
-        $completePoints = $this->completePoints;
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
-        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee($completePoints, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee("$this->completeCoreMeasures", Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
-    }
-    
-    public function Help12_LogOutFromBusiness_And_LoginAsNationalAdmin(AcceptanceTester $I){
-        $I->LogIn_TRUEorFALSE($I);
-        $I->Logout($I);
-        $I->wait(1);
-        $I->LoginAsAdmin($I);
-    }
-      
-    public function Help13_GoToBusinessViewPage(AcceptanceTester $I){
-        $I->wait(1);
-        $I->SelectDefaultState($I, $this->state);
-        $I->wait(1);
-        $I->amOnPage(Page\Dashboard::URL());
-        $I->wait(2);
-        $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business1), 'href');
-        $I->comment("Url1: $url1");
-        $u1 = explode('=', $url1);
-        $this->id_business1 = $u1[1];
-        $I->comment("Business1 id: $this->id_business1");
-    }
-     
-    public function InputWeight14_1_CheckPoints_OnBusinessView(AcceptanceTester $I) {
-        $I->wait(1);
-        $I->comment("Check all points value on business checklist pages");
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas1 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure1Desc));
-        $I->canSee("$this->pointsMeas2 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
-        $I->canSee("$this->pointsMeas3 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
-        $I->canSee("$this->pointsMeas4 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure4Desc));
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_SolidWaste));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas5 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure5Desc));
-        $I->canSee("$this->pointsMeas6 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure6Desc));
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup2_SolidWaste));
-        $I->wait(3);
-        $I->canSee("$this->pointsMeas7 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure7Desc));
-        $I->canSee("$this->pointsMeas8 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure8Desc));
-        $I->canSee("$this->pointsMeas9 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure9Desc));
-    }
-    
-    public function InputWeight14_2_CheckTotalPointsForChecklist_OnBusinessView(AcceptanceTester $I) {
-        $completePoints = $this->completePoints;
-        $points         = $this->points;
-        
-        $I->wait(1);
-        $I->comment("Check total points value: $points on checklist preview page. Completed points value: $completePoints");
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
-        $I->comment("Check correct info in Progress Bar on $this->id_audSubgroup1_Energy subgroup checklist page:");
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\BusinessChecklistView::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
-        $I->comment("Check correct info in Right Block on $this->id_audSubgroup1_Energy subgroup checklist page:");
-        $I->canSee($this->totalEarnedText, Page\BusinessChecklistView::$TotalPointsText_RightBlock);
-        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
-        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup1_Energy subgroup checklist page:");
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee("Tier 2", Page\BusinessChecklistView::LeftMenu_TierName('1'));
-        $I->canSee("Tier 2 $this->measuresText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 $this->pointsText", Page\BusinessChecklistView::LeftMenu_EarnedPointsLabel('1'));
-        $I->canSee($this->completeCoreMeasures, Page\BusinessChecklistView::LeftMenu_CompletedMeasuresCount('1'));
-        $I->canSee("$completePoints", Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo('1'));
-        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
-        $I->comment("------------------------------------------------------------------");
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_SolidWaste));
-        $I->wait(3);
-        $I->comment("Check correct info in Progress Bar for $this->id_audSubgroup1_SolidWaste subgroup:");
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\BusinessChecklistView::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
-        $I->comment("Check correct info in Right Block on $this->id_audSubgroup1_SolidWaste subgroup checklist page:");
-        $I->canSee($this->totalEarnedText, Page\BusinessChecklistView::$TotalPointsText_RightBlock);
-        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
-        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup1_SolidWaste subgroup checklist page:");
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee("Tier 2", Page\BusinessChecklistView::LeftMenu_TierName('1'));
-        $I->canSee("Tier 2 $this->measuresText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 $this->pointsText", Page\BusinessChecklistView::LeftMenu_EarnedPointsLabel('1'));
-        $I->canSee($this->completeCoreMeasures, Page\BusinessChecklistView::LeftMenu_CompletedMeasuresCount('1'));
-        $I->canSee("$completePoints", Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo('1'));
-        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
-        $I->comment("------------------------------------------------------------------");
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup2_SolidWaste));
-        $I->wait(3);
-        $I->comment("Check correct info in Progress Bar for $this->id_audSubgroup2_SolidWaste subgroup:");
-//        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\BusinessChecklistView::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
-        $I->comment("Check correct info in Right Block on $this->id_audSubgroup2_SolidWaste subgroup checklist page:");
-        $I->canSee($this->totalEarnedText, Page\BusinessChecklistView::$TotalPointsText_RightBlock);
-        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
-        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup2_SolidWaste subgroup checklist page:");
-        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
-        $I->canSee("Tier 2", Page\BusinessChecklistView::LeftMenu_TierName('1'));
-        $I->canSee("Tier 2 $this->measuresText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 $this->pointsText", Page\BusinessChecklistView::LeftMenu_EarnedPointsLabel('1'));
-        $I->canSee($this->completeCoreMeasures, Page\BusinessChecklistView::LeftMenu_CompletedMeasuresCount('1'));
-        $I->canSee("$completePoints", Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
-        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo('1'));
-        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
-    }
-    
+//    public function InputWeight9_1_CheckPoints_OnChecklistPreview(AcceptanceTester $I) {
+//        $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas1 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure1Desc));
+//        $I->canSee("$this->pointsMeas2 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure2Desc));
+//        $I->canSee("$this->pointsMeas3 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure3Desc));
+//        $I->canSee("$this->pointsMeas4 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure4Desc));
+//        $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_SolidWaste));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas5 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure5Desc));
+//        $I->canSee("$this->pointsMeas6 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure6Desc));
+//        $I->wait(3);
+//        $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup2_SolidWaste));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas7 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure7Desc));
+//        $I->canSee("$this->pointsMeas8 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure8Desc));
+//        $I->canSee("$this->pointsMeas9 Points", \Page\ChecklistPreview::MeasurePoints_ByDesc($this->measure9Desc));
+//    }
+//    
+//    public function InputWeight9_2_CheckTotalPointsForChecklist_OnChecklistPreview(AcceptanceTester $I) {
+//        $completePoints = '0';
+//        $points         = $this->points;
+//        
+//        $I->wait(1);
+//        $I->comment("Check total points value: $points on checklist preview page. Completed points value: $completePoints");
+//        $I->amOnPage($this->checklistUrl);
+//        $I->wait(2);
+//        $I->click(Page\ChecklistManage::$PreviewButton);
+//        $I->wait(3);
+//        $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
+//        if($I->getAmount($I, \Page\ChecklistPreview::$LeftMenu_EnergyGroupButton.'.active') == 0) {
+//            $I->click(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
+//        }
+//        $I->wait(3);
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
+//    }
+//    
+//    public function Help10_LogOut(AcceptanceTester $I) {
+//        $I->amOnPage(Page\MeasureList::URL());
+//        $I->wait(1);
+//        $I->Logout($I);
+//    }
+//    
+//    public function InputWeight11_BusinessRegister(Step\Acceptance\Business $I)
+//    {
+//        $firstName        = $I->GenerateNameOf("firnam");
+//        $lastName         = $I->GenerateNameOf("lasnam");
+//        $phoneNumber      = $I->GeneratePhoneNumber();
+//        $email            = $I->GenerateEmail();
+//        $password         = $confirmPassword = 'Qq!1111111';
+//        $busName          = $this->business1 = $I->GenerateNameOf("busnam");
+//        $busPhone         = $I->GeneratePhoneNumber();
+//        $address          = $I->GenerateNameOf("addr");;
+//        $zip              = $this->zip1;
+//        $city             = $this->city1;
+//        $website          = 'fgfh.fh';
+//        $busType          = 'Office / Retail';
+//        $employees        = '455';
+//        $busFootage       = '12222';
+//        $landscapeFootage = '995';
+//        
+//        $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
+//                $employees, $busFootage, $landscapeFootage);
+//        $I->wait(8);
+//    }
+//    
+//    public function InputWeight11_1_CheckPoints_OnBusinessChecklist(AcceptanceTester $I) {
+//        $I->wait(1);
+//        $I->comment("Check all points value on business checklist pages");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas1 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure1Desc));
+//        $I->canSee("$this->pointsMeas2 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure2Desc));
+//        $I->canSee("$this->pointsMeas3 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure3Desc));
+//        $I->canSee("$this->pointsMeas4 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure4Desc));
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas5 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure5Desc));
+//        $I->canSee("$this->pointsMeas6 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure6Desc));
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas7 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure7Desc));
+//        $I->canSee("$this->pointsMeas8 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure8Desc));
+//        $I->canSee("$this->pointsMeas9 Points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure9Desc));
+//    }
+//    
+//    public function CheckOnBusiness1_ReviewAndSubmitPage_BeforeCompleteMeasures(AcceptanceTester $I) {
+//        $I->wait(1);
+//        $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
+//        $I->wait(2);
+//        $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
+//        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+//        $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
+//        $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
+//        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
+//        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup2_SolidWaste));
+//        $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
+//        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
+//        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+//    }
+//    
+//    public function InputWeight11_2_CheckTotalPointsForChecklist_OnBusinessChecklist(AcceptanceTester $I) {
+//        $completePoints = '0';
+//        $points         = $this->points;
+//        
+//        $I->wait(1);
+//        $I->comment("Check total points value: $points on checklist preview page. Completed points value: $completePoints");
+//        $I->comment("------------------------------------------------------------------");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+//        $I->comment("Check correct info in Progress Bar on $this->id_audSubgroup1_Energy subgroup checklist page:");
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+//        
+//        $I->comment("Check correct info in Right Block on $this->id_audSubgroup1_Energy subgroup checklist page:");
+//        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
+//        $I->canSee($completePoints, Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+////        $I->canSee('', Page\RegistrationStarted::$TierDescription_RightBlock);
+//        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup1_Energy subgroup checklist page:");
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee("Tier 2", Page\RegistrationStarted::LeftMenu_TierName('1'));
+//        $I->canSee("Tier 2 $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
+//        $I->canSee("Tier 2 $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+//        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
+//        $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('1'));
+//        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+//        $I->comment("------------------------------------------------------------------");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
+//        $I->wait(3);
+//        $I->comment("Check correct info in Progress Bar for $this->id_audSubgroup1_SolidWaste subgroup:");
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+//        $I->comment("Check correct info in Right Block on $this->id_audSubgroup1_SolidWaste subgroup checklist page:");
+//        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
+//        $I->canSee($completePoints, Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+////        $I->canSee('', Page\RegistrationStarted::$TierDescription_RightBlock);
+//        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup1_SolidWaste subgroup checklist page:");
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee("Tier 2", Page\RegistrationStarted::LeftMenu_TierName('1'));
+//        $I->canSee("Tier 2 $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
+//        $I->canSee("Tier 2 $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+//        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
+//        $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('1'));
+//        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+//        $I->comment("------------------------------------------------------------------");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
+//        $I->wait(3);
+//        $I->comment("Check correct info in Progress Bar for $this->id_audSubgroup2_SolidWaste subgroup:");
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+//        
+//        $I->comment("Check correct info in Right Block on $this->id_audSubgroup2_SolidWaste subgroup checklist page:");
+//        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
+//        $I->canSee($completePoints, Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+////        $I->canSee('', Page\RegistrationStarted::$TierDescription_RightBlock);
+//        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup2_SolidWaste subgroup checklist page:");
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee("Tier 2", Page\RegistrationStarted::LeftMenu_TierName('1'));
+//        $I->canSee("Tier 2 $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
+//        $I->canSee("Tier 2 $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+//        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
+//        $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('1'));
+//        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+//    }
+//    
+//    
+//    public function InputWeight11_3_CompleteMeasure1(AcceptanceTester $I) {
+//        $measDesc = $this->measure1Desc;
+//        $value1   = '11';
+//        $value2   = '22';
+//                
+//        $I->wait(1);
+//        $I->comment("Complete Measure1 with $this->pointsMeas1 and save. Check completed points value after saving.");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(2);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
+//        $I->wait(2);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+//        $I->wait(1);
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+//        $I->wait(1);
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
+//        $I->wait(1);
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(1);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(3);
+//        $this->completePoints = $this->completePoints + $this->pointsMeas1;
+//        $completePoints = $this->completePoints;
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
+//    }
+//    
+//    public function InputWeight11_4_CompleteMeasure2(AcceptanceTester $I) {
+//        $measDesc = $this->measure2Desc;
+//        $value1   = '11';
+//        $value2   = '22';
+//                
+//        $I->wait(1);
+//        $I->comment("Complete Measure2 with $this->pointsMeas2 and save. Check completed points value after saving.");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(2);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
+//        $I->wait(2);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+//        $I->wait(1);
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+//        $I->wait(1);
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
+//        $I->wait(1);
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(1);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(3);
+//        $this->completePoints = $this->completePoints + $this->pointsMeas2;
+//        $completePoints = $this->completePoints;
+//        $this->completeCoreMeasures = $this->completeCoreMeasures + 1;
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee($this->completeCoreMeasures, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
+//    }
+//    
+//    public function InputWeight11_5_CompleteMeasure8(AcceptanceTester $I) {
+//        $measDesc = $this->measure8Desc;
+//                
+//        $I->wait(1);
+//        $I->comment("Complete Measure8 with $this->pointsMeas8 and save. Check completed points value after saving.");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
+//        $I->wait(2);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
+//        $I->wait(2);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure8']");
+//        $I->wait(1);
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+//        $I->wait(2);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(3);
+//        $completePointsMaxForTier = $this->points;
+//        $completePointsFullValue = $this->completePoints + $this->pointsMeas8;
+////        $I->canSee("$completePointsFullValue Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+//        $I->canSee($completePointsFullValue, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+//        $I->canSee("TOTAL POINTS EARNED: $completePointsFullValue", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee($completePointsFullValue, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee("$this->completeCoreMeasures", Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
+//    }
+//    
+//    public function CheckOnBusiness1_ReviewAndSubmitPage_AfterCompleteMeasures(AcceptanceTester $I) {
+//        $completePointsFullValue = $this->completePoints + $this->pointsMeas8;
+//        
+//        $I->wait(1);
+//        $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
+//        $I->wait(2);
+//        $I->canSee("$this->completeCoreMeasures of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
+//        $I->canSee("$completePointsFullValue points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+//        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
+//        $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
+//        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
+//        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup2_SolidWaste));
+//        $I->canSee("8", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
+//        $I->canSee($this->totalEarnedText, Page\RegistrationStarted::$TotalPointsText_RightBlock);
+//        $I->canSee("11", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+//    }
+//    
+//    public function InputWeight11_6_DecompleteMeasure8(AcceptanceTester $I) {
+//        $measDesc = $this->measure8Desc;
+//                
+//        $I->wait(1);
+//        $I->comment("Decomplete Measure8 with $this->pointsMeas8 and save. Check completed points value after saving.");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
+//        $I->wait(2);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
+//        $I->wait(2);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure8']");
+//        $I->wait(1);
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'no');
+//        $I->wait(2);
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(1);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(3);
+//        $completePoints = $this->completePoints;
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $this->points Tier 2 points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee("$this->completeCoreMeasures", Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
+//    }
+//    
+//    public function Help12_LogOutFromBusiness_And_LoginAsNationalAdmin(AcceptanceTester $I){
+//        $I->LogIn_TRUEorFALSE($I);
+//        $I->Logout($I);
+//        $I->wait(1);
+//        $I->LoginAsAdmin($I);
+//    }
+//      
+//    public function Help13_GoToBusinessViewPage(AcceptanceTester $I){
+//        $I->wait(1);
+//        $I->SelectDefaultState($I, $this->state);
+//        $I->wait(1);
+//        $I->amOnPage(Page\Dashboard::URL());
+//        $I->wait(2);
+//        $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business1), 'href');
+//        $I->comment("Url1: $url1");
+//        $u1 = explode('=', $url1);
+//        $this->id_business1 = $u1[1];
+//        $I->comment("Business1 id: $this->id_business1");
+//    }
+//     
+//    public function InputWeight14_1_CheckPoints_OnBusinessView(AcceptanceTester $I) {
+//        $I->wait(1);
+//        $I->comment("Check all points value on business checklist pages");
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas1 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure1Desc));
+//        $I->canSee("$this->pointsMeas2 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
+//        $I->canSee("$this->pointsMeas3 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
+//        $I->canSee("$this->pointsMeas4 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure4Desc));
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_SolidWaste));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas5 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure5Desc));
+//        $I->canSee("$this->pointsMeas6 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure6Desc));
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup2_SolidWaste));
+//        $I->wait(3);
+//        $I->canSee("$this->pointsMeas7 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure7Desc));
+//        $I->canSee("$this->pointsMeas8 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure8Desc));
+//        $I->canSee("$this->pointsMeas9 Points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure9Desc));
+//    }
+//    
+//    public function InputWeight14_2_CheckTotalPointsForChecklist_OnBusinessView(AcceptanceTester $I) {
+//        $completePoints = $this->completePoints;
+//        $points         = $this->points;
+//        
+//        $I->wait(1);
+//        $I->comment("Check total points value: $points on checklist preview page. Completed points value: $completePoints");
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+//        $I->comment("Check correct info in Progress Bar on $this->id_audSubgroup1_Energy subgroup checklist page:");
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\BusinessChecklistView::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+//        $I->comment("Check correct info in Right Block on $this->id_audSubgroup1_Energy subgroup checklist page:");
+//        $I->canSee($this->totalEarnedText, Page\BusinessChecklistView::$TotalPointsText_RightBlock);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+//        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup1_Energy subgroup checklist page:");
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee("Tier 2", Page\BusinessChecklistView::LeftMenu_TierName('1'));
+//        $I->canSee("Tier 2 $this->measuresText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresLabel('1'));
+//        $I->canSee("Tier 2 $this->pointsText", Page\BusinessChecklistView::LeftMenu_EarnedPointsLabel('1'));
+//        $I->canSee($this->completeCoreMeasures, Page\BusinessChecklistView::LeftMenu_CompletedMeasuresCount('1'));
+//        $I->canSee("$completePoints", Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo('1'));
+//        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
+//        $I->comment("------------------------------------------------------------------");
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_SolidWaste));
+//        $I->wait(3);
+//        $I->comment("Check correct info in Progress Bar for $this->id_audSubgroup1_SolidWaste subgroup:");
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\BusinessChecklistView::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+//        $I->comment("Check correct info in Right Block on $this->id_audSubgroup1_SolidWaste subgroup checklist page:");
+//        $I->canSee($this->totalEarnedText, Page\BusinessChecklistView::$TotalPointsText_RightBlock);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+//        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup1_SolidWaste subgroup checklist page:");
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee("Tier 2", Page\BusinessChecklistView::LeftMenu_TierName('1'));
+//        $I->canSee("Tier 2 $this->measuresText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresLabel('1'));
+//        $I->canSee("Tier 2 $this->pointsText", Page\BusinessChecklistView::LeftMenu_EarnedPointsLabel('1'));
+//        $I->canSee($this->completeCoreMeasures, Page\BusinessChecklistView::LeftMenu_CompletedMeasuresCount('1'));
+//        $I->canSee("$completePoints", Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo('1'));
+//        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
+//        $I->comment("------------------------------------------------------------------");
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup2_SolidWaste));
+//        $I->wait(3);
+//        $I->comment("Check correct info in Progress Bar for $this->id_audSubgroup2_SolidWaste subgroup:");
+////        $I->canSee("$completePoints Tier 2 points earned. A minimum of $points Tier 2 points are required.", \Page\BusinessChecklistView::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$this->completeCoreMeasures Tier 2 measures completed. A minimum of $this->coreCount Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+//        $I->comment("Check correct info in Right Block on $this->id_audSubgroup2_SolidWaste subgroup checklist page:");
+//        $I->canSee($this->totalEarnedText, Page\BusinessChecklistView::$TotalPointsText_RightBlock);
+//        $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+//        $I->comment("Check correct info in Left Menu on $this->id_audSubgroup2_SolidWaste subgroup checklist page:");
+//        $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+//        $I->canSee("Tier 2", Page\BusinessChecklistView::LeftMenu_TierName('1'));
+//        $I->canSee("Tier 2 $this->measuresText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresLabel('1'));
+//        $I->canSee("Tier 2 $this->pointsText", Page\BusinessChecklistView::LeftMenu_EarnedPointsLabel('1'));
+//        $I->canSee($this->completeCoreMeasures, Page\BusinessChecklistView::LeftMenu_CompletedMeasuresCount('1'));
+//        $I->canSee("$completePoints", Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));
+//        $I->canSee("$this->completeCoreMeasures of $this->coreCount"."$this->measuresCompletedText", Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo('1'));
+//        $I->canSee("$completePoints"."$this->pointsEarnedText", Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
+//    }
+//    
 
 }
