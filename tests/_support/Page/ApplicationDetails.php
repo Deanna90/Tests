@@ -108,6 +108,8 @@ class ApplicationDetails extends \AcceptanceTester
     public static function ComplianceCheckPopup_CompletionDateFieldByName($complName)  { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[4]//input";}
     public static function ComplianceCheckPopup_OrganizationSelectByName($complName)   { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[5]//select";}
     public static function ComplianceCheckPopup_InspectorSelectByName($complName)      { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[6]//select";}
+    public static function ComplianceCheckPopup_OrganizationOptiomByName($complName, $orgName) { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[5]//select/option[contains(text(), '$orgName')]";}
+    public static function ComplianceCheckPopup_InspectorOptionByName($complName, $inspector)  { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[6]//select/option[contains(text(), '$auditor')]";}
     
     public static $ComplianceCheckPopup_UpdateButton             = '.modal.in [type=submit]';
     public static $ComplianceCheckPopup_CloseButton              = '.modal.in .close';
@@ -136,6 +138,8 @@ class ApplicationDetails extends \AcceptanceTester
     public static function AuditsPopup_CompletionDateFieldByName($audGroup)  { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[4]//input";}
     public static function AuditsPopup_OrganizationSelectByName($audGroup)   { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[5]//select";}
     public static function AuditsPopup_AuditorSelectByName($audGroup)        { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[6]//select";}
+    public static function AuditsPopup_OrganizationOptionByName($audGroup, $orgName) { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[5]//select/option[contains(text(), '$orgName')]";}
+    public static function AuditsPopup_AuditorOptionByName($audGroup, $auditor)      { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[6]//select/option[contains(text(), '$auditor')]";}
     
     public static $AuditsPopup_UpdateButton             = '.modal.in [type=submit]';
     public static $AuditsPopup_CloseButton              = '.modal.in .close';

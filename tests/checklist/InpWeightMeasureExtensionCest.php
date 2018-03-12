@@ -1031,7 +1031,7 @@ class InpWeightMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$PointsTab);
         $I->wait(4);
         $I->comment("-----DEFAULT TAB-----");
-        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
+        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '0');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, '3');
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(4);
@@ -1044,7 +1044,7 @@ class InpWeightMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(4);
         $I->comment("-----LARGE BUILDING TAB-----");
-        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
+        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '0');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, '3');
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(4);
@@ -1057,7 +1057,7 @@ class InpWeightMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(4);
         $I->comment("-----LARGE LANDSCAPE TAB-----");
-        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
+        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '0');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, '3');
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(4);
@@ -1070,7 +1070,7 @@ class InpWeightMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(4);
         $I->comment("-----LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
+        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '0');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, '3');
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(4);
@@ -1158,7 +1158,7 @@ class InpWeightMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$PointsTab);
         $I->wait(4);
         $I->comment("-----DEFAULT TAB-----");
-        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
+        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '0');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_Default_input);
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(4);
@@ -1171,7 +1171,7 @@ class InpWeightMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(4);
         $I->comment("-----LARGE BUILDING TAB-----");
-        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
+        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '0');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LB_input);
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(4);
@@ -1184,7 +1184,7 @@ class InpWeightMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(4);
         $I->comment("-----LARGE LANDSCAPE TAB-----");
-        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
+        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '0');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LL_input);
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(4);
@@ -1197,7 +1197,7 @@ class InpWeightMeasureExtensionCest
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(4);
         $I->comment("-----LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '');
+        $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, '0');
         $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LL_LB_input);
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(4);
