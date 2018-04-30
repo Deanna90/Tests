@@ -6,16 +6,23 @@ class ProgramUpdate extends \AcceptanceTester
     public static function URL($id)       { return parent::$URL_UserAccess."/program/update?id=$id";}
     public static $Title                  = 'h1';
     
-    public static $UpdateButton           = '[type=submit][class*=primary]';
+    public static $UpdateButton           = '.btn-green[type=submit]';
     
     public static $NameField              = '#program-name';
     
     public static $StateSelect            = '#program-state_id';
-    public static $CitySelect             = '#program-cities+div';
     public static $SelectedStateOption    = '#program-state_id [selected]';
     public static $StateOption            = '#program-state_id option';
+    
+    public static $CitySelect             = '#program-cities+div';
     public static $SelectedCityOption     = '#program-cities+div a>span';
     public static $CityOption             = '#program-cities+div ul>li';
+    
+    public static $WeightedSelect         = '#program-is_weighted';
+    public static $SelectedWeightedOption = '#program-is_weighted [selected]';
+    public static $WeightedOption         = '#program-is_weighted option';
+    
+    public static $RecertificationCycleSelect = '#program-recertification_cycle';
     
     public static $NameLabel              = '[for=program-name]';
     public static $StateSelectLabel       = '[for=program-state_id]';

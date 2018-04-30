@@ -54,4 +54,38 @@ class Program extends \AcceptanceTester
         $prog['row']  = $j;
         return $prog;
     }
+    
+    public function UpdateProgram($idProg = null, $name = null, $state = null, $cityArray = null, $weighted = null, $recerticationCycle = null)
+    {
+        $I = $this;
+        if (isset($idProg)){
+            $I->amOnPage(\Page\ProgramUpdate::URL($idProg));
+        }
+        $I->wait(3);
+        $I->waitForElement(\Page\ProgramUpdate::$NameField);
+        if (isset($name)){
+            $I->fillField(\Page\ProgramUpdate::$NameField, $name);
+        }
+        if (isset($state)){
+            $I->selectOption(\Page\ProgramUpdate::$StateSelect, $state);
+            $I->wait(5);
+        }
+        if (isset($cityArray)){
+            for ($i=1, $c= count($cityArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\ProgramUpdate::$CitySelect);
+                $I->wait(3);
+                $I->click(\Page\ProgramUpdate::selectCityOptionByName($cityArray[$k]));
+            }
+        }
+        if (isset($weighted)){
+            $I->selectOption(\Page\ProgramUpdate::$WeightedSelect, $weighted);
+            $I->wait(1);
+        }
+        if (isset($recerticationCycle)){
+            $I->selectOption(\Page\ProgramUpdate::$RecertificationCycleSelect, $recerticationCycle);
+        }
+        $I->click(\Page\ProgramUpdate::$UpdateButton);
+        $I->wait(3);
+    }  
 }

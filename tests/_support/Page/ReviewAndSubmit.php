@@ -6,11 +6,12 @@ class ReviewAndSubmit extends \AcceptanceTester
     public static $URL                       =  "/user/application/review?just_submit=1";
     public static function URL_BusinessLogin($checklistID)  {    return "/user/application/review?tier_id=$checklistID&just_submit=1";}
     public static function URL_AdminLogin($businessID)      {    return parent::$URL_UserAccess."/business/review?business_id=$businessID&just_submit=1";}
+    public static function URL_Tier_AdminLogin($businessID, $tierID)      {    return parent::$URL_UserAccess."/business/review?business_id=$businessID&tier_id=$tierID";}
     
     //-----Review & Submit Page-----
     
     public static $SubmitMyApplicationButton = '.input-row button[type=submit]';
-//    public static $ReviewTitle                          = 'h2';
+    public static $ReviewTitle                          = '.text-center>h2';
     
     public static $CategoriesHead        = '#measures-form>div:first-of-type h3';
     public static $CoreMeasuresHead      = '#measures-form>div:first-of-type h3';
@@ -40,13 +41,13 @@ class ReviewAndSubmit extends \AcceptanceTester
     
     //Tier Progress Block
     public static $TierProgress_Title                                = '.review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) .row>div:first-of-type p';
-    public static function TierProgress_TierName($number)               { return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) p:nth-of-type(1)";}
-    public static function TierProgress_CompletedMeasuresLabel($number) { return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) p:nth-of-type(2)";}
-    public static function TierProgress_EarnedPointsLabel($number)      { return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) p:nth-of-type(4)";}
-    public static function TierProgress_CompletedMeasuresInfo($number)  { return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) p:nth-of-type(3)";}
-    public static function TierProgress_EarnedPointsInfo($number)       { return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) p:nth-of-type(5)";}
-    public static function TierProgress_CompletedMeasuresCount($number) { return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) p:nth-of-type(3)>span";}
-    public static function TierProgress_EarnedPointsCount($number)      { return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) p:nth-of-type(5)>span";}
+    public static function TierProgress_TierName($number)               { $a=$number+1; return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type($a) p:nth-of-type(1)";}
+    public static function TierProgress_CompletedMeasuresLabel($number) { $a=$number+1; return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type($a) p:nth-of-type(2)";}
+    public static function TierProgress_EarnedPointsLabel($number)      { $a=$number+1; return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type($a) p:nth-of-type(4)";}
+    public static function TierProgress_CompletedMeasuresInfo($number)  { $a=$number+1; return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type($a) p:nth-of-type(3)";}
+    public static function TierProgress_EarnedPointsInfo($number)       { $a=$number+1; return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type($a) p:nth-of-type(5)";}
+    public static function TierProgress_CompletedMeasuresCount($number) { $a=$number+1; return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type($a) p:nth-of-type(3)>span";}
+    public static function TierProgress_EarnedPointsCount($number)      { $a=$number+1; return ".review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type($a) p:nth-of-type(5)>span";}
     public static $TierProgress_TotalPointsEarnedInfo                = '.review-title-block>div:first-of-type>div:first-of-type>div>div:nth-of-type(2) .row>div:last-of-type>p';
     
     public static $TotalPointsText_RightBlock    = '.flex>div:first-of-type>p:first-of-type';

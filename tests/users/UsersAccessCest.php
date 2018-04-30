@@ -1149,8 +1149,8 @@ class UsersAccessCest
         $I->scrollTo(Page\MeasureList::$ApplyFiltersButton);
         $I->wait(1);
         $I->click(Page\MeasureList::$ApplyFiltersButton);
-        $I->wait(4);
-        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 6);
+        $I->wait(6);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 45);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure1_Coordinator = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -1176,8 +1176,8 @@ class UsersAccessCest
         $I->scrollTo(Page\MeasureList::$ApplyFiltersButton);
         $I->wait(1);
         $I->click(Page\MeasureList::$ApplyFiltersButton);
-        $I->wait(4);
-        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 6);
+        $I->wait(6);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 45);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($this->measureDesc2_Coordinator)); 
         $this->idMeasure2_Coordinator = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -1200,8 +1200,8 @@ class UsersAccessCest
         $I->scrollTo(Page\MeasureList::$ApplyFiltersButton);
         $I->wait(1);
         $I->click(Page\MeasureList::$ApplyFiltersButton);
-        $I->wait(4);
-        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 6);
+        $I->wait(6);
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 45);
         $this->idMeasure3_Coordinator = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -1260,7 +1260,7 @@ class UsersAccessCest
         $I->canSee($program, Page\TierManage::$ProgramOption);
         $I->cantSee($this->program1, Page\TierManage::$ProgramOption);
         $I->selectOption(Page\TierManage::$ProgramSelect, $program);
-        $I->wait(8);
+        $I->wait(10);
         $I->canSee('Tier 1', Page\TierManage::$Tier1Button_LeftMenu);
         $I->canSee('Tier 2', Page\TierManage::$Tier2Button_LeftMenu);
         $I->canSee('Tier 3', Page\TierManage::$Tier3Button_LeftMenu);
@@ -1480,27 +1480,29 @@ class UsersAccessCest
         
         $I->CreateInspectorOrganization($inspOrganization, $this->state);
         $I->reloadPage();
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitForElement(Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ProgramNameLine_ByName($this->program2));
         $I->cantSeeElement(\Page\InspectorOrganizationUpdate::ProgramNameLine_ByName($this->program1));
         $I->wait(2);
         $I->click(\Page\InspectorOrganizationUpdate::$AddMemberButton);
         $I->wait(4);
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, 60);
+        $I->waitForElement(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, 150);
         $I->selectOption(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, $this->nameInspector_Prog2);
         $I->wait(2);
         $I->click(\Page\InspectorOrganizationUpdate::$AddButton_AddMemberForm);
         $I->wait(2);
-        $I->waitForElement(Page\InspectorOrganizationUpdate::$NameField, 30);
+        $I->waitForElement(Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->nameInspector_Prog2));
         $I->wait(2);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
-        $I->wait(5);
+        $I->wait(2);
+        $I->waitForElement(Page\InspectorOrganizationUpdate::$ComplianceCheckTypeSelect_AddComplianceCheckTypeForm, 150);
         $I->selectOption(\Page\InspectorOrganizationUpdate::$ComplianceCheckTypeSelect_AddComplianceCheckTypeForm, $this->nameComplianceCheck_StAdm);
         $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddButton_AddComplianceCheckTypeForm);
         $I->wait(2);
-        $I->waitForElement(Page\InspectorOrganizationUpdate::$NameField, 30);
+        $I->waitForElement(Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->nameComplianceCheck_StAdm));
         $I->wait(2);
     }
@@ -1513,59 +1515,74 @@ class UsersAccessCest
         
         $I->CreateAuditOrganization($audOrganization, $this->state);
         $I->reloadPage();
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::ProgramNameLine_ByName($this->program2));
         $I->cantSeeElement(\Page\AuditOrganizationUpdate::ProgramNameLine_ByName($this->program1));
         $I->wait(2);
         $I->click(\Page\AuditOrganizationUpdate::$AddMemberButton);
         $I->wait(3);
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$MemberSelect_AddMemberForm, 60);
+        $I->waitForElement(\Page\AuditOrganizationUpdate::$MemberSelect_AddMemberForm, 150);
         $I->selectOption(\Page\AuditOrganizationUpdate::$MemberSelect_AddMemberForm, $this->nameAuditor);
         $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$AddButton_AddMemberForm);
-        $I->wait(10);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->reloadPage();
-        $I->wait(6);
+        $I->wait(4);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::UserLine_ByName($this->nameAuditor));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
-        $I->wait(7);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, 150);
         $I->selectOption(\Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, \Page\AuditGroupList::Energy_AuditGroup);
         $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$AddButton_AddAuditGroupForm);
-        $I->wait(10);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->reloadPage();
-        $I->wait(6);
+        $I->wait(4);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Energy_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
-        $I->wait(7);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, 150);
         $I->selectOption(\Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, \Page\AuditGroupList::General_AuditGroup);
         $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$AddButton_AddAuditGroupForm);
-        $I->wait(10);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->reloadPage();
-        $I->wait(6);
+        $I->wait(4);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::General_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
-        $I->wait(7);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, 150);
         $I->selectOption(\Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, \Page\AuditGroupList::SolidWaste_AuditGroup);
         $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$AddButton_AddAuditGroupForm);
-        $I->wait(10);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->reloadPage();
-        $I->wait(6);
+        $I->wait(4);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
-        $I->wait(7);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, 150);
         $I->selectOption(\Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, \Page\AuditGroupList::Wastewater_AuditGroup);
         $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$AddButton_AddAuditGroupForm);
-        $I->wait(10);
+        $I->wait(2);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->reloadPage();
-        $I->wait(6);
+        $I->wait(4);
+        $I->waitForElement(Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Wastewater_AuditGroup));
         $I->wait(2);
     }
@@ -1677,7 +1694,7 @@ class UsersAccessCest
     }
     
     //-------------------Login as State Admin to approve measures---------------
-    public function StateAdmin9_1_StateAdminAproveMeasuresCreatedByCoordinator(\Step\Acceptance\Measure $I)
+    public function StateAdmin9_1_StateAdminAproveMeasure1CreatedByCoordinator(\Step\Acceptance\Measure $I)
     {
         $I->amOnPage(Page\MeasureList::URL());
         $I->wait(1);
@@ -1688,11 +1705,7 @@ class UsersAccessCest
         $I->click(Page\MeasureList::$ApplyFiltersButton);
         $I->wait(4);
         $I->canSeeElement(Page\MeasureList::DescriptionLine_ByDescValue($this->measureDesc1_Coordinator));
-        $I->canSeeElement(Page\MeasureList::DescriptionLine_ByDescValue($this->measureDesc2_Coordinator));
-        $I->canSeeElement(Page\MeasureList::DescriptionLine_ByDescValue($this->measureDesc3_Coordinator));
         $I->canSee('pending', Page\MeasureList::StatusLine_ByDescValue($this->measureDesc1_Coordinator));
-        $I->canSee('pending', Page\MeasureList::StatusLine_ByDescValue($this->measureDesc2_Coordinator));
-        $I->canSee('pending', Page\MeasureList::StatusLine_ByDescValue($this->measureDesc3_Coordinator));
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure1_Coordinator));
         $I->wait(3);
         $I->CheckSavedValuesOnMeasureUpdatePage($this->measureDesc1_Coordinator, null, null, null, \Step\Acceptance\Measure::MultipleQuestion_MultipleAnswersSubmeasure, null, null, null, null, $this->state, $quantToggleStatus = 'no', $multipAnswerToggleStatus = 'yes');
@@ -1700,7 +1713,21 @@ class UsersAccessCest
         $I->scrollTo(Page\MeasureUpdate::$ApproveButton);
         $I->wait(1);
         $I->click(Page\MeasureUpdate::$ApproveButton);
-        $I->wait(7);
+        $I->wait(10);
+    }
+    
+    public function StateAdmin9_2_StateAdminAproveMeasure2CreatedByCoordinator(\Step\Acceptance\Measure $I)
+    {
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->selectOption(Page\MeasureList::$FilterByStatusSelect, 'pending');
+        $I->wait(1);
+        $I->scrollTo(Page\MeasureList::$ApplyFiltersButton);
+        $I->wait(1);
+        $I->click(Page\MeasureList::$ApplyFiltersButton);
+        $I->wait(4);
+        $I->canSeeElement(Page\MeasureList::DescriptionLine_ByDescValue($this->measureDesc2_Coordinator));
+        $I->canSee('pending', Page\MeasureList::StatusLine_ByDescValue($this->measureDesc2_Coordinator));
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure2_Coordinator));
         $I->wait(3);
         $I->CheckSavedValuesOnMeasureUpdatePage($this->measureDesc2_Coordinator, null, null, null, \Step\Acceptance\Measure::MultipleQuestionAndNumber_MultipleAnswersSubmeasure, null, null, null, null, $this->state, $quantToggleStatus = 'no', $multipAnswerToggleStatus = 'yes');
@@ -1708,7 +1735,21 @@ class UsersAccessCest
         $I->scrollTo(Page\MeasureUpdate::$ApproveButton);
         $I->wait(1);
         $I->click(Page\MeasureUpdate::$ApproveButton);
-        $I->wait(7);
+        $I->wait(10);
+    }
+    
+    public function StateAdmin9_3_StateAdminAproveMeasure3CreatedByCoordinator(\Step\Acceptance\Measure $I)
+    {
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->wait(1);
+        $I->selectOption(Page\MeasureList::$FilterByStatusSelect, 'pending');
+        $I->wait(1);
+        $I->scrollTo(Page\MeasureList::$ApplyFiltersButton);
+        $I->wait(1);
+        $I->click(Page\MeasureList::$ApplyFiltersButton);
+        $I->wait(4);
+        $I->canSeeElement(Page\MeasureList::DescriptionLine_ByDescValue($this->measureDesc3_Coordinator));
+        $I->canSee('pending', Page\MeasureList::StatusLine_ByDescValue($this->measureDesc3_Coordinator));
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure3_Coordinator));
         $I->wait(3);
         $I->CheckSavedValuesOnMeasureUpdatePage($this->measureDesc3_Coordinator, null, null, null, \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure, null, null, null, null, $this->state, $quantToggleStatus = 'no', $multipAnswerToggleStatus = 'yes');
@@ -1716,7 +1757,7 @@ class UsersAccessCest
         $I->scrollTo(Page\MeasureUpdate::$ApproveButton);
         $I->wait(1);
         $I->click(Page\MeasureUpdate::$ApproveButton);
-        $I->wait(20);
+        $I->wait(10);
     }
     
     //--------------------------------------------------------------------------Login As Coordinator------------------------------------------------------------------------------------
@@ -1738,14 +1779,14 @@ class UsersAccessCest
         $tier               = '1';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
         $I->ManageChecklist($descs, $this->statusesT1_Coordinator, $this->extensions_Coordinator);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesT1_Coordinator, $this->extensions_Coordinator);
         $I->reloadPage();
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($id_checklist);
     }
     
     public function Coordinator10_2_LogOut(AcceptanceTester $I) {
@@ -1816,7 +1857,8 @@ class UsersAccessCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(15);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
         $I->cantSee("Attention!");
         $I->cantSee("No checklist! Sorry but we don`t have a checklist for your business.");
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
@@ -1868,20 +1910,20 @@ class UsersAccessCest
         $I->cantSee('state admin', \Page\UserList::$TypeRow);
         
         $I->comment("-------Check Coordinator1 absent in All Users list-------");
-        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
+        $I->cantSee($this->emailCoordinator1_Prog2, \Page\UserList::$EmailRow);
+        
+        $I->comment("-------Check Coordinator2 absent in All Users list-------");
+        $user2 = $I->GetUserOnPageInList($this->emailCoordinator2_Prog1_Prog2, Page\UserCreate::allType);
         $row = $user2['row'];
-        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
         $I->canSee('coordinator', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
         $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
-        
-        $I->comment("-------Check Coordinator2 absent in All Users list-------");
-        $I->cantSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::$EmailRow);
         
         $I->comment("------------Check Inspector in All Users list------------");
         $user2 = $I->GetUserOnPageInList($this->emailInspector_Prog2, Page\UserCreate::allType);
@@ -1931,11 +1973,11 @@ class UsersAccessCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statusesT3_Coordinator, $this->extensions_Coordinator);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesT3_Coordinator, $this->extensions_Coordinator);
         $I->reloadPage();
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($id_checklist);
     }
     
     public function Coordinator13_4_LogOut2dff(AcceptanceTester $I) {
@@ -1955,11 +1997,11 @@ class UsersAccessCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statusesT3_Coordinator, $this->extensions_Coordinator);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesT3_Coordinator, $this->extensions_Coordinator);
         $I->reloadPage();
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($id_checklist);
     }
     
     public function Coordinator13_6_LogOutu(AcceptanceTester $I) {
@@ -1989,7 +2031,8 @@ class UsersAccessCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(10);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
         $I->cantSee("Attention!");
         $I->cantSee("No checklist! Sorry but we don`t have a checklist for your business.");
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
@@ -2030,7 +2073,8 @@ class UsersAccessCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(10);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
         $I->cantSee("Attention!");
         $I->cantSee("No checklist! Sorry but we don`t have a checklist for your business.");
         $I->canSeeElement(Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
@@ -3083,14 +3127,14 @@ class UsersAccessCest
         $tier               = '1';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
         $I->ManageChecklist($descs, $this->statusesT1_Coordinator, $this->extensions_Coordinator);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesT1_Coordinator, $this->extensions_Coordinator);
         $I->reloadPage();
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($id_checklist);
     }
     
     public function Help1_16_LogOutttt(AcceptanceTester $I) {

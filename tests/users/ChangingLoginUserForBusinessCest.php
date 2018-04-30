@@ -144,9 +144,9 @@ class ChangingLoginUserForBusinessCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statuses);
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($id_checklist);
     }
     
     public function Help_CreateChecklistForTier2_Program2(\Step\Acceptance\Checklist $I) {
@@ -156,9 +156,9 @@ class ChangingLoginUserForBusinessCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statuses);
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($id_checklist);
     }
     
     public function Help_LogOut(AcceptanceTester $I) {

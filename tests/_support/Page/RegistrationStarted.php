@@ -18,6 +18,10 @@ class RegistrationStarted
     public static function selectBusinessOption($row)             { return ".dropdown-few-business ul>li:nth-of-type($row)>a";}
     public static function selectBusinessOptionByName($business)  { return "//div[contains(@class, 'dropdown-few-business')]//ul/li/a[text()='$business']";}
     
+    public static $InfoForNextTierButton      = '.pull-right>p:first-of-type';
+    public static $NextTierButton             = '.pull-right>a:first-of-type';
+    public static $PreviousTierButton         = '.pull-right>a:last-of-type';
+    
     public static $SaveButton_Footer          = '.success.save-buttons button[type=submit].btn-green';
     public static $SaveAndNextButton_Footer   = '.success.save-buttons button[name=save_next]';
     public static $PreviousButton_Footer      = '.success.save-buttons>div:first-of-type a.btn-md';
@@ -34,7 +38,7 @@ class RegistrationStarted
     
     public static $TotalPointsText_RightBlock    = '.text-center>div:nth-of-type(1)>p:nth-of-type(1)';
     public static $TotalPointsCount_RightBlock   = '.text-center>div:nth-of-type(1)>p:nth-of-type(2)';
-    public static $TierDescription_RightBlock    = '.text-center>div:nth-of-type(1)>p:nth-of-type(1)';
+    public static $TierDescription_RightBlock    = '.text-center>p.progress-description>strong';
     
     public static $GetStartedButton           = '[type=submit][class*=success]';
     public static $HowToUseThisAppButton      = '#checklist-number [selected]';

@@ -838,9 +838,9 @@ class AllMeasuresReportsCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statuses);
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($this->id_checklist);
     }
     
     /**
@@ -881,7 +881,8 @@ class AllMeasuresReportsCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(15);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
     }
     
     /**
@@ -995,7 +996,7 @@ class AllMeasuresReportsCest
         $I->selectOption(Page\RegistrationStarted::ThermsPopup_OptionSelect_Section2('1'), $this->thermName);
         $I->wait(1);
         $I->fillField(Page\RegistrationStarted::ThermsPopup_TotalEstimatedField_Section2('1'), '25');
-        $I->wait(3);
+        $I->wait(7);
         $I->click(\Page\RegistrationStarted::$ThermsPopup_SaveChangesButton);
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
@@ -3753,7 +3754,8 @@ class AllMeasuresReportsCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(12);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
     }
     
     /**

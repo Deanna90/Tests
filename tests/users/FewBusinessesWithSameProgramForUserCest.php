@@ -22,6 +22,7 @@ class FewBusinessesWithSameProgramForUserCest
     
     public function Help2_CreateState(Step\Acceptance\State $I)
     {
+//        $this->state = "Colorado";
         $name = $this->state = $I->GenerateNameOf("StFewBusSameProg");
         $shortName = $this->shortName = 'FBSP';
         
@@ -45,9 +46,8 @@ class FewBusinessesWithSameProgramForUserCest
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
         $I->wait(3);
-        $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
-        $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
+        $group = $I->GetAuditSubgroupOnPageInList($name);
+        $this->id_audSubgroup1_Energy = $group['id'];
     }
     
     public function Help5_CreateAuditSubGroupsForSolidWasteGroup(\Step\Acceptance\AuditSubGroup $I)
@@ -60,7 +60,8 @@ class FewBusinessesWithSameProgramForUserCest
         $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
         $I->wait(2);
-        $this->id_audSubgroup1_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
+        $group = $I->GetAuditSubgroupOnPageInList($name);
+        $this->id_audSubgroup1_SolidWaste = $group['id'];
     }
     
     public function Help1_7_CreateMeasure1_MultipleQuesAndNumber_Quant(\Step\Acceptance\Measure $I) {
@@ -170,10 +171,10 @@ class FewBusinessesWithSameProgramForUserCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statuses);
         $I->reloadPage();
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($id_checklist);
     }
     
     public function Help1_16_LogOut(AcceptanceTester $I) {
@@ -210,7 +211,8 @@ class FewBusinessesWithSameProgramForUserCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage, $agree = 'on', null, $aboutActivateValueArray, $permitsActivateArray);
-        $I->wait(8);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
     }
     
     public function FewBusinesses1_17_1_CompleteMeasure1(AcceptanceTester $I) {
@@ -339,8 +341,8 @@ class FewBusinessesWithSameProgramForUserCest
         $I->wait(2);
         $I->RegisterBusiness(null, null, null, null, null, null, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
-        $I->waitForElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroupButton);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
         $I->canSee('0 /2', \Page\RegistrationStarted::$RightBlock_CurrentlyCompletedMeasuresInfo);
         $I->canSee("There are 2 measures that need to be completed in this Application.", \Page\RegistrationStarted::$RightBlock_NeedToCompleteMeasuresInfo);
         $I->canSeeElement(\Page\Header::$NewBusinessButton);
@@ -770,9 +772,9 @@ class FewBusinessesWithSameProgramForUserCest
         $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('1', $after));
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::WasteDiversionPopup_SaveChangesButton($after));
-        $I->wait(2);
+        $I->wait(5);
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
+        $I->wait(3);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(5);
         $I->canSee("Tier 2 $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));

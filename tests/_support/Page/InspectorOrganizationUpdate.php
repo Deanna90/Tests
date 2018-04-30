@@ -44,6 +44,7 @@ class InspectorOrganizationUpdate
     public static $MembersHeadTitle           = '.title-block>div:nth-of-type(1) .panel-heading';
     public static $AddMemberButton            = 'a[href*=add-user]';
     public static $MemberSelect_AddMemberForm = '[name=user_id]';
+    public static $MemberOption_AddMemberForm = '[name=user_id] option';
     public static $AddButton_AddMemberForm    = 'button.btn-success';
     public static function UserLine_ByName($name)               { return "//li[contains(text(), '$name')]";}
     public static function DeleteUserButtonLine_ByName($name)   { return "//li[contains(text(), '$name')]/a";}

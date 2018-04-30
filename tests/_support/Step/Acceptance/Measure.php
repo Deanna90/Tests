@@ -31,7 +31,7 @@ class Measure extends \AcceptanceTester
             $I->selectOption(\Page\MeasureCreate::$AuditGroupSelect, $auditGroup);
         }
         if (isset($auditSubgroup)){
-            $I->wait(5);
+            $I->wait(6);
             $I->click(\Page\MeasureCreate::$AuditSubgroupSelect);
             $I->wait(5);
             $I->selectOption(\Page\MeasureCreate::$AuditSubgroupSelect, $auditSubgroup);
@@ -43,11 +43,13 @@ class Measure extends \AcceptanceTester
                 $I->wait(12);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(7);
+                    $I->wait(3);
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
-                                $I->wait(6);
+//                                $I->wait(2);
+                                $I->waitForElement(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber, 150);
+                                $I->wait(1);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->scrollTo(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
@@ -84,7 +86,9 @@ class Measure extends \AcceptanceTester
                             break;
                         case 'Number':
                             if (isset($questions)){
-                                $I->wait(6);
+//                                $I->wait(2);
+                                $I->waitForElement(\Page\MeasureCreate::$AddAnswerButton_Number, 150);
+                                $I->wait(1);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->scrollTo(\Page\MeasureCreate::$AddAnswerButton_Number);
@@ -96,19 +100,25 @@ class Measure extends \AcceptanceTester
                             }
                             break;
                         case 'Popup Therms':
-                            $I->wait(4);
+//                            $I->wait(2);
+                            $I->waitForElement(\Page\MeasureCreate::$PopupDescriptionField_PopupTherms, 150);
+                            $I->wait(1);
                             if (isset($popupDesc)){
                                 $I->fillField(\Page\MeasureCreate::$PopupDescriptionField_PopupTherms, $popupDesc);
                             }
                             break;
                         case 'Popup Lighting':
-                            $I->wait(4);
+//                            $I->wait(2);
+                            $I->waitForElement(\Page\MeasureCreate::$PopupDescriptionField_PopupLighting, 150);
+                            $I->wait(1);
                             if (isset($popupDesc)){
                                 $I->fillField(\Page\MeasureCreate::$PopupDescriptionField_PopupLighting, $popupDesc);
                             }
                             break;
                         case 'Popup Waste diversion':
-                            $I->wait(4);
+//                            $I->wait(2);
+                            $I->waitForElement(\Page\MeasureCreate::$PopupDescriptionField_PopupWasteDiversion, 150);
+                            $I->wait(1);
                             if (isset($popupDesc)){
                                 $I->fillField(\Page\MeasureCreate::$PopupDescriptionField_PopupWasteDiversion, $popupDesc);
                             }
@@ -123,11 +133,13 @@ class Measure extends \AcceptanceTester
                 $I->wait(12);
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(7);
+                    $I->wait(3);
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
-                                $I->wait(6);
+//                                $I->wait(2);
+                                $I->waitForElement(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber, 150);
+                                $I->wait(1);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->scrollTo(\Page\MeasureCreate::$AddQuestionButton_MultipleQuestionAndNumber);
@@ -154,7 +166,9 @@ class Measure extends \AcceptanceTester
                             break;
                         case 'Multiple question':
                             if (isset($questions)){
-                                $I->wait(6);
+//                                $I->wait(2);
+                                $I->waitForElement(\Page\MeasureCreate::$AddAnswerButton_MultipleAnswers, 150);
+                                $I->wait(1);
                                 for ($i=1, $c= count($questions); $i<=$c; $i++){
                                     $k = $i-1;
                                     $I->scrollTo(\Page\MeasureCreate::$AddAnswerButton_MultipleAnswers);

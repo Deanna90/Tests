@@ -7,6 +7,7 @@ class ChecklistManage extends \AcceptanceTester
     public static function URL_VersionTab($id)      { return parent::$URL_UserAccess."/checklist/version?id=$id";}
     public static function URL_DefineTotalTab($id)  { return parent::$URL_UserAccess."/checklist/define-total?id=$id&type=tier";}
     public static function URL_PointsTab($id)       { return parent::$URL_UserAccess."/checklist/points?id=$id";}
+    public static function URL_PointsTab_ExtensionTab($id, $extension)       { return parent::$URL_UserAccess."/checklist/points?id=$id&type=tier&tab=$extension";}
     
     public static $Title                  = 'h2';
     public static $StatusTitle            = 'h2+p>span:first-of-type';
@@ -39,6 +40,20 @@ class ChecklistManage extends \AcceptanceTester
     public static function PublishButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Publish']";}
     public static function UnPublishButtonLine_VersionHistoryTab($row){ return "//table[@class='version-history define setup']//tr[$row]//a[text()='UnPublish']";}
     public static function ArchiveButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Archive']";}
+    
+    //Publish All Popup
+    public static $PublishAllPopup                             = '.modal.in';
+    public static $PublishAllPopup_Title                       = '.modal.in h2';
+    public static $PublishAllPopup_WarningMessage              = '.modal.in #bsf';
+    public static $PublishAllPopup_DraftVersionCountInfo       = '.modal.in form>div>div>div>div>p';
+    public static $PublishAllPopup_TierNameHead                = '.modal.in button.confirm';
+    public static $PublishAllPopup_StatusHead                  = '.modal.in button.confirm';
+    public static function PublishAllPopup_TierNameLine($tierName)    { return "//div[contains(div/p/text(), '$tierName')]/div[1]/p";}
+    public static function PublishAllPopup_StatusLine($tierName)      { return "//div[contains(div/p/text(), '$tierName')]/div[2]/p";}
+    public static $PublishAllPopup_PublishAllDraftButton       = '.modal.in button[type=submit]:nth-of-type(1)';
+    public static $PublishAllPopup_PublishAnywayButton         = '.modal.in button[type=submit]:nth-of-type(2)';
+    public static $PublishAllPopup_CloseButton                 = '.modal.in .close';
+    
     
     //-----Manage Measure Tab-----
     public static $SaveButton                                      = '.btn-green-lite.send-form[data-form=manage-checklist]';
@@ -140,14 +155,22 @@ class ChecklistManage extends \AcceptanceTester
     public static $ConfirmPopup_SuccessIcon                        = '.sweet-alert.visible .sa-success.animate';
     
     //Print Checklist Popup
-    public static $PrintChecklistPopup                                    = '.modal.in';
-    public static $PrintChecklistPopup_Title                              = '.modal.in h2';
-    public static $PrintChecklistPopup_BusinessSquireField                = '.modal.in #bsf';
-    public static $PrintChecklistPopup_LandscapeSquireField               = '.modal.in #lsf';
-    public static $PrintChecklistPopup_BusinessSquireLabel                = '.modal.in button.confirm';
-    public static $PrintChecklistPopup_LandscapeSquireLabel               = '.modal.in button.confirm';
-    public static $PrintChecklistPopup_GetButton                          = '.modal.in button[type=submit]';
-    public static $PrintChecklistPopup_CloseButton                        = '.modal.in .close';
+    public static $PrintChecklistPopup                             = '.modal.in';
+    public static $PrintChecklistPopup_Title                       = '.modal.in h2';
+    public static $PrintChecklistPopup_BusinessSquireField         = '.modal.in #bsf';
+    public static $PrintChecklistPopup_LandscapeSquireField        = '.modal.in #lsf';
+    public static $PrintChecklistPopup_BusinessSquireLabel         = '.modal.in button.confirm';
+    public static $PrintChecklistPopup_LandscapeSquireLabel        = '.modal.in button.confirm';
+    public static $PrintChecklistPopup_GetButton                   = '.modal.in button[type=submit]';
+    public static $PrintChecklistPopup_CloseButton                 = '.modal.in .close';
+    
+    //Checklist Warning Popup
+    public static $ChecklistWarningPopup                           = '.modal.in';
+    public static $ChecklistWarningPopup_Title                     = '.modal.in h2';
+    public static $ChecklistWarningPopup_TextInfo                  = '.modal.in p';
+    public static $ChecklistWarningPopup_YesButton                 = '.modal.in button[type=submit]';
+    public static $ChecklistWarningPopup_NoButton                  = '.modal.in button[type=button]';
+    public static $ChecklistWarningPopup_CloseButton               = '.modal.in .close';
     
     //-----Define Total Measures Needed Tab-----
     public static $DefaultTab_DefineTotalTab                       = '.tabs .tabs>ul>li:nth-of-type(1) a';
@@ -179,9 +202,10 @@ class ChecklistManage extends \AcceptanceTester
     public static function CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($subgroup)  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[4]//input";}
     public static function TotalMeasuresMustCompleteLine_DefineTotalTab($subgroup)            { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[5]/span";}
     //-----Points Tab-----
-    public static $RequiredPointsField                      = '#relcompletepointstochecklist-cumulative_points';
-    public static $RequiredPointsLabel                      = '[for=relcompletepointstochecklist-cumulative_points]';
-    public static $Error_RequiredPoints                     = '#relcompletepointstochecklist-cumulative_points+.help-block';
+    public static $RequiredPointsField                      = '#relcompletepointstochecklist-points';
+//    public static $RequiredPointsField                      = '#relcompletepointstochecklist-cumulativepoints';
+    public static $RequiredPointsLabel                      = '[for=relcompletepointstochecklist-cumulativepoints]';
+    public static $Error_RequiredPoints                     = '#relcompletepointstochecklist-cumulativepoints+.help-block';
 
 
 }

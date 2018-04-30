@@ -231,15 +231,14 @@ class ChecklistUpdateCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $this->id_checklist1 = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->cantSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->cantSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
         $I->CheckExtensionSelectsForEditingOnManageChecklistPage($descs);
         $I->CheckStatusSelectsForEditingOnManageChecklistPage(null, $descs);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
-        $this->checklistUrl1 = $I->grabFromCurrentUrl();
         $I->reloadPage();
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($this->id_checklist1);
     }
     
     public function Help_LogOut(AcceptanceTester $I) {
@@ -272,8 +271,8 @@ class ChecklistUpdateCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
     }
     
     public function Help_LogOutFromBusiness1_And_LoginAsAdmin(AcceptanceTester $I){
@@ -294,7 +293,7 @@ class ChecklistUpdateCest
     }
     
     public function CheckDefaultMeasures_Present_Default_CoreAndElective_OnChecklistPreview(Step\Acceptance\Checklist $I) {
-        $I->amOnPage($this->checklistUrl1);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist1));
         $I->wait(3);
         $I->canSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
@@ -306,7 +305,7 @@ class ChecklistUpdateCest
     }
     
     public function CheckElementsOn_VersionTab_DefineTotalMeasuresNeeded(Step\Acceptance\Checklist $I) {
-        $I->amOnPage($this->checklistUrl1);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist1));
         $I->wait(3);
         $I->click(Page\ChecklistManage::$VersionHistoryTab);
         $I->wait(2);
@@ -320,8 +319,7 @@ class ChecklistUpdateCest
         $I->canSeeElement(Page\ChecklistManage::EditButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('1'));
-        $this->id_checklist1 = $I->grabTextFrom(Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
-        $I->assertEquals($this->checklistUrl1, Page\ChecklistManage::URL($this->id_checklist1));
+        $I->canSee($this->id_checklist1, Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
         $I->cantSeeElement(Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('1'));
         $I->cantSeeElement(Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
         
@@ -334,7 +332,7 @@ class ChecklistUpdateCest
     }
     
     public function CloneChecklist1AndUpdateNewChecklist(Step\Acceptance\Checklist $I) {
-        $I->amOnPage($this->checklistUrl1);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist1));
         $I->wait(3);
         $I->click(Page\ChecklistManage::$VersionHistoryTab);
         $I->wait(2);
@@ -366,9 +364,10 @@ class ChecklistUpdateCest
         $I->cantSeeElement(Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('2'));
         $I->cantSeeElement(Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
         
+        
         $I->canSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($this->id_checklist2);
         $I->wait(4);
         $I->cantSee("Error");
         $I->reloadPage();
@@ -454,8 +453,8 @@ class ChecklistUpdateCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->wait(5);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
     }
     
     public function Help_LogOutFromBusiness2_And_LoginAsAdmin(AcceptanceTester $I){
@@ -476,7 +475,7 @@ class ChecklistUpdateCest
     }
     
     public function CheckThatChecklist1IsNotAvailableToEditAfter_Business2Registration(Step\Acceptance\Checklist $I) {
-        $I->amOnPage($this->checklistUrl1);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist1));
         $I->wait(3);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
         $I->wait(2);
@@ -601,7 +600,7 @@ class ChecklistUpdateCest
         $I->canSee("Checklist was successfully updated");
         $I->reloadPage();
         $I->wait(2);
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($this->id_checklist3);
         $I->wait(4);
         $I->cantSee("Error");
         $I->reloadPage();
@@ -613,6 +612,6 @@ class ChecklistUpdateCest
         $I->wait(1);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
         $I->wait(2);
-        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses3, $this->extensions3);
+        $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses3, $extensions3AfterSaving);
     }
 }

@@ -439,11 +439,13 @@ class ChecklistMeasureExtensionCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->wait(5);
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->comment("-----DEFAULT TAB-----");
         $I->cantSeeElement(Page\ChecklistManage::$SubgroupRow_DefineTotalTab);
         $I->cantSeeElement(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
@@ -452,6 +454,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->comment("-----LARGE BUILDING TAB-----");
         $I->cantSeeElement(Page\ChecklistManage::$SubgroupRow_DefineTotalTab);
         $I->cantSeeElement(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
@@ -460,6 +464,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->comment("-----LARGE LANDSCAPE TAB-----");
         $I->cantSeeElement(Page\ChecklistManage::$SubgroupRow_DefineTotalTab);
         $I->cantSeeElement(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
@@ -468,6 +474,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->comment("-----LARGE BUILDING+LARGE LANDSCAPE TAB-----");
         $I->cantSeeElement(Page\ChecklistManage::$SubgroupRow_DefineTotalTab);
         $I->cantSeeElement(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
@@ -476,15 +484,6 @@ class ChecklistMeasureExtensionCest
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
         $I->wait(2);
         $I->ManageChecklist($descs, $this->statuses, $this->extensions);
-        $this->checklistUrl = $I->grabFromCurrentUrl();
-        $I->comment("Url1: $this->checklistUrl");
-        $u1 = explode('=', $this->checklistUrl);
-        $urlEnd = $u1[1];
-        $u2 = explode('&', $urlEnd);
-        $this->id_checklist = $u2[0];
-        $I->comment("Checklist (For Extensions Updating Test) id: $this->id_checklist");
-        $I->reloadPage();
-        $I->wait(3);
     }
     
     /**
@@ -494,7 +493,7 @@ class ChecklistMeasureExtensionCest
      */
     
     public function UpdateDefineTotalsValuesForChecklist1(\Step\Acceptance\Checklist $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(3);
@@ -507,6 +506,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
@@ -516,6 +517,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
@@ -527,6 +530,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
@@ -538,6 +543,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
@@ -547,6 +554,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
@@ -563,14 +572,14 @@ class ChecklistMeasureExtensionCest
      */
     
     public function ChangeExtensionStatusesInChecklist1_CheckCorrectDefineTotalsValuesAfterExtensionsUpdating(\Step\Acceptance\Checklist $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(3);
         $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
         $I->wait(2);
         $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions2);
         $I->wait(3);
         $I->reloadPage();
-        $I->wait(3);
+        $I->wait(4);
         $I->comment("                                             ");
         $I->canSee('Core', \Page\ChecklistManage::$IncludedMeasuresForm_CoreTitle);
         $I->canSee('Default:', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreLabel);
@@ -610,6 +619,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->comment("-----Energy subgroup DEFAULT TAB-----");
         $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
@@ -628,6 +639,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
@@ -648,6 +661,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
@@ -668,6 +683,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
@@ -701,19 +718,11 @@ class ChecklistMeasureExtensionCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->wait(3);
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
         $I->wait(2);
         $I->ManageChecklist($descs, $this->statuses, $this->extensions);
-        $this->checklistUrl = $I->grabFromCurrentUrl();
-        $I->comment("Url1: $this->checklistUrl");
-        $u1 = explode('=', $this->checklistUrl);
-        $urlEnd = $u1[1];
-        $u2 = explode('&', $urlEnd);
-        $this->id_checklist = $u2[0];
-        $I->comment("Checklist (For Statuses Updating Test) id: $this->id_checklist");
-        $I->reloadPage();
     }
     
     /**
@@ -723,10 +732,12 @@ class ChecklistMeasureExtensionCest
      */
     
     public function UpdateDefineTotalsValuesForChecklist2(\Step\Acceptance\Checklist $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(3);
@@ -736,6 +747,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
@@ -745,6 +758,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
@@ -756,6 +771,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
@@ -767,6 +784,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
@@ -776,6 +795,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
@@ -792,7 +813,7 @@ class ChecklistMeasureExtensionCest
      */
     
     public function ChangeExtensionStatusesInChecklist2_CheckCorrectDefineTotalsValuesAfterStatusesUpdating(\Step\Acceptance\Checklist $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(3);
         $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
         $I->wait(2);
@@ -821,6 +842,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->comment("-----Energy subgroup DEFAULT TAB-----");
         $I->canSee("3", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
         $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
@@ -839,6 +862,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
@@ -859,6 +884,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
@@ -879,6 +906,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
@@ -914,17 +943,10 @@ class ChecklistMeasureExtensionCest
         $I->comment("---------------Checklist For Main Tests---------------");
         $I->comment("------------------------------------------------------");
         $I->wait(3);
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statuses, $this->extensions);
-        $this->checklistUrl = $I->grabFromCurrentUrl();
-        $I->comment("Url1: $this->checklistUrl");
-        $u1 = explode('=', $this->checklistUrl);
-        $urlEnd = $u1[1];
-        $u2 = explode('&', $urlEnd);
-        $this->id_checklist = $u2[0];
-        $I->comment("Checklist id: $this->id_checklist");
         $I->reloadPage();
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($this->id_checklist);
     }
     
     /**
@@ -934,7 +956,7 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckLeftColumnAndDefineTotals_OnManageChecklist_BeforeDefineTotalUpdate(AcceptanceTester $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(2);
         
         $I->comment("                                             ");
@@ -958,6 +980,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->comment("-----Energy subgroup DEFAULT TAB-----");
         $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
         $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
@@ -976,6 +1000,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
@@ -996,6 +1022,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
@@ -1016,6 +1044,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
@@ -1041,10 +1071,12 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckThatMoreThanCountOfElectiveMeasures_CANTBeSave_InEnabledElectiveField(AcceptanceTester $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(2);
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '10');
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(3);
@@ -1061,6 +1093,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
@@ -1070,6 +1104,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '3');
@@ -1081,6 +1117,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '11');
@@ -1090,6 +1128,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '222');
@@ -1101,6 +1141,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '3');
@@ -1110,6 +1152,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '2');
@@ -1126,7 +1170,7 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckSavedMaxValuesAfterDefineTotalUpdate(AcceptanceTester $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(2);
         
         $I->comment("                                             ");
@@ -1150,6 +1194,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->comment("-----Energy subgroup DEFAULT TAB-----");
         $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
         $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
@@ -1168,6 +1214,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
@@ -1188,6 +1236,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
@@ -1208,6 +1258,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
@@ -1233,10 +1285,12 @@ class ChecklistMeasureExtensionCest
      */
     
     public function UpdateDefineTotal(AcceptanceTester $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(2);
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
         $I->click(\Page\ChecklistManage::$SaveButton);
         $I->wait(3);
@@ -1246,6 +1300,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '0');
@@ -1255,6 +1311,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
@@ -1266,6 +1324,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
@@ -1277,6 +1337,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
@@ -1286,6 +1348,8 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
         $I->wait(2);
         $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '0');
@@ -1302,7 +1366,7 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckAfterDefineTotalUpdate(AcceptanceTester $I) {
-        $I->amOnPage($this->checklistUrl);
+        $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
         $I->wait(2);
         
         $I->comment("                                             ");
@@ -1326,6 +1390,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='def'].active", 150);
+        $I->wait(1);
         $I->comment("-----Energy subgroup DEFAULT TAB-----");
         $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
         $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
@@ -1344,6 +1410,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='lb'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
@@ -1364,6 +1432,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
@@ -1384,6 +1454,8 @@ class ChecklistMeasureExtensionCest
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
         $I->wait(2);
+        $I->waitForElement(".tabs a[href*='all'].active", 150);
+        $I->wait(1);
         $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
         $I->wait(2);
         $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");

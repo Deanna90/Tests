@@ -157,10 +157,10 @@ class RecordsAndNeedsRenewalListCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statuses);
         $I->reloadPage();
-        $I->PublishChecklistStatus();
+        $I->PublishChecklistStatus($id_checklist);
     }
     
     public function Help_LogOut(AcceptanceTester $I) {
@@ -362,6 +362,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee("(not set)", \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -438,6 +439,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -521,6 +523,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -603,6 +606,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -684,6 +688,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -765,6 +770,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -846,6 +852,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -927,6 +934,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1009,6 +1017,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1088,6 +1097,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1167,6 +1177,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1246,6 +1257,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1325,6 +1337,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1438,6 +1451,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee("(not set)", \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1562,6 +1576,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1761,6 +1776,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1848,6 +1864,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Decertified_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
@@ -1985,6 +2002,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business2));
         $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business2));
@@ -2084,6 +2102,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business2));
         $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business2));
@@ -2192,6 +2211,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business2));
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business2));
@@ -2427,6 +2447,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
         $I->click(\Page\Dashboard::FilterItem_ByFilterName(\Page\Dashboard::All_Filter));
         $I->wait(2);
+        $I->waitForElement("label[data-key=all].active", 60);
         $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business2));
         $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business2));

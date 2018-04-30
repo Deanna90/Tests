@@ -11,7 +11,7 @@ class Business extends \AcceptanceTester
         $I = $this;
         $I->amOnPage(\Page\BusinessRegistration::$URL);
         $I->wait(2);
-        $I->waitForElement(\Page\BusinessRegistration::$BusinessNameField);
+        $I->waitForElement(\Page\BusinessRegistration::$BusinessNameField, 150);
         if (isset($firstName)){
             $I->fillField(\Page\BusinessRegistration::$FirstNameField, $firstName);
         }
@@ -61,7 +61,9 @@ class Business extends \AcceptanceTester
             $I->fillField(\Page\BusinessRegistration::$BusinessWebsiteField, $website);
         }
         if (isset($businessType)){
-            $I->wait(2);
+            $I->wait(1);
+            $I->click(\Page\BusinessRegistration::$BusinessTypeSelect);
+            $I->wait(3);
             $I->selectOption(\Page\BusinessRegistration::$BusinessTypeSelect, $businessType);
         }
         if (isset($employees)){

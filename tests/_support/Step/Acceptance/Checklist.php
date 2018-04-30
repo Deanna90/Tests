@@ -10,7 +10,7 @@ class Checklist extends \AcceptanceTester
         $I->wait(7);
         if (isset($sourceProgram)){
             $I->click(\Page\ChecklistCreate::$SourceProgramSelect);
-            $I->wait(2);
+            $I->wait(3);
             $I->selectOption(\Page\ChecklistCreate::$SourceProgramSelect, $sourceProgram);
             $I->wait(3);
         }
@@ -34,7 +34,7 @@ class Checklist extends \AcceptanceTester
         }
         if (isset($sectorDestination)){
             $I->click(\Page\ChecklistCreate::$SectorDestinationSelect);
-            $I->wait(4);
+            $I->wait(5);
             $I->selectOption(\Page\ChecklistCreate::$SectorDestinationSelect, $sectorDestination);
             $I->wait(4);
         }
@@ -52,6 +52,14 @@ class Checklist extends \AcceptanceTester
         $I->waitForElement('.confirm', 150);
         $I->click('.confirm');
         $I->wait(2);
+        $checklistUrl = $I->grabFromCurrentUrl();
+        $I->comment("Url: $checklistUrl");
+        $u1 = explode('=', $checklistUrl);
+        $urlEnd = $u1[1];
+        $u2 = explode('&', $urlEnd);
+        $id_checklist = $u2[0];
+        $I->comment("Checklist id: $id_checklist");
+        return $id_checklist;
     }  
     
     public function ManageChecklist($descs = null, $statuses = null, $extension = null)
@@ -85,6 +93,7 @@ class Checklist extends \AcceptanceTester
                 $I->selectOption(\Page\ChecklistManage::MeasureExtensionSelectLine_ManageMeasureTab($descs[$i]), $extensionsNew[$i]);
             }
         }
+        $I->wait(2);
         $I->scrollTo(\Page\ChecklistManage::$SaveButton);
         $I->wait(5);
         $I->click(\Page\ChecklistManage::$SaveButton);
@@ -94,16 +103,9 @@ class Checklist extends \AcceptanceTester
         return $statusesNew;
     }
     
-    public function PublishChecklistStatus($row = '1')
+    public function PublishChecklistStatus($id_checklist, $row = '1', $endStatus = 'published')
     {
         $I = $this;
-        $checklistUrl = $I->grabFromCurrentUrl();
-        $I->comment("Url tier checklist: $checklistUrl");
-        $u1 = explode('=', $checklistUrl);
-        $urlEnd = $u1[1];
-        $u2 = explode('&', $urlEnd);
-        $id_checklist = $u2[0];
-        $I->comment("Tier checklist id: $id_checklist");
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($id_checklist));
         $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 15);
@@ -111,8 +113,23 @@ class Checklist extends \AcceptanceTester
 //        $I->click(\Page\ChecklistManage::$VersionHistoryTab);
         $I->wait(10);
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab($row));
-        $I->wait(3);        
-        $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
+        $I->wait(3); 
+        $popup = $I->getAmount($I, \Page\ChecklistManage::$PublishAllPopup);
+        if($popup == '1'){
+            $I->click(\Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
+            $I->wait(4);
+        }
+        if($endStatus == 'published'){
+            $popup2 = $I->getAmount($I, ".showSweetAlert.visible");
+            if($popup2 == '1'){
+                $I->click(".confirm");
+                $I->wait(3);
+            }
+            $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
+        }
+        else{
+            $I->canSee('Draft', \Page\ChecklistManage::$StatusTitle);
+        }
     }
     
     public function UpdateChecklistPoints($points_Default = null, $points_LB = null, $points_LL = null, $points_LL_LB = null)
@@ -120,52 +137,67 @@ class Checklist extends \AcceptanceTester
         $I = $this;
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$PointsTab);
-        $I->wait(5);
+        $I->wait(1);
+        $I->waitForElement(\Page\ChecklistManage::$RequiredPointsField, 150);
+        $I->wait(1);
         if(isset($points_Default)){
             $I->comment("-----                      Points for Default:                      -----");
             $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_Default);
             $I->wait(2);
             $I->click(\Page\ChecklistManage::$SaveButton);
-            $I->wait(2);
-            $I->waitForText("Points was successfully updated!", 70);
-            $I->reloadPage();
             $I->wait(3);
+            $I->waitForText("Points was successfully updated!", 150);
+            $I->reloadPage();
+            $I->wait(2);
+            $I->waitForElement(\Page\ChecklistManage::$RequiredPointsField, 150);
         }
         if(isset($points_LB)){
             $I->comment("-----                         Points for LB:                        -----");
             $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-            $I->wait(3);
+//            $I->amOnPage(\Page\ChecklistManage::URL_PointsTab_ExtensionTab($id_checklist, 'is_lb'));
+            $I->wait(1);
+            $I->waitForElement(".tabs a[href*='lb'].active", 150);
+            $I->wait(1);
             $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LB);
             $I->wait(1);
             $I->click(\Page\ChecklistManage::$SaveButton);
-            $I->wait(2);
-            $I->waitForText("Points was successfully updated!", 70);
-            $I->reloadPage();
             $I->wait(3);
+            $I->waitForText("Points was successfully updated!", 150);
+            $I->reloadPage();
+            $I->wait(1);
+            $I->waitForElement(".tabs a[href*='lb'].active", 150);
         }
         if(isset($points_LL)){
             $I->comment("-----                         Points for LL:                        -----");
             $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-            $I->wait(3);
+//            $I->amOnPage(\Page\ChecklistManage::URL_PointsTab_ExtensionTab($id_checklist, 'is_ll'));
+            $I->wait(1);
+            $I->waitForElement(".tabs a[href*='ll'].active", 150);
+            $I->wait(1);
             $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LL);
             $I->wait(1);
             $I->click(\Page\ChecklistManage::$SaveButton);
-            $I->wait(2);
-            $I->waitForText("Points was successfully updated!", 70);
-            $I->reloadPage();
             $I->wait(3);
+            $I->waitForText("Points was successfully updated!", 150);
+            $I->reloadPage();
+            $I->wait(2);
+            $I->waitForElement(".tabs a[href*='ll'].active", 150);
         }
         if(isset($points_LL_LB)){
             $I->comment("-----                        Points for LL&LB:                      -----");
             $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-            $I->wait(3);
+//            $I->amOnPage(\Page\ChecklistManage::URL_PointsTab_ExtensionTab($id_checklist, 'all'));
+            $I->wait(1);
+            $I->waitForElement(".tabs a[href*='all'].active", 150);
+            $I->wait(1);
             $I->fillField(\Page\ChecklistManage::$RequiredPointsField, $points_LL_LB);
             $I->wait(1);
             $I->click(\Page\ChecklistManage::$SaveButton);
-            $I->wait(2);
-            $I->waitForText("Points was successfully updated!", 70);
-            $I->reloadPage();
             $I->wait(3);
+            $I->waitForText("Points was successfully updated!", 150);
+            $I->reloadPage();
+            $I->wait(2);
+            $I->waitForElement(".tabs a[href*='all'].active", 150);
         }
     }
     
@@ -174,7 +206,9 @@ class Checklist extends \AcceptanceTester
         $I = $this;
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$PointsTab);
-        $I->wait(5);
+        $I->wait(1);
+        $I->waitForElement(\Page\ChecklistManage::$RequiredPointsField, 150);
+        $I->wait(1);
         if(isset($points_Default)){
             $I->comment("-----                      Points for Default:                      -----");
             $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, $points_Default);
@@ -183,21 +217,30 @@ class Checklist extends \AcceptanceTester
         if(isset($points_LB)){
             $I->comment("-----                         Points for LB:                        -----");
             $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-            $I->wait(4);
+//            $I->amOnPage(\Page\ChecklistManage::URL_PointsTab_ExtensionTab($id_checklist, 'is_lb'));
+            $I->wait(1);
+            $I->waitForElement(".tabs a[href*='lb'].active", 150);
+            $I->wait(1);
             $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, $points_LB);
             $I->wait(2);
         }
         if(isset($points_LL)){
             $I->comment("-----                         Points for LL:                        -----");
             $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-            $I->wait(4);
+//            $I->amOnPage(\Page\ChecklistManage::URL_PointsTab_ExtensionTab($id_checklist, 'is_ll'));
+            $I->wait(1);
+            $I->waitForElement(".tabs a[href*='ll'].active", 150);
+            $I->wait(1);
             $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, $points_LL);
             $I->wait(2);
         }
         if(isset($points_LL_LB)){
             $I->comment("-----                        Points for LL&LB:                      -----");
             $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-            $I->wait(4);
+//            $I->amOnPage(\Page\ChecklistManage::URL_PointsTab_ExtensionTab($id_checklist, 'all'));
+            $I->wait(1);
+            $I->waitForElement(".tabs a[href*='all'].active", 150);
+            $I->wait(1);
             $I->canSeeInField(\Page\ChecklistManage::$RequiredPointsField, $points_LL_LB);
             $I->wait(2);
         }
