@@ -1,9 +1,12 @@
 <?php
 namespace Page;
 
-class InspectorOrganizationUpdate
+class InspectorOrganizationUpdate extends \AcceptanceTester
 {
-    public static function URL($id)       { return "/master-admin/inspector-organization/update?id=$id";}
+    public static function URL($id)                              { return parent::$URL_UserAccess."/inspector-organization/update?id=$id";}
+    public static function URL_AddMemberForm($id)                { return parent::$URL_UserAccess."/inspector-organization/add-user?organization_id=$id";}
+    public static function URL_AddProgramForm($id)               { return parent::$URL_UserAccess."/inspector-organization/add-program?organization_id=$id";}
+    public static function URL_AddComplianceCheckTypeForm($id)   { return parent::$URL_UserAccess."/inspector-organization/add-check-type?organization_id=$id";}
     public static $Title                  = 'h1';
     
     public static $UpdateButton           = '[type=submit][class*=primary]';

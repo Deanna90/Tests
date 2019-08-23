@@ -7,7 +7,7 @@ class Resource extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ResourceCreate::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\ResourceCreate::$TitleField);
         if (isset($title)){
             $I->fillField(\Page\ResourceCreate::$TitleField, $title);
@@ -25,20 +25,21 @@ class Resource extends \AcceptanceTester
             $I->fillField(\Page\ResourceCreate::$AttachmentTitleField, $attachmentName);
         }
         $I->click(\Page\ResourceCreate::$CreateButton);
-        $I->wait(1);
+        $I->waitPageLoad('60');
+//        $I->wait(1);
     }  
     
     public function GetResourceOnPageInList($title)
     {
         $I = $this;
         $I->amOnPage(\Page\ResourceList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\ResourceList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\ResourceList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\ResourceList::$ResourceRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){

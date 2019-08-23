@@ -7,6 +7,7 @@ class UserCreate extends \AcceptanceTester
     const stateAdminType  = '6';
     const inspectorType   = '3';
     const auditorType     = '7';
+    const businessType    = '2';
     const allType         = 'all';
     
     public static function URL($type)       { return parent::$URL_UserAccess."/user/create?type=$type";}

@@ -3,13 +3,13 @@
 
 class StateAdminAndCoordinatorAccessCest
 {
-    public $state, $city1, $zip1, $city2, $zip2;
+    public $state, $city1, $zip1, $city2, $zip2, $county;
     public $audSubgroup1_Energy;
-    public $measure1Desc, $idMeasure1, $measure2Desc, $idMeasure2, $measure3Desc, $idMeasure3, $measure4Desc, $idMeasure4;
+    public $measure1Desc, $idMeasure1, $measure2Desc, $idMeasure2, $measure3Desc, $idMeasure3, $measure4Desc, $idMeasure4, $measure5Desc, $idMeasure5;
     public $measuresDesc_SuccessCreated = [];
     public $program1, $program2;
-    public $gt1_program1_2, $gt2_program1, $gt2_program2, $gt3_program2, $gt4_program2, $GT3Update_prog1, $GT3Create_prog1, $GT4Update_prog1;
-    public $statuses = ['core', 'core', 'elective', 'elective'];
+    public $gt1_program1_2, $gt2_program1, $gt2_program2, $gt3_program2, $gt4_program2, $GT3Update_prog1, $GT3Create_prog1, $GT4Update_prog1, $gt5_program2;
+    public $statuses = ['core', 'core', 'elective', 'elective', 'elective'];
     public $emailStateAdmin, $emailCoordinator1, $emailCoordinator2, $password;
 
 
@@ -28,7 +28,6 @@ class StateAdminAndCoordinatorAccessCest
     
     public function Help2_3_SelectDefaultState(AcceptanceTester $I)
     {
-        $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
     }
     
@@ -40,9 +39,7 @@ class StateAdminAndCoordinatorAccessCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
         $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -57,7 +54,6 @@ class StateAdminAndCoordinatorAccessCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure1 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
@@ -74,7 +70,6 @@ class StateAdminAndCoordinatorAccessCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure2 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
@@ -91,7 +86,6 @@ class StateAdminAndCoordinatorAccessCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure3 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
@@ -108,11 +102,35 @@ class StateAdminAndCoordinatorAccessCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure4 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    public function FewProg2_5_CreateMeasure5forEnergy(\Step\Acceptance\Measure $I) {
+        $desc           = $this->measure5Desc = $I->GenerateNameOf("Description5");
+        $auditGroup     = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup  = $this->audSubgroup1_Energy;
+        $quantitative   = 'yes';
+        $submeasureType = \Step\Acceptance\Measure::Number_QuantitativeSubmeasure;
+        $questions      = ['111'];
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
+        $I->amOnPage(Page\MeasureList::URL());
+        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
+        $this->idMeasure5 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+        $this->measuresDesc_SuccessCreated[] = $desc;
+    }
+    
+    //-------------------------------Create county------------------------------
+    
+    public function CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
     }
     
     public function Help2_5_1_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
@@ -122,7 +140,7 @@ class StateAdminAndCoordinatorAccessCest
         $zips    = $this->zip1 = $I->GenerateZipCode();
         $program = $this->program1 = $I->GenerateNameOf("ProgMGT1");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
@@ -133,35 +151,50 @@ class StateAdminAndCoordinatorAccessCest
         $zips    = $this->zip2 = $I->GenerateZipCode();
         $program = $this->program2 = $I->GenerateNameOf("ProgMGT2");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
+    }
+    
+    
+    //----------------------------Create checklist------------------------------
+    
+   
+    public function SectorChecklistCreate_Tier2(\Step\Acceptance\SectorChecklist $I)
+    {
+        $number           = '2';
+        $sector           = \Page\SectorList::DefaultSectorOfficeRetail;
+               
+        $I->CreateSectorChecklist($number, $sector);
+        $I->ManageSectorChecklist($this->measuresDesc_SuccessCreated, $this->statuses);
+        $I->PublishSectorChecklistStatus();
     }
     
     //--------------------------Create Checklists-------------------------------
     
-    public function Help2_5_9_CreateChecklistForTier2_Program1(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program1;
-        $programDestination = $this->program1;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        $I->ManageChecklist($descs, $this->statuses);
-        $I->reloadPage();
-        $I->PublishChecklistStatus();
-    }
-    
-    public function Help2_5_9_CreateChecklistForTier2_Program2(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program2;
-        $programDestination = $this->program2;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        $I->ManageChecklist($descs, $this->statuses);
-        $I->reloadPage();
-        $I->PublishChecklistStatus();
-    }
+//    public function Help2_5_9_CreateChecklistForTier2_Program1(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = $this->program1;
+//        $programDestination = $this->program1;
+//        $sectorDestination  = 'Office / Retail';
+//        $tier               = '2';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        
+//        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->ManageChecklist($descs, $this->statuses);
+//        $I->reloadPage();
+//        $I->PublishChecklistStatus($id_checklist);
+//    }
+//    
+//    public function Help2_5_9_CreateChecklistForTier2_Program2(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = $this->program2;
+//        $programDestination = $this->program2;
+//        $sectorDestination  = 'Office / Retail';
+//        $tier               = '2';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->ManageChecklist($descs, $this->statuses);
+//        $I->reloadPage();
+//        $I->PublishChecklistStatus($id_checklist);
+//    }
     
     //--------------------------Create State Admin------------------------------
     
@@ -175,12 +208,14 @@ class StateAdminAndCoordinatorAccessCest
         $phone     = '(675) 455-4333';
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddStateButton);
-        $I->wait(4);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
         $I->wait(1);
+        $I->waitPageLoad();
     }
     
     //--------------------------Create Coordinator------------------------------
@@ -194,17 +229,21 @@ class StateAdminAndCoordinatorAccessCest
         $phone     = '(675) 455-4333';
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddStateButton);
-        $I->wait(4);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddProgramButton);
-        $I->wait(4);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
         $I->wait(1);
+        $I->waitPageLoad();
     }
     
     public function Help2_1_LogoutAndLoginAsStateAdmin(AcceptanceTester $I)
@@ -217,9 +256,9 @@ class StateAdminAndCoordinatorAccessCest
         $descMeasure = $this->measure1Desc;
         
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(4);
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($descMeasure));
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
         $I->wait(2);
         $I->canSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
@@ -229,6 +268,20 @@ class StateAdminAndCoordinatorAccessCest
         }
     }
     
+    public function StateAdmin_CheckButtonsOnMeasureListPage(\Step\Acceptance\GreenTipForMeasure $I) {
+        $I->amOnPage(\Page\MeasureList::URL());
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure1Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure2Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure3Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure4Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure5Desc));
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure1Desc)."[@href='/state-admin/green-tip/create?measure_id=$this->idMeasure1']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure2Desc)."[@href='/state-admin/green-tip/create?measure_id=$this->idMeasure2']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure3Desc)."[@href='/state-admin/green-tip/create?measure_id=$this->idMeasure3']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure4Desc)."[@href='/state-admin/green-tip/create?measure_id=$this->idMeasure4']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure5Desc)."[@href='/state-admin/green-tip/create?measure_id=$this->idMeasure5']");
+    }
+    
     public function FewProg2_5_7_Measure1_CreateGreenTipWithCreatedProgram1_And_Program2(\Step\Acceptance\GreenTipForMeasure $I) {
         $descMeasure = $this->measure1Desc;
         $descGT      = $this->gt1_program1_2 = $I->GenerateNameOf("GT1_pr1pr2");
@@ -236,12 +289,8 @@ class StateAdminAndCoordinatorAccessCest
         $program     = "$this->program1, $this->program2";
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure1));
-        $I->wait(2);
         $I->CreateMeasureGreenTip($descGT, $programArr);
-        $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure1));
-        $I->wait(1);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
@@ -253,11 +302,8 @@ class StateAdminAndCoordinatorAccessCest
         $program     = $this->program1;
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure2));
-        $I->wait(1);
         $I->CreateMeasureGreenTip($descGT, $programArr);
-        $I->wait(2);
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure2));
-        $I->wait(1);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
@@ -269,11 +315,8 @@ class StateAdminAndCoordinatorAccessCest
         $program     = $this->program2;
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure2));
-        $I->wait(1);
         $I->CreateMeasureGreenTip($descGT, $programArr);
-        $I->wait(2);
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure2));
-        $I->wait(1);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
@@ -286,9 +329,7 @@ class StateAdminAndCoordinatorAccessCest
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure3));
         $I->CreateMeasureGreenTip($descGT, $programArr);
-        $I->wait(2);
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure3));
-        $I->wait(1);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
@@ -301,9 +342,7 @@ class StateAdminAndCoordinatorAccessCest
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure4));
         $I->CreateMeasureGreenTip($descGT, $programArr);
-        $I->wait(2);
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure4));
-        $I->wait(1);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
@@ -315,13 +354,11 @@ class StateAdminAndCoordinatorAccessCest
         $program     = $this->program1;
         
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure4));
-        $I->wait(1);
         $I->click(\Page\MeasureGreenTipList::UpdateButtonLine_ByMeasureDescValue($descMeasure));
         $I->wait(1);
+        $I->waitPageLoad();
         $I->UpdateMeasureGreenTip($descGT, $programArr);
-        $I->wait(2);
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure4));
-        $I->wait(1);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
         $I->dontSee($this->gt4_program2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
@@ -329,7 +366,6 @@ class StateAdminAndCoordinatorAccessCest
     
     public function FewProg2_5_8_CheckAllCreatedGreenTipsHaveDeleteButtonsInList(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(\Page\MeasureGreenTipList::URL());
-        $I->wait(1);
         $count = $I->getAmount($I, Page\MeasureGreenTipList::$MeasureRow);
         $I->comment("Rows count: $count");
         for($i=1; $i<=$count; $i++){
@@ -339,7 +375,6 @@ class StateAdminAndCoordinatorAccessCest
     
     public function FewProg2_5_8_CheckSuccessfulGreenTipDeleting(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(\Page\MeasureGreenTipList::URL());
-        $I->wait(2);
         $I->click(Page\MeasureGreenTipList::DeleteButtonLine_ByMeasureDescValue($this->measure4Desc));
         $I->wait(2);
         $I->acceptPopup();
@@ -348,17 +383,45 @@ class StateAdminAndCoordinatorAccessCest
         $I->dontSeeElement(Page\MeasureGreenTipList::MeasureLine_ByMeasureDescValue($this->measure4Desc));
     }
     
+    public function FewProg2_5_8_Measure5_CheckCreateGreenTipWithCreatedProgram2(\Step\Acceptance\GreenTipForMeasure $I) {
+        $descMeasure = $this->measure5Desc;
+        $descGT      = $this->gt5_program2 = $I->GenerateNameOf("GT5_pr2");
+        $programArr  = [$this->program2];
+        $program     = $this->program2;
+        
+        $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure5));
+        $I->CreateMeasureGreenTip($descGT, $programArr);
+        $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure5));
+        $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
+        $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
+    }
+    
     public function FewProg2_5_8_CheckAllCreatedGreenTipsInList(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(\Page\MeasureGreenTipList::URL());
-        $I->wait(1);
         $I->canSee($this->gt1_program1_2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure1Desc));
         $I->canSee($this->gt2_program1, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure2Desc));
         $I->canSee($this->gt2_program2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure2Desc));
         $I->canSee($this->gt3_program2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure3Desc));
+        $I->canSee($this->gt5_program2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure5Desc));
         $I->canSee($this->program1.', '.$this->program2, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($this->measure1Desc));
         $I->canSee($this->program1, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($this->measure2Desc));
         $I->canSee($this->program2, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($this->measure2Desc));
         $I->canSee($this->program2, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($this->measure3Desc));
+        $I->canSee($this->program2, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($this->measure5Desc));
+    }
+    
+    public function StateAdmin_CheckButtonsOnMeasureListPage_AfterUpdating(\Step\Acceptance\GreenTipForMeasure $I) {
+        $I->amOnPage(\Page\MeasureList::URL());
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure1Desc));
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure2Desc));
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure3Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure4Desc));
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure5Desc));
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure1Desc)."[@href='/state-admin/green-tip/index?measure_id=$this->idMeasure1']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure2Desc)."[@href='/state-admin/green-tip/index?measure_id=$this->idMeasure2']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure3Desc)."[@href='/state-admin/green-tip/index?measure_id=$this->idMeasure3']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure4Desc)."[@href='/state-admin/green-tip/create?measure_id=$this->idMeasure4']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure5Desc)."[@href='/state-admin/green-tip/index?measure_id=$this->idMeasure5']");
     }
     
     public function Help2_1_LogoutAndLoginAsCoordinator(AcceptanceTester $I)
@@ -367,11 +430,25 @@ class StateAdminAndCoordinatorAccessCest
         $I->LoginAsUser($this->emailCoordinator1, $this->password, $I, $type = 'coordinator');
     }
     
+    public function Coordinator_CheckButtonsOnMeasureListPage(\Step\Acceptance\GreenTipForMeasure $I) {
+        $I->amOnPage(\Page\MeasureList::URL());
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure1Desc));
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure2Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure3Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure4Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure5Desc));
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure1Desc)."[@href='/coordinator/green-tip/index?measure_id=$this->idMeasure1']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure2Desc)."[@href='/coordinator/green-tip/index?measure_id=$this->idMeasure2']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure3Desc)."[@href='/coordinator/green-tip/create?measure_id=$this->idMeasure3']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure4Desc)."[@href='/coordinator/green-tip/create?measure_id=$this->idMeasure4']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure5Desc)."[@href='/coordinator/green-tip/create?measure_id=$this->idMeasure5']");
+    }
+    
     public function FewProg2_5_8_Measure3_CheckAllCreatedGreenTipsInList_OnlyForProgram1(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(\Page\MeasureGreenTipList::URL());
-        $I->wait(1);
         $I->canSee($this->gt1_program1_2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure1Desc));
         $I->canSee($this->gt2_program1, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure2Desc));
+        $I->cantSee(\Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure5Desc));
         $I->canSee($this->program1.', '.$this->program2, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($this->measure1Desc));
         $I->canSee($this->program1, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($this->measure2Desc));
         $I->cantSeeElement(Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($this->measure3Desc));
@@ -379,7 +456,6 @@ class StateAdminAndCoordinatorAccessCest
     
     public function FewProg2_5_8_Measure3_CheckAllCreatedGreenTipsInList_OnlyForProgram1e(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(\Page\MeasureGreenTipList::URL());
-        $I->wait(1);
         $I->dontSeeElement(\Page\MeasureGreenTipList::UpdateButtonLine_ByMeasureDescValue($this->measure1Desc));
         $I->dontSeeElement(\Page\MeasureGreenTipList::DeleteButtonLine_ByMeasureDescValue($this->measure1Desc));
         $I->canSeeElement(\Page\MeasureGreenTipList::UpdateButtonLine_ByMeasureDescValue($this->measure2Desc));
@@ -388,10 +464,8 @@ class StateAdminAndCoordinatorAccessCest
     
     public function FewProg2_5_8_Measure3_CheckUpdateGreenTipMeasugred(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(\Page\MeasureGreenTipList::URL());
-        $I->wait(1);
         $id = $I->grabTextFrom(\Page\MeasureGreenTipList::IdLine_ByMeasureDescValue($this->measure1Desc));
         $I->amOnPage(\Page\MeasureGreenTipUpdate::URL($id));
-        $I->wait(1);
         $I->canSeeElement(\Page\MeasureGreenTipUpdate::$ProgramSelect.'[class*=disabled]');
         $I->canSeeElement(\Page\MeasureGreenTipUpdate::$UpdateButton.'[disabled]');
         $I->cantSeeElement(\Page\MeasureGreenTipUpdate::$DescriptionField);
@@ -399,7 +473,6 @@ class StateAdminAndCoordinatorAccessCest
     
     public function FewProg2_5_6_CheckOnlyProgram1OptionPresentInProgramSelectOnGreentipCreatePage(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure3));
-        $I->wait(3);
         $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
         $I->wait(3);
         $I->canSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
@@ -417,9 +490,7 @@ class StateAdminAndCoordinatorAccessCest
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure3));
         $I->CreateMeasureGreenTip($descGT, $programArr);
-        $I->wait(2);
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure3));
-        $I->wait(1);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
@@ -428,9 +499,9 @@ class StateAdminAndCoordinatorAccessCest
         $descMeasure = $this->measure3Desc;
         
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure3));
-        $I->wait(1);
         $I->click(\Page\MeasureGreenTipList::UpdateButtonLine_ByMeasureDescValue($descMeasure));
         $I->wait(1);
+        $I->waitPageLoad();
         $I->click(\Page\MeasureGreenTipUpdate::$ProgramSelect);
         $I->cantSeeElement(\Page\MeasureGreenTipUpdate::SelectedProgramOptionByName($this->program2));
     }
@@ -442,15 +513,27 @@ class StateAdminAndCoordinatorAccessCest
         $program     = $this->program1;
         
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure3));
-        $I->wait(1);
         $I->click(\Page\MeasureGreenTipList::UpdateButtonLine_ByMeasureDescValue($descMeasure));
         $I->wait(1);
+        $I->waitPageLoad();
         $I->UpdateMeasureGreenTip($descGT, $programArr);
-        $I->wait(2);
         $I->amOnPage(\Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure3));
-        $I->wait(1);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
         $I->cantSee($this->GT3Create_prog1, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
+    }
+    
+    public function Coordinator_CheckButtonsOnMeasureListPage_AfterUpdating(\Step\Acceptance\GreenTipForMeasure $I) {
+        $I->amOnPage(\Page\MeasureList::URL());
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure1Desc));
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure2Desc));
+        $I->canSee("View", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure3Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure4Desc));
+        $I->canSee("Create", \Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure5Desc));
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure1Desc)."[@href='/coordinator/green-tip/index?measure_id=$this->idMeasure1']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure2Desc)."[@href='/coordinator/green-tip/index?measure_id=$this->idMeasure2']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure3Desc)."[@href='/coordinator/green-tip/index?measure_id=$this->idMeasure3']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure4Desc)."[@href='/coordinator/green-tip/create?measure_id=$this->idMeasure4']");
+        $I->canSeeElement(\Page\MeasureList::ViewTipButtonLine_ByDescValue($this->measure5Desc)."[@href='/coordinator/green-tip/create?measure_id=$this->idMeasure5']");
     }
 }

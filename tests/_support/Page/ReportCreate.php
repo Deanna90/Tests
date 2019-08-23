@@ -28,4 +28,6 @@ class ReportCreate extends \AcceptanceTester
     public static $ReportTypeSelect       = "[name='config[range_type]']";
     public static $StartDateField         = "[name='config[date_range_start]']";
     public static $EndDateField           = "[name='config[date_range_end]']";
+    
+    public static $PostEnrollmentImpactsOnlyCheckbox          = "[for='post-only']";
 }

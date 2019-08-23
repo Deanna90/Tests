@@ -235,7 +235,7 @@ class ChecklistUpdateCest
         $I->cantSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->cantSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
         $I->CheckExtensionSelectsForEditingOnManageChecklistPage($descs);
-        $I->CheckStatusSelectsForEditingOnManageChecklistPage(null, $descs);
+        $I->CheckStatusSelectsForEditingOnManageProgramChecklistPage(null, $descs);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesDefault);
         $I->reloadPage();
         $I->PublishChecklistStatus($this->id_checklist1);
@@ -272,7 +272,7 @@ class ChecklistUpdateCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
-        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 150);
     }
     
     public function Help_LogOutFromBusiness1_And_LoginAsAdmin(AcceptanceTester $I){
@@ -294,7 +294,7 @@ class ChecklistUpdateCest
     
     public function CheckDefaultMeasures_Present_Default_CoreAndElective_OnChecklistPreview(Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist1));
-        $I->wait(3);
+        $I->wait(4);
         $I->canSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
@@ -454,7 +454,7 @@ class ChecklistUpdateCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
-        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 150);
     }
     
     public function Help_LogOutFromBusiness2_And_LoginAsAdmin(AcceptanceTester $I){

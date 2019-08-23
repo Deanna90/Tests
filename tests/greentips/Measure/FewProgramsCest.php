@@ -3,7 +3,7 @@
 
 class FewProgramsCest
 {
-    public $state, $city1, $zip1, $city2, $zip2, $city3, $zip3;
+    public $state, $city1, $zip1, $city2, $zip2, $city3, $zip3, $county;
     public $audSubgroup1_Energy, $id_audSubgroup1_Energy;
     public $measure1Desc, $idMeasure;
     public $measuresDesc_SuccessCreated = [];
@@ -11,7 +11,7 @@ class FewProgramsCest
     public $gt_program1_2, $gt_program3;
     public $statuses = ['core'];
     public $business1, $business2, $id_business1, $id_business2;
-
+    public $id_checklistProg1, $id_checklistProg2, $id_checklistProg3;
 
     
     public function Help2_1_LoginAsNationalAdmin(AcceptanceTester $I)
@@ -29,7 +29,6 @@ class FewProgramsCest
     
     public function Help2_3_SelectDefaultState(AcceptanceTester $I)
     {
-        $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
     }
     
@@ -41,9 +40,7 @@ class FewProgramsCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
         $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -58,12 +55,20 @@ class FewProgramsCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $I->canSeeElement(Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc));
+    }
+    
+    //-------------------------------Create county------------------------------
+    
+    public function CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
     }
     
     public function Help2_5_1_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
@@ -73,7 +78,7 @@ class FewProgramsCest
         $program = $this->program1 = $I->GenerateNameOf("ProgMGT1");
         $cityArr = [$city];
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
@@ -84,7 +89,7 @@ class FewProgramsCest
         $program = $this->program2 = $I->GenerateNameOf("ProgMGT2");
         $cityArr = [$city];
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
@@ -95,19 +100,17 @@ class FewProgramsCest
         $program = $this->program3 = $I->GenerateNameOf("ProgMGT3");
         $cityArr = [$city];
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
     public function FewProg2_5_4_CheckAbsentCreateGreenTipButtonInGreenTipsListBeforeAnyCreatingTipsNotSelectedMeasure(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(Page\MeasureGreenTipList::URL());
-        $I->wait(2);
         $I->dontSeeElement(\Page\MeasureGreenTipList::$CreateGreenTipButton);
     }
     
     public function FewProg2_5_5_CheckPresentCreateGreenTipButtonInGreenTipsListBeforeAnyCreatingTipsWithSelectedMeasure(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure));
-        $I->wait(2);
         $I->canSeeElement(\Page\MeasureGreenTipList::$CreateGreenTipButton);
     }
     
@@ -115,7 +118,6 @@ class FewProgramsCest
         $descMeasure = $this->measure1Desc;
         
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($descMeasure));
         $I->wait(3);
         $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
@@ -135,11 +137,9 @@ class FewProgramsCest
         $program  = "$this->program1, $this->program2";
         
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->click(Page\MeasureList::CreateTipButtonLine_ByDescValue($descMeasure));
         $I->CreateMeasureGreenTip($descGT, $programArr);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(2);
         $I->canSeeElement(Page\MeasureList::ViewTipButtonLine_ByDescValue($descMeasure));
         $I->canSee(Page\MeasureList::ViewTipButtonName, Page\MeasureList::ViewTipButtonLine_ByDescValue($descMeasure));
         $I->click(Page\MeasureList::ViewTipButtonLine_ByDescValue($descMeasure));
@@ -150,7 +150,6 @@ class FewProgramsCest
     
     public function FewProg2_5_7_1_CheckProgram1_2_OptionAbsentInProgramSelectOnGreentipCreatePage(\Step\Acceptance\GreenTipForMeasure $I) {
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure));
-        $I->wait(1);
         $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
         $I->wait(1);
         $I->cantSeeElement(\Page\MeasureGreenTipCreate::selectProgramOptionByName($this->program1));
@@ -164,39 +163,60 @@ class FewProgramsCest
         $program     = $this->program3;
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure));
-        $I->wait(1);
         $I->CreateMeasureGreenTip($descGT, $programArr);
         $I->amOnPage(Page\MeasureGreenTipList::URL());
-        $I->wait(2);
         $I->canSee($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($this->gt_program1_2, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
         $I->canSee($program, \Page\MeasureGreenTipList::ProgramsLine_ByMeasureDescValue($descMeasure));
     }
     
+    //----------------------------Create checklist------------------------------
+    
+   
+    public function SectorChecklistCreate_Tier2(\Step\Acceptance\SectorChecklist $I)
+    {
+        $number           = '2';
+        $sector           = \Page\SectorList::DefaultSectorOfficeRetail;
+               
+        $I->CreateSectorChecklist($number, $sector);
+        $I->ManageSectorChecklist($this->measuresDesc_SuccessCreated, $this->statuses);
+        $I->PublishSectorChecklistStatus();
+    }
+    
+    public function GetIDs_ProgramChecklist(\Step\Acceptance\Checklist $I) {
+        $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
+        $tier    = 'Tier 2';
+        
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->selectOption(Page\ChecklistList::$FilterByOptInSelect, '');
+        $I->wait(3);
+        $I->click(Page\ChecklistList::$FilterButton);
+        $I->wait(1);
+        $this->id_checklistProg1 = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($this->program1, $sector, $tier));
+        $this->id_checklistProg2 = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($this->program2, $sector, $tier));
+        $this->id_checklistProg3 = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($this->program3, $sector, $tier));
+    }
+    
     //--------------------------Create Checklists-------------------------------
     
-    public function Help2_5_9_CreateChecklistForTier2_Program1(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program1;
-        $programDestination = $this->program1;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
-        
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        $I->ManageChecklist($descs, $this->statuses);
-        $I->reloadPage();
-        $I->PublishChecklistStatus();
-    }
+//    public function Help2_5_9_CreateChecklistForTier2_Program1(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = $this->program1;
+//        $programDestination = $this->program1;
+//        $sectorDestination  = 'Office / Retail';
+//        $tier               = '2';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        
+//        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->ManageChecklist($descs, $this->statuses);
+//        $I->reloadPage();
+//        $I->PublishChecklistStatus($id_checklist);
+//    }
     
     public function FewProg2_5_9_1_CheckGreenTipForMeasure_OnChecklistPreview_Program1(AcceptanceTester $I) {
         $measDesc = $this->measure1Desc;
         $grTip    = $this->gt_program1_2;
         
-        $I->wait(1);
-        $I->reloadPage();
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-        $I->wait(1);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklistProg1));
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
@@ -210,28 +230,24 @@ class FewProgramsCest
         $I->canSeeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
-    public function Help2_5_10_CreateChecklistForTier2_Program2(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program2;
-        $programDestination = $this->program2;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
-        
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        $I->ManageChecklist($descs, $this->statuses);
-        $I->reloadPage();
-        $I->PublishChecklistStatus();
-    }
+//    public function Help2_5_10_CreateChecklistForTier2_Program2(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = $this->program2;
+//        $programDestination = $this->program2;
+//        $sectorDestination  = 'Office / Retail';
+//        $tier               = '2';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        
+//        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->ManageChecklist($descs, $this->statuses);
+//        $I->reloadPage();
+//        $I->PublishChecklistStatus($id_checklist);
+//    }
     
     public function FewProg2_5_10_1_CheckGreenTipForMeasure_OnChecklistPreview_Program2(AcceptanceTester $I) {
         $measDesc = $this->measure1Desc;
         $grTip    = $this->gt_program1_2;
         
-        $I->wait(1);
-        $I->reloadPage();
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-        $I->wait(1);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklistProg2));
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
@@ -245,28 +261,24 @@ class FewProgramsCest
         $I->canSeeElement(\Page\ChecklistPreview::MeasureGreenTip($grTip));
     }
     
-    public function Help2_5_11_CreateChecklistForTier2_Program3(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program3;
-        $programDestination = $this->program3;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
-        
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        $I->ManageChecklist($descs, $this->statuses);
-        $I->reloadPage();
-        $I->PublishChecklistStatus();
-    }
+//    public function Help2_5_11_CreateChecklistForTier2_Program3(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = $this->program3;
+//        $programDestination = $this->program3;
+//        $sectorDestination  = 'Office / Retail';
+//        $tier               = '2';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        
+//        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->ManageChecklist($descs, $this->statuses);
+//        $I->reloadPage();
+//        $I->PublishChecklistStatus($id_checklist);
+//    }
     
     public function FewProg2_5_11_1_CheckGreenTipForMeasure_OnChecklistPreview_Program3(AcceptanceTester $I) {
         $measDesc = $this->measure1Desc;
         $grTip    = $this->gt_program3;
         
-        $I->wait(1);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-        $I->wait(1);
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklistProg3));
         $I->click(Page\ChecklistManage::$PreviewButton);
         $I->wait(2);
         $I->waitForElement(\Page\ChecklistPreview::$LeftMenu_EnergyGroupButton);
@@ -304,23 +316,21 @@ class FewProgramsCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
+        $I->wait(2);
+        $I->waitPageLoad();
     }
     
     public function FewProg2_5_13_1_CheckGreenTipForMeasure_BusinessChecklist_Program2(AcceptanceTester $I) {
         $measDesc = $this->measure1Desc;
         $grTip    = $this->gt_program1_2;
         
-        $I->wait(1);
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSeeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
     
     public function Help2_5_14_LogOutFromBusiness2(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
-        $I->wait(1);
     }
     
     public function Help2_5_15_BusinessRegisterForProgram3(Step\Acceptance\Business $I)
@@ -343,16 +353,15 @@ class FewProgramsCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(8);
+        $I->wait(2);
+        $I->waitPageLoad();
     }
     
     public function FewProg2_5_15_1_CheckGreenTipForMeasure_BusinessChecklist_Program3(AcceptanceTester $I) {
         $measDesc = $this->measure1Desc;
         $grTip    = $this->gt_program3;
         
-        $I->wait(1);
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSeeElement(\Page\RegistrationStarted::MeasureGreenTip($grTip));
     }
     
@@ -360,16 +369,12 @@ class FewProgramsCest
     public function Help2_5_16_LogOutFromBusiness_And_LoginAsNationalAdmin(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsAdmin($I);
     }
          
     public function Help1_18_GoToBusinessViewPage(AcceptanceTester $I){
-        $I->wait(1);
         $I->SelectDefaultState($I, $this->state);
-        $I->wait(1);
         $I->amOnPage(Page\Dashboard::URL());
-        $I->wait(2);
         $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business1), 'href');
         $I->comment("Url1: $url1");
         $url2 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2), 'href');
@@ -388,9 +393,7 @@ class FewProgramsCest
         $measDesc = $this->measure1Desc;
         $grTip    = $this->gt_program1_2;
         
-        $I->wait(1);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
     
@@ -398,9 +401,7 @@ class FewProgramsCest
         $measDesc = $this->measure1Desc;
         $grTip    = $this->gt_program3;
         
-        $I->wait(1);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureGreenTip($grTip));
     }
 }

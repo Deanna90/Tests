@@ -6,7 +6,7 @@ class SectorList extends \AcceptanceTester
     const DefaultSectorOfficeRetail              = 'Office / Retail';
     
     public static function URL()                    { return parent::$URL_UserAccess."/sector/list";}
-    public static function UrlPageNumber($number)   { return parent::$URL_UserAccess."/sector/list&page=$number"; }
+    public static function UrlPageNumber($number)   { return parent::$URL_UserAccess."/sector/list?page=$number"; }
     public static $Title                = 'h1';
     public static $SectorRow            = 'table[class*=table] tbody>tr';
     public static $SummaryCount         = '.summary>b:last-of-type';
@@ -42,25 +42,25 @@ class SectorList extends \AcceptanceTester
     public static $NameLinkHead               = 'table[class*=table] tr>th:nth-of-type(2) a';
     public static $ProgramLinkHead            = 'table[class*=table] tr>th:nth-of-type(3) a';
     public static $CountOfBusinessesHead      = 'table[class*=table] tr>th:nth-of-type(4) a';
-    public static $StatusLinkHead             = 'table[class*=table] tr>th:nth-of-type(5) a';
-    public static $ActionsHead                = 'table[class*=table] tr>th:nth-of-type(6)';
+    public static $StatusLinkHead             = 'table[class*=table] tr>th:nth-of-type(3) a';
+    public static $ActionsHead                = 'table[class*=table] tr>th:nth-of-type(4)';
     
     
     public static function IdLine($row)                 { return "table[class*=table] tbody>tr:nth-of-type($row)>td:first-of-type"; }
     public static function NameLine($row)               { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(2)"; }
     public static function ProgramLine($row)            { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(3)"; }
     public static function CountOfBusinessesLine($row)  { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(4)"; }
-    public static function StatusLine($row)             { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(5)"; }
+    public static function StatusLine($row)             { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(3)"; }
     public static function UpdateButtonLine($row)       { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Update]"; }
     public static function DeleteButtonLine($row)       { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Delete]"; }
 
     //By Name & Program values
-    public static function IdLine_ByNameValue($name, $program)                { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]/td[1]"; }
-    public static function NameLine_ByNameValue($name, $program)              { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]/td[2]"; }
-    public static function ProgramLine_ByNameValue($name, $program)           { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]/td[3]"; }
-    public static function CountOfBusinessesLine_ByNameValue($name, $program) { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]/td[4]"; }
-    public static function StatusLine_ByNameValue($name, $program)            { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]/td[5]"; }
-    public static function UpdateButtonLine_ByNameValue($name, $program)      { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]//span[@title='Rename']"; }
-    public static function DeleteButtonLine_ByNameValue($name, $program)      { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name') and contains(td[3]/text(), '$program')]//td[6]/a[2]/span"; }
+    public static function IdLine_ByNameValue($name)                { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name')]/td[1]"; }
+    public static function NameLine_ByNameValue($name)              { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name')]/td[2]"; }
+    public static function ProgramLine_ByNameValue($name)           { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name')]/td[3]"; }
+    public static function CountOfBusinessesLine_ByNameValue($name) { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name')]/td[4]"; }
+    public static function StatusLine_ByNameValue($name)            { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name')]/td[3]"; }
+    public static function UpdateButtonLine_ByNameValue($name)      { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name')]//span[@title='Rename']"; }
+    public static function DeleteButtonLine_ByNameValue($name)      { return "//table[@class='table-striped custom-table']//tbody/tr[contains(td[2]/text(), '$name')]//td[4]/a[2]/span"; }
     
 }

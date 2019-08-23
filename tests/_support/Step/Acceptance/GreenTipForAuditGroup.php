@@ -9,10 +9,6 @@ class GreenTipForAuditGroup extends \AcceptanceTester
         $I->amOnPage(\Page\AuditGreenTipCreate::URL());
         $I->wait(2);
         $I->waitForElement(\Page\AuditGreenTipCreate::$CreateButton);
-        if (isset($desc)){
-            $I->fillCkEditorTextarea(\Page\AuditGreenTipCreate::$DescriptionField, $desc);
-            $I->wait(2);
-        }
         if (isset($title)){
             $I->fillField(\Page\AuditGreenTipCreate::$TitleField, $title);
         }
@@ -34,8 +30,14 @@ class GreenTipForAuditGroup extends \AcceptanceTester
                 $I->click(\Page\AuditGreenTipCreate::selectProgramOptionByName($program[$k]));
             }
         }
+        if (isset($desc)){
+            $I->fillCkEditorTextarea(\Page\AuditGreenTipCreate::$DescriptionField, $desc);
+            $I->wait(2);
+            $I->click("iframe.cke_reset");
+        }
+        $I->wait(1);
         $I->click(\Page\AuditGreenTipCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(3);
     }  
     
     public function UpdateAuditGreenTip($title = null, $desc = null, $program = null, $group = null, $subgroup = null, $allProg = 'ignore')

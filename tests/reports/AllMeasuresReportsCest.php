@@ -12,7 +12,9 @@ class AllMeasuresReportsCest
     public $idStateAdmin, $idCoordinator;
     public $thermName, $thermCount;
     public $measure1Desc, $idMeasure1, $savingMeas1_Annual_ThermsArea_Bus1, $savingMeas1_Daily_ThermsArea_Bus1,
-                                       $savingMeas1_Annual_ThermsArea_Bus2, $savingMeas1_Daily_ThermsArea_Bus2;
+                                       $savingMeas1_Annual_ThermsArea_Bus2, $savingMeas1_Daily_ThermsArea_Bus2,
+                                       $savingMeas1_Annual_EnergyArea_Bus1, $savingMeas1_Daily_EnergyArea_Bus1,
+                                       $savingMeas1_Annual_EnergyArea_Bus2, $savingMeas1_Daily_EnergyArea_Bus2;
     
     public $measure2Desc, $idMeasure2, $savingMeas2_Annual_ThermsArea_Bus1, $savingMeas2_Daily_ThermsArea_Bus1, 
                                        $savingMeas2_Annual_EnergySavedArea_Bus1, $savingMeas2_Daily_EnergySavedArea_Bus1, 
@@ -81,7 +83,6 @@ class AllMeasuresReportsCest
     
     public function Help_SelectDefaultState(AcceptanceTester $I)
     {
-        $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
     }
     
@@ -94,7 +95,7 @@ class AllMeasuresReportsCest
     public function GetThermsValues(\Step\Acceptance\AuditSubGroup $I)
     {
         $I->amOnPage(\Page\PopupThermOptionList::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $this->thermName  = $I->grabTextFrom(\Page\PopupThermOptionList::NameLine(2));
         $this->thermCount = $I->grabTextFrom(\Page\PopupThermOptionList::ThermsCountLine(2));
     }
@@ -108,19 +109,19 @@ class AllMeasuresReportsCest
     public function GetSavingAreasValues(\Step\Acceptance\SavingArea $I)
     {
         $I->amOnPage(\Page\SavingAreaList::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $therms = $I->GetSavingAreaOnPageInList(\Page\SavingAreaList::Therms);
-        $I->wait(1);
+//        $I->wait(1);
         $voc = $I->GetSavingAreaOnPageInList(\Page\SavingAreaList::VOC);
-        $I->wait(1);
+//        $I->wait(1);
         $energy = $I->GetSavingAreaOnPageInList(\Page\SavingAreaList::EnergySaved);
-        $I->wait(1);
+//        $I->wait(1);
         $fuel = $I->GetSavingAreaOnPageInList(\Page\SavingAreaList::FuelSaved);
-        $I->wait(1);
+//        $I->wait(1);
         $greenhouse = $I->GetSavingAreaOnPageInList(\Page\SavingAreaList::GreenhouseGasEmissionsSaved);
-        $I->wait(1);
+//        $I->wait(1);
         $solid = $I->GetSavingAreaOnPageInList(\Page\SavingAreaList::SolidWasteDiverted);
-        $I->wait(1);
+//        $I->wait(1);
         $this->id_ThermsArea                      = $therms['id'];
         $this->id_VOCArea                         = $voc['id'];
         $this->id_EnergySavedArea                 = $energy['id'];
@@ -128,37 +129,37 @@ class AllMeasuresReportsCest
         $this->id_GreenhouseGasEmissionsSavedArea = $greenhouse['id'];
         $this->id_SolidWasteDivertedArea          = $solid['id'];
         $I->amOnPage(\Page\SavingAreaUpdate::URL($this->id_ThermsArea));
-        $I->wait(4);
+//        $I->wait(4);
         $this->rateMoney_ThermsArea = $I->grabValueFrom(\Page\SavingAreaUpdate::$MoneyConversionRateField);
         $this->units_ThermsArea     = $I->grabValueFrom(\Page\SavingAreaUpdate::$UnitsField);
         $I->comment(\Page\SavingAreaList::Therms.":\n Money rate = '$this->rateMoney_ThermsArea'\n Units = '$this->units_ThermsArea'.\n-----------------------------");
         
         $I->amOnPage(\Page\SavingAreaUpdate::URL($this->id_VOCArea));
-        $I->wait(4);
+//        $I->wait(4);
         $this->rateMoney_VOCArea = $I->grabValueFrom(\Page\SavingAreaUpdate::$MoneyConversionRateField);
         $this->units_VOCArea     = $I->grabValueFrom(\Page\SavingAreaUpdate::$UnitsField);
         $I->comment(\Page\SavingAreaList::VOC.":\n Money rate = '$this->rateMoney_VOCArea'\n Units = '$this->units_VOCArea'.\n-----------------------------");
         
         $I->amOnPage(\Page\SavingAreaUpdate::URL($this->id_EnergySavedArea));
-        $I->wait(4);
+//        $I->wait(4);
         $this->rateMoney_EnergySavedArea = $I->grabValueFrom(\Page\SavingAreaUpdate::$MoneyConversionRateField);
         $this->units_EnergySavedArea     = $I->grabValueFrom(\Page\SavingAreaUpdate::$UnitsField);
         $I->comment(\Page\SavingAreaList::EnergySaved.":\n Money rate = '$this->rateMoney_EnergySavedArea'\n Units = '$this->units_EnergySavedArea'.\n-----------------------------");
         
         $I->amOnPage(\Page\SavingAreaUpdate::URL($this->id_FuelSavedArea));
-        $I->wait(4);
+//        $I->wait(4);
         $this->rateMoney_FuelSavedArea = $I->grabValueFrom(\Page\SavingAreaUpdate::$MoneyConversionRateField);
         $this->units_FuelSavedArea     = $I->grabValueFrom(\Page\SavingAreaUpdate::$UnitsField);
         $I->comment(\Page\SavingAreaList::FuelSaved.":\n Money rate = '$this->rateMoney_FuelSavedArea'\n Units = '$this->units_FuelSavedArea'.\n-----------------------------");
     
         $I->amOnPage(\Page\SavingAreaUpdate::URL($this->id_GreenhouseGasEmissionsSavedArea));
-        $I->wait(4);
+//        $I->wait(4);
         $this->rateMoney_GreenhouseGasEmissionsSavedArea = $I->grabValueFrom(\Page\SavingAreaUpdate::$MoneyConversionRateField);
         $this->units_GreenhouseGasEmissionsSavedArea     = $I->grabValueFrom(\Page\SavingAreaUpdate::$UnitsField);
         $I->comment(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\n Money rate = '$this->rateMoney_GreenhouseGasEmissionsSavedArea'\n Units = '$this->units_GreenhouseGasEmissionsSavedArea'.\n-----------------------------");
         
         $I->amOnPage(\Page\SavingAreaUpdate::URL($this->id_SolidWasteDivertedArea));
-        $I->wait(4);
+//        $I->wait(4);
         $this->rateMoney_SolidWasteDivertedArea = $I->grabValueFrom(\Page\SavingAreaUpdate::$MoneyConversionRateField);
         $this->units_SolidWasteDivertedArea     = $I->grabValueFrom(\Page\SavingAreaUpdate::$UnitsField);
         $I->comment(\Page\SavingAreaList::SolidWasteDiverted.":\n Money rate = '$this->rateMoney_SolidWasteDivertedArea'\n Units = '$this->units_SolidWasteDivertedArea'.\n-----------------------------");
@@ -180,14 +181,17 @@ class AllMeasuresReportsCest
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
-        $I->wait(1);
+//        $I->wait(1);
         $I->reloadPage();
-        $I->wait(4);
+        $I->waitPageLoad();
+//        $I->wait(4);
         $I->click(Page\UserUpdate::$AddStateButton);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
         $I->wait(2);
+        $I->waitPageLoad();
         $stateAdmin = $I->GetUserOnPageInList($email, $userType);
         $this->idStateAdmin = $stateAdmin['id'];
     }
@@ -201,9 +205,9 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsStateAdmin(AcceptanceTester $I)
     {
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
+//        $I->wait(2);
     }
     
     //--------------------------Create audit subgroups--------------------------
@@ -221,9 +225,9 @@ class AllMeasuresReportsCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-        $I->wait(3);
+//        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -240,9 +244,9 @@ class AllMeasuresReportsCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-        $I->wait(3);
+//        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $this->id_audSubgroup1_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -255,7 +259,7 @@ class AllMeasuresReportsCest
     public function GetGlobalVariableValues(\Step\Acceptance\AuditSubGroup $I)
     {
         $I->amOnPage(\Page\GlobalVariableList::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $this->globVariableTitle = $I->grabTextFrom(\Page\GlobalVariableList::TitleLine('1'));
         $this->globVariableValue = $I->grabTextFrom(\Page\GlobalVariableList::ValueLine('1'));
     }
@@ -277,11 +281,11 @@ class AllMeasuresReportsCest
         $questions      = ['question1', 'question2'];
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
-        $I->wait(3);
+//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(3);
+//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $this->idMeasure1 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -299,9 +303,10 @@ class AllMeasuresReportsCest
         $variable3 = 'Employees number';
         
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure1));
-        $I->wait(4);
+//        $I->wait(4);
         $I->click(Page\MeasureUpdate::$ManageFormulasButton);
-        $I->wait(7);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->waitForElement(Page\MeasureFormulasPopup::$PopupForm, 60);
 //        $I->canSeeElement(\Page\MeasureFormulasPopup::$PopupForm);
         $I->wait(4);
@@ -335,7 +340,7 @@ class AllMeasuresReportsCest
         $I->click(Page\MeasureFormulasPopup::SaveFormulaButtonLine($number));
         $I->wait(3);
         $I->reloadPage();
-        $I->wait(4);
+        $I->waitPageLoad();
         $I->canSee("$valVariable1+ $valVariable2* $valVariable3", Page\MeasureUpdate::FormulaForSavingArea(\Page\SavingAreaList::Therms));
     }
     
@@ -353,11 +358,11 @@ class AllMeasuresReportsCest
         $submeasureType = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
-        $I->wait(3);
+//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(3);
+//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $this->idMeasure2 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -374,7 +379,7 @@ class AllMeasuresReportsCest
         $variable2 = $this->globVariableTitle;
         
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure2));
-        $I->wait(4);
+//        $I->wait(4);
         //--------------------------Therms Area---------------------------------
         $I->click(Page\MeasureUpdate::$ManageFormulasButton);
         $I->wait(7);
@@ -407,7 +412,7 @@ class AllMeasuresReportsCest
         $I->click(Page\MeasureFormulasPopup::SaveFormulaButtonLine($number));
         $I->wait(5);
         $I->reloadPage();
-        $I->wait(5);
+        $I->waitPageLoad();
         $I->canSee("$valVariable1* $valVariable2", Page\MeasureUpdate::FormulaForSavingArea(\Page\SavingAreaList::Therms));
     }
     
@@ -423,7 +428,7 @@ class AllMeasuresReportsCest
         $variable2 = $this->globVariableTitle;
         
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure2));
-        $I->wait(4);
+//        $I->wait(4);
         //-----------------------Energy Saved Area------------------------------
         $I->click(Page\MeasureUpdate::$ManageFormulasButton);
         $I->wait(7);
@@ -456,7 +461,7 @@ class AllMeasuresReportsCest
         $I->click(Page\MeasureFormulasPopup::SaveFormulaButtonLine($number));
         $I->wait(3);
         $I->reloadPage();
-        $I->wait(5);
+        $I->waitPageLoad();
         $I->canSee("$valVariable1/ $valVariable2", Page\MeasureUpdate::FormulaForSavingArea(\Page\SavingAreaList::EnergySaved));
     }
     
@@ -472,7 +477,7 @@ class AllMeasuresReportsCest
         $variable2 = $this->globVariableTitle;
         
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure2));
-        $I->wait(4);
+//        $I->wait(4);
         //------------------------Fuel Saved Area-------------------------------
         $I->click(Page\MeasureUpdate::$ManageFormulasButton);
         $I->wait(7);
@@ -505,7 +510,7 @@ class AllMeasuresReportsCest
         $I->click(Page\MeasureFormulasPopup::SaveFormulaButtonLine($number));
         $I->wait(5);
         $I->reloadPage();
-        $I->wait(5);
+        $I->waitPageLoad();
         $I->canSee("$valVariable1+ $valVariable1", Page\MeasureUpdate::FormulaForSavingArea(\Page\SavingAreaList::FuelSaved));
     }
     
@@ -526,11 +531,11 @@ class AllMeasuresReportsCest
         $reamOrLbs      = ['lbs', 'ream', "ream"];
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers, null, null, null, null, null, null, null, null, $reamOrLbs);
-        $I->wait(3);
+//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(3);
+//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $this->idMeasure3 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
@@ -546,7 +551,7 @@ class AllMeasuresReportsCest
         $answers        = ['Grey', 'Green', 'Red'];
         
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure3));
-        $I->wait(4);
+//        $I->wait(4);
         $I->canSee("You have to select Global Variables for next combination Question and Option", Page\MeasureUpdate::$FormulasAlert_MultipleQuestionAndNumber);
         $I->canSee("$questions[0] - $answers[0]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
         $I->canSee("$questions[0] - $answers[1]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
@@ -587,7 +592,7 @@ class AllMeasuresReportsCest
         $I->click(Page\MeasureFormulasPopup::$SaveButton);
         $I->wait(4);
         $I->reloadPage();
-        $I->wait(5);
+        $I->waitPageLoad();
         $I->canSee("You have to select Global Variables for next combination Question and Option", Page\MeasureUpdate::$FormulasAlert_MultipleQuestionAndNumber);
         $I->canSee("$questions[1] - $answers[1]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
         $I->canSee("$questions[1] - $answers[2]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
@@ -615,9 +620,9 @@ class AllMeasuresReportsCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure4 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -638,9 +643,9 @@ class AllMeasuresReportsCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure5 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -661,9 +666,9 @@ class AllMeasuresReportsCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure6 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -685,9 +690,9 @@ class AllMeasuresReportsCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure7 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -710,9 +715,9 @@ class AllMeasuresReportsCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure8 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -733,9 +738,9 @@ class AllMeasuresReportsCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 25);
-        $I->wait(1);
+//        $I->wait(1);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure9 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -794,21 +799,45 @@ class AllMeasuresReportsCest
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
         $I->wait(1);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddStateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddProgramButton);
-        $I->wait(6);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(2);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
         $coordinator = $I->GetUserOnPageInList($email, $userType);
         $this->idCoordinator = $coordinator['id'];
+    }
+    
+    
+    //----------------------------Create checklist------------------------------
+    
+    //----------------------Create Sector Checklist Tier2-----------------------
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function SectorChecklistCreate(\Step\Acceptance\SectorChecklist $I)
+    {
+        $number           = '2';
+        $sector           = \Page\SectorList::DefaultSectorOfficeRetail;
+               
+        $I->CreateSectorChecklist($number, $sector);
+        $I->ManageSectorChecklist($this->measuresDesc_SuccessCreated, $this->statuses);
+        $I->PublishSectorChecklistStatus();
     }
     
     /**
@@ -818,12 +847,8 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsCoordinator(AcceptanceTester $I)
     {
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
-        $I->wait(2);
     }
-    
-    //----------------------------Create checklist------------------------------
     
     /**
      * @group admin
@@ -831,17 +856,34 @@ class AllMeasuresReportsCest
      * @group coordinator
      */
     
-    public function Help_CreateChecklistForTier2(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program1;
-        $programDestination = $this->program1;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
+    public function ActivateSectorForProgram(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
+        $program            = $this->program1;
+        $sector             = \Page\SectorList::DefaultSectorOfficeRetail;
+//        $descs              = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        $I->ManageChecklist($descs, $this->statuses);
-        $I->PublishChecklistStatus($this->id_checklist);
+        $I->amOnPage(\Page\SectorsManage::URL());
+        $I->selectOption(\Page\SectorsManage::$FilterBySectorSelect, $sector);
+        $I->click(\Page\SectorsManage::$FilterButton);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->cantSeeElement(\Page\SectorsManage::ToggleButtonLine_ByNameValue($program, $sector));
+        $I->wait(1);
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->canSeeElement(\Page\ChecklistList::VersionStatus_ByProg_Sect_Tier_Line($program, $sector, 'Tier 2'));
     }
+    
+//    public function Help_CreateChecklistForTier2(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = $this->program1;
+//        $programDestination = $this->program1;
+//        $sectorDestination  = 'Office / Retail';
+//        $tier               = '2';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        
+//        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->ManageChecklist($descs, $this->statuses);
+//        $I->PublishChecklistStatus($this->id_checklist);
+//    }
     
     /**
      * @group admin
@@ -850,8 +892,7 @@ class AllMeasuresReportsCest
      */
     
     public function Help_LogOut(AcceptanceTester $I) {
-        $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
+        $I->reloadPage();
         $I->Logout($I);
     }
     
@@ -868,7 +909,7 @@ class AllMeasuresReportsCest
         $phoneNumber      = $I->GeneratePhoneNumber();
         $email            = $this->email1 = $I->GenerateEmail();
         $password         = $confirmPassword = $this->password = 'Qq!1111111';
-        $busName          = $this->business1 = $I->GenerateNameOf("busnam");
+        $busName          = $this->business1 = $I->GenerateNameOf("busnam1_");
         $busPhone         = $I->GeneratePhoneNumber();
         $address          = $I->GenerateNameOf("addr");;
         $zip              = $this->zip1;
@@ -882,7 +923,72 @@ class AllMeasuresReportsCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
+        $I->waitPageLoad();
         $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure1(AcceptanceTester $I) {
+        $measDesc = $this->measure1Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure1 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure1(AcceptanceTester $I) {
+        $measDesc = $this->measure1Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure1.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc), ["data-original-title" => "If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A."]);
+        
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure1(AcceptanceTester $I) {
+        $measDesc = $this->measure1Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure1.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
     }
     
     /**
@@ -896,10 +1002,10 @@ class AllMeasuresReportsCest
         $value1   = '11';
         $value2   = '22';
                 
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure1 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
         $I->wait(3);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
@@ -922,10 +1028,10 @@ class AllMeasuresReportsCest
     public function CompleteMeasure2(AcceptanceTester $I) {
         $measDesc = $this->measure2Desc;
                 
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure2 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
         $I->wait(3);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
@@ -934,6 +1040,149 @@ class AllMeasuresReportsCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(4);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure2(AcceptanceTester $I) {
+        $measDesc = $this->measure2Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure2.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc), ["data-original-title" => "If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A."]);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure2(AcceptanceTester $I) {
+        $measDesc = $this->measure2Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure2.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure2(AcceptanceTester $I) {
+        $measDesc = $this->measure2Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure2 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function DeleteUploadedFile_Measure2(AcceptanceTester $I) {
+        $measDesc = $this->measure2Desc;
+                
+//        $I->wait(1);
+        $I->comment("Delete Uploaded File To Measure2 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->click(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->wait(3);
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->cantSeeElement(\Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->cantSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->cantSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->cantSeeElement(\Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->cantSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->cantSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_OneMoreTime_Measure2(AcceptanceTester $I) {
+        $measDesc = $this->measure2Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File One more time To Measure2 and save.");
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'image2.png');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSee('image2.png', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->cantSeeElement(\Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '2'));
+        $I->cantSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '2'));
+        $I->cantSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '2'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure3(AcceptanceTester $I) {
+        $measDesc = $this->measure3Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure1 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
     }
     
     /**
@@ -951,10 +1200,10 @@ class AllMeasuresReportsCest
         $option2  = 'Red';
         $option3  = 'Grey';
                 
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure3 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure3]"], $style = 'visibility');
         $I->wait(3);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
@@ -968,7 +1217,45 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure3(AcceptanceTester $I) {
+        $measDesc = $this->measure3Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure3.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc), ["data-original-title" => "If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A."]);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure3(AcceptanceTester $I) {
+        $measDesc = $this->measure3Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure3.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
     }
     
     /**
@@ -981,10 +1268,10 @@ class AllMeasuresReportsCest
         $measDesc  = $this->measure4Desc;
         $totalOpt1 = '25';
                 
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure4 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
         $I->wait(3);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
@@ -1001,7 +1288,134 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure4(AcceptanceTester $I) {
+        $measDesc = $this->measure4Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure4.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc), ["data-original-title" => "If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A."]);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure4(AcceptanceTester $I) {
+        $measDesc = $this->measure4Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure4.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure4(AcceptanceTester $I) {
+        $measDesc = $this->measure4Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure4 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure5(AcceptanceTester $I) {
+        $measDesc = $this->measure5Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure5 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure5(AcceptanceTester $I) {
+        $measDesc = $this->measure5Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure5.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc), ["data-original-title" => "If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A."]);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure5(AcceptanceTester $I) {
+        $measDesc = $this->measure5Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure5.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
     }
     
     /**
@@ -1013,10 +1427,10 @@ class AllMeasuresReportsCest
     public function CompleteMeasure5(AcceptanceTester $I) {
         $measDesc = $this->measure5Desc;
                 
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure5 and save.");
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]"], $style = 'visibility');
         $I->wait(3);
         $I->scrollTo("[data-measure-id='$this->idMeasure5']");
@@ -1037,7 +1451,8 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
     }
     
     /**
@@ -1051,39 +1466,40 @@ class AllMeasuresReportsCest
         $before   = 'before';
         $after    = 'after';
         
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure6 fand save.");
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
         $I->wait(3);
         $I->scrollTo("[data-measure-id='$this->idMeasure6']");
         $I->wait(2);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+//        $I->wait(3);
+//        $I->makeElementVisible(["[data-measure_id=$this->idMeasure6]"], $style = 'visibility');
         $I->wait(3);
-        $I->makeElementVisible(["[data-measure_id=$this->idMeasure6]"], $style = 'visibility');
-        $I->wait(3);
-        $I->selectOption(\Page\RegistrationStarted::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
-        $I->wait(3);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(6);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
-        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure6']");
-        $I->wait(2);
+        $I->click(\Page\RegistrationStarted::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '1'));
+//        $I->wait(3);
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(2);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(2);
+//        $I->waitPageLoad();
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure6']");
+//        $I->wait(2);
 //        $I->click('[Detailed Inputs Form]');
 //        $I->click("[Detailed Inputs Form]", "#");
-        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
+//        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
         $I->wait(15);
         $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CommoditySelect('1', $before), 'Cardboard');
         $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), 'CARRY BIN');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), '32 gallons');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $before), '4');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '10');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '7x / week');
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$WasteDiversionPopup_AfterGBTab);
         $I->wait(2);
@@ -1091,7 +1507,7 @@ class AllMeasuresReportsCest
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $after), '6');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '5');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '5x / week');
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('1', $after));
         $I->wait(1);
@@ -1100,7 +1516,45 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure6(AcceptanceTester $I) {
+        $measDesc = $this->measure6Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure6.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+        $I->canSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc), ["data-original-title" => "If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A."]);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure6(AcceptanceTester $I) {
+        $measDesc = $this->measure6Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure6.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
     }
     
     /**
@@ -1115,10 +1569,10 @@ class AllMeasuresReportsCest
         $question2 = 'ques2?';
         $question3 = 'ques3?';
                 
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure7 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure7]"], $style = 'visibility');
         $I->wait(3);
         $I->scrollTo("[data-measure-id='$this->idMeasure7']");
@@ -1130,7 +1584,44 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure7(AcceptanceTester $I) {
+        $measDesc = $this->measure7Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure7.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->cantSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure7(AcceptanceTester $I) {
+        $measDesc = $this->measure7Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure7.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
     }
     
     /**
@@ -1146,10 +1637,10 @@ class AllMeasuresReportsCest
         $option2  = 'Opt2';
         $option3  = 'Opt3';
                 
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure8 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
         $I->wait(3);
         $I->scrollTo("[data-measure-id='$this->idMeasure8']");
@@ -1161,7 +1652,80 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure8(AcceptanceTester $I) {
+        $measDesc = $this->measure8Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure8.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->cantSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure8(AcceptanceTester $I) {
+        $measDesc = $this->measure8Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure8.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_Description_Measure9(AcceptanceTester $I) {
+        $measDesc = $this->measure9Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure9.");
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(4);
+        $I->moveMouseOver(\Page\RegistrationStarted::MeasureDescription_ByDesc($measDesc));
+        $I->wait(2);
+        $I->cantSeeElement(\Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+//        $I->canSee("If you don't have all the info necessary to completely answer at this time, flag for Help and select N/A.", \Page\RegistrationStarted::MeasureToolTip_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckToolTip_HelpCheckbox_Measure9(AcceptanceTester $I) {
+        $measDesc = $this->measure9Desc;
+                
+//        $I->wait(1);
+        $I->comment("Check Tooltip for Measure9.");
+        $I->moveMouseOver(\Page\RegistrationStarted::HelpCheckboxLabel_ByDesc($measDesc));
+        $I->wait(2);
+        $I->canSeeElement(\Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
+        $I->canSee("Have a question about this measure? Click here to let your Coordinator know.", \Page\RegistrationStarted::HelpCheckboxToolTip_ByDesc($measDesc));
     }
     
     /**
@@ -1173,10 +1737,10 @@ class AllMeasuresReportsCest
     public function CompleteMeasure9(AcceptanceTester $I) {
         $measDesc = $this->measure9Desc;
                 
-        $I->wait(1);
+//        $I->wait(1);
         $I->comment("Complete Measure9 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(4);
+//        $I->wait(4);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure9]"], $style = 'visibility');
         $I->wait(3);
         $I->scrollTo("[data-measure-id='$this->idMeasure9']");
@@ -1186,7 +1750,143 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure6(AcceptanceTester $I) {
+        $measDesc = $this->measure6Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure6 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure7(AcceptanceTester $I) {
+        $measDesc = $this->measure7Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure7 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure8(AcceptanceTester $I) {
+        $measDesc = $this->measure8Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure8 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UploadFile_Measure9(AcceptanceTester $I) {
+        $measDesc = $this->measure9Desc;
+                
+//        $I->wait(1);
+        $I->comment("Upload File To Measure9 and save.");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'image1.jpg');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('image1.jpg', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'report.xlsx');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('image1.jpg', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '2'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '2'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '2'));
+        $I->attachFile(\Page\RegistrationStarted::UploadInput_ByDesc($measDesc), 'image3.gif');
+        $I->wait(5);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSeeElement(\Page\RegistrationStarted::UploadButton_ByDesc($measDesc));
+        $I->canSee('image1.jpg', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->canSee('report.xlsx', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '2'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '2'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '2'));
+        $I->canSee('image3.gif', \Page\RegistrationStarted::UploadedFile_ByDesc($measDesc, '3'));
+        $I->canSeeElement(\Page\RegistrationStarted::ViewButton_UploadedFile_ByDesc($measDesc, '3'));
+        $I->canSeeElement(\Page\RegistrationStarted::DeleteButton_UploadedFile_ByDesc($measDesc, '3'));
     }
     
     /**
@@ -1196,10 +1896,11 @@ class AllMeasuresReportsCest
     public function Help_LogOut1(AcceptanceTester $I) {
         $I->reloadPage();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsAdmin($I);
+        $I->SelectDefaultState($I, $this->state);
     }
     
     /**
@@ -1210,11 +1911,11 @@ class AllMeasuresReportsCest
     {
         $I->reloadPage();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
+//        $I->wait(2);
     }
     
     /**
@@ -1225,11 +1926,11 @@ class AllMeasuresReportsCest
     {
         $I->reloadPage();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
-        $I->wait(2);
+//        $I->wait(2);
     }
     
     /**
@@ -1239,11 +1940,8 @@ class AllMeasuresReportsCest
      */
     
     public function Help_GoToBusinessViewPage_GetBusiness1Id(AcceptanceTester $I){
-        $I->wait(1);
-        $I->SelectDefaultState($I, $this->state);
-        $I->wait(1);
         $I->amOnPage(Page\Dashboard::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business1), 'href');
         $I->comment("Url1: $url1");
         $u1 = explode('=', $url1);
@@ -1259,12 +1957,12 @@ class AllMeasuresReportsCest
     
     public function CheckMeasure1IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure1Desc;
-        $this->savingMeas1_Annual_ThermsArea_Bus1 = "5027"; //22+11*455 = 5027; //22 + 11 * $this->employeesCount;
-        $this->savingMeas1_Daily_ThermsArea_Bus1  = "13.7726027397"; // round( 5027 /365 ) = 13.7726027397; //round(($this->savingMeas1_Annual_Area1 / 365), 10);
+        $this->savingMeas1_Annual_ThermsArea_Bus1 = "10021"; //11+22*455 = 10021; //11 + 22 * $this->employeesCount;
+        $this->savingMeas1_Daily_ThermsArea_Bus1  = "27.454794520548"; // round( 10021 /365 ) = 27.4547945205; //round(($this->savingMeas1_Annual_Area1 / 365), 10);
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
@@ -1283,12 +1981,14 @@ class AllMeasuresReportsCest
     public function CheckMeasure1Savings_OnBusinessView(AcceptanceTester $I) {
         $measDesc                       = $this->measure1Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
+//        $I->wait(3);
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
+        $I->comment("Expected savings':\nannual: $this->savingMeas1_Annual_ThermsArea_Bus1 $this->units_ThermsArea'");
+        $I->comment("daily: $this->savingMeas1_Daily_ThermsArea_Bus1 $this->units_ThermsArea'");
         $I->canSee(\Page\SavingAreaList::Therms.":\nannual: $this->savingMeas1_Annual_ThermsArea_Bus1 $this->units_ThermsArea\ndaily: $this->savingMeas1_Daily_ThermsArea_Bus1 $this->units_ThermsArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
@@ -1301,15 +2001,15 @@ class AllMeasuresReportsCest
     public function CheckMeasure2IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure2Desc;
         $this->savingMeas2_Annual_ThermsArea_Bus1 = $this->employeesCount1 * $this->globVariableValue;
-        $this->savingMeas2_Daily_ThermsArea_Bus1  = round(($this->savingMeas2_Annual_ThermsArea_Bus1 / 365), 12);
-        $this->savingMeas2_Annual_EnergySavedArea_Bus1 = round(($this->employeesCount1 / $this->globVariableValue),7);
-        $this->savingMeas2_Daily_EnergySavedArea_Bus1  = round((($this->employeesCount1 / $this->globVariableValue) / 365), 10);
+        $this->savingMeas2_Daily_ThermsArea_Bus1  = round(($this->savingMeas2_Annual_ThermsArea_Bus1 / 365), 14);
+        $this->savingMeas2_Annual_EnergySavedArea_Bus1 = round(($this->employeesCount1 / $this->globVariableValue),10);
+        $this->savingMeas2_Daily_EnergySavedArea_Bus1  = round((($this->employeesCount1 / $this->globVariableValue) / 365), 13);
         $this->savingMeas2_Annual_FuelSavedArea_Bus1 = "910"; // 455+455 = 910; //$this->employeesCount + $this->employeesCount;
-        $this->savingMeas2_Daily_FuelSavedArea_Bus1  = "2.49315068493"; // round( 910 / 365 ) = 2.49315068493; //round(($this->savingMeas2_Annual_Area4 / 365), 11);
+        $this->savingMeas2_Daily_FuelSavedArea_Bus1  = "2.4931506849315"; // round( 910 / 365 ) = 2.49315068493; //round(($this->savingMeas2_Annual_Area4 / 365), 11);
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
+//        $I->wait(3);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
@@ -1328,9 +2028,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure2Savings_OnBusinessView(AcceptanceTester $I) {
         $measDesc                 = $this->measure2Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
@@ -1347,12 +2047,12 @@ class AllMeasuresReportsCest
     
     public function CheckMeasure3IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure3Desc;
-        $this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1  = "0.18"; // 1*0.03 + 0 + 5*0.03 = 0.18; 
-        $this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1   = "0.000493150684932"; // round( 0.18 /365 ) = 0.000493150684932; 
+        $this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1  = "1.0204956"; // 1*0.1700826 + 0 + 5*0.1700826 = 1.0204956; 
+        $this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1   = "0.0027958783561644"; // round( 1.0204956 /365 ) = 0.0027958783561644; 
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure3]"], $style = 'visibility');
@@ -1371,9 +2071,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure3Savings_OnBusinessView(AcceptanceTester $I) {
         $measDesc                       = $this->measure3Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
+//        $I->wait(3);
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
@@ -1389,11 +2089,11 @@ class AllMeasuresReportsCest
     public function CheckMeasure4IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure4Desc;
         $this->savingMeas4_Annual_ThermsArea_Bus1 = 25 * $this->thermCount; //  
-        $this->savingMeas4_Daily_ThermsArea_Bus1  = round(($this->savingMeas4_Annual_ThermsArea_Bus1 / 365),10);; // 
+        $this->savingMeas4_Daily_ThermsArea_Bus1  = round(($this->savingMeas4_Annual_ThermsArea_Bus1 / 365),11);; // 
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]", ".popup-therm [data-measure-id=$this->idMeasure4]"], $style = 'visibility');
@@ -1412,9 +2112,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure4Savings_OnBusinessView(AcceptanceTester $I) {
         $measDesc                            = $this->measure4Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
+//        $I->wait(3);
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
@@ -1429,12 +2129,12 @@ class AllMeasuresReportsCest
     
     public function CheckMeasure5IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure5Desc;
-        $this->savingMeas5_Annual_EnergySavedArea_Bus1 = "138.880004883"; // 
-        $this->savingMeas5_Daily_EnergySavedArea_Bus1  = "0.380493164062"; // 
+        $this->savingMeas5_Annual_EnergySavedArea_Bus1 = "138.88000488281"; // 
+        $this->savingMeas5_Daily_EnergySavedArea_Bus1  = "0.3804931640625"; // 
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]", ".popup-therm [data-measure-id=$this->idMeasure5]"], $style = 'visibility');
@@ -1453,9 +2153,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure5Savings_OnBusinessView(AcceptanceTester $I) {
         $measDesc                       = $this->measure5Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
@@ -1470,12 +2170,13 @@ class AllMeasuresReportsCest
     
     public function CheckMeasure6IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure6Desc;
-        $this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1 = "562625.63786"; // 
-        $this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1  = "1541.44010373"; // 
+        $this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1 = "-40867.929681485"; // gv_cardboard=0.228371890884	
+        $this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1  = "-111.96693063421"; // 
         
-        $I->wait(2);
+        
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]", ".popup-therm [data-measure-id=$this->idMeasure6]"], $style = 'visibility');
@@ -1494,9 +2195,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure6Savings_OnBusinessView(AcceptanceTester $I) {
         $measDesc                                        = $this->measure6Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
@@ -1512,9 +2213,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure7IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure7Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure7]"], $style = 'visibility');
@@ -1533,9 +2234,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure7SavingsAbsent_OnBusinessView(AcceptanceTester $I) {
         $measDesc                                        = $this->measure7Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->cantSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
@@ -1548,9 +2249,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure8IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure8Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
@@ -1569,9 +2270,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure8SavingsAbsent_OnBusinessView(AcceptanceTester $I) {
         $measDesc                                        = $this->measure8Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->cantSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
@@ -1584,9 +2285,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure9IsCompleted(AcceptanceTester $I) {
         $measDesc = $this->measure9Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::LeftMenu_Subgroup_ByName($this->audSubgroup1_Energy));
         $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure9]"], $style = 'visibility');
@@ -1605,9 +2306,9 @@ class AllMeasuresReportsCest
     public function CheckMeasure9SavingsAbsent_OnBusinessView(AcceptanceTester $I) {
         $measDesc                                        = $this->measure9Desc;
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->cantSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
@@ -1618,9 +2319,9 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport_BySavingAreas(AcceptanceTester $I) {
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -1630,35 +2331,36 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('0', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->cantSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -1686,6 +2388,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::VOC));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::EnergySaved));
@@ -1705,9 +2408,7 @@ class AllMeasuresReportsCest
         $this->todayDate  = date("m/d/Y");
         $currentYear  = $this->currentYear = date("Y");
         
-        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -1717,37 +2418,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Year");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('0', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->cantSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -1774,6 +2476,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -1794,9 +2497,9 @@ class AllMeasuresReportsCest
         $quarter      = $this->currentQuarter = intval((date('n')+2)/3);
         $I->comment("Current date: $this->todayDate is in $quarter Quarter");
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -1806,37 +2509,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Quarter");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('0', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->cantSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -1864,6 +2568,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -1883,9 +2588,9 @@ class AllMeasuresReportsCest
         $currentYear  = $this->currentYear;
         $monthNumber  = $this->currentMonth = date('n');
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -1895,37 +2600,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Month");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('0', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->cantSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -1954,6 +2660,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -1971,10 +2678,11 @@ class AllMeasuresReportsCest
     
     public function Help_LogOut2(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsUser($this->email1, $this->password, $I, 'user');
     }
     
@@ -1985,9 +2693,9 @@ class AllMeasuresReportsCest
      */
     
     public function SubmitBusiness1_ReviewAndSubmitPage(AcceptanceTester $I) {
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReviewAndSubmit::$URL);
-        $I->wait(2);
+//        $I->wait(2);
         $I->scrollTo(Page\ReviewAndSubmit::$SubmitMyApplicationButton);
         $I->wait(1);
         $I->click(Page\ReviewAndSubmit::$SubmitMyApplicationButton);
@@ -2004,10 +2712,10 @@ class AllMeasuresReportsCest
     
     public function CheckOnMyReportCardPage(AcceptanceTester $I) {
         $I->amOnPage(Page\MyReportCard::$URL_ReportTab);
-        $I->wait(2);
+//        $I->wait(2);
         $I->canSee($this->program1, Page\MyReportCard::ProgramLine('1'));
         $I->canSee(\Page\SectorList::DefaultSectorOfficeRetail, Page\MyReportCard::SectorLine('1'));
-        $I->canSee($this->todayDate, Page\MyReportCard::EnrollmentDayLine('1'));
+        $I->canSee('', Page\MyReportCard::EnrollmentDayLine('1'));
         $I->cantSeeElement(Page\MyReportCard::$Row_ReportTable);
         $I->cantSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::VOC));
@@ -2018,7 +2726,7 @@ class AllMeasuresReportsCest
         
         $I->comment("-----Check on Visual Scoreboard Tab:-----");
         $I->amOnPage(Page\MyReportCard::$URL_VisualScoreboardTab);
-        $I->wait(1);
+//        $I->wait(1);
         $I->cantSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::VOC));
         $I->cantSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::EnergySaved));
@@ -2033,10 +2741,11 @@ class AllMeasuresReportsCest
     
     public function Help_LogOut3(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsAdmin($I);
     }
     
@@ -2047,12 +2756,13 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsStateAdmin3(AcceptanceTester $I)
     {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
+//        $I->wait(2);
     }
     
     /**
@@ -2062,12 +2772,13 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsCoordinator3(AcceptanceTester $I)
     {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
-        $I->wait(2);
+//        $I->wait(2);
     }
     
     /**
@@ -2077,9 +2788,8 @@ class AllMeasuresReportsCest
     public function CheckSavingsMeasure1_OnBusinessView2(AcceptanceTester $I) {
         $measDesc           = $this->measure1Desc;
         
-        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+//        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
@@ -2093,9 +2803,7 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport2_BySavingAreas(AcceptanceTester $I) {
-        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -2105,35 +2813,36 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('0', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->cantSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -2161,6 +2870,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::VOC));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::EnergySaved));
@@ -2176,9 +2886,9 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport2_ByYear(AcceptanceTester $I) {
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -2188,37 +2898,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Year");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('0', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->cantSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -2247,6 +2958,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -2263,9 +2975,9 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport2_ByQuarter(AcceptanceTester $I) {
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -2275,37 +2987,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Quarter");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('0', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->cantSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -2333,6 +3046,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -2349,9 +3063,9 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport2_ByMonth(AcceptanceTester $I) {
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -2361,37 +3075,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Month");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('0', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->cantSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -2421,6 +3136,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -2439,9 +3155,7 @@ class AllMeasuresReportsCest
     public function ChangeBusiness1StatusToRecognized(AcceptanceTester $I){
         $status = \Page\BusinessChecklistView::RecognizedStatus;
         
-        $I->wait(1);
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
-        $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(4);
     }
@@ -2453,30 +3167,30 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport3_BySavingAreas(Step\Acceptance\Report $I) {
-        $savingMeas1_Therms                       = number_format(round($this->savingMeas1_Daily_ThermsArea_Bus1));
-        $savingMeas2_Therms                       = number_format(round($this->savingMeas2_Daily_ThermsArea_Bus1));
-        $savingMeas2_EnergySaved                  = number_format(round($this->savingMeas2_Daily_EnergySavedArea_Bus1));
-        $savingMeas2_FuelSaved                    = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1));
-        $savingMeas3_GreenhouseGasEmissionsSaved  = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1));
-        $savingMeas4_Therms                       = number_format(round($this->savingMeas4_Daily_ThermsArea_Bus1));
-        $savingMeas5_EnergySaved                  = number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1));
-        $savingMeas6_SolidWasteDiverted           = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1));
+        $savingMeas1_Therms                       = abs(number_format(round($this->savingMeas1_Daily_ThermsArea_Bus1)));
+        $savingMeas2_Therms                       = abs(number_format(round($this->savingMeas2_Daily_ThermsArea_Bus1)));
+        $savingMeas2_EnergySaved                  = abs(number_format(round($this->savingMeas2_Daily_EnergySavedArea_Bus1)));
+        $savingMeas2_FuelSaved                    = abs(number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1)));
+        $savingMeas3_GreenhouseGasEmissionsSaved  = abs(number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1)));
+        $savingMeas4_Therms                       = abs(number_format(round($this->savingMeas4_Daily_ThermsArea_Bus1)));
+        $savingMeas5_EnergySaved                  = abs(number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1)));
+        $savingMeas6_SolidWasteDiverted           = abs(number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1)));
         
-        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1));
-        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1));
-        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1));
-        $areaSum_GreenhouseGasEmissionsSaved = trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1));
-        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1));
+        $areaSum_Therms                      = abs(trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1)));
+        $areaSum_EnergySaved                 = abs(trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1)));
+        $areaSum_FuelSaved                   = abs(trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1)));
+        $areaSum_GreenhouseGasEmissionsSaved = abs(trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1)));
+        $areaSum_SolidWasteDiverted          = abs(trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1)));
         
-        $moneySave_Therms                      = round(($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1) * $this->rateMoney_ThermsArea);
-        $moneySave_EnergySaved                 = round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1) * $this->rateMoney_EnergySavedArea);
-        $moneySave_FuelSaved                   = round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * $this->rateMoney_FuelSavedArea);
-        $moneySave_GreenhouseGasEmissionsSaved = round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * $this->rateMoney_GreenhouseGasEmissionsSavedArea);
-        $moneySave_SolidWasteDiverted          = round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * $this->rateMoney_SolidWasteDivertedArea);
+        $moneySave_Therms                      = abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1) * $this->rateMoney_ThermsArea));
+        $moneySave_EnergySaved                 = abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1) * $this->rateMoney_EnergySavedArea));
+        $moneySave_FuelSaved                   = abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * $this->rateMoney_FuelSavedArea));
+        $moneySave_GreenhouseGasEmissionsSaved = abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * $this->rateMoney_GreenhouseGasEmissionsSavedArea));
+        $moneySave_SolidWasteDiverted          = abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * $this->rateMoney_SolidWasteDivertedArea));
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -2486,35 +3200,36 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('1', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -2571,6 +3286,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::VOC));
         
@@ -2607,21 +3323,21 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport3_ByYear(Step\Acceptance\Report $I) {
-        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1));
-        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1));
-        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1));
-        $areaSum_GreenhouseGasEmissionsSaved = trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1));
-        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1));
+        $areaSum_Therms                      = abs(trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1)));
+        $areaSum_EnergySaved                 = abs(trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1)));
+        $areaSum_FuelSaved                   = abs(trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1)));
+        $areaSum_GreenhouseGasEmissionsSaved = abs(trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1)));
+        $areaSum_SolidWasteDiverted          = abs(trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1)));
         
-        $moneySave_Therms                      = round(($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1) * $this->rateMoney_ThermsArea);
-        $moneySave_EnergySaved                 = round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1) * $this->rateMoney_EnergySavedArea);
-        $moneySave_FuelSaved                   = round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * $this->rateMoney_FuelSavedArea);
-        $moneySave_GreenhouseGasEmissionsSaved = round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * $this->rateMoney_GreenhouseGasEmissionsSavedArea);
-        $moneySave_SolidWasteDiverted          = round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * $this->rateMoney_SolidWasteDivertedArea);
+        $moneySave_Therms                      = abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1) * $this->rateMoney_ThermsArea));
+        $moneySave_EnergySaved                 = abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1) * $this->rateMoney_EnergySavedArea));
+        $moneySave_FuelSaved                   = abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * $this->rateMoney_FuelSavedArea));
+        $moneySave_GreenhouseGasEmissionsSaved = abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * $this->rateMoney_GreenhouseGasEmissionsSavedArea));
+        $moneySave_SolidWasteDiverted          = abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * $this->rateMoney_SolidWasteDivertedArea));
         
-        $I->wait(2);
+//        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -2631,37 +3347,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Year");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('1', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -2697,6 +3414,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->canSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -2713,11 +3431,11 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport3_ByQuarter(Step\Acceptance\Report $I) {
-        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1));
-        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1));
-        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1));
-        $areaSum_GreenhouseGasEmissionsSaved = trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1));
-        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1));
+        $areaSum_Therms                      = abs(trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1)));
+        $areaSum_EnergySaved                 = abs(trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1)));
+        $areaSum_FuelSaved                   = abs(trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1)));
+        $areaSum_GreenhouseGasEmissionsSaved = abs(trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1)));
+        $areaSum_SolidWasteDiverted          = abs(trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1)));
         
         $moneySave_Therms                      = round(($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1) * $this->rateMoney_ThermsArea);
         $moneySave_EnergySaved                 = round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1) * $this->rateMoney_EnergySavedArea);
@@ -2725,9 +3443,7 @@ class AllMeasuresReportsCest
         $moneySave_GreenhouseGasEmissionsSaved = round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * $this->rateMoney_GreenhouseGasEmissionsSavedArea);
         $moneySave_SolidWasteDiverted          = round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * $this->rateMoney_SolidWasteDivertedArea);
         
-        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -2737,37 +3453,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Quarter");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('1', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -2811,6 +3528,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->canSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -2827,16 +3545,14 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport3_ByMonth(Step\Acceptance\Report $I) {
-        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1));
-        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1));
-        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1));
-        $areaSum_GreenhouseGasEmissionsSaved = trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1));
-        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1));
+        $areaSum_Therms                      = abs(trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1)));
+        $areaSum_EnergySaved                 = abs(trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1)));
+        $areaSum_FuelSaved                   = abs(trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1)));
+        $areaSum_GreenhouseGasEmissionsSaved = abs(trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1)));
+        $areaSum_SolidWasteDiverted          = abs(trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1)));
         
         
-        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -2846,37 +3562,38 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->selectOption(Page\ReportCreate::$ReportTypeSelect, "By Month");
         $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('1', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -2920,6 +3637,7 @@ class AllMeasuresReportsCest
         $I->comment("-----Check on Graphic View Tab:-----");
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\ReportResult::$ChartView);
         $I->canSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::Therms));
         $I->cantSeeElement(\Page\ReportResult::SavingAreaInChart_ByArea(\Page\SavingAreaList::VOC));
@@ -2937,10 +3655,9 @@ class AllMeasuresReportsCest
     
     public function Help_LogOut4(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->email1, $this->password, $I, 'user');
     }
     
@@ -2951,26 +3668,25 @@ class AllMeasuresReportsCest
      */
     
     public function CheckOnMyReportCardPage2(\Step\Acceptance\Report $I) {
-        $areaSave_Therms                      = trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1));
-        $areaSave_EnergySaved                 = trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1));
-        $areaSave_FuelSaved                   = trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1));
-        $areaSave_GreenhouseGasEmissionsSaved = trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1));
-        $areaSave_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1));
+        $areaSave_Therms                      = abs(trim(number_format($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1)));
+        $areaSave_EnergySaved                 = abs(trim(number_format($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1)));
+        $areaSave_FuelSaved                   = abs(trim(number_format($this->savingMeas2_Daily_FuelSavedArea_Bus1)));
+        $areaSave_GreenhouseGasEmissionsSaved = abs(trim(number_format($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1)));
+        $areaSave_SolidWasteDiverted          = abs(trim(number_format($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1)));
         
-        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Annual_ThermsArea_Bus1 + $this->savingMeas2_Annual_ThermsArea_Bus1 + $this->savingMeas4_Annual_ThermsArea_Bus1));
-        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas2_Annual_EnergySavedArea_Bus1 + $this->savingMeas5_Annual_EnergySavedArea_Bus1));
-        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Annual_FuelSavedArea_Bus1));
-        $areaSum_GreenhouseGasEmissionsSaved = trim(number_format($this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1));
-        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1));
+        $areaSum_Therms                      = abs(trim(number_format($this->savingMeas1_Annual_ThermsArea_Bus1 + $this->savingMeas2_Annual_ThermsArea_Bus1 + $this->savingMeas4_Annual_ThermsArea_Bus1)));
+        $areaSum_EnergySaved                 = abs(trim(number_format($this->savingMeas2_Annual_EnergySavedArea_Bus1 + $this->savingMeas5_Annual_EnergySavedArea_Bus1)));
+        $areaSum_FuelSaved                   = abs(trim(number_format($this->savingMeas2_Annual_FuelSavedArea_Bus1)));
+        $areaSum_GreenhouseGasEmissionsSaved = abs(trim(number_format($this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1)));
+        $areaSum_SolidWasteDiverted          = abs(trim(number_format($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1)));
         
-        $moneySave_Therms                      = round(($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1) * $this->rateMoney_ThermsArea);
-        $moneySave_EnergySaved                 = round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1) * $this->rateMoney_EnergySavedArea);
-        $moneySave_FuelSaved                   = round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * $this->rateMoney_FuelSavedArea);
-        $moneySave_GreenhouseGasEmissionsSaved = round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * $this->rateMoney_GreenhouseGasEmissionsSavedArea);
-        $moneySave_SolidWasteDiverted          = round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * $this->rateMoney_SolidWasteDivertedArea);
+        $moneySave_Therms                      = abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 + $this->savingMeas2_Daily_ThermsArea_Bus1 + $this->savingMeas4_Daily_ThermsArea_Bus1) * $this->rateMoney_ThermsArea));
+        $moneySave_EnergySaved                 = abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 + $this->savingMeas5_Daily_EnergySavedArea_Bus1) * $this->rateMoney_EnergySavedArea));
+        $moneySave_FuelSaved                   = abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * $this->rateMoney_FuelSavedArea));
+        $moneySave_GreenhouseGasEmissionsSaved = abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * $this->rateMoney_GreenhouseGasEmissionsSavedArea));
+        $moneySave_SolidWasteDiverted          = abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * $this->rateMoney_SolidWasteDivertedArea));
         
         $I->amOnPage(Page\MyReportCard::$URL_ReportTab);
-        $I->wait(2);
         $I->canSee($this->program1, Page\MyReportCard::ProgramLine('1'));
         $I->canSee(\Page\SectorList::DefaultSectorOfficeRetail, Page\MyReportCard::SectorLine('1'));
         $I->canSee($this->todayDate, Page\MyReportCard::EnrollmentDayLine('1'));
@@ -3001,7 +3717,7 @@ class AllMeasuresReportsCest
         $I->canSee("$$moneySave_SolidWasteDiverted", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::SolidWasteDiverted));
         
         $I->amOnPage(Page\MyReportCard::$URL_VisualScoreboardTab);
-        $I->wait(2);
+//        $I->wait(2);
         //
         $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::Therms));
         $I->canSee(\Page\SavingAreaList::Therms, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::Therms));
@@ -3036,10 +3752,9 @@ class AllMeasuresReportsCest
     
     public function Help_LogOut6(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsAdmin($I);
     }
     
@@ -3050,12 +3765,10 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsStateAdmin4(AcceptanceTester $I)
     {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
     }
     
     /**
@@ -3065,12 +3778,10 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsCoordinator4(AcceptanceTester $I)
     {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
-        $I->wait(2);
     }
     
     /**
@@ -3080,9 +3791,7 @@ class AllMeasuresReportsCest
     public function Check_Measure1_Savings_OnBusinessViewPage(AcceptanceTester $I) {
         $measDesc           = $this->measure1Desc;
         
-        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
@@ -3099,9 +3808,7 @@ class AllMeasuresReportsCest
         $Recog            = strtotime("-20 day", strtotime($this->todayDate));
         $recognitionDate  = date("m/d/Y", $Recog);
         
-        $I->wait(1);
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->id_business1));
-        $I->wait(2);
         $I->fillField(\Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$SaveDateButton_BusinessInfoTab);
@@ -3115,30 +3822,28 @@ class AllMeasuresReportsCest
      */
     
     public function CreateReport4_BySavingAreas(Step\Acceptance\Report $I) {
-        $savingMeas1_Therms                      = number_format(round($this->savingMeas1_Daily_ThermsArea_Bus1 * 21));
-        $savingMeas2_Therms                      = number_format(round($this->savingMeas2_Daily_ThermsArea_Bus1 * 21));
-        $savingMeas2_EnergySaved                 = number_format(round($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21));
-        $savingMeas2_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21));
-        $savingMeas3_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21));
-        $savingMeas4_Therms                      = number_format(round($this->savingMeas4_Daily_ThermsArea_Bus1 * 21));
-        $savingMeas5_EnergySaved                 = number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21));
-        $savingMeas6_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21));
+        $savingMeas1_Therms                      = abs(number_format(round($this->savingMeas1_Daily_ThermsArea_Bus1 * 21)));
+        $savingMeas2_Therms                      = abs(number_format(round($this->savingMeas2_Daily_ThermsArea_Bus1 * 21)));
+        $savingMeas2_EnergySaved                 = abs(number_format(round($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21)));
+        $savingMeas2_FuelSaved                   = abs(number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21)));
+        $savingMeas3_GreenhouseGasEmissionsSaved = abs(number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $savingMeas4_Therms                      = abs(number_format(round($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)));
+        $savingMeas5_EnergySaved                 = abs(number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)));
+        $savingMeas6_SolidWasteDiverted          = abs(number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)));
         
-        $saving_Therms                      = number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)));
-        $saving_EnergySaved                 = number_format(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)));
-        $saving_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21));
-        $saving_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21));
-        $saving_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21));
+        $saving_Therms                      = abs(number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21))));
+        $saving_EnergySaved                 = abs(number_format(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21))));
+        $saving_FuelSaved                   = abs(number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21)));
+        $saving_GreenhouseGasEmissionsSaved = abs(number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $saving_SolidWasteDiverted          = abs(number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)));
         
-        $moneySave_Therms                      = number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea));
-        $moneySave_EnergySaved                 = number_format(round((($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)) * $this->rateMoney_EnergySavedArea));
-        $moneySave_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea));
-        $moneySave_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea));
-        $moneySave_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea));
+        $moneySave_Therms                      = abs(number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea)));
+        $moneySave_EnergySaved                 = abs(number_format(round((($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)) * $this->rateMoney_EnergySavedArea)));
+        $moneySave_FuelSaved                   = abs(number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea)));
+        $moneySave_GreenhouseGasEmissionsSaved = abs(number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea)));
+        $moneySave_SolidWasteDiverted          = abs(number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea)));
         
-        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -3148,35 +3853,36 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('1', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -3232,6 +3938,7 @@ class AllMeasuresReportsCest
         
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::VOC));
         
         $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::Therms));
@@ -3268,10 +3975,9 @@ class AllMeasuresReportsCest
     
     public function Help_LogOut7(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->email1, $this->password, $I, 'user');
     }
     
@@ -3282,29 +3988,31 @@ class AllMeasuresReportsCest
      */
     
     public function CheckOnMyReportCardPage3(\Step\Acceptance\Report $I) {
-        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Annual_ThermsArea_Bus1 + $this->savingMeas2_Annual_ThermsArea_Bus1 + $this->savingMeas4_Annual_ThermsArea_Bus1).' '.$this->units_ThermsArea);
-        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas2_Annual_EnergySavedArea_Bus1 + $this->savingMeas5_Annual_EnergySavedArea_Bus1).' '.$this->units_EnergySavedArea);
-        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Annual_FuelSavedArea_Bus1).' '.$this->units_FuelSavedArea);
-        $areaSum_GreenhouseGasEmissionsSaved = trim(number_format($this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1).' '.$this->units_GreenhouseGasEmissionsSavedArea);
-        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1).' '.$this->units_SolidWasteDivertedArea);
+        $areaSum_Therms                      = number_format(abs(trim($this->savingMeas1_Annual_ThermsArea_Bus1 + $this->savingMeas2_Annual_ThermsArea_Bus1 + $this->savingMeas4_Annual_ThermsArea_Bus1).' '.$this->units_ThermsArea));
+        $areaSum_EnergySaved                 = number_format(abs(trim($this->savingMeas2_Annual_EnergySavedArea_Bus1 + $this->savingMeas5_Annual_EnergySavedArea_Bus1).' '.$this->units_EnergySavedArea));
+        $areaSum_FuelSaved                   = number_format(abs(trim($this->savingMeas2_Annual_FuelSavedArea_Bus1).' '.$this->units_FuelSavedArea));
+        $areaSum_GreenhouseGasEmissionsSaved = number_format(abs(trim($this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1).' '.$this->units_GreenhouseGasEmissionsSavedArea));
+        $areaSum_SolidWasteDiverted          = number_format(abs(trim($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1).' '.$this->units_SolidWasteDivertedArea));
         
-        $saving_Therms                      = number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)));
-        $saving_EnergySaved                 = number_format(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)));
-        $saving_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21));
-        $saving_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21));
-        $saving_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21));
+        $saving_Therms                      = number_format(abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21))));
+        $saving_EnergySaved                 = number_format(abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21))));
+        $saving_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21)));
+        $saving_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $saving_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)));
         
-        $moneySave_Therms                      = number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea));
-        $moneySave_EnergySaved                 = number_format(round((($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21)  + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)) * $this->rateMoney_EnergySavedArea));
-        $moneySave_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea));
-        $moneySave_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea));
-        $moneySave_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea));
+        $moneySave_Therms                      = number_format(abs(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea)));
+        $moneySave_EnergySaved                 = number_format(abs(round((($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21)  + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)) * $this->rateMoney_EnergySavedArea)));
+        $moneySave_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea)));
+        $moneySave_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea)));
+        $moneySave_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea)));
+        
+        $Recog            = strtotime("-20 day", strtotime($this->todayDate));
+        $recognitionDate  = date("m/d/Y", $Recog);
         
         $I->amOnPage(Page\MyReportCard::$URL_ReportTab);
-        $I->wait(2);
         $I->canSee($this->program1, Page\MyReportCard::ProgramLine('1'));
         $I->canSee(\Page\SectorList::DefaultSectorOfficeRetail, Page\MyReportCard::SectorLine('1'));
-        $I->canSee($this->todayDate, Page\MyReportCard::EnrollmentDayLine('1'));
+        $I->canSee($recognitionDate, Page\MyReportCard::EnrollmentDayLine('1'));
         //
         $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::Therms));
         $I->canSee($areaSum_Therms, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::Therms));
@@ -3332,7 +4040,6 @@ class AllMeasuresReportsCest
         $I->canSee("$$moneySave_SolidWasteDiverted", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::SolidWasteDiverted));
         
         $I->amOnPage(Page\MyReportCard::$URL_VisualScoreboardTab);
-        $I->wait(2);
         //
         $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::Therms));
         $I->canSee(\Page\SavingAreaList::Therms, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::Therms));
@@ -3371,10 +4078,11 @@ class AllMeasuresReportsCest
     
     public function Help1_16_LogOut7(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsAdmin($I);
     }
     
@@ -3385,12 +4093,13 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsStateAdmin5(AcceptanceTester $I)
     {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
+//        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
+//        $I->wait(1);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
+//        $I->wait(2);
     }
     
     /**
@@ -3400,12 +4109,10 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsCoordinator5(AcceptanceTester $I)
     {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
-        $I->wait(2);
     }
     
     /**
@@ -3417,9 +4124,7 @@ class AllMeasuresReportsCest
     public function ChangeBusiness1StatusToInProcess(AcceptanceTester $I){
         $status = \Page\BusinessChecklistView::InProcessStatus;
         
-        $I->wait(1);
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
-        $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(4);
     }
@@ -3430,18 +4135,17 @@ class AllMeasuresReportsCest
      * @group coordinator
      */
     
-    public function SelectPostCheckbox_Measure2_OnBusinessViewPage(AcceptanceTester $I) {
+    public function SelectPostCheckbox_Measure2_OnBusiness1ViewPage(AcceptanceTester $I) {
         $measDesc           = $this->measure2Desc;
         
-        $I->wait(2);
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->click(Page\BusinessChecklistView::PostCheckboxLabel_ByDesc($measDesc));
         $I->wait(2);
         $I->scrollTo(Page\BusinessChecklistView::$SaveButton_Footer);
         $I->wait(1);
         $I->click(Page\BusinessChecklistView::$SaveButton_Footer);
         $I->wait(1);
+        $I->waitPageLoad();
     }
     
     /**
@@ -3453,9 +4157,7 @@ class AllMeasuresReportsCest
     public function ChangeBusiness1StatusToRecognized2(AcceptanceTester $I){
         $status = \Page\BusinessChecklistView::RecognizedStatus;
         
-        $I->wait(1);
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
-        $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(4);
     }
@@ -3466,7 +4168,7 @@ class AllMeasuresReportsCest
      * @group coordinator
      */
     
-    public function CreateReport5_BySavingAreas_Measure2WithActivePostCheckbox(Step\Acceptance\Report $I) {
+    public function CreateReport5_BySavingAreas_Measure2WithActivePostCheckbox_PostEnrollmentCheckbox_Deactivated(Step\Acceptance\Report $I) {
         $savingMeas1_Therms                      = number_format(round($this->savingMeas1_Daily_ThermsArea_Bus1 * 21));
         $savingMeas2_Therms                      = number_format(round($this->savingMeas2_Daily_ThermsArea_Bus1 * 21));
         $savingMeas2_EnergySaved                 = number_format(round($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21));
@@ -3476,21 +4178,19 @@ class AllMeasuresReportsCest
         $savingMeas5_EnergySaved                 = number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21));
         $savingMeas6_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21));
         
-        $saving_Therms                      = number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)));
-        $saving_EnergySaved                 = number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21));
-        $saving_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21));
-        $saving_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21));
-        $saving_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21));
+        $saving_Therms                      = number_format(abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21))));
+        $saving_EnergySaved                 = number_format(abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21))));
+        $saving_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21)));
+        $saving_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $saving_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)));
         
-        $moneySave_Therms                      = number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea));
-        $moneySave_EnergySaved                 = number_format(round(($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) * $this->rateMoney_EnergySavedArea));
-        $moneySave_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea));
-        $moneySave_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea));
-        $moneySave_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea));
+        $moneySave_Therms                      = number_format(abs(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea)));
+        $moneySave_EnergySaved                 = number_format(abs(round((($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)) * $this->rateMoney_EnergySavedArea)));
+        $moneySave_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea)));
+        $moneySave_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea)));
+        $moneySave_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea)));
         
-        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -3500,35 +4200,36 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('1', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
@@ -3545,7 +4246,7 @@ class AllMeasuresReportsCest
         $I->canSeeElement(Page\ReportResult::Program_ByName($this->program1));
         
         $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure1));
-        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure2));
+        $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure2));
         $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure3));
         $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure4));
         $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure5));
@@ -3558,23 +4259,21 @@ class AllMeasuresReportsCest
         $I->canSee($saving_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure("Total", $number_Therms));
         
         $I->canSee($savingMeas1_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure1, $number_Therms));
-        $I->cantSee($savingMeas2_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_Therms));
+        $I->canSee($savingMeas2_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_Therms));
         $I->canSee($savingMeas4_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure4, $number_Therms));
         
         $number_EnergySaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::EnergySaved);
         $I->canSee($saving_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_EnergySaved));
         
-        $I->cantSee($savingMeas2_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_EnergySaved));
+        $I->canSee($savingMeas2_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_EnergySaved));
         $I->canSee($savingMeas5_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure5, $number_EnergySaved));
         
-        $I->cantSeeElement(Page\SavingAreaList::FuelSaved);
-//        $number_FuelSaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::FuelSaved);
-//        $I->cantSee($saving_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_FuelSaved));
-//        
-//        $I->cantSee($savingMeas2_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_FuelSaved));
-//        $I->canSee("0"." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_FuelSaved));
-//        
-//        $I->canSee("0"." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_FuelSaved));
+//        $I->cantSeeElement(Page\SavingAreaList::FuelSaved);
+        $number_FuelSaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::FuelSaved);
+        $I->canSee($saving_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_FuelSaved));
+        
+        $I->canSee($savingMeas2_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_FuelSaved));
+        $I->canSee($savingMeas2_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_FuelSaved));
         
         $number_GreenhouseGasEmissionsSaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::GreenhouseGasEmissionsSaved);
         $I->canSee($saving_GreenhouseGasEmissionsSaved." $this->shortUnits_GreenhouseGasEmissionsSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_GreenhouseGasEmissionsSaved));
@@ -3588,6 +4287,7 @@ class AllMeasuresReportsCest
         
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::VOC));
         
         $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::Therms));
@@ -3600,9 +4300,9 @@ class AllMeasuresReportsCest
         $I->canSee("$saving_EnergySaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::EnergySaved));
         $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_EnergySaved, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::EnergySaved));
         
-        $I->cantSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::FuelSaved));
-        $I->cantSee(\Page\SavingAreaList::FuelSaved, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::FuelSaved));
-        $I->cantSee("$saving_FuelSaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::FuelSaved));
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::FuelSaved));
+        $I->canSee(\Page\SavingAreaList::FuelSaved, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$saving_FuelSaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::FuelSaved));
         $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_FuelSaved, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::FuelSaved));
         
         $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
@@ -3622,12 +4322,169 @@ class AllMeasuresReportsCest
      * @group coordinator
      */
     
+    public function CreateReport5_BySavingAreas_Measure2WithActivePostCheckbox_PostEnrollmentCheckbox_Activated(Step\Acceptance\Report $I) {
+        $savingMeas1_Therms                      = number_format(round($this->savingMeas1_Daily_ThermsArea_Bus1 * 21));
+        $savingMeas2_Therms                      = number_format(round($this->savingMeas2_Daily_ThermsArea_Bus1 * 21));
+        $savingMeas2_EnergySaved                 = number_format(round($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21));
+        $savingMeas2_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21));
+        $savingMeas3_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21));
+        $savingMeas4_Therms                      = number_format(round($this->savingMeas4_Daily_ThermsArea_Bus1 * 21));
+        $savingMeas5_EnergySaved                 = number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21));
+        $savingMeas6_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21));
+        
+        $saving_Therms                      = number_format(abs(round($this->savingMeas2_Daily_ThermsArea_Bus1 * 21)));
+        $saving_EnergySaved                 = number_format(abs(round($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21)));
+        $saving_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21)));
+        $saving_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $saving_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)));
+        
+        $moneySave_Therms                      = number_format(abs(round(($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) * $this->rateMoney_ThermsArea)));
+        $moneySave_EnergySaved                 = number_format(abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) * $this->rateMoney_EnergySavedArea)));
+        $moneySave_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea)));
+        $moneySave_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea)));
+        $moneySave_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea)));
+        
+        $I->amOnPage(\Page\ReportCreate::URL());
+        $I->click(Page\ReportCreate::$Individual_RadioLabel);
+        $I->wait(5);
+        $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
+        $I->wait(1);
+        $I->click(Page\ReportCreate::IndividualOptionLabel($this->state));
+        $I->wait(2);
+        $I->scrollTo(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-3]", 150);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-4]", 150);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-5]", 150);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-6]", 150);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-7]", 150);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-8]", 150);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=build-from-config]", 150);
+        $I->click(Page\ReportCreate::$PostEnrollmentImpactsOnlyCheckbox);
+        $I->wait(2);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(3);
+        $I->waitPageLoad();
+        $I->canSee('1', Page\ReportResult::$CertifiedBusinessesInfo);
+        $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure2));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure3));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure4));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure5));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure6));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure7));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure8));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure9));
+        $I->canSeeElement(Page\ReportResult::AuditSubGroup_ByName(Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy));
+        $I->cantSeeElement(Page\ReportResult::AuditSubGroup_ByName(Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste));
+        $I->canSeeElement(Page\ReportResult::Program_ByName($this->program1));
+        
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure1));
+        $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure2));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure3));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure4));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure5));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure6));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure7));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure8));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure9));
+        
+        $number_Therms = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::Therms);
+        $I->canSee($saving_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure("Total", $number_Therms));
+        
+        $I->cantSeeElement(Page\ReportResult::SavingResultForMeasure($this->idMeasure1, $number_Therms));
+        $I->canSee($savingMeas2_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_Therms));
+        $I->cantSeeElement(Page\ReportResult::SavingResultForMeasure($this->idMeasure4, $number_Therms));
+        
+        $number_EnergySaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::EnergySaved);
+        $I->canSee($saving_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_EnergySaved));
+        
+        $I->canSee($savingMeas2_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_EnergySaved));
+        $I->cantSeeElement(Page\ReportResult::SavingResultForMeasure($this->idMeasure5, $number_EnergySaved));
+        
+//        $I->cantSeeElement(Page\SavingAreaList::FuelSaved);
+        $number_FuelSaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::FuelSaved);
+        $I->canSee($saving_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_FuelSaved));
+        
+        $I->canSee($savingMeas2_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_FuelSaved));
+        $I->canSee($savingMeas2_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_FuelSaved));
+        
+        $I->cantSeeElement(Page\SavingAreaList::GreenhouseGasEmissionsSaved);
+//        $number_GreenhouseGasEmissionsSaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::GreenhouseGasEmissionsSaved);
+//        $I->canSee($saving_GreenhouseGasEmissionsSaved." $this->shortUnits_GreenhouseGasEmissionsSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_GreenhouseGasEmissionsSaved));
+//        
+//        $I->canSee($savingMeas3_GreenhouseGasEmissionsSaved." $this->shortUnits_GreenhouseGasEmissionsSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure3, $number_GreenhouseGasEmissionsSaved));
+        
+        $I->cantSeeElement(Page\SavingAreaList::SolidWasteDiverted);
+//        $number_SolidWasteDiverted = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::SolidWasteDiverted);
+//        $I->canSee($saving_SolidWasteDiverted." $this->shortUnits_SolidWasteDivertedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_SolidWasteDiverted));
+//        
+//        $I->canSee($savingMeas6_SolidWasteDiverted." $this->shortUnits_SolidWasteDivertedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure6, $number_SolidWasteDiverted));
+        
+        $I->click(\Page\ReportResult::$GraphicViewTab);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::VOC));
+        
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::Therms));
+        $I->canSee(\Page\SavingAreaList::Therms, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::Therms));
+        $I->canSee("$saving_Therms", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::Therms));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_Therms, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::Therms));
+        
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::EnergySaved));
+        $I->canSee(\Page\SavingAreaList::EnergySaved, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::EnergySaved));
+        $I->canSee("$saving_EnergySaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::EnergySaved));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_EnergySaved, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::EnergySaved));
+        
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::FuelSaved));
+        $I->canSee(\Page\SavingAreaList::FuelSaved, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$saving_FuelSaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::FuelSaved));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_FuelSaved, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::FuelSaved));
+        
+        $I->cantSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        $I->cantSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        $I->cantSee("$saving_GreenhouseGasEmissionsSaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        $I->cantSeeElement(Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        
+        $I->cantSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->cantSee(\Page\SavingAreaList::SolidWasteDiverted, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->cantSee("$saving_SolidWasteDiverted", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->cantSeeElement(Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::SolidWasteDiverted));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Help_LogOut8(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->email1, $this->password, $I, 'user');
     }
     
@@ -3638,29 +4495,49 @@ class AllMeasuresReportsCest
      */
     
     public function CheckOnMyReportCardPage5(\Step\Acceptance\Report $I) {
-        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Annual_ThermsArea_Bus1 + $this->savingMeas4_Annual_ThermsArea_Bus1).' '.$this->units_ThermsArea);
-        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas5_Annual_EnergySavedArea_Bus1).' '.$this->units_EnergySavedArea);
-        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Annual_FuelSavedArea_Bus1).' '.$this->units_FuelSavedArea);
-        $areaSum_GreenhouseGasEmissionsSaved = trim(number_format($this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1).' '.$this->units_GreenhouseGasEmissionsSavedArea);
-        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1).' '.$this->units_SolidWasteDivertedArea);
+//        $areaSum_Therms                      = abs(trim(number_format($this->savingMeas1_Annual_ThermsArea_Bus1 + $this->savingMeas4_Annual_ThermsArea_Bus1).' '.$this->units_ThermsArea));
+//        $areaSum_EnergySaved                 = abs(trim(number_format($this->savingMeas5_Annual_EnergySavedArea_Bus1).' '.$this->units_EnergySavedArea));
+//        $areaSum_FuelSaved                   = abs(trim(number_format($this->savingMeas2_Annual_FuelSavedArea_Bus1).' '.$this->units_FuelSavedArea));
+//        $areaSum_GreenhouseGasEmissionsSaved = abs(trim(number_format($this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1).' '.$this->units_GreenhouseGasEmissionsSavedArea));
+//        $areaSum_SolidWasteDiverted          = abs(trim(number_format($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1).' '.$this->units_SolidWasteDivertedArea));
+//        
+//        $saving_Therms                      = abs(number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21))));
+//        $saving_EnergySaved                 = abs(number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)));
+//        $saving_FuelSaved                   = abs(number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21)));
+//        $saving_GreenhouseGasEmissionsSaved = abs(number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+//        $saving_SolidWasteDiverted          = abs(number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)));
+//        
+//        $moneySave_Therms                      = abs(number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea)));
+//        $moneySave_EnergySaved                 = abs(number_format(round(($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) * $this->rateMoney_EnergySavedArea)));
+//        $moneySave_FuelSaved                   = abs(number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea)));
+//        $moneySave_GreenhouseGasEmissionsSaved = abs(number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea)));
+//        $moneySave_SolidWasteDiverted          = abs(number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea)));
         
-        $saving_Therms                      = number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)));
-        $saving_EnergySaved                 = number_format(round($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21));
-        $saving_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21));
-        $saving_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21));
-        $saving_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21));
+        $areaSum_Therms                      = number_format(abs(trim($this->savingMeas1_Annual_ThermsArea_Bus1 + $this->savingMeas2_Annual_ThermsArea_Bus1 + $this->savingMeas4_Annual_ThermsArea_Bus1).' '.$this->units_ThermsArea));
+        $areaSum_EnergySaved                 = number_format(abs(trim($this->savingMeas2_Annual_EnergySavedArea_Bus1 + $this->savingMeas5_Annual_EnergySavedArea_Bus1).' '.$this->units_EnergySavedArea));
+        $areaSum_FuelSaved                   = number_format(abs(trim($this->savingMeas2_Annual_FuelSavedArea_Bus1).' '.$this->units_FuelSavedArea));
+        $areaSum_GreenhouseGasEmissionsSaved = number_format(abs(trim($this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1).' '.$this->units_GreenhouseGasEmissionsSavedArea));
+        $areaSum_SolidWasteDiverted          = number_format(abs(trim($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus1).' '.$this->units_SolidWasteDivertedArea));
         
-        $moneySave_Therms                      = number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea));
-        $moneySave_EnergySaved                 = number_format(round(($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) * $this->rateMoney_EnergySavedArea));
-        $moneySave_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea));
-        $moneySave_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea));
-        $moneySave_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea));
+        $saving_Therms                      = number_format(abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21))));
+        $saving_EnergySaved                 = number_format(abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21))));
+        $saving_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21)));
+        $saving_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $saving_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)));
+        
+        $moneySave_Therms                      = number_format(abs(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)) * $this->rateMoney_ThermsArea)));
+        $moneySave_EnergySaved                 = number_format(abs(round((($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21)  + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21)) * $this->rateMoney_EnergySavedArea)));
+        $moneySave_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21 * $this->rateMoney_FuelSavedArea)));
+        $moneySave_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea)));
+        $moneySave_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21 * $this->rateMoney_SolidWasteDivertedArea)));
+        
+        $Recog            = strtotime("-20 day", strtotime($this->todayDate));
+        $recognitionDate  = date("m/d/Y", $Recog);
         
         $I->amOnPage(Page\MyReportCard::$URL_ReportTab);
-        $I->wait(2);
         $I->canSee($this->program1, Page\MyReportCard::ProgramLine('1'));
         $I->canSee(\Page\SectorList::DefaultSectorOfficeRetail, Page\MyReportCard::SectorLine('1'));
-        $I->canSee($this->todayDate, Page\MyReportCard::EnrollmentDayLine('1'));
+        $I->canSee($recognitionDate, Page\MyReportCard::EnrollmentDayLine('1'));
         //
         $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::Therms));
         $I->canSee($areaSum_Therms, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::Therms));
@@ -3672,10 +4549,10 @@ class AllMeasuresReportsCest
         $I->canSee("$saving_EnergySaved $this->units_EnergySavedArea", Page\MyReportCard::SinceEnrollmentLine(\Page\SavingAreaList::EnergySaved));
         $I->canSee("$$moneySave_EnergySaved", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::EnergySaved));
         
-        $I->cantSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::FuelSaved));
-        $I->cantSee($areaSum_FuelSaved, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::FuelSaved));
-        $I->cantSee("$saving_FuelSaved $this->units_FuelSavedArea", Page\MyReportCard::SinceEnrollmentLine(\Page\SavingAreaList::FuelSaved));
-        $I->cantSee("$$moneySave_FuelSaved", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::FuelSaved));
+        $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::FuelSaved));
+        $I->canSee($areaSum_FuelSaved, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$saving_FuelSaved $this->units_FuelSavedArea", Page\MyReportCard::SinceEnrollmentLine(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$$moneySave_FuelSaved", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::FuelSaved));
         
         $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
         $I->canSee($areaSum_GreenhouseGasEmissionsSaved, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
@@ -3688,7 +4565,6 @@ class AllMeasuresReportsCest
         $I->canSee("$$moneySave_SolidWasteDiverted", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::SolidWasteDiverted));
         
         $I->amOnPage(Page\MyReportCard::$URL_VisualScoreboardTab);
-        $I->wait(2);
         //
         $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::Therms));
         $I->canSee(\Page\SavingAreaList::Therms, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::Therms));
@@ -3700,9 +4576,9 @@ class AllMeasuresReportsCest
         $I->canSee("$saving_EnergySaved", Page\MyReportCard::SavingAreaBlock_SavedValue(\Page\SavingAreaList::EnergySaved));
         $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_EnergySaved, Page\MyReportCard::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::EnergySaved));
         
-        $I->cantSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::FuelSaved));
-        $I->cantSee(\Page\SavingAreaList::FuelSaved, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::FuelSaved));
-        $I->cantSee("$saving_FuelSaved", Page\MyReportCard::SavingAreaBlock_SavedValue(\Page\SavingAreaList::FuelSaved));
+        $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::FuelSaved));
+        $I->canSee(\Page\SavingAreaList::FuelSaved, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$saving_FuelSaved", Page\MyReportCard::SavingAreaBlock_SavedValue(\Page\SavingAreaList::FuelSaved));
         $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_FuelSaved, Page\MyReportCard::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::FuelSaved));
         
         $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
@@ -3724,7 +4600,6 @@ class AllMeasuresReportsCest
     
     public function Help_LogOut1d(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
         $I->Logout($I);
     }
     
@@ -3741,7 +4616,7 @@ class AllMeasuresReportsCest
         $phoneNumber      = $I->GeneratePhoneNumber();
         $email            = $this->email2 = $I->GenerateEmail();
         $password         = $confirmPassword = $this->password = 'Qq!1111111';
-        $busName          = $this->business2 = $I->GenerateNameOf("busnam");
+        $busName          = $this->business2 = $I->GenerateNameOf("busnam2_");
         $busPhone         = $I->GeneratePhoneNumber();
         $address          = $I->GenerateNameOf("addr");;
         $zip              = $this->zip1;
@@ -3755,6 +4630,7 @@ class AllMeasuresReportsCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
+        $I->waitPageLoad();
         $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
     }
     
@@ -3768,13 +4644,11 @@ class AllMeasuresReportsCest
         $measDesc = $this->measure1Desc;
         $value1   = '100';
         $value2   = '325';
-        $this->savingMeas1_Annual_ThermsArea_Bus2 = '12325';//325+100*120 = 12325; //325 + 100 * $this->employeesCount2;
-        $this->savingMeas1_Daily_ThermsArea_Bus2 = '33.7671232877'; // round( 12325 /365 ) = 33.7671232877; //round(($this->savingMeas1_Annual_Area1 / 365), 10);
+        $this->savingMeas1_Annual_ThermsArea_Bus2 = '39100';//100+325*120 = 39100; //325 + 100 * $this->employeesCount2;
+        $this->savingMeas1_Daily_ThermsArea_Bus2 = '107.12328767123'; // round( 39100 /365 ) = 107.1232876712; //round(($this->savingMeas1_Annual_Area1 / 365), 10);
         
-        $I->wait(1);
         $I->comment("Complete Measure1 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
         $I->wait(2);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
@@ -3785,7 +4659,8 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
     }
     
     /**
@@ -3797,17 +4672,15 @@ class AllMeasuresReportsCest
     public function CompleteMeasure2_Business2(AcceptanceTester $I) {
         $measDesc = $this->measure2Desc;
         $this->savingMeas2_Annual_ThermsArea_Bus2 = $this->employeesCount2 * $this->globVariableValue;
-        $this->savingMeas2_Daily_ThermsArea_Bus2  = round(($this->savingMeas2_Annual_ThermsArea_Bus2 / 365), 14);
-        $this->savingMeas2_Annual_EnergySavedArea_Bus2 = round(($this->employeesCount2 / $this->globVariableValue),7);
-        $this->savingMeas2_Daily_EnergySavedArea_Bus2  = round((($this->employeesCount2 / $this->globVariableValue) / 365), 10);
+        $this->savingMeas2_Daily_ThermsArea_Bus2  = round(($this->savingMeas2_Annual_ThermsArea_Bus2 / 365), 15);
+        $this->savingMeas2_Annual_EnergySavedArea_Bus2 = round(($this->employeesCount2 / $this->globVariableValue),11);
+        $this->savingMeas2_Daily_EnergySavedArea_Bus2  = round((($this->employeesCount2 / $this->globVariableValue) / 365), 13);
         $this->savingMeas2_Annual_FuelSavedArea_Bus2 = "240"; // 120 + 120 = 240; //$this->employeesCount2 + $this->employeesCount2;
-        $this->savingMeas2_Daily_FuelSavedArea_Bus2  = "0.657534246575"; // round( 240 / 365 ) = 0.657534246575; //round(($this->savingMeas2_Annual_Area4 / 365), 11);
+        $this->savingMeas2_Daily_FuelSavedArea_Bus2  = "0.65753424657534"; // round( 240 / 365 ) = 0.657534246575; //round(($this->savingMeas2_Annual_Area4 / 365), 11);
         
                 
-        $I->wait(1);
         $I->comment("Complete Measure2 and save.");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
         $I->wait(2);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
@@ -3815,7 +4688,8 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
     }
     
     /**
@@ -3826,13 +4700,11 @@ class AllMeasuresReportsCest
     
     public function CompleteMeasure5_Business2(AcceptanceTester $I) {
         $measDesc = $this->measure5Desc;
-        $this->savingMeas5_Annual_EnergySavedArea_Bus2 = "2083.19995117"; // 
-        $this->savingMeas5_Daily_EnergySavedArea_Bus2  = "5.7073971265"; // 
+        $this->savingMeas5_Annual_EnergySavedArea_Bus2 = "2083.1999511719"; // 
+        $this->savingMeas5_Daily_EnergySavedArea_Bus2  = "5.7073971264983"; // 
                 
-        $I->wait(1);
         $I->comment("Complete Measure5 and save.");
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]"], $style = 'visibility');
         $I->wait(3);
         $I->scrollTo("[data-measure-id='$this->idMeasure5']");
@@ -3853,7 +4725,8 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
     }
     
     /**
@@ -3866,50 +4739,49 @@ class AllMeasuresReportsCest
         $measDesc = $this->measure6Desc;
         $before   = 'before';
         $after    = 'after';
-        $this->savingMeas6_Annual_SolidWasteDivertedArea_Bus2 = "5709978.14587"; // 
-        $this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2  = "15643.7757421"; //
+        $this->savingMeas6_Annual_SolidWasteDivertedArea_Bus2 = "1147.9189828236"; // 
+        $this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2  = "3.1449835145852"; //
         
-        $I->wait(1);
+        
         $I->comment("Complete Measure6 fand save.");
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
         $I->wait(3);
         $I->scrollTo("[data-measure-id='$this->idMeasure6']");
         $I->wait(2);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
         $I->wait(3);
-        $I->makeElementVisible(["[data-measure_id=$this->idMeasure6]"], $style = 'visibility');
-        $I->wait(3);
-        $I->selectOption(\Page\RegistrationStarted::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
-        $I->wait(3);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(6);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
-        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure6']");
-        $I->wait(2);
+//        $I->makeElementVisible(["[data-measure_id=$this->idMeasure6]"], $style = 'visibility');
+//        $I->wait(3);
+        $I->click(\Page\RegistrationStarted::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '1'));
+//        $I->wait(3);
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(2);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(6);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure6']");
+//        $I->wait(2);
 //        $I->click('[Detailed Inputs Form]');
 //        $I->click("[Detailed Inputs Form]", "#");
-        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
+//        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
         $I->wait(15);
         $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CommoditySelect('1', $before), 'Cardboard');
         $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), 'CARRY BIN');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), '5 cubic yd.');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $before), '7');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '15');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '1x / month');
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$WasteDiversionPopup_AfterGBTab);
         $I->wait(2);
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $after), 'DUMPSTER');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $after), '20 gallons');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $after), '12');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '22');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '6x / week');
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('1', $after));
         $I->wait(1);
@@ -3918,7 +4790,8 @@ class AllMeasuresReportsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
     }
     
     /**
@@ -3927,11 +4800,11 @@ class AllMeasuresReportsCest
     
     public function Help_LogOut9(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsAdmin($I);
+        $I->SelectDefaultState($I, $this->state);
     }
     
     /**
@@ -3941,12 +4814,10 @@ class AllMeasuresReportsCest
     public function LogOut_And_LogInAsStateAdmin6(AcceptanceTester $I)
     {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
     }
     
     /**
@@ -3957,11 +4828,8 @@ class AllMeasuresReportsCest
     {
         $I->reloadPage();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
-        $I->wait(2);
     }
     
     /**
@@ -3971,11 +4839,7 @@ class AllMeasuresReportsCest
      */
     
     public function Help_GoToBusinessViewPage_GetBusiness2Id(AcceptanceTester $I){
-        $I->wait(1);
-        $I->SelectDefaultState($I, $this->state);
-        $I->wait(1);
         $I->amOnPage(Page\Dashboard::URL());
-        $I->wait(2);
         $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2), 'href');
         $I->comment("Url1: $url1");
         $u1 = explode('=', $url1);
@@ -3992,9 +4856,7 @@ class AllMeasuresReportsCest
     public function ChangeBusiness2StatusToRecognized(AcceptanceTester $I){
         $status = \Page\BusinessChecklistView::RecognizedStatus;
         
-        $I->wait(1);
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business2));
-        $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(4);
     }
@@ -4009,9 +4871,7 @@ class AllMeasuresReportsCest
         $Recog            = strtotime("-120 day", strtotime($this->todayDate));
         $recognitionDate  = date("m/d/Y", $Recog);
         
-        $I->wait(1);
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->id_business2));
-        $I->wait(2);
         $I->fillField(\Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$SaveDateButton_BusinessInfoTab);
@@ -4026,34 +4886,33 @@ class AllMeasuresReportsCest
     
     public function CreateReport4_BySavingAreas_(Step\Acceptance\Report $I) {
         $Start            = strtotime("-230 day", strtotime($this->todayDate));
-        $startDate        = date("m-d-Y", $Start);
-        $endDate          = date("m-d-Y", $this->todayDate);
+        $End              = strtotime($this->todayDate);
+        $startDate        = date("Y-m-d", $Start);
+        $endDate          = date("Y-m-d", $End);
         
         
-        $savingMeas1_Therms                      = number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121)));
-        $savingMeas2_Therms                      = number_format(round($this->savingMeas2_Daily_ThermsArea_Bus2 * 121));
-        $savingMeas2_EnergySaved                 = number_format(round($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121));
-        $savingMeas2_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121));
-        $savingMeas3_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21));
-        $savingMeas4_Therms                      = number_format(round($this->savingMeas4_Daily_ThermsArea_Bus1 * 21));
-        $savingMeas5_EnergySaved                 = number_format(round(($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)));
-        $savingMeas6_SolidWasteDiverted          = number_format(round(($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21) + ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121)));
+        $savingMeas1_Therms                      = number_format(abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121))));
+        $savingMeas2_Therms                      = number_format(abs(round(($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121))));
+        $savingMeas2_EnergySaved                 = number_format(abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121))));
+        $savingMeas2_FuelSaved                   = number_format(abs(round(($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121))));
+        $savingMeas3_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $savingMeas4_Therms                      = number_format(abs(round($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)));
+        $savingMeas5_EnergySaved                 = number_format(abs(round(($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121))));
+        $savingMeas6_SolidWasteDiverted          = number_format(abs(round(($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21) + ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121))));
         
-        $saving_Therms                      = number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)));
-        $saving_EnergySaved                 = number_format(round(($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)));
-        $saving_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121));
-        $saving_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21));
-        $saving_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21) + ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121));
+        $saving_Therms                      = number_format(abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121))));
+        $saving_EnergySaved                 = number_format(abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121))));
+        $saving_FuelSaved                   = number_format(abs(round(($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121))));
+        $saving_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $saving_SolidWasteDiverted          = number_format(abs(round(($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21) + ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121))));
         
-        $moneySave_Therms                      = number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)) * $this->rateMoney_ThermsArea));
-        $moneySave_EnergySaved                 = number_format(round((($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)) * $this->rateMoney_EnergySavedArea));
-        $moneySave_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121 * $this->rateMoney_FuelSavedArea));
-        $moneySave_GreenhouseGasEmissionsSaved = number_format(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea));
-        $moneySave_SolidWasteDiverted          = number_format(round((($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)+ ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121)) * $this->rateMoney_SolidWasteDivertedArea));
+        $moneySave_Therms                      = number_format(abs(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)) * $this->rateMoney_ThermsArea)));
+        $moneySave_EnergySaved                 = number_format(abs(round((($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)) * $this->rateMoney_EnergySavedArea)));
+        $moneySave_FuelSaved                   = number_format(abs(round((($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121)) * $this->rateMoney_FuelSavedArea)));
+        $moneySave_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea)));
+        $moneySave_SolidWasteDiverted          = number_format(abs(round((($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)+ ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121)) * $this->rateMoney_SolidWasteDivertedArea)));
         
-        $I->wait(2);
         $I->amOnPage(\Page\ReportCreate::URL());
-        $I->wait(2);
         $I->click(Page\ReportCreate::$Individual_RadioLabel);
         $I->wait(5);
         $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
@@ -4063,41 +4922,42 @@ class AllMeasuresReportsCest
         $I->scrollTo(Page\ReportCreate::$NextStepButton);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-3]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-4]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-5]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-6]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-7]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=configure-step-8]", 150);
-        $I->wait(2);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement("form[action=build-from-config]", 150);
-        $I->wait(2);
         $I->fillField(\Page\ReportCreate::$StartDateField, $startDate);
         $I->wait(1);
         $I->click(Page\ReportCreate::$NextStepButton);
-        $I->wait(9);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee('2', Page\ReportResult::$CertifiedBusinessesInfo);
         $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
         $I->canSee($startDate, Page\ReportResult::$DateRangeStartInfo);
-        $I->canSee($this->todayDate, Page\ReportResult::$DateRangeEndInfo);
+        $I->canSee($endDate, Page\ReportResult::$DateRangeEndInfo);
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure2));
         $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure3));
@@ -4151,6 +5011,7 @@ class AllMeasuresReportsCest
         
         $I->click(\Page\ReportResult::$GraphicViewTab);
         $I->wait(1);
+        $I->waitPageLoad();
         $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::VOC));
         
         $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::Therms));
@@ -4187,10 +5048,9 @@ class AllMeasuresReportsCest
     
     public function Help_LogOut71(AcceptanceTester $I) {
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->LogIn_TRUEorFALSE($I);
-        $I->wait(2);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->email2, $this->password, $I, 'user');
     }
     
@@ -4201,9 +5061,7 @@ class AllMeasuresReportsCest
      */
     
     public function SubmitBusiness2_ReviewAndSubmitPage(AcceptanceTester $I) {
-        $I->wait(2);
         $I->amOnPage(\Page\ReviewAndSubmit::$URL);
-        $I->wait(2);
         $I->scrollTo(Page\ReviewAndSubmit::$SubmitMyApplicationButton);
         $I->wait(1);
         $I->click(Page\ReviewAndSubmit::$SubmitMyApplicationButton);
@@ -4219,26 +5077,28 @@ class AllMeasuresReportsCest
      */
     
     public function CheckOnMyReportCardPage3_Business2(\Step\Acceptance\Report $I) {
-        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Annual_ThermsArea_Bus2 + $this->savingMeas2_Annual_ThermsArea_Bus2).' '.$this->units_ThermsArea);
-        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas2_Annual_EnergySavedArea_Bus2 + $this->savingMeas5_Annual_EnergySavedArea_Bus2).' '.$this->units_EnergySavedArea);
-        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Annual_FuelSavedArea_Bus2).' '.$this->units_FuelSavedArea);
-        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus2).' '.$this->units_SolidWasteDivertedArea);
+        $areaSum_Therms                      = trim(abs(number_format($this->savingMeas1_Annual_ThermsArea_Bus2 + $this->savingMeas2_Annual_ThermsArea_Bus2).' '.$this->units_ThermsArea));
+        $areaSum_EnergySaved                 = trim(abs(number_format($this->savingMeas2_Annual_EnergySavedArea_Bus2 + $this->savingMeas5_Annual_EnergySavedArea_Bus2).' '.$this->units_EnergySavedArea));
+        $areaSum_FuelSaved                   = trim(abs(number_format($this->savingMeas2_Annual_FuelSavedArea_Bus2).' '.$this->units_FuelSavedArea));
+        $areaSum_SolidWasteDiverted          = trim(abs(number_format($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus2).' '.$this->units_SolidWasteDivertedArea));
         
-        $saving_Therms                      = number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)));
-        $saving_EnergySaved                 = number_format(round(($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)));
-        $saving_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121));
-        $saving_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121));
+        $saving_Therms                      = number_format(abs(round(($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121))));
+        $saving_EnergySaved                 = number_format(abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121))));
+        $saving_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121)));
+        $saving_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121)));
         
-        $moneySave_Therms                      = number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)) * $this->rateMoney_ThermsArea));
-        $moneySave_EnergySaved                 = number_format(round((($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121)  + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)) * $this->rateMoney_EnergySavedArea));
-        $moneySave_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121 * $this->rateMoney_FuelSavedArea));
-        $moneySave_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121 * $this->rateMoney_SolidWasteDivertedArea));
+        $moneySave_Therms                      = number_format(abs(round((($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)) * $this->rateMoney_ThermsArea)));
+        $moneySave_EnergySaved                 = number_format(abs(round((($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121)  + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)) * $this->rateMoney_EnergySavedArea)));
+        $moneySave_FuelSaved                   = number_format(abs(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121 * $this->rateMoney_FuelSavedArea)));
+        $moneySave_SolidWasteDiverted          = number_format(abs(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121 * $this->rateMoney_SolidWasteDivertedArea)));
+        
+        $Recog            = strtotime("-120 day", strtotime($this->todayDate));
+        $recognitionDate  = date("m/d/Y", $Recog);
         
         $I->amOnPage(Page\MyReportCard::$URL_ReportTab);
-        $I->wait(2);
         $I->canSee($this->program1, Page\MyReportCard::ProgramLine('1'));
         $I->canSee(\Page\SectorList::DefaultSectorOfficeRetail, Page\MyReportCard::SectorLine('1'));
-        $I->canSee($this->todayDate, Page\MyReportCard::EnrollmentDayLine('1'));
+        $I->canSee($recognitionDate, Page\MyReportCard::EnrollmentDayLine('1'));
         //
         $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::Therms));
         $I->canSee($areaSum_Therms, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::Therms));
@@ -4263,7 +5123,6 @@ class AllMeasuresReportsCest
         $I->canSee("$$moneySave_SolidWasteDiverted", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::SolidWasteDiverted));
         
         $I->amOnPage(Page\MyReportCard::$URL_VisualScoreboardTab);
-        $I->wait(2);
         //
         $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::Therms));
         $I->canSee(\Page\SavingAreaList::Therms, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::Therms));
@@ -4289,4 +5148,578 @@ class AllMeasuresReportsCest
         $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_SolidWasteDiverted, Page\MyReportCard::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::SolidWasteDiverted));
     }
     
+    
+    
+    /**
+     * @group admin
+     * @group coordinator
+     */
+    
+    public function Help_LogOut10(AcceptanceTester $I) {
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function LogOut_And_LogInAsStateAdmin7(AcceptanceTester $I)
+    {
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Measure1Update_AddFormulaForEnergySaved_Area2(\Step\Acceptance\Measure $I) {
+        $number    = '2';
+        $variable1 = 'question1';
+        $variable2 = 'question2';
+        $variable3 = "Employees number";
+        
+        $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure1));
+        //-----------------------Energy Saved Area------------------------------
+        $I->click(Page\MeasureUpdate::$ManageFormulasButton);
+        $I->wait(7);
+        $I->waitForText("Measure Formulas", 150, \Page\MeasureFormulasPopup::$Title);
+//        $I->canSeeElement(\Page\MeasureFormulasPopup::$PopupForm);
+        $I->wait(4);
+        $I->click(\Page\MeasureFormulasPopup::$AddSavingAreaButton);
+        $I->wait(9);
+        $I->selectOption(\Page\MeasureFormulasPopup::$SavingAreaSelect, \Page\SavingAreaList::EnergySaved);
+        $I->wait(3);
+        $I->click(\Page\MeasureFormulasPopup::$AddButton);
+        $I->wait(6);
+        $I->reloadPage();
+        $I->wait(6);
+        $I->click(\Page\MeasureUpdate::$ManageFormulasButton);
+        $I->wait(6);
+        $I->waitForText("Measure Formulas", 150, \Page\MeasureFormulasPopup::$Title);
+        $I->wait(2);
+        $I->canSee(\Page\SavingAreaList::EnergySaved, \Page\MeasureFormulasPopup::AreaLine($number));
+        $I->click(\Page\MeasureFormulasPopup::EditFormulaButtonLine($number));
+        $I->wait(5);
+        $I->canSeeElement(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable1));
+        $I->canSeeElement(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable2));
+        $I->canSeeElement(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable3));
+        $valVariable1 = $I->grabAttributeFrom(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable1), 'data-val');
+        $valVariable2 = $I->grabAttributeFrom(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable2), 'data-val');
+        $valVariable3 = $I->grabAttributeFrom(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable3), 'data-val');
+        $I->click(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable1));
+        $I->click(Page\MeasureFormulasPopup::DivideToolLinkLine($number));
+        $I->click(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable2));
+        $I->click(Page\MeasureFormulasPopup::PlusToolLinkLine($number));
+        $I->click(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable3));
+        $I->canSeeInField(Page\MeasureFormulasPopup::FormulaFieldLine($number), "$valVariable1/ $valVariable2+ $valVariable3");
+        $I->click(Page\MeasureFormulasPopup::SaveFormulaButtonLine($number));
+        $I->wait(60);
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSee("$valVariable1/ $valVariable2+ $valVariable3", Page\MeasureUpdate::FormulaForSavingArea(\Page\SavingAreaList::EnergySaved));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Measure2Update_UpdateFormulaForThermsArea_Area1(\Step\Acceptance\Measure $I) {
+        $number    = '1';
+        $variable1 = $this->globVariableTitle;
+        $variable2 = 'Employees number';
+        $variable3 = $this->globVariableTitle;
+        
+        $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure2));
+//        $I->wait(4);
+        //--------------------------Therms Area---------------------------------
+        $I->click(Page\MeasureUpdate::$ManageFormulasButton);
+        $I->wait(7);
+        $I->waitForText("Measure Formulas", 150, \Page\MeasureFormulasPopup::$Title);
+//        $I->canSeeElement(\Page\MeasureFormulasPopup::$PopupForm);
+        $I->wait(4);
+        $I->click(\Page\MeasureFormulasPopup::EditFormulaButtonLine($number));
+        $I->wait(5);
+        $valVariable1 = $I->grabAttributeFrom(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable1), 'data-val');
+        $valVariable2 = $I->grabAttributeFrom(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable2), 'data-val');
+        $valVariable3 = $I->grabAttributeFrom(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable3), 'data-val');
+        $I->clearField(Page\MeasureFormulasPopup::FormulaFieldLine($number));
+        $I->wait(2);
+        $I->click(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable1));
+        $I->click(Page\MeasureFormulasPopup::MultiplyToolLinkLine($number));
+        $I->click(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable2));
+        $I->click(Page\MeasureFormulasPopup::PlusToolLinkLine($number));
+        $I->click(Page\MeasureFormulasPopup::VariableOptToolLinkLine_ByVariableName($number, $variable3));
+        $I->canSeeInField(Page\MeasureFormulasPopup::FormulaFieldLine($number), "$valVariable1* $valVariable2+ $valVariable3");
+        $I->click(Page\MeasureFormulasPopup::SaveFormulaButtonLine($number));
+        $I->wait(60);
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSee("$valVariable1* $valVariable2+ $valVariable3", Page\MeasureUpdate::FormulaForSavingArea(\Page\SavingAreaList::Therms));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Measure3Update_UpdateGlobalVariablesToOptions_MeasureFormula(\Step\Acceptance\Measure $I) {
+        $questions      = ['What?', "Where?", "Who?"];
+        $answers        = ['Grey', 'Green', 'Red'];
+        
+        $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure3));
+//        $I->wait(4);
+        $I->click(Page\MeasureUpdate::$ManageFormulasButton);
+        $I->wait(6);
+        $I->waitForText("Measure Formulas", 100, \Page\MeasureFormulasPopup::$Title);
+//        $I->canSeeElement(\Page\MeasureFormulasPopup::$PopupForm);
+        $I->wait(2);
+        $I->selectOption(\Page\MeasureFormulasPopup::GlobalVariableSelectLine_ByQuestionAndNumber($questions[1], $answers[1]), $this->globVariableTitle);
+        $I->selectOption(\Page\MeasureFormulasPopup::GlobalVariableSelectLine_ByQuestionAndNumber($questions[0], $answers[2]), "Select...");
+        $I->selectOption(\Page\MeasureFormulasPopup::GlobalVariableSelectLine_ByQuestionAndNumber($questions[1], $answers[0]), "Select...");
+        $I->selectOption(\Page\MeasureFormulasPopup::GlobalVariableSelectLine_ByQuestionAndNumber($questions[2], $answers[0]), "Select...");
+        $I->selectOption(\Page\MeasureFormulasPopup::GlobalVariableSelectLine_ByQuestionAndNumber($questions[2], $answers[1]), "Select...");
+        $I->click(Page\MeasureFormulasPopup::$SaveButton);
+        $I->wait(60);
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSee("You have to select Global Variables for next combination Question and Option", Page\MeasureUpdate::$FormulasAlert_MultipleQuestionAndNumber);
+        
+        $I->canSee("$questions[0] - $answers[2]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+        $I->canSee("$questions[1] - $answers[0]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+        $I->canSee("$questions[1] - $answers[2]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+        $I->canSee("$questions[2] - $answers[0]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+        $I->canSee("$questions[2] - $answers[1]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+        
+        $I->cantSee("$questions[0] - $answers[0]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+        $I->cantSee("$questions[0] - $answers[1]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+        $I->cantSee("$questions[1] - $answers[1]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+        $I->cantSee("$questions[2] - $answers[2]", Page\MeasureUpdate::$FormulasAllertOption_MultipleQuestionAndNumber);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdatingMeasure1_SavingsVariables(AcceptanceTester $I) {
+        $this->savingMeas1_Annual_EnergyArea_Bus2 = '120.30769230769';//$valVariable1/ $valVariable2+ $valVariable3 100/325+120 = 39100; //325 + 100 * $this->employeesCount2;
+        $this->savingMeas1_Daily_EnergyArea_Bus2 = '0.32961011591149'; // round( 39100 /365 ) = 107.1232876712; //round(($this->savingMeas1_Annual_Area1 / 365), 10);
+        $this->savingMeas1_Annual_EnergyArea_Bus1 = '455.5';//11/22+455 = 39100; //325 + 100 * $this->employeesCount2;
+        $this->savingMeas1_Daily_EnergyArea_Bus1 = '1.2479452054795'; // round( 39100 /365 ) = 107.1232876712; //round(($this->savingMeas1_Annual_Area1 / 365), 10);
+//        
+//        $this->savingMeas1_Annual_ThermsArea_Bus1 = "10021"; //11+22*455 = 10021; //11 + 22 * $this->employeesCount;
+//        $this->savingMeas1_Daily_ThermsArea_Bus1  = "27.4547945205"; // round( 10021 /365 ) = 27.4547945205; //round(($this->savingMeas1_Annual_Area1 / 365), 10);
+        
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdatingMeasure2_SavingsVariables(AcceptanceTester $I) {
+        $this->savingMeas2_Annual_ThermsArea_Bus1 = $this->globVariableValue * $this->employeesCount1 + $this->globVariableValue;
+        $this->savingMeas2_Daily_ThermsArea_Bus1  = round(($this->savingMeas2_Annual_ThermsArea_Bus1 / 365), 14);
+        $this->savingMeas2_Annual_ThermsArea_Bus2 = $this->globVariableValue * $this->employeesCount2 + $this->globVariableValue;
+        $this->savingMeas2_Daily_ThermsArea_Bus2  = round(($this->savingMeas2_Annual_ThermsArea_Bus2 / 365), 15);
+        
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdatingMeasure3_SavingsVariables(AcceptanceTester $I) {
+        $this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1  = "0.850413"; // 0 + 5*0.1700826 + 0 = 0.850413; 
+        $this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1   = "0.002329898630137"; // round( 0.850413 /365 ) = 0.002329898630137;
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsCoordinator7(AcceptanceTester $I)
+    {
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CreateReport4_BySavingAreas__AfterFormulasUpdating(Step\Acceptance\Report $I) {
+        $Start            = strtotime("-230 day", strtotime($this->todayDate));
+        $End              = strtotime($this->todayDate);
+        $startDate        = date("Y-m-d", $Start);
+        $endDate          = date("Y-m-d", $End);
+        
+        $savingMeas1_Therms                      = number_format(abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121))));
+        $savingMeas1_EnergySaved                 = number_format(abs(round(($this->savingMeas1_Daily_EnergyArea_Bus1 * 21) + ($this->savingMeas1_Daily_EnergyArea_Bus2 * 121))));
+        $savingMeas2_Therms                      = number_format(abs(round(($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121))));
+        $savingMeas2_EnergySaved                 = number_format(abs(round(($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121))));
+        $savingMeas2_FuelSaved                   = number_format(abs(round(($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121))));
+        $savingMeas3_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $savingMeas4_Therms                      = number_format(abs(round($this->savingMeas4_Daily_ThermsArea_Bus1 * 21)));
+        $savingMeas5_EnergySaved                 = number_format(abs(round(($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121))));
+        $savingMeas6_SolidWasteDiverted          = number_format(abs(round(($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21) + ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121))));
+        
+        $saving_Therms                      = number_format(abs(round(($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121))));
+        $saving_EnergySaved                 = number_format(abs(round(($this->savingMeas1_Daily_EnergyArea_Bus1 * 21) + ($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas1_Daily_EnergyArea_Bus2 * 121) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121))));
+        $saving_FuelSaved                   = number_format(abs(round(($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121))));
+        $saving_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21)));
+        $saving_SolidWasteDiverted          = number_format(abs(round(($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21) + ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121))));
+        
+        $moneySave_Therms                      = number_format(abs(round((($this->savingMeas1_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas2_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas4_Daily_ThermsArea_Bus1 * 21) + ($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)) * $this->rateMoney_ThermsArea)));
+        $moneySave_EnergySaved                 = number_format(abs(round((($this->savingMeas1_Daily_EnergyArea_Bus1 * 21) + ($this->savingMeas2_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas5_Daily_EnergySavedArea_Bus1 * 21) + ($this->savingMeas1_Daily_EnergyArea_Bus2 * 121) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)) * $this->rateMoney_EnergySavedArea)));
+        $moneySave_FuelSaved                   = number_format(abs(round((($this->savingMeas2_Daily_FuelSavedArea_Bus1 * 21) + ($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121)) * $this->rateMoney_FuelSavedArea)));
+        $moneySave_GreenhouseGasEmissionsSaved = number_format(abs(round($this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 * 21 * $this->rateMoney_GreenhouseGasEmissionsSavedArea)));
+        $moneySave_SolidWasteDiverted          = number_format(abs(round((($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus1 * 21)+ ($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121)) * $this->rateMoney_SolidWasteDivertedArea)));
+        
+//        $I->wait(2);
+        $I->amOnPage(\Page\ReportCreate::URL());
+//        $I->wait(2);
+        $I->click(Page\ReportCreate::$Individual_RadioLabel);
+        $I->wait(5);
+        $I->scrollTo(Page\ReportCreate::IndividualOptionLabel($this->state));
+        $I->wait(1);
+        $I->click(Page\ReportCreate::IndividualOptionLabel($this->state));
+        $I->wait(2);
+        $I->scrollTo(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-3]", 150);
+//        $I->wait(2);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-4]", 150);
+//        $I->wait(2);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-5]", 150);
+//        $I->wait(2);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-6]", 150);
+//        $I->wait(2);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-7]", 150);
+//        $I->wait(2);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=configure-step-8]", 150);
+//        $I->wait(2);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->waitForElement("form[action=build-from-config]", 150);
+//        $I->wait(2);
+        $I->fillField(\Page\ReportCreate::$StartDateField, $startDate);
+        $I->wait(1);
+        $I->click(Page\ReportCreate::$NextStepButton);
+        $I->wait(3);
+        $I->waitPageLoad();
+        $I->canSee('2', Page\ReportResult::$CertifiedBusinessesInfo);
+        $I->canSeeElement(Page\ReportResult::StateInfo_ByName($this->state));
+        $I->canSee($startDate, Page\ReportResult::$DateRangeStartInfo);
+        $I->canSee($endDate, Page\ReportResult::$DateRangeEndInfo);
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure1));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure2));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure3));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure4));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure5));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure6));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure7));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure8));
+        $I->cantSeeElement(Page\ReportResult::MeasuresInfo_ById($this->idMeasure9));
+        $I->canSeeElement(Page\ReportResult::AuditSubGroup_ByName(Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy));
+        $I->cantSeeElement(Page\ReportResult::AuditSubGroup_ByName(Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste));
+        $I->canSeeElement(Page\ReportResult::Program_ByName($this->program1));
+        
+        $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure1));
+        $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure2));
+        $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure3));
+        $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure4));
+        $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure5));
+        $I->canSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure6));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure7));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure8));
+        $I->cantSeeElement(Page\ReportResult::MeasureIdLine($this->idMeasure9));
+        
+        $number_Therms = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::Therms);
+        $I->canSee($saving_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure("Total", $number_Therms));
+        
+        $I->canSee($savingMeas1_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure1, $number_Therms));
+        $I->canSee($savingMeas2_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_Therms));
+        $I->canSee($savingMeas4_Therms." $this->shortUnits_ThermsArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure4, $number_Therms));
+        
+        $number_EnergySaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::EnergySaved);
+        $I->canSee($saving_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_EnergySaved));
+        
+        $I->canSee($savingMeas1_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure1, $number_EnergySaved));
+        $I->canSee($savingMeas2_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_EnergySaved));
+        $I->canSee($savingMeas5_EnergySaved." $this->shortUnits_EnergySavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure5, $number_EnergySaved));
+        
+        $number_FuelSaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::FuelSaved);
+        $I->canSee($saving_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_FuelSaved));
+        
+        $I->canSee($savingMeas2_FuelSaved." $this->shortUnits_FuelSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure2, $number_FuelSaved));
+        
+        $number_GreenhouseGasEmissionsSaved = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::GreenhouseGasEmissionsSaved);
+        $I->canSee($saving_GreenhouseGasEmissionsSaved." $this->shortUnits_GreenhouseGasEmissionsSavedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_GreenhouseGasEmissionsSaved));
+        
+        $I->canSee($savingMeas3_GreenhouseGasEmissionsSaved." $this->shortUnits_GreenhouseGasEmissionsSavedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure3, $number_GreenhouseGasEmissionsSaved));
+        
+        $number_SolidWasteDiverted = $I->GetSavingAreaNumberInTable(\Page\SavingAreaList::SolidWasteDiverted);
+        $I->canSee($saving_SolidWasteDiverted." $this->shortUnits_SolidWasteDivertedArea", Page\ReportResult::SavingResultForMeasure("Total", $number_SolidWasteDiverted));
+        
+        $I->canSee($savingMeas6_SolidWasteDiverted." $this->shortUnits_SolidWasteDivertedArea", Page\ReportResult::SavingResultForMeasure($this->idMeasure6, $number_SolidWasteDiverted));
+        
+        $I->click(\Page\ReportResult::$GraphicViewTab);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->cantSeeElement(\Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::VOC));
+        
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::Therms));
+        $I->canSee(\Page\SavingAreaList::Therms, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::Therms));
+        $I->canSee("$saving_Therms", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::Therms));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_Therms, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::Therms));
+        
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::EnergySaved));
+        $I->canSee(\Page\SavingAreaList::EnergySaved, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::EnergySaved));
+        $I->canSee("$saving_EnergySaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::EnergySaved));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_EnergySaved, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::EnergySaved));
+        
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::FuelSaved));
+        $I->canSee(\Page\SavingAreaList::FuelSaved, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$saving_FuelSaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::FuelSaved));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_FuelSaved, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::FuelSaved));
+        
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        $I->canSee("$saving_GreenhouseGasEmissionsSaved", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_GreenhouseGasEmissionsSaved, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        
+        $I->canSeeElement(Page\ReportResult::SavingAreaBlock(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted, Page\ReportResult::SavingAreaBlock_Title(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->canSee("$saving_SolidWasteDiverted", Page\ReportResult::SavingAreaBlock_SavedValue(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_SolidWasteDiverted, Page\ReportResult::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::SolidWasteDiverted));
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function CheckMeasure1Savings_OnBusiness1View(AcceptanceTester $I) {
+        $measDesc                       = $this->measure1Desc;
+        
+//        $I->wait(2);
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
+//        $I->wait(3);
+        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->comment("Savings: $saving");
+        $I->comment("Expected savings':\nannual: $this->savingMeas1_Annual_ThermsArea_Bus1 $this->units_ThermsArea'");
+        $I->comment("daily: $this->savingMeas1_Daily_ThermsArea_Bus1 $this->units_ThermsArea'");
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: $this->savingMeas1_Annual_ThermsArea_Bus1 $this->units_ThermsArea\ndaily: $this->savingMeas1_Daily_ThermsArea_Bus1 $this->units_ThermsArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: $this->savingMeas1_Annual_EnergyArea_Bus1 $this->units_EnergySavedArea\ndaily: $this->savingMeas1_Daily_EnergyArea_Bus1 $this->units_EnergySavedArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function CheckMeasure2Savings_OnBusiness1View(AcceptanceTester $I) {
+        $measDesc                 = $this->measure2Desc;
+        
+//        $I->wait(2);
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
+//        $I->wait(2);
+        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->comment("Savings: $saving");
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: $this->savingMeas2_Annual_ThermsArea_Bus1 $this->units_ThermsArea\ndaily: $this->savingMeas2_Daily_ThermsArea_Bus1 $this->units_ThermsArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: $this->savingMeas2_Annual_EnergySavedArea_Bus1 $this->units_EnergySavedArea\ndaily: $this->savingMeas2_Daily_EnergySavedArea_Bus1 $this->units_EnergySavedArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: $this->savingMeas2_Annual_FuelSavedArea_Bus1 $this->units_FuelSavedArea\ndaily: $this->savingMeas2_Daily_FuelSavedArea_Bus1 $this->units_FuelSavedArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function CheckMeasure3Savings_OnBusiness1View(AcceptanceTester $I) {
+        $measDesc                       = $this->measure3Desc;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
+        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->comment("Savings: $saving");
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: $this->savingMeas3_Annual_GreenhouseGasEmissionsSavedArea_Bus1 $this->units_GreenhouseGasEmissionsSavedArea\ndaily: $this->savingMeas3_Daily_GreenhouseGasEmissionsSavedArea_Bus1 $this->units_GreenhouseGasEmissionsSavedArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function CheckMeasure1Savings_OnBusiness2View(AcceptanceTester $I) {
+        $measDesc                       = $this->measure1Desc;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2, $this->id_audSubgroup1_Energy));
+        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->comment("Savings: $saving");
+        $I->comment("Expected savings':\nannual: $this->savingMeas1_Annual_ThermsArea_Bus2 $this->units_ThermsArea'");
+        $I->comment("daily: $this->savingMeas1_Daily_ThermsArea_Bus2 $this->units_ThermsArea'");
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: $this->savingMeas1_Annual_ThermsArea_Bus2 $this->units_ThermsArea\ndaily: $this->savingMeas1_Daily_ThermsArea_Bus2 $this->units_ThermsArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: $this->savingMeas1_Annual_EnergyArea_Bus2 $this->units_EnergySavedArea\ndaily: $this->savingMeas1_Daily_EnergyArea_Bus2 $this->units_EnergySavedArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function CheckMeasure2Savings_OnBusiness2View(AcceptanceTester $I) {
+        $measDesc                 = $this->measure2Desc;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2, $this->id_audSubgroup1_Energy));
+        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->comment("Savings: $saving");
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: $this->savingMeas2_Annual_ThermsArea_Bus2 $this->units_ThermsArea\ndaily: $this->savingMeas2_Daily_ThermsArea_Bus2 $this->units_ThermsArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: $this->savingMeas2_Annual_EnergySavedArea_Bus2 $this->units_EnergySavedArea\ndaily: $this->savingMeas2_Daily_EnergySavedArea_Bus2 $this->units_EnergySavedArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: $this->savingMeas2_Annual_FuelSavedArea_Bus2 $this->units_FuelSavedArea\ndaily: $this->savingMeas2_Daily_FuelSavedArea_Bus2 $this->units_FuelSavedArea", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function CheckMeasure3Savings_OnBusiness2View(AcceptanceTester $I) {
+        $measDesc                       = $this->measure3Desc;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2, $this->id_audSubgroup1_Energy));
+        $I->cantSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_LogOut71_AfterFormulasUpdating(AcceptanceTester $I) {
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email2, $this->password, $I, 'user');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckOnMyReportCardPage3_Business2_AfterFormulasUpdating(\Step\Acceptance\Report $I) {
+        $areaSum_Therms                      = trim(number_format($this->savingMeas1_Annual_ThermsArea_Bus2 + $this->savingMeas2_Annual_ThermsArea_Bus2).' '.$this->units_ThermsArea);
+        $areaSum_EnergySaved                 = trim(number_format($this->savingMeas1_Annual_EnergyArea_Bus2 + $this->savingMeas2_Annual_EnergySavedArea_Bus2 + $this->savingMeas5_Annual_EnergySavedArea_Bus2).' '.$this->units_EnergySavedArea);
+        $areaSum_FuelSaved                   = trim(number_format($this->savingMeas2_Annual_FuelSavedArea_Bus2).' '.$this->units_FuelSavedArea);
+        $areaSum_SolidWasteDiverted          = trim(number_format($this->savingMeas6_Annual_SolidWasteDivertedArea_Bus2).' '.$this->units_SolidWasteDivertedArea);
+        
+        $saving_Therms                      = number_format(round(($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)));
+        $saving_EnergySaved                 = number_format(round(($this->savingMeas1_Daily_EnergyArea_Bus2 * 121) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121) + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)));
+        $saving_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121));
+        $saving_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121));
+        
+        $moneySave_Therms                      = number_format(round((($this->savingMeas1_Daily_ThermsArea_Bus2 * 121) + ($this->savingMeas2_Daily_ThermsArea_Bus2 * 121)) * $this->rateMoney_ThermsArea));
+        $moneySave_EnergySaved                 = number_format(round((($this->savingMeas1_Daily_EnergyArea_Bus2 * 121) + ($this->savingMeas2_Daily_EnergySavedArea_Bus2 * 121)  + ($this->savingMeas5_Daily_EnergySavedArea_Bus2 * 121)) * $this->rateMoney_EnergySavedArea));
+        $moneySave_FuelSaved                   = number_format(round($this->savingMeas2_Daily_FuelSavedArea_Bus2 * 121 * $this->rateMoney_FuelSavedArea));
+        $moneySave_SolidWasteDiverted          = number_format(round($this->savingMeas6_Daily_SolidWasteDivertedArea_Bus2 * 121 * $this->rateMoney_SolidWasteDivertedArea));
+        
+        $Recog            = strtotime("-120 day", strtotime($this->todayDate));
+        $recognitionDate  = date("m/d/Y", $Recog);
+        
+        $I->amOnPage(Page\MyReportCard::$URL_ReportTab);
+        $I->canSee($this->program1, Page\MyReportCard::ProgramLine('1'));
+        $I->canSee(\Page\SectorList::DefaultSectorOfficeRetail, Page\MyReportCard::SectorLine('1'));
+        $I->canSee($recognitionDate, Page\MyReportCard::EnrollmentDayLine('1'));
+        //
+        $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::Therms));
+        $I->canSee($areaSum_Therms, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::Therms));
+        $I->canSee("$saving_Therms $this->units_ThermsArea", Page\MyReportCard::SinceEnrollmentLine(\Page\SavingAreaList::Therms));
+        $I->canSee("$$moneySave_Therms", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::Therms));
+        
+        $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::EnergySaved));
+        $I->canSee($areaSum_EnergySaved, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::EnergySaved));
+        $I->canSee("$saving_EnergySaved $this->units_EnergySavedArea", Page\MyReportCard::SinceEnrollmentLine(\Page\SavingAreaList::EnergySaved));
+        $I->canSee("$$moneySave_EnergySaved", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::EnergySaved));
+        
+        $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::FuelSaved));
+        $I->canSee($areaSum_FuelSaved, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$saving_FuelSaved $this->units_FuelSavedArea", Page\MyReportCard::SinceEnrollmentLine(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$$moneySave_FuelSaved", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::FuelSaved));
+        
+        $I->cantSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        
+        $I->canSeeElement(Page\MyReportCard::SavingAreaLine(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->canSee($areaSum_SolidWasteDiverted, Page\MyReportCard::PerYearLine(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->canSee("$saving_SolidWasteDiverted $this->units_SolidWasteDivertedArea", Page\MyReportCard::SinceEnrollmentLine(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->canSee("$$moneySave_SolidWasteDiverted", Page\MyReportCard::TotalCostSavingsLine(\Page\SavingAreaList::SolidWasteDiverted));
+        
+        $I->amOnPage(Page\MyReportCard::$URL_VisualScoreboardTab);
+        //
+        $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::Therms));
+        $I->canSee(\Page\SavingAreaList::Therms, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::Therms));
+        $I->canSee("$saving_Therms", Page\MyReportCard::SavingAreaBlock_SavedValue(\Page\SavingAreaList::Therms));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_Therms, Page\MyReportCard::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::Therms));
+        
+        $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::EnergySaved));
+        $I->canSee(\Page\SavingAreaList::EnergySaved, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::EnergySaved));
+        $I->canSee("$saving_EnergySaved", Page\MyReportCard::SavingAreaBlock_SavedValue(\Page\SavingAreaList::EnergySaved));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_EnergySaved, Page\MyReportCard::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::EnergySaved));
+        
+        $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::FuelSaved));
+        $I->canSee(\Page\SavingAreaList::FuelSaved, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::FuelSaved));
+        $I->canSee("$saving_FuelSaved", Page\MyReportCard::SavingAreaBlock_SavedValue(\Page\SavingAreaList::FuelSaved));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_FuelSaved, Page\MyReportCard::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::FuelSaved));
+        
+        $I->cantSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        $I->cantSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::GreenhouseGasEmissionsSaved));
+        
+        $I->canSeeElement(Page\MyReportCard::SavingAreaBlock(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted, Page\MyReportCard::SavingAreaBlock_Title(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->canSee("$saving_SolidWasteDiverted", Page\MyReportCard::SavingAreaBlock_SavedValue(\Page\SavingAreaList::SolidWasteDiverted));
+        $I->CheckMoneySavedValueIfThatIsNotZero($moneySave_SolidWasteDiverted, Page\MyReportCard::SavingAreaBlock_SavedMoney(\Page\SavingAreaList::SolidWasteDiverted));
+    }
 }

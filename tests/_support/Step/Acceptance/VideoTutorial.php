@@ -8,8 +8,8 @@ class VideoTutorial extends \AcceptanceTester
         $I = $this;
         $I->comment("Create Video Tutorial:");
         $I->amOnPage(\Page\VideoTutorialsCreate::URL());
-        $I->wait(1);
-        $I->waitForElement(\Page\VideoTutorialsCreate::$TitleField);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\VideoTutorialsCreate::$TitleField);
         if (isset($title)){
             $I->fillField(\Page\VideoTutorialsCreate::$TitleField, $title);
         }
@@ -48,13 +48,13 @@ class VideoTutorial extends \AcceptanceTester
         $I = $this;
         $I->comment("Get Video on list. Get id, page number and row:");
         $I->amOnPage(\Page\VideoTutorialsList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\VideoTutorialsList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\VideoTutorialsList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\VideoTutorialsList::$VideoRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){

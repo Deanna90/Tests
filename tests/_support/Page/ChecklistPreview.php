@@ -53,21 +53,22 @@ class ChecklistPreview extends \AcceptanceTester
     
     
     //Checklist Preview
-    public static function MeasureDescription_ByDesc($desc)      { return "//*[@id='measures-form']//p[contains(text(), '$desc')]";}
+    public static function MeasureDescription_ByDesc($desc)      { return "//*[@id='measures-form']//div[text()[contains(., '$desc')]]";}
 //    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
     public static function MeasureGreenTip($grTip)               { return "//*[@class='short-articles link-green no-ajax'][contains(h4/text(), 'Measure')]//*[text()='$grTip']";}
-    public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//p[contains(text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
-    public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li/div/div[contains(p/text(), '$desc')]/span";}
+    public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//div[text()[contains(., '$desc')]]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
+    public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//span[contains(@class, 'margin-0')]";}
     
-    public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
-    public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//select";}
-    public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//input";}
+    public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]/div/span";}
+    public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]//select";}
+    public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]//input";}
     public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//*[@class='switch-control switch-control-2-items']";}
     public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//li[contains(div/p/text(), '$desc')]//ul/li[$row]//*[@class='switch-control switch-control-3-items']";}
     
-    public static function AuditGreenTip_ByTipDesc($grTip)              { return "//*[@class='right-column-block']//h4[text()='$grTip']/i";}
+    public static function AuditGreenTipTitle_ByTipTitle($gtTitle)      { return "//*[contains(@class, 'right-column-block margin-b-150')]//h4[text()='$gtTitle']";}
+    public static function AuditGreenTipDesc_ByTipTitle($gtTitle)       { return "//*[contains(@class, 'right-column-block margin-b-150')]//*[contains(h4/text(), '$gtTitle')]/p[2]";}
     
-    public static $CoreProgressBarInfo           = '#measures-form>div:first-of-type .progress-wrapper+span';
+    public static $CoreProgressBarInfo           = '#measures-form>div:nth-of-type(2) .progress-wrapper+span';
     public static $ElectiveProgressBarInfo       = '#measures-form>div:nth-last-of-type(3) .progress-wrapper+span';
 
     public static $CoreMeasuresTitle             = "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]";

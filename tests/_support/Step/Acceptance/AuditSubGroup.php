@@ -7,8 +7,8 @@ class AuditSubGroup extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\AuditSubgroupCreate::URL());
-        $I->wait(2);
-        $I->waitForElement(\Page\AuditSubgroupCreate::$NameField);
+//        $I->wait(2);
+//        $I->waitForElement(\Page\AuditSubgroupCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\AuditSubgroupCreate::$NameField, $name);
         }
@@ -19,20 +19,21 @@ class AuditSubGroup extends \AcceptanceTester
             $I->selectOption(\Page\AuditSubgroupCreate::$StateSelect, $state);
         }
         $I->click(\Page\AuditSubgroupCreate::$CreateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
     } 
 
     public function GetAuditSubgroupOnPageInList($name)
     {
         $I = $this;
         $I->amOnPage(\Page\AuditSubgroupList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\AuditSubgroupList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\AuditSubgroupList::UrlPageNumber($i));
-            $I->wait(2);
+//            $I->wait(2);
             $rows = $I->getAmount($I, \Page\AuditSubgroupList::$AuditSubgroupRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){

@@ -47,13 +47,13 @@ class AuditGreenTipList extends \AcceptanceTester
     public static function DeleteButtonLine($row)    { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Delete]"; }
     
     //By description value
-    public static function IdLine_ByTitleValue($title)              { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$title')]/td[1]"; }
-    public static function MeasureLine_ByTitleValue($title)         { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$title')]/td[2]"; }
-    public static function DescriptionLine_ByTitleValue($title)     { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$title')]/td[3]"; }
-    public static function StatusLine_ByTitleValue($title)          { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$title')]/td[4]"; }
-    public static function CreatedLine_ByTitleValue($title)         { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$title')]/td[5]"; }
-    public static function UpdatedLine_ByTitleValue($title)         { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$title')]/td[6]"; }
-    public static function UpdateButtonLine_ByTitleValue($title)    { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$title')]//*[@title='Update']"; }
-    public static function DeleteButtonLine_ByTitleValue($title)    { return "//table[@class='table-striped table-hover custom-table']//tbody/tr[contains(td[2]/text(), '$title')]//*[@title='Delete']"; }
+    public static function IdLine_ByTitleValue($title)              { return "//table//tbody/tr[contains(td[2]/text(), '$title')]/td[1]"; }
+    public static function MeasureLine_ByTitleValue($title)         { return "//table//tbody/tr[contains(td[2]/text(), '$title')]/td[2]"; }
+    public static function DescriptionLine_ByTitleValue($title)     { return "//table//tbody/tr[contains(td[2]/text(), '$title')]/td[3]"; }
+    public static function StatusLine_ByTitleValue($title)          { return "//table//tbody/tr[contains(td[2]/text(), '$title')]/td[4]"; }
+    public static function CreatedLine_ByTitleValue($title)         { return "//table//tbody/tr[contains(td[2]/text(), '$title')]/td[5]"; }
+    public static function UpdatedLine_ByTitleValue($title)         { return "//table//tbody/tr[contains(td[2]/text(), '$title')]/td[6]"; }
+    public static function UpdateButtonLine_ByTitleValue($title)    { return "//table//tbody/tr[contains(td[2]/text(), '$title')]//*[@title='Update']"; }
+    public static function DeleteButtonLine_ByTitleValue($title)    { return "//table//tbody/tr[contains(td[2]/text(), '$title')]//*[@title='Delete']"; }
 
 }

@@ -10,6 +10,7 @@ class ChecklistManage extends \AcceptanceTester
     public static function URL_PointsTab_ExtensionTab($id, $extension)       { return parent::$URL_UserAccess."/checklist/points?id=$id&type=tier&tab=$extension";}
     
     public static $Title                  = 'h2';
+    public static $VersionDateInfo        = '//h2/following-sibling::p';
     public static $StatusTitle            = 'h2+p>span:first-of-type';
     public static $TierTitle              = 'h2+p>span:last-of-type';
     
@@ -40,6 +41,7 @@ class ChecklistManage extends \AcceptanceTester
     public static function PublishButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Publish']";}
     public static function UnPublishButtonLine_VersionHistoryTab($row){ return "//table[@class='version-history define setup']//tr[$row]//a[text()='UnPublish']";}
     public static function ArchiveButtonLine_VersionHistoryTab($row)  { return "//table[@class='version-history define setup']//tr[$row]//a[text()='Archive']";}
+    public static function ViewButtonLine_VersionHistoryTab($row)     { return "//table[@class='version-history define setup']//tr[$row]//a[text()='View']";}
     
     //Publish All Popup
     public static $PublishAllPopup                             = '.modal.in';
@@ -69,14 +71,15 @@ class ChecklistManage extends \AcceptanceTester
     public static $MeasureExtensionHead_ManageMeasureTab  = '.title-row>th:nth-of-type(3)';
     public static $StatusHead_ManageMeasureTab            = '.title-row>th:nth-of-type(4)';
     
+    public static function Line_ManageMeasureTab($desc)                        { return "//table[@class='version-history manage small-dropdown-text']//tr[contains(td[2]/p/text(),'$desc')]";}
     public static function IdLine_ManageMeasureTab($desc)                      { return "//table[@class='version-history manage small-dropdown-text']//tr[contains(td[2]/p/text(),'$desc')]/td[1]/p";}
     public static function MeasureDescLine_ManageMeasureTab($desc)             { return "//table[@class='version-history manage small-dropdown-text']//tr[contains(td[2]/p/text(),'$desc')]/td[2]/p";}
     public static function MeasureExtensionSelectLine_ManageMeasureTab($desc)  { return "//table[@class='version-history manage small-dropdown-text']//tr[contains(td[2]/p/text(),'$desc')]/td[3]//select";}
     public static function StatusSelectLine_ManageMeasureTab($desc)            { return "//table[@class='version-history manage small-dropdown-text']//tr[contains(td[2]/p/text(),'$desc')]/td[4]//select";}
     
-    public static $TierLevelSelect_ManageMeasureTab                = '[name=id]';
+    public static $TierLevelSelect_ManageMeasureTab                = '#tier_level';
+    public static $VersionToEditSelect_ManageMeasureTab            = '#version_id';
     
-    public static $ChangeTierButton_ManageMeasureTab               = '.btn-green-outline';
     
     public static $Filter_ByExtensionSelect                        = "#filter-measure_extensions";
     public static $Filter_ByStatusSelect                           = "#filter-type";
@@ -185,6 +188,7 @@ class ChecklistManage extends \AcceptanceTester
     public static $FilterMenu_TransportationGroupButton            = "//ul[@class='filter-menu']/li/a[text()='Transportation']";
     public static $FilterMenu_WastewaterGroupButton                = "//ul[@class='filter-menu']/li/a[text()='Wastewater']";
     public static $FilterMenu_Water                                = "//ul[@class='filter-menu']/li/a[text()='Water']";
+    public static function FilterMenu_AuditGroupItem($group)       { return "//ul[@class='filter-menu']/li/a[text()='$group']";}
     
     public static $GroupTableTitle_DefineTotalTab                    = '.title-row p';
     
@@ -196,16 +200,16 @@ class ChecklistManage extends \AcceptanceTester
     
     public static $SubgroupRow_DefineTotalTab                        = '.table-striped tbody>tr';
     
-    public static function SubgroupLine_DefineTotalTab($subgroup)                             { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[1]";}
-    public static function CoreMeasuresLine_DefineTotalTab($subgroup)                         { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[2]/span";}
-    public static function TotalElectiveLine_DefineTotalTab($subgroup)                        { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[3]/span";}
-    public static function CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($subgroup)  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[4]//input";}
-    public static function TotalMeasuresMustCompleteLine_DefineTotalTab($subgroup)            { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[5]/span";}
+    public static function SubgroupLine_DefineTotalTab($subgroup)                                  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[1]";}
+    public static function CoreMeasuresLine_DefineTotalTab($subgroup)                              { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[2]/span";}
+    public static function TotalElectiveLine_DefineTotalTab($subgroup)                             { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[3]/span";}
+    public static function CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($subgroup)       { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[4]//div[contains(@class, 'input-row')]/input";}
+    public static function ErrorCountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($subgroup)  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[4]//div[@class='help-block']";}
+    public static function TotalMeasuresMustCompleteLine_DefineTotalTab($subgroup)                 { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$subgroup')]/td[5]/span";}
     //-----Points Tab-----
-    public static $RequiredPointsField                      = '#relcompletepointstochecklist-points';
-//    public static $RequiredPointsField                      = '#relcompletepointstochecklist-cumulativepoints';
+//    public static $RequiredPointsField                      = '#relcompletepointstochecklist-points';
+    public static $RequiredPointsField                      = '#relcompletepointstochecklist-cumulativepoints';
     public static $RequiredPointsLabel                      = '[for=relcompletepointstochecklist-cumulativepoints]';
     public static $Error_RequiredPoints                     = '#relcompletepointstochecklist-cumulativepoints+.help-block';
-
 
 }

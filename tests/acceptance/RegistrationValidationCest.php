@@ -2,7 +2,7 @@
 
 class RegistrationValidationCest
 {
-    public $state, $city, $zips, $program, $audSubgroup1_Energy, $business1, $business2, $business3, $busId1, $busId2, $busId3;
+    public $state, $city, $zips, $county, $program, $audSubgroup1_Energy, $business1, $business2, $business3, $busId1, $busId2, $busId3;
     public $measure1Desc, $measure2Desc, $measure3Desc, $measure4Desc, $measure5Desc;
     public $idMeasure1, $idMeasure2, $idMeasure3, $idMeasure4, $idMeasure5;
     public $measuresDesc_SuccessCreated;
@@ -193,6 +193,13 @@ class RegistrationValidationCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
+    public function CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
+    }
+    
     /**
      * @group email
      */
@@ -204,7 +211,7 @@ class RegistrationValidationCest
         $zips    = $this->zips = $I->GenerateZipCode();
         $program = $this->program = $I->GenerateNameOf("ProgNR1");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
@@ -212,18 +219,28 @@ class RegistrationValidationCest
      * @group email
      */
     
-    public function Help1_15_CreateChecklistForTier2(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program;
-        $programDestination = $this->program;
-        $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
-        
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        $I->ManageChecklist($descs, $this->statuses);
-        $I->reloadPage();
-        $I->PublishChecklistStatus();
+    public function SectorChecklistCreate_Tier2(\Step\Acceptance\SectorChecklist $I)
+    {
+        $number           = '2';
+        $sector           = \Page\SectorList::DefaultSectorOfficeRetail;
+               
+        $I->CreateSectorChecklist($number, $sector);
+        $I->ManageSectorChecklist($this->measuresDesc_SuccessCreated, $this->statuses);
+        $I->PublishSectorChecklistStatus();
     }
+    
+//    public function Help1_15_CreateChecklistForTier2(\Step\Acceptance\Checklist $I) {
+//        $sourceProgram      = $this->program;
+//        $programDestination = $this->program;
+//        $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
+//        $tier               = '2';
+//        $descs              = $this->measuresDesc_SuccessCreated;
+//        
+//        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->ManageChecklist($descs, $this->statuses);
+//        $I->reloadPage();
+//        $I->PublishChecklistStatus();
+//    }
     
     /**
      * @group email
@@ -293,7 +310,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function Help1_16_LogOut2(AcceptanceTester $I) {
@@ -322,7 +339,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function Help1_16_LogOut3(AcceptanceTester $I) {
@@ -351,7 +368,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function Help1_16_LogOut4(AcceptanceTester $I) {
@@ -410,7 +427,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function Help1_16_LogOut6(AcceptanceTester $I) {
@@ -439,7 +456,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function Help1_16_LogOut7(AcceptanceTester $I) {
@@ -468,7 +485,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function Help1_16_LogOut8(AcceptanceTester $I) {
@@ -531,7 +548,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function LastName_LogOut2(AcceptanceTester $I) {
@@ -560,7 +577,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function LastName_LogOut3(AcceptanceTester $I) {
@@ -589,7 +606,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function LastName_LogOut4(AcceptanceTester $I) {
@@ -648,7 +665,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function LastName_LogOut6(AcceptanceTester $I) {
@@ -677,7 +694,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function LastName_LogOut7(AcceptanceTester $I) {
@@ -706,7 +723,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function LastName_LogOut8(AcceptanceTester $I) {
@@ -871,7 +888,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function PhoneNumber_LogOut5(AcceptanceTester $I) {
@@ -934,7 +951,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function PhoneNumber_LogOut7(AcceptanceTester $I) {
@@ -1573,7 +1590,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
         $this->email_alreadyCreated = $email;
     }
     
@@ -1612,7 +1629,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
         $this->email_alreadyCreated = $email;
     }
     
@@ -1651,7 +1668,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
         $this->email_alreadyCreated = $email;
     }
     
@@ -1690,7 +1707,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
         $this->email_alreadyCreated = $email;
     }
     
@@ -1729,7 +1746,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
         $this->email_alreadyCreated = $email;
     }
     
@@ -1768,7 +1785,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
         $this->email_alreadyCreated = $email;
     }
     
@@ -1807,7 +1824,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(8);
-        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->seeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
         $this->email_alreadyCreated = $email;
     }
     
@@ -2221,7 +2238,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function BusinessNumber_LogOut5(AcceptanceTester $I) {
@@ -2284,7 +2301,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function BusinessNumber_LogOut7(AcceptanceTester $I) {
@@ -2347,7 +2364,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function BusinessName_LogOut2(AcceptanceTester $I) {
@@ -2376,7 +2393,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function BusinessName_LogOut3(AcceptanceTester $I) {
@@ -2405,7 +2422,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function BusinessName_LogOut4(AcceptanceTester $I) {
@@ -2464,7 +2481,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function BusinessName_LogOut6(AcceptanceTester $I) {
@@ -2493,7 +2510,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function BusinessName_LogOut7(AcceptanceTester $I) {
@@ -2522,7 +2539,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function BusinessName_LogOut8(AcceptanceTester $I) {
@@ -2535,7 +2552,7 @@ class RegistrationValidationCest
     //------------------------Street Address Validation-------------------------
     //--------------------------------------------------------------------------
     
-    public function StreetAddress_Required(Step\Acceptance\Business $I)
+    public function StreetAddress_0Symbols_Valid(Step\Acceptance\Business $I)
     {
         $firstName        = $I->GenerateNameOf("firnam");
         $lastName         = $I->GenerateNameOf("lasnam");
@@ -2554,9 +2571,8 @@ class RegistrationValidationCest
         $landscapeFootage = '666';
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(2);
-        $I->canSeeFieldIsRequired($I, \Page\BusinessRegistration::$StreetAddressField);
-        $I->canSee($this->requiredErrorStreetAddress, \Page\BusinessRegistration::$Error_StreetAddress);
+        $I->wait(6);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function StreetAddress_LogOut1(AcceptanceTester $I) {
@@ -2585,7 +2601,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function StreetAddress_LogOut2(AcceptanceTester $I) {
@@ -2614,7 +2630,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function StreetAddress_LogOut3(AcceptanceTester $I) {
@@ -2643,7 +2659,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function StreetAddress_LogOut4(AcceptanceTester $I) {
@@ -2672,7 +2688,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(2);
-        $I->canSeeFieldIsRequired($I, \Page\BusinessRegistration::$StreetAddressField);
+        $I->cantSeeFieldIsRequired($I, \Page\BusinessRegistration::$StreetAddressField);
         $I->canSee($this->validationErrorStreetAddress, \Page\BusinessRegistration::$Error_StreetAddress);
     }
     
@@ -2702,7 +2718,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function StreetAddress_LogOut6(AcceptanceTester $I) {
@@ -2731,7 +2747,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function StreetAddress_LogOut7(AcceptanceTester $I) {
@@ -2760,7 +2776,7 @@ class RegistrationValidationCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(6);
-        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_Started);
+        $I->canSeeInCurrentUrl(Page\RegistrationStarted::$URL_TierLanding);
     }
     
     public function StreetAddress_LogOut8(AcceptanceTester $I) {

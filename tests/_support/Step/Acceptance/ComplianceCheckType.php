@@ -7,28 +7,31 @@ class ComplianceCheckType extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ComplianceCheckTypeCreate::URL());
-        $I->wait(1);
-        $I->waitForElement(\Page\ComplianceCheckTypeCreate::$NameField);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\ComplianceCheckTypeCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\ComplianceCheckTypeCreate::$NameField, $name);
         }
         $I->click(\Page\ComplianceCheckTypeCreate::$CreateButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
     }
     
     public function UpdateComplianceCheckType($row, $name = null)
     {
         $I = $this;
         $I->amOnPage(\Page\ComplianceCheckTypeList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->click(\Page\ComplianceCheckTypeList::UpdateButtonLine($row));
-        $I->wait(1);
-        $I->waitForElement(\Page\ComplianceCheckTypeUpdate::$NameField);
+        $I->waitPageLoad();
+//        $I->wait(1);
+//        $I->waitForElement(\Page\ComplianceCheckTypeUpdate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\ComplianceCheckTypeUpdate::$NameField, $name);
         }
         $I->click(\Page\ComplianceCheckTypeUpdate::$UpdateButton);
-        $I->wait(2);
+        $I->waitPageLoad();
+//        $I->wait(2);
     }
     
     public function CheckInFieldsOnComplianceCheckTypeUpdatePage($name = null)
@@ -45,13 +48,13 @@ class ComplianceCheckType extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ComplianceCheckTypeList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\ComplianceCheckTypeList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\ComplianceCheckTypeList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\ComplianceCheckTypeList::$ComplianceCheckTypeRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -71,8 +74,8 @@ class ComplianceCheckType extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ComplianceCheckTypeList::URL());
-        $I->wait(1);
-        $I->waitForElement(\Page\ComplianceCheckTypeList::$CreateComplianceCheckTypeButton);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\ComplianceCheckTypeList::$CreateComplianceCheckTypeButton);
         if (isset($name)){
             $I->canSee($name, \Page\ComplianceCheckTypeList::NameLine($row));
         }

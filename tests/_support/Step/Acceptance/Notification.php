@@ -8,10 +8,13 @@ class Notification extends \AcceptanceTester
         $I = $this;
         $I->amOnPage(\Page\ApplicantEmailTextCreate::URL());
         $I->wait(1);
-        $I->waitForElement(\Page\ApplicantEmailTextCreate::$SubjectField);
+        $I->waitPageLoad();
+//        $I->waitForElement(\Page\ApplicantEmailTextCreate::$SubjectField);
         if (isset($trigger)){
             $I->selectOption(\Page\ApplicantEmailTextCreate::$TriggerSelect, $trigger);
-            $I->wait(3);
+            $I->wait(1);
+            $I->waitPageLoad();
+//            $I->wait(3);
         }
         if (isset($subject)){
             $I->fillField(\Page\ApplicantEmailTextCreate::$SubjectField, $subject);
@@ -32,20 +35,21 @@ class Notification extends \AcceptanceTester
             $I->canSeeOptionIsSelected(\Page\ApplicantEmailTextCreate::$StateSelect, $state);
         }
         $I->click(\Page\ApplicantEmailTextCreate::$SaveButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
     }  
     
     public function GetApplicantEmailTextOnPageInList($trigger, $program)
     {
         $I = $this;
         $I->amOnPage(\Page\ApplicantEmailTextList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\ApplicantEmailTextList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\ApplicantEmailTextList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\ApplicantEmailTextList::$EmailRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -65,8 +69,8 @@ class Notification extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ApplicantEmailTextManage::URL($applicantId));
-        $I->wait(2);
-        $I->waitForElement(\Page\ApplicantEmailTextManage::$SubjectField);
+//        $I->wait(2);
+//        $I->waitForElement(\Page\ApplicantEmailTextManage::$SubjectField);
         if (isset($subject)){
             $I->fillField(\Page\ApplicantEmailTextManage::$SubjectField, $subject);
         }
@@ -74,20 +78,21 @@ class Notification extends \AcceptanceTester
             $I->fillCkEditorTextarea(\Page\ApplicantEmailTextManage::$BodyField, $body);
         }
         $I->click(\Page\ApplicantEmailTextManage::$SaveButton);
-        $I->wait(2);
+        $I->waitPageLoad();
+//        $I->wait(2);
     }  
     
     public function GetApplicationDirectionOnPageInList($key, $state)
     {
         $I = $this;
         $I->amOnPage(\Page\ApplicationDirectionsList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\ApplicationDirectionsList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\ApplicationDirectionsList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\ApplicationDirectionsList::$ApplicationDirectionRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){

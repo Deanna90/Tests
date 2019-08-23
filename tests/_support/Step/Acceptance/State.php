@@ -9,8 +9,8 @@ class State extends \AcceptanceTester
         $I = $this;
         $I->comment("Create State:");
         $I->amOnPage(\Page\StateCreate::URL());
-        $I->wait(1);
-        $I->waitForElement(\Page\StateCreate::$NameField);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\StateCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\StateCreate::$NameField, $name);
         }
@@ -103,24 +103,30 @@ class State extends \AcceptanceTester
         $I = $this;
         $I->comment("Get State On List. Get id, page number and row:");
         $I->amOnPage(\Page\StateList::URL());
-        $I->wait(1);
+        $check = '0';
         $count = $I->grabTextFrom(\Page\StateList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\StateList::UrlPageNumber($i));
-            $I->wait(1);
             $rows = $I->getAmount($I, \Page\StateList::$StateRow);
+            $I->comment("Rows on page $i: $rows");
             for($j=1; $j<=$rows; $j++){
+                $I->comment("J=$j");
                 if($I->grabTextFrom(\Page\StateList::NameLine($j)) == $name){
                     $I->comment("I find state: $name at row: $j on page: $i");
+                    $state['found'] = 'Yes';
+                    $state['id']   = $I->grabTextFrom(\Page\StateList::IdLine($j));
+                    $state['page'] = $i;
+                    $state['row']  = $j;
+                    $check = '1';
                     break 2;
                 }
             }
         }
-        $state['id']   = $I->grabTextFrom(\Page\StateList::IdLine($j));
-        $state['page'] = $i;
-        $state['row']  = $j;
+        if($check == '0'){
+            $state['found'] = 'No';
+        }
         return $state;
     }
     

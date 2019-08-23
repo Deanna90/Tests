@@ -9,8 +9,8 @@ class County extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Create County");
         $I->amOnPage(\Page\CountyCreate::URL());
-        $I->wait(1);
-        $I->waitForElement(\Page\CountyCreate::$NameField);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\CountyCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\CountyCreate::$NameField, $name);
         }
@@ -18,7 +18,8 @@ class County extends \AcceptanceTester
             $I->selectOption(\Page\CountyCreate::$StateSelect, $state);
         }
         $I->click(\Page\CountyCreate::$CreateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
     }  
     
     public function UpdateCounty($row, $name = null, $state = null)
@@ -26,10 +27,11 @@ class County extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Update County");
         $I->amOnPage(\Page\CountyList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->click(\Page\CountyList::UpdateButtonLine($row));
-        $I->wait(1);
-        $I->waitForElement(\Page\CountyUpdate::$UpdateButton);
+        $I->waitPageLoad();
+//        $I->wait(1);
+//        $I->waitForElement(\Page\CountyUpdate::$UpdateButton);
         if (isset($name)){
             $I->fillField(\Page\CountyUpdate::$NameField, $name);
         }
@@ -38,14 +40,17 @@ class County extends \AcceptanceTester
         }
         $I->click(\Page\CountyUpdate::$UpdateButton);
         $I->wait(1);
+        $I->waitPageLoad();
+//        $I->wait(1);
     }
     
     public function CheckInFieldsOnCountyUpdatePage($name = null, $state = null)
     {
         $I = $this;
         $I->wantTo("Check Saved Values On County Update Page");
-        $I->wait(1);
-        $I->waitForElement(\Page\CountyUpdate::$UpdateButton);
+        $I->waitPageLoad();
+//        $I->wait(1);
+//        $I->waitForElement(\Page\CountyUpdate::$UpdateButton);
         if (isset($name)){
             $I->canSeeInField(\Page\CountyUpdate::$NameField, $name);
         }
@@ -58,13 +63,13 @@ class County extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\CountyList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\CountyList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\CountyList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\CountyList::$CityRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -85,8 +90,8 @@ class County extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Check Saved Values On County List Page");
         $I->amOnPage(\Page\CountyList::$URL);
-        $I->wait(1);
-        $I->waitForElement(\Page\CountyList::$CreateCountyButton);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\CountyList::$CreateCountyButton);
         if (isset($name)){
             $I->canSee($name, \Page\CountyList::NameLine($row));
         }

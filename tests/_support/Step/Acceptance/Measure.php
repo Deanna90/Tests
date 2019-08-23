@@ -18,13 +18,13 @@ class Measure extends \AcceptanceTester
                                    $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null, $reamOrLbs = null)
     {
         $I = $this;
-        $I->wait(1);
         $I->amOnPage(\Page\MeasureCreate::URL());
-        $I->wait(5);
-        $I->waitForElement(\Page\MeasureCreate::$DescriptionField);
-        if (isset($desc)){
-            $I->fillField(\Page\MeasureCreate::$DescriptionField, $desc);
-        }
+        $I->waitPageLoad();
+        $I->waitForElement(\Page\MeasureCreate::$AuditGroupSelect, '60');
+//        if (isset($desc)){
+//            $I->wait(1);
+//            $I->fillCkEditorTextarea(\Page\MeasureCreate::$DescriptionField, $desc);
+//        }
         if (isset($auditGroup)){
             $I->click(\Page\MeasureCreate::$AuditGroupSelect);
             $I->wait(3);
@@ -32,6 +32,7 @@ class Measure extends \AcceptanceTester
         }
         if (isset($auditSubgroup)){
             $I->wait(6);
+            $I->waitPageLoad();
             $I->click(\Page\MeasureCreate::$AuditSubgroupSelect);
             $I->wait(5);
             $I->selectOption(\Page\MeasureCreate::$AuditSubgroupSelect, $auditSubgroup);
@@ -40,10 +41,12 @@ class Measure extends \AcceptanceTester
         switch ($quantitative){
             case 'yes':
                 $I->click(\Page\MeasureCreate::$IsQuantitativeToggleButton);
-                $I->wait(12);
+                $I->wait(1);
+                $I->waitPageLoad();
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(3);
+                    $I->wait(1);
+                    $I->waitPageLoad();
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
@@ -130,10 +133,12 @@ class Measure extends \AcceptanceTester
                 break;
             case 'no':
                 $I->click(\Page\MeasureCreate::$HaveMultipleAnswersToggleButton);
-                $I->wait(12);
+                $I->wait(1);
+                $I->waitPageLoad();
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureCreate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(3);
+                    $I->wait(1);
+                    $I->waitPageLoad();
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
@@ -216,11 +221,16 @@ class Measure extends \AcceptanceTester
         if (isset($state)){
             $I->canSeeOptionIsSelected(\Page\MeasureCreate::$StateDisableSelect, $state);
         }
+        if (isset($desc)){
+            $I->wait(1);
+            $I->fillCkEditorTextarea(\Page\MeasureCreate::$DescriptionField, $desc);
+        }
         $I->wait(3);
         $I->scrollTo(\Page\MeasureCreate::$CreateButton);
         $I->wait(3);
         $I->click(\Page\MeasureCreate::$CreateButton);
-        $I->wait(6);
+        $I->wait(1);
+        $I->waitPageLoad();
     }  
     
     public function CheckSavedValuesOnMeasureUpdatePage($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
@@ -229,8 +239,7 @@ class Measure extends \AcceptanceTester
                            $reamOrLbs = null)
     {
         $I = $this;
-        $I->wait(2);
-        $I->waitForElement(\Page\MeasureUpdate::$UpdateButton);
+        $I->waitPageLoad();
         if (isset($desc)){
             $I->canSeeInField(\Page\MeasureUpdate::$DescriptionField, $desc);
         }
@@ -397,7 +406,7 @@ class Measure extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Get Measure Row Number On List");
         $I->amOnPage(\Page\MeasureList::$URL);
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->getAmount($I, \Page\MeasureList::$MeasureRow);
         for($i=1; $i<=$count; $i++){
             if($I->grabTextFrom(\Page\MeasureList::DescriptionLine($i)) == $desc){
@@ -414,16 +423,15 @@ class Measure extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Go to measure update page");
         $I->amOnPage(\Page\MeasureList::URL());
-        $I->wait(2);
         $I->click(\Page\MeasureList::UpdateButtonLine_ByDescValue($desc));
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
     } 
     
     public function CheckSavedValuesOnMeasureListPage($row, $desc = null, $quantitative = 'ignore', $status = null)
     {
         $I = $this;
         $I->amOnPage(\Page\MeasureList::URL());
-        $I->wait(2);
         if (isset($desc)){
             $I->canSee($desc, \Page\MeasureList::DescriptionLine($row));
         }
@@ -447,10 +455,8 @@ class Measure extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\MeasureList::URL());
-        $I->wait(1);
         $I->click(\Page\MeasureList::UpdateButtonLine($row));
-        $I->wait(1);
-        $I->waitForElement(\Page\MeasureUpdate::$DescriptionField);
+        $I->waitPageLoad();
         if (isset($desc)){
             $I->fillField(\Page\MeasureUpdate::$DescriptionField, $desc);
         }
@@ -464,10 +470,10 @@ class Measure extends \AcceptanceTester
         switch ($quantitative){
             case 'yes':
                 $I->click(\Page\MeasureUpdate::$IsQuantitativeToggleButton);
-                $I->wait(3);
+                $I->waitPageLoad();
                 if(isset($submeasureType)){
                     $I->selectOption(\Page\MeasureUpdate::$SubmeasureTypeSelect, $submeasureType);
-                    $I->wait(2);
+                    $I->waitPageLoad();
                     switch ($submeasureType){
                         case 'Multiple question + Number':
                             if (isset($questions)){
@@ -529,7 +535,7 @@ class Measure extends \AcceptanceTester
                 break;
             case 'no':
                 $I->click(\Page\MeasureUpdate::$HaveMultipleAnswersToggleButton);
-                $I->wait(2);
+                $I->waitPageLoad();
                 if (isset($answers)){
                     for ($i=1, $c= count($answers); $i<=$c; $i++){
                         $k = $i-1;
@@ -550,5 +556,6 @@ class Measure extends \AcceptanceTester
         }
         $I->click(\Page\MeasureUpdate::$UpdateButton);
         $I->wait(1);
+        $I->waitPageLoad();
     }
 }

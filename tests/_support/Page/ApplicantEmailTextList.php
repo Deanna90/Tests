@@ -22,6 +22,8 @@ class ApplicantEmailTextList extends \AcceptanceTester
     public static function ProgramLine($row)      { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(3)"; }
     public static function ManageButtonLine($row) { return "table[class*=table] tbody>tr:nth-of-type($row)>td:last-of-type a"; }
 
+    public static function EmailLine_ByProgramName($trigger, $program)  { return "//table//tbody/tr[contains(td[2]/text(), '$trigger') and contains(td[3]/text(), '$program')]"; }
+    
     const GettingStartedMessage_Trigger     = "Getting Started message";
     const CertificationEmail_Trigger        = "Certification email";
     const PGERegisterRequest_Trigger        = "PGE Register Request";
@@ -29,4 +31,11 @@ class ApplicantEmailTextList extends \AcceptanceTester
     const InspectorRequest_Trigger          = "Inspector Request";
     const Month3BeforeCertification_Trigger = "3 months before certification";
     const RequiresRenewal_Trigger           = "Requires renewal";
+    const PleaseReviewMyChecklist_Trigger   = "Please review my checklist";
+    const BusinessInactive30Days_Trigger    = "Business Inactive More 30 Days";
+    const BusinessTierSubmission_Trigger    = "Business Tier Submission";
+    const AuditComplete_Trigger             = "Audit Complete";
+    const InspectionComplete_Trigger        = "Inspection Complete";
+    const BusinessRegistered_Trigger        = "Business Registered (for coordinator)";
+    const BusinessHasChangedAddress_Trigger = "Business has changed address (for coordinator)";
 }

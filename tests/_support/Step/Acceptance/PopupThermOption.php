@@ -8,7 +8,7 @@ class PopupThermOption extends \AcceptanceTester
         $I = $this;
         $I->comment("Create Therm Option:");
         $I->amOnPage(\Page\PopupThermOptionCreate::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\PopupThermOptionCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\PopupThermOptionCreate::$NameField, $name);
@@ -17,7 +17,8 @@ class PopupThermOption extends \AcceptanceTester
             $I->fillField(\Page\PopupThermOptionCreate::$ThermsCountField, $thermsCount);
         }
         $I->click(\Page\PopupThermOptionCreate::$CreateButton);
-        $I->wait(1);
+        $I->waitPageLoad('60');
+//        $I->wait(1);
     } 
     
     public function UpdateThermOption($name = null, $thermsCount = null)

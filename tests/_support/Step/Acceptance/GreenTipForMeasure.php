@@ -6,8 +6,7 @@ class GreenTipForMeasure extends \AcceptanceTester
     public function CreateMeasureGreenTip($desc = null, $program = null)
     {
         $I = $this;
-        $I->wait(2);
-        $I->waitForElement(\Page\MeasureGreenTipCreate::$DescriptionField);
+        $I->waitPageLoad();
         if (isset($desc)){
             $I->fillCkEditorTextarea(\Page\MeasureGreenTipCreate::$DescriptionField, $desc);
         }
@@ -20,14 +19,14 @@ class GreenTipForMeasure extends \AcceptanceTester
             }
         }
         $I->click(\Page\MeasureGreenTipCreate::$CreateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
     }  
     
     public function UpdateMeasureGreenTip($desc = null, $program = null)
     {
         $I = $this;
-        $I->wait(2);
-        $I->waitForElement(\Page\MeasureGreenTipUpdate::$DescriptionField);
+        $I->waitPageLoad();
         if (isset($desc)){
             $I->fillCkEditorTextarea(\Page\MeasureGreenTipUpdate::$DescriptionField, $desc);
         }
@@ -48,6 +47,7 @@ class GreenTipForMeasure extends \AcceptanceTester
             }
         }
         $I->click(\Page\MeasureGreenTipUpdate::$UpdateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
     } 
 }

@@ -1154,7 +1154,7 @@ class InpWeightMeasureExtensionCest
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures related to current checklist. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
@@ -1169,7 +1169,7 @@ class InpWeightMeasureExtensionCest
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures related to current checklist. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
@@ -1184,7 +1184,7 @@ class InpWeightMeasureExtensionCest
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures related to current checklist. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
@@ -1199,7 +1199,7 @@ class InpWeightMeasureExtensionCest
         $I->canSee("Points was not updated!");
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures related to current checklist. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
     }
     

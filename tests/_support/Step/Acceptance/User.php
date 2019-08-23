@@ -9,7 +9,7 @@ class User extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\UserCreate::URL($userType));
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\UserCreate::$EmailField);
         if (isset($email)){
             $I->fillField(\Page\UserCreate::$EmailField, $email);
@@ -48,7 +48,9 @@ class User extends \AcceptanceTester
                 break;
         }
         $I->click(\Page\UserCreate::$CreateButton);
-        $I->wait(15);
+        $I->wait(2);
+        $I->waitPageLoad();
+//        $I->wait(15);
     }  
     
     public function CheckInFieldsOnUserUpdatePage($email = null, $firstName = null, $lastName = null, $password = null, $confirmPassword = null, 
@@ -109,8 +111,8 @@ class User extends \AcceptanceTester
     public function GetUserOnPageInList($email, $userType = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\UserList::URL($userType));
-        $I->wait(1);
+        $I->amOnPage(\Page\UserList::URL($userType).'&sort=-id');
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\UserList::$SummaryCount);
         $I->comment("Count1 = $count");
         $count = str_replace(",", '', $count);
@@ -119,31 +121,43 @@ class User extends \AcceptanceTester
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\UserList::UrlPageNumber($i, $userType));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\UserList::$UserRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
                 if($I->grabTextFrom(\Page\UserList::EmailLine($j)) == $email){
-                    $I->comment("I find city: $email at row: $j on page: $i");
+                    $I->comment("I find user: $email at row: $j on page: $i");
                     break 2;
                 }
             }
         }
-        $city['id']   = $I->grabTextFrom(\Page\UserList::IdLine($j));
-        $city['page'] = $i;
-        $city['row']  = $j;
-        return $city;
+        $user['id']   = $I->grabTextFrom(\Page\UserList::IdLine($j));
+        $user['page'] = $i;
+        $user['row']  = $j;
+        return $user;
+    }
+    
+    public function GetUserIDFromUrl($I)
+    {
+        $I = $this;
+        $urlUpdatePage = $I->grabFromCurrentUrl();
+        $I->comment("Url: $urlUpdatePage");
+        $u = explode('=', $urlUpdatePage);
+        $userID = $u[1];
+        $I->comment("User ID: $userID.");
+        return $userID;
     }
     
     public function SearchUserByEmailOnPageInList($userType = null, $email =null , $firstName = null, $lastName = null, $status = 'active', $type = null, $createdDate = null)
     {
         $I = $this;
         $I->amOnPage(\Page\UserList::URL($userType));
-        $I->wait(1);
+//        $I->wait(1);
         $I->fillField(\Page\UserList::$ByNameEmailSearchField, $email);
         $I->wait(1);
         $I->pressKey(\Page\UserList::$ByNameEmailSearchField, \WebDriverKeys::ENTER);
         $I->wait(5);
+        $I->waitPageLoad();
         if (isset($email)){
             $I->canSee($email, \Page\UserList::EmailLine(1));
         }
@@ -164,12 +178,13 @@ class User extends \AcceptanceTester
         }
     }
     
-    public function CheckValuesOnUserListPage($userType = null, $row, $email =null , $firstName = null, $lastName = null, $status = 'active', $type = null, $createdDate = null)
+    public function CheckValuesOnUserListPage($userType = null, $row, $email =null , $firstName = null, $lastName = null, $status = 'active', $type = null, 
+                                $updateButton = 'ignore', $deleteButton = 'ignore', $viewButton = 'ignore', $createdDate = null)
     {
         $I = $this;
         $I->amOnPage(\Page\UserList::URL($type));
-        $I->wait(1);
-        $I->waitForElement(\Page\UserList::$CreateUserButton);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\UserList::$CreateUserButton);
         if (isset($email)){
             $I->canSee($email, \Page\UserList::EmailLine($row));
         }
@@ -188,6 +203,36 @@ class User extends \AcceptanceTester
         if (isset($status)){
             $I->canSee($status, \Page\UserList::StatusLine($row));
         }
+        switch ($updateButton){
+            case 'present':
+                $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+                break;
+            case 'absent':
+                $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+                break;
+            case 'ignore':
+                break;
+        }
+        switch ($deleteButton){
+            case 'present':
+                $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+                break;
+            case 'absent':
+                $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+                break;
+            case 'ignore':
+                break;
+        }
+        switch ($viewButton){
+            case 'present':
+                $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+                break;
+            case 'absent':
+                $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
+                break;
+            case 'ignore':
+                break;
+        }
     }
     
     public function UpdateUser($userType = null, $email = null, $firstName = null, $lastName = null, $password = null, $confirmPassword = null, 
@@ -195,8 +240,8 @@ class User extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\UserCreate::URL($userType));
-        $I->wait(1);
-        $I->waitForElement(\Page\UserUpdate::$EmailField);
+//        $I->wait(1);
+//        $I->waitForElement(\Page\UserUpdate::$EmailField);
         if (isset($email)){
             $I->fillField(\Page\UserUpdate::$EmailField, $email);
         }
@@ -225,6 +270,8 @@ class User extends \AcceptanceTester
             
         }
         $I->click(\Page\UserUpdate::$UpdateButton);
-        $I->wait(2);
+        $I->waitPageLoad();
     }  
+    
+    
 }

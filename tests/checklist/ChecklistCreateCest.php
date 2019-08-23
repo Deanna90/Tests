@@ -1686,6 +1686,58 @@ class ChecklistCreateCest
     //$statusesProg1Sector1      = ['elective', 'not set',  'not set', 'not set',  'elective', 'elective'];
     //$extensionsProg1Sector1      = ['Default',         'Default',         'Default',         'Default',         'Default',         'Default'];
     
+    public function CreateChecklist_ForTier1_SP_Program1_PD_Program2_SD_Sector2_PC_Program1_SC_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = $this->program1;
+        $programCriteria    = $this->program1;
+        $sectorCriteria     = $this->sector1;
+        $programDestination = $this->program2;
+        $sectorDestination  = $this->sector2;
+        $tier               = '1';
+        $descs              = $this->measuresDesc_SuccessCreated;
+//        $statusesNew        = $this->statnewEC3;
+//        $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];
+        $statusesNew        = ['core', 'core',  'core', 'not set',  'core', 'elective'];
+        $extensionsNew      = ['Large Landscape', 'Large Landscape', 'Large Landscape', 'Default', 'Large Landscape', 'Default'];
+    
+        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
+        $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    //$statusesProg1OfficeRetail     = ['core',     'core',     'core',    'not set',  'core',     'not set'];
+    //$extensionsProg1OfficeRetail   = ['Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Landscape'];
+    //
+    //
+    //$statusesProg2Sector2          = ['core',     'elective', 'not set', 'elective', 'elective', 'elective'];
+    //$extensionsProg2Sector2        = ['Large Building',  'Large Building',  'Large Building',  'Large Building',  'Large Building',  'Large Building'];
+    
+    public function CreateChecklist_ForTier1_SP_Program1_PD_Program1_SD_Sector1_PC_Program2_SC_Sector2_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
+        $sourceProgram      = $this->program1;
+        $programCriteria    = $this->program2;
+        $sectorCriteria     = $this->sector2;
+        $programDestination = $this->program1;
+        $sectorDestination  = $this->sector1;
+        $tier               = '1';
+        $descs              = $this->measuresDesc_SuccessCreated;
+//        $statusesNew        = $this->statnewEC3;
+//        $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];
+        $statusesNew   = ['core',     'core',     'core',    'elective',  'core',     'elective'];
+        $extensionsNew = ['Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Building', 'Large Landscape', 'Large Building'];
+    
+        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
+        $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     */
+    
     public function CreateChecklist_ForTier2_SP_Program1_PD_Program2_SD_Sector2_PC_Program1_SC_Sector1_PublishedECAndChecklists(\Step\Acceptance\Checklist $I) {
         $sourceProgram      = $this->program1;
         $programCriteria    = $this->program1;
@@ -1694,10 +1746,8 @@ class ChecklistCreateCest
         $sectorDestination  = $this->sector2;
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
-//        $statusesNew        = $this->statnewEC3;
-//        $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];
-        $statusesNew        = ['core', 'core',  'core', 'not set',  'core', 'elective'];
-        $extensionsNew      = ['Large Landscape', 'Large Landscape', 'Large Landscape', 'Default', 'Large Landscape', 'Default'];
+        $statusesNew        = $this->statusesDefault;
+        $extensionsNew      = $this->extensionsDefault;
     
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);
@@ -1717,10 +1767,8 @@ class ChecklistCreateCest
         $sectorDestination  = $this->sector1;
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
-//        $statusesNew        = $this->statnewEC3;
-//        $extensionsNew      = ['Default', 'Large Landscape', 'Default', 'Default', 'Large Building', 'Default'];
-        $statusesNew   = ['core',     'core',     'core',    'not set',  'core',     'not set'];
-        $extensionsNew = ['Large Landscape', 'Large Landscape', 'Large Landscape', 'Default', 'Large Landscape', 'Default'];
+        $statusesNew        = $this->statusesDefault;
+        $extensionsNew      = $this->extensionsDefault;
     
         $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier, $programCriteria, $sectorCriteria);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $statusesNew, $extensionsNew);

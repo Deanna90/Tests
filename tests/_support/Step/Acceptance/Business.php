@@ -47,12 +47,15 @@ class Business extends \AcceptanceTester
         }
         if (isset($zip)){
             $I->fillField(\Page\BusinessRegistration::$ZipField, $zip);
+            $I->waitPageLoad();
         }
         if (isset($city)){
             $I->wait(5);
             $I->click(\Page\BusinessRegistration::$CitySelect);
             $I->wait(3);
             $I->selectOption(\Page\BusinessRegistration::$CitySelect, $city);
+            $I->wait(1);
+            $I->waitPageLoad();
         }
         if (isset($state)){
             $I->seeOptionIsSelected(\Page\BusinessRegistration::$StateSelect, $state);
@@ -116,7 +119,9 @@ class Business extends \AcceptanceTester
         $I->scrollTo(\Page\BusinessRegistration::$SubmitButton);
         $I->wait(1);
         $I->click(\Page\BusinessRegistration::$SubmitButton);
-        $I->wait(2);
+        $I->wait(5);
+        $I->waitPageLoad();
+        self::$URL_UserAccess = '/user';
     }  
     
     public function GetCategoryRowOnTierTab($name)

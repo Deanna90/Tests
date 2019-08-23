@@ -27,12 +27,13 @@ class ChecklistMeasureExtensionCest
     public $extensions  = ['Default', 'Default', 'Default', 'Large Landscape', 'Large Landscape', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
     public $extensions2 = ['Default', 'Large Building', 'Default', 'Large Building', 'Large Building', 'Large Landscape', 'Large Building', 'Large Building', 'Large Building'];
     public $checklistUrl, $id_checklist;
-    public $business_NAanswers, $bus_busSquire_NAanswers  = '45678', $bus_landSquire_NAanswers = '5666';
-    public $business1_LB,       $bus1_busSquire_LB        = '30000', $bus1_landSquire_LB       = '999';
-    public $business2_LL,       $bus2_busSquire_LL        = '29999', $bus2_landSquire_LL       = '1000';
-    public $business3_LB_LL,    $bus3_busSquire_LB_LL     = '30001', $bus3_landSquire_LB_LL    = '1001'; 
-    public $business4_Default,  $bus4_busSquire_Default   = '17500', $bus4_landSquire_Default  = '500';
-    
+    public $business_NAanswers, $id_bus_NAanswers, $bus_busSquire_NAanswers  = '45678', $bus_landSquire_NAanswers = '5666';
+    public $business1_LB,       $id_bus1_LB,       $bus1_busSquire_LB        = '15000', $bus1_landSquire_LB       = '999';
+    public $business2_LL,       $id_bus2_LL,       $bus2_busSquire_LL        = '14999', $bus2_landSquire_LL       = '1000';
+    public $business3_LB_LL,    $id_bus3_LB_LL,    $bus3_busSquire_LB_LL     = '15001', $bus3_landSquire_LB_LL    = '1001'; 
+    public $business4_Default,  $id_bus4_Default,  $bus4_busSquire_Default   = '7500',  $bus4_landSquire_Default  = '500';
+    public $firName_Bus4, $secName_Bus4, $phone_bus4, $email_Bus4;
+            
     /**
      * @group admin
      * @group stateadmin
@@ -42,6 +43,7 @@ class ChecklistMeasureExtensionCest
     public function Help_LoginAsNationalAdmin(AcceptanceTester $I)
     {
         $I->LoginAsAdmin($I);
+//        $this->state = 'Washington';
     }
     
     /**
@@ -66,7 +68,6 @@ class ChecklistMeasureExtensionCest
     
     public function Help_SelectDefaultState(AcceptanceTester $I)
     {
-        $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
     }
     
@@ -83,9 +84,7 @@ class ChecklistMeasureExtensionCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
         $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -102,9 +101,7 @@ class ChecklistMeasureExtensionCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
         $this->id_audSubgroup1_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -123,7 +120,6 @@ class ChecklistMeasureExtensionCest
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
-        $I->wait(1);
         $I->reloadPage();
         $I->wait(4);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -144,9 +140,7 @@ class ChecklistMeasureExtensionCest
     public function LogOut_And_LogInAsStateAdmin(AcceptanceTester $I)
     {
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
     }
     
     /**
@@ -165,7 +159,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure1 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -187,7 +180,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure2 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -209,7 +201,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure3 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -231,7 +222,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure4 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -253,7 +243,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure5 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -275,7 +264,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure6 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -297,7 +285,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure7 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -319,7 +306,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure8 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -341,7 +327,6 @@ class ChecklistMeasureExtensionCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure9 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -379,13 +364,27 @@ class ChecklistMeasureExtensionCest
         $Y->CreateProgram($program, $state, $cityArr);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    public function SectorChecklistCreate_Tier2(\Step\Acceptance\SectorChecklist $I)
+    {
+        $number           = '2';
+        $sector           = \Page\SectorList::DefaultSectorOfficeRetail;
+               
+        $I->CreateSectorChecklist($number, $sector);
+        $I->PublishSectorChecklistStatus();
+    }
+    
     //----------------------------Create Coordinator----------------------------
     
     /**
      * @group coordinator
      */
     
-    public function CreateCoordinatorUser_ForProgram2(Step\Acceptance\User $I)
+    public function CreateCoordinatorUser_ForProgram1(Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::coordinatorType;
         $email     = $this->emailCoordinator = $I->GenerateEmail();
@@ -397,19 +396,23 @@ class ChecklistMeasureExtensionCest
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
         $I->wait(1);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddStateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
         $I->wait(2);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddProgramButton);
-        $I->wait(6);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(2);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
         $coordinator = $I->GetUserOnPageInList($email, $userType);
         $this->idCoordinator = $coordinator['id'];
     }
@@ -421,25 +424,33 @@ class ChecklistMeasureExtensionCest
     public function LogOut_And_LogInAsCoordinator(AcceptanceTester $I)
     {
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
-        $I->wait(2);
     }
     
+    //----------------------------Update checklist------------------------------
     /**
      * @group admin
      * @group stateadmin
      * @group coordinator
      */
-    
-    public function Create_Checklist1_ForTier2_1stForExtensionUpdatingTest(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program1;
-        $programDestination = $this->program1;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
+    public function Update_ProgramChecklist_Program1_ForTier2(\Step\Acceptance\Checklist $I) {
+        $program = $this->program1;
+        $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
+        $tier    = 'Tier 2';
+        $descs   = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->selectOption(Page\ChecklistList::$FilterByOptInSelect, '');
+        $I->wait(3);
+        $I->click(Page\ChecklistList::$FilterButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $this->id_checklist = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($program, $sector, $tier));
+        
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
+        $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->wait(5);
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
@@ -486,6 +497,7 @@ class ChecklistMeasureExtensionCest
         $I->ManageChecklist($descs, $this->statuses, $this->extensions);
     }
     
+    
     /**
      * @group admin
      * @group stateadmin
@@ -494,75 +506,14 @@ class ChecklistMeasureExtensionCest
     
     public function UpdateDefineTotalsValuesForChecklist1(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(3);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->UpdateDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
+        $I->UpdateDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '2');
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '2');
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
     }
     
     /**
@@ -573,24 +524,18 @@ class ChecklistMeasureExtensionCest
     
     public function ChangeExtensionStatusesInChecklist1_CheckCorrectDefineTotalsValuesAfterExtensionsUpdating(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(3);
         $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
         $I->wait(2);
         $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses, $this->extensions2);
         $I->wait(3);
         $I->reloadPage();
-        $I->wait(4);
+        $I->waitPageLoad();
         $I->comment("                                             ");
         $I->canSee('Core', \Page\ChecklistManage::$IncludedMeasuresForm_CoreTitle);
         $I->canSee('Default:', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreLabel);
         $I->canSee('Lg Building:', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreLabel);
         $I->canSee('Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreLabel);
         $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreLabel);
-        
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
         
         $I->comment("                                             ");
         $I->canSee('Elective', \Page\ChecklistManage::$IncludedMeasuresForm_ElectiveTitle);
@@ -599,108 +544,37 @@ class ChecklistMeasureExtensionCest
         $I->canSee('Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveLabel);
         $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveLabel);
         
-        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-        
         $I->comment("---Required elective:---");
         $I->canSee('Default:', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveRequiredLabel);
         $I->canSee('Lg Building:', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveRequiredLabel);
         $I->canSee('Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveRequiredLabel);
         $I->canSee('Lg Building + Lg Landscape:', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveRequiredLabel);
         
-        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveRequiredValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveRequiredValue);
-        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveRequiredValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveRequiredValue);
-        $I->wait(1);
+        $I->Check_CountOf_Core_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '3', $llCount = '1', $allCount = '3');
+        $I->Check_CountOf_Elective_Measures_IncludedMeasuresForm($defaultCount = '0', $lbCount = '3', $llCount = '0', $allCount = '3');
+        $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '0', $lbCount = '2', $llCount = '0', $allCount = '3');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->comment("-----Energy subgroup DEFAULT TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup DEFAULT TAB-----");
-        $I->canSee("0", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("0", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '1', $electiveCount = '0', $requiredElective = '0', $totalRequired = '1');
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '0', $electiveCount = '0', $requiredElective = '0', $totalRequired = '0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "1");
-        $I->canSee("3", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '2', $electiveCount = '2', $requiredElective = '1', $totalRequired = '3');
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '1', $totalRequired = '2');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "1");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '1', $electiveCount = '0', $requiredElective = '0', $totalRequired = '1');
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '0', $electiveCount = '0', $requiredElective = '0', $totalRequired = '0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '2', $electiveCount = '2', $requiredElective = '2', $totalRequired = '4');
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '1', $totalRequired = '2');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("0", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("0", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "2");
-        $I->canSee("4", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "1");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
     }
     
     //For Test Statuses Updating
@@ -718,10 +592,16 @@ class ChecklistMeasureExtensionCest
         $tier               = '2';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+//        $I->wait(3);
+//        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+//        $I->wait(2);
+        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist));
+        $I->click(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
         $I->wait(3);
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-        $I->wait(2);
+        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist));
+        $this->id_checklist = $I->grabTextFrom(\Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
         $I->ManageChecklist($descs, $this->statuses, $this->extensions);
     }
     
@@ -733,77 +613,12 @@ class ChecklistMeasureExtensionCest
     
     public function UpdateDefineTotalsValuesForChecklist2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->UpdateDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
+        $I->UpdateDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '2');
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '2');
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
     }
     
     /**
@@ -814,116 +629,36 @@ class ChecklistMeasureExtensionCest
     
     public function ChangeExtensionStatusesInChecklist2_CheckCorrectDefineTotalsValuesAfterStatusesUpdating(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(3);
         $I->selectOption(\Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
         $I->wait(2);
         $I->ManageChecklist($this->measuresDesc_SuccessCreated, $this->statuses2);
         $I->wait(3);
         $I->reloadPage();
-        $I->wait(2);
-        $I->comment("                                             ");
-        $I->canSee('4', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-        $I->canSee('5', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-        $I->canSee('5', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-        $I->canSee('6', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        $I->waitPageLoad();
         
-        $I->comment("                                             ");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-        $I->comment("---Required elective:---");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveRequiredValue);
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveRequiredValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveRequiredValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveRequiredValue);
-        $I->wait(1);
+        $I->Check_CountOf_Core_Measures_IncludedMeasuresForm($defaultCount = '4', $lbCount = '5', $llCount = '5', $allCount = '6');
+        $I->Check_CountOf_Elective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '1', $llCount = '2', $allCount = '2');
+        $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '1', $llCount = '2', $allCount = '2');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->comment("-----Energy subgroup DEFAULT TAB-----");
-        $I->canSee("3", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "1");
-        $I->canSee("4", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '3', $electiveCount = '1', $requiredElective = '1', $totalRequired = '4');
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '0', $requiredElective = '0', $totalRequired = '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup DEFAULT TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '3', $electiveCount = '1', $requiredElective = '1', $totalRequired = '4');
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '2', $electiveCount = '0', $requiredElective = '0', $totalRequired = '2');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
-        $I->canSee("3", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "1");
-        $I->canSee("4", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '4', $electiveCount = '2', $requiredElective = '2', $totalRequired = '6');
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '0', $requiredElective = '0', $totalRequired = '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("4", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "2");
-        $I->canSee("6", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("4", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "2");
-        $I->canSee("6", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '4', $electiveCount = '2', $requiredElective = '2', $totalRequired = '6');
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '2', $electiveCount = '0', $requiredElective = '0', $totalRequired = '2');
     }
     
     /**
@@ -942,10 +677,16 @@ class ChecklistMeasureExtensionCest
         $I->comment("------------------------------------------------------");
         $I->comment("---------------Checklist For Main Tests---------------");
         $I->comment("------------------------------------------------------");
+//        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist));
+        $I->click(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
         $I->wait(3);
-        $this->id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist));
+        $this->id_checklist = $I->grabTextFrom(\Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist));
         $I->ManageChecklist($descs, $this->statuses, $this->extensions);
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->PublishChecklistStatus($this->id_checklist);
     }
     
@@ -955,113 +696,33 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function CheckLeftColumnAndDefineTotals_OnManageChecklist_BeforeDefineTotalUpdate(AcceptanceTester $I) {
+    public function CheckLeftColumnAndDefineTotals_OnManageChecklist_BeforeDefineTotalUpdate(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(2);
         
-        $I->comment("                                             ");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        $I->Check_CountOf_Core_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '2', $llCount = '2', $allCount = '3');
+        $I->Check_CountOf_Elective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '2', $llCount = '2', $allCount = '3');
+        $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '1', $llCount = '2', $allCount = '2');
         
-        $I->comment("                                             ");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-        $I->comment("---Required elective:---");
-        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveRequiredValue);
-        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveRequiredValue);
-        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveRequiredValue);
-        $I->canSee('0', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveRequiredValue);
-        $I->wait(1);
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->comment("-----Energy subgroup DEFAULT TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '1', $totalRequired = '2');
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '0', $electiveCount = '0', $requiredElective = '0', $totalRequired = '0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup DEFAULT TAB-----");
-        $I->canSee("0", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("0", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '1', $totalRequired = '2');
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '0', $totalRequired = '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '2', $electiveCount = '2', $requiredElective = '2', $totalRequired = '4');
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '0', $electiveCount = '0', $requiredElective = '0', $totalRequired = '0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "0");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("0", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("0", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "0");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '2', $electiveCount = '2', $requiredElective = '2', $totalRequired = '4');
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '0', $totalRequired = '1');
     }
     
     /**
@@ -1070,97 +731,20 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function CheckThatMoreThanCountOfElectiveMeasures_CANTBeSave_InEnabledElectiveField(AcceptanceTester $I) {
+    public function CheckThatMoreThanCountOfElectiveMeasures_CANTBeSave_InEnabledElectiveField(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(2);
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '10');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '4');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->CheckValidationErrorWhenUpdateDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '10', 'must be less than or equal to 1');
+        $I->CheckValidationErrorWhenUpdateDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '4', 'must be less than or equal to 0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '3');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->CheckValidationErrorWhenUpdateDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '2', 'must be less than or equal to 1');
+        $I->CheckValidationErrorWhenUpdateDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '3', 'must be less than or equal to 1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '11');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '222');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->CheckValidationErrorWhenUpdateDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '11', 'must be less than or equal to 2');
+        $I->CheckValidationErrorWhenUpdateDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '222', 'must be less than or equal to 0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '3');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '2');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->CheckValidationErrorWhenUpdateDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '3', 'must be less than or equal to 2');
+        $I->CheckValidationErrorWhenUpdateDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '2', 'must be less than or equal to 1');
+       
     }
     
     /**
@@ -1169,113 +753,34 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function CheckSavedMaxValuesAfterDefineTotalUpdate(AcceptanceTester $I) {
+    public function CheckSavedMaxValuesAfterDefineTotalUpdate(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(2);
         
-        $I->comment("                                             ");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        $I->Check_CountOf_Core_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '2', $llCount = '2', $allCount = '3');
+        $I->Check_CountOf_Elective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '2', $llCount = '2', $allCount = '3');
+        $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '1', $llCount = '2', $allCount = '2');
         
-        $I->comment("                                             ");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-        $I->comment("---Required elective:---");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveRequiredValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveRequiredValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveRequiredValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveRequiredValue);
-        $I->wait(1);
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->comment("-----Energy subgroup DEFAULT TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "1");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '1', $totalRequired = '2');
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '0', $electiveCount = '0', $requiredElective = '0', $totalRequired = '0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup DEFAULT TAB-----");
-        $I->canSee("0", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("0", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '1', $totalRequired = '2');
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '0', $totalRequired = '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "1");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '2', $electiveCount = '2', $requiredElective = '2', $totalRequired = '4');
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '0', $electiveCount = '0', $requiredElective = '0', $totalRequired = '0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "1");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '2', $electiveCount = '2', $requiredElective = '2', $totalRequired = '4');
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '0', $totalRequired = '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "2");
-        $I->canSee("4", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("0", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("0", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "2");
-        $I->canSee("4", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "1");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
     }
     
     /**
@@ -1284,79 +789,20 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function UpdateDefineTotal(AcceptanceTester $I) {
+    public function UpdateDefineTotal(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(2);
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->UpdateDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+//        $I->UpdateDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '4');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '0');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->UpdateDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '0');
+        $I->UpdateDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '2');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->UpdateDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '2');
+//        $I->UpdateDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '222');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '0');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '0');
+        
     }
     
     /**
@@ -1365,113 +811,34 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
-    public function CheckAfterDefineTotalUpdate(AcceptanceTester $I) {
+    public function CheckAfterDefineTotalUpdate(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist));
-        $I->wait(2);
         
-        $I->comment("                                             ");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultCoreValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBCoreValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLCoreValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLCoreValue);
+        $I->Check_CountOf_Core_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '2', $llCount = '2', $allCount = '3');
+        $I->Check_CountOf_Elective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '2', $llCount = '2', $allCount = '3');
+        $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '1', $llCount = '2', $allCount = '1');
         
-        $I->comment("                                             ");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveValue);
-        $I->canSee('3', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveValue);
-        $I->comment("---Required elective:---");
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_DefaultElectiveRequiredValue);
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LBElectiveRequiredValue);
-        $I->canSee('2', \Page\ChecklistManage::$IncludedMeasuresForm_LLElectiveRequiredValue);
-        $I->canSee('1', \Page\ChecklistManage::$IncludedMeasuresForm_LB_LLElectiveRequiredValue);
-        $I->wait(1);
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->comment("-----Energy subgroup DEFAULT TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "1");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '1', $totalRequired = '2');
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '0', $electiveCount = '0', $requiredElective = '0', $totalRequired = '0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup DEFAULT TAB-----");
-        $I->canSee("0", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("0", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '0', $totalRequired = '1');
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '1', $totalRequired = '2');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '2', $electiveCount = '2', $requiredElective = '2', $totalRequired = '4');
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '0', $electiveCount = '0', $requiredElective = '0', $totalRequired = '0');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "1");
-        $I->canSee("2", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, 
+                                       $coreCount = '2', $electiveCount = '2', $requiredElective = '1', $totalRequired = '3');
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, 
+                                       $coreCount = '1', $electiveCount = '1', $requiredElective = '0', $totalRequired = '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "2");
-        $I->canSee("4", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE LANDSCAPE TAB-----");
-        $I->canSee("0", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("0", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->comment("-----Energy subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("2", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSee("2", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_Energy));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), "1");
-        $I->canSee("3", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_Energy));
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->comment("-----Solid Waste subgroup LARGE BUILDING+LARGE LANDSCAPE TAB-----");
-        $I->canSee("1", Page\ChecklistManage::CoreMeasuresLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSee("1", Page\ChecklistManage::TotalElectiveLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
-        $I->canSeeInField(Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), "0");
-        $I->canSee("1", Page\ChecklistManage::TotalMeasuresMustCompleteLine_DefineTotalTab($this->audSubgroup1_SolidWaste));
     }
     
     //--------------------------------------------------------------------------Default Extension On Checklist Preview-------------------------------------------------------
@@ -1484,7 +851,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckDefaultMeasures_Present_Default_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->canSee("0 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
         $I->canSee("0 of 1 required measures completed", \Page\ChecklistPreview::$CoreProgressBarInfo);
         $I->canSee("0 of 1 required measures completed", \Page\ChecklistPreview::$ElectiveProgressBarInfo);
@@ -1501,7 +867,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckDefaultMeasures_Absent_LB_LL_LBAndLL_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->cantSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure4Desc));
         $I->cantSeeElement(\Page\ChecklistPreview::MeasureDescription_ByDesc($this->measure5Desc));
@@ -1519,7 +884,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckLBMeasures_Present_Default_LB_LbAndLL_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Large Building");
         $I->wait(3);
@@ -1550,7 +914,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckLBMeasures_Absent_LL_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Large Building");
         $I->wait(3);
@@ -1574,7 +937,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckLLMeasures_Present_Default_LL_LbAndLL_CoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Large Landscape");
         $I->wait(3);
@@ -1598,7 +960,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckLLMeasures_Absent_LB_NotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Large Landscape");
         $I->wait(3);
@@ -1616,7 +977,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckLBAndLLMeasures_Present_AllCoreAndElective_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Lg Building + Lg Landscape");
         $I->wait(2);
@@ -1649,7 +1009,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckLBAndLLMeasures_Absent_AllNotSet_OnChecklistPreview(AcceptanceTester $I) {
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklist, $this->id_audSubgroup1_Energy));
-        $I->wait(3);
         $I->waitForElement(\Page\ChecklistPreview::$ExtensionSelect);
         $I->selectOption(\Page\ChecklistPreview::$ExtensionSelect, "Lg Building + Lg Landscape");
         $I->wait(2);
@@ -1671,7 +1030,6 @@ class ChecklistMeasureExtensionCest
     
     public function Help_LogOut(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
         $I->Logout($I);
     }
     
@@ -1705,7 +1063,8 @@ class ChecklistMeasureExtensionCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(9);
+        $I->wait(4);
+        $I->waitPageLoad();
     }
     
     /**
@@ -1719,10 +1078,8 @@ class ChecklistMeasureExtensionCest
         $value1   = '10';
         $value2   = '20';
                 
-        $I->wait(1);
         $I->comment("Complete Measure1 for NA business: $this->business_NAanswers");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure1']");
@@ -1736,6 +1093,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 25%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
@@ -1758,10 +1116,8 @@ class ChecklistMeasureExtensionCest
     public function NA_CompleteMeasure8_NA_Answer(AcceptanceTester $I) {
         $measDesc = $this->measure8Desc;
                 
-        $I->wait(1);
         $I->comment("Complete Measure8 for NA business: $this->business_NAanswers");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure8']");
@@ -1772,6 +1128,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
         $I->assertEquals('true', $readonly);
         $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
@@ -1796,10 +1153,8 @@ class ChecklistMeasureExtensionCest
     public function NA_CompleteMeasure7_NA_Answer(AcceptanceTester $I) {
         $measDesc = $this->measure7Desc;
                 
-        $I->wait(1);
         $I->comment("Complete Measure7 for NA business: $this->business_NAanswers");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure7]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure7']");
@@ -1810,6 +1165,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
         $I->assertEquals('true', $readonly);
         $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), 'readonly');
@@ -1837,10 +1193,8 @@ class ChecklistMeasureExtensionCest
         $measDesc = $this->measure5Desc;
         $value1   = '11';
                 
-        $I->wait(1);
         $I->comment("Complete Measure5 for NA business: $this->business_NAanswers");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure5']");
@@ -1853,6 +1207,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("3 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 75%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
@@ -1876,10 +1231,8 @@ class ChecklistMeasureExtensionCest
     public function NA_CompleteMeasure4_NA_Answer(AcceptanceTester $I) {
         $measDesc = $this->measure4Desc;
                 
-        $I->wait(1);
         $I->comment("Complete Measure4 for NA business: $this->business_NAanswers");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure4']");
@@ -1890,6 +1243,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
         $I->assertEquals('true', $readonly);
         $I->canSee("4 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
@@ -1912,10 +1266,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_AfterComplitingMeasures_NA(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page - NA LB&LL");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("4 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("2 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -1934,7 +1286,6 @@ class ChecklistMeasureExtensionCest
     public function Help_LogOutFromBusinessNA(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
-        $I->wait(1);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1967,7 +1318,8 @@ class ChecklistMeasureExtensionCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(9);
+        $I->wait(4);
+        $I->waitPageLoad();
     }
     
     /**
@@ -1977,10 +1329,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckMeasuresPresent_LB_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check that LB, LB&LL, Default measures with core&elective status are present in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSee("0 Tier 2 measures completed. A minimum of 3 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -1995,7 +1345,6 @@ class ChecklistMeasureExtensionCest
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure1Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure2Desc));
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->canSee("0 Tier 2 measures completed. A minimum of 3 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -2020,16 +1369,13 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckMeasuresAbsent_LL_NotSet(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check that LL measures and measures with not set status are absent in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure5Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure6Desc));
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure9Desc));
     }
     
@@ -2040,10 +1386,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_LB(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page - LB");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("0 of 3 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -2064,10 +1408,8 @@ class ChecklistMeasureExtensionCest
         $value1   = '10';
         $value2   = '20';
                 
-        $I->wait(1);
         $I->comment("Complete Measure1 for LB business: $this->business1_LB");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure1']");
@@ -2081,6 +1423,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("1 Tier 2 measures completed. A minimum of 3 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 33%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
@@ -2104,10 +1447,8 @@ class ChecklistMeasureExtensionCest
         $measDesc = $this->measure8Desc;
         $value1   = '88';
                 
-        $I->wait(1);
         $I->comment("Complete Measure8 for LB business: $this->business1_LB");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure8']");
@@ -2120,6 +1461,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("2 Tier 2 measures completed. A minimum of 3 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 66%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -2140,10 +1482,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_AfterComplitingMeasures_LB(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page - LB");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("2 of 3 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -2162,7 +1502,6 @@ class ChecklistMeasureExtensionCest
     public function Help_LogOutFromBusiness1(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
-        $I->wait(1);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2195,7 +1534,8 @@ class ChecklistMeasureExtensionCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(9);
+        $I->wait(4);
+        $I->waitPageLoad();
     }
     
     /**
@@ -2205,10 +1545,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckMeasuresPresent_LL_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check that LL, LB&LL, Default measures with core&elective status are present in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSee("0 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -2234,10 +1572,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckMeasuresAbsent_LB_NotSet(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check that LB measures and measures with not set status are absent in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure6Desc));
     }
@@ -2249,10 +1585,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_LL(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page - LL");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("0 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0 /2", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -2272,10 +1606,8 @@ class ChecklistMeasureExtensionCest
         $value1   = '34';
         $value2   = '22';
                 
-        $I->wait(1);
         $I->comment("Complete Measure1 for LL business: $this->business2_LL");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure1']");
@@ -2289,6 +1621,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 25%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
@@ -2311,10 +1644,8 @@ class ChecklistMeasureExtensionCest
         $measDesc = $this->measure2Desc;
         $value1   = '5';
                 
-        $I->wait(1);
         $I->comment("Complete Measure8 for LL business: $this->business2_LL");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure2']");
@@ -2327,6 +1658,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("2 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
@@ -2346,10 +1678,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_AfterComplitingMeasures_LL(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page - LL");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("2 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("1 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("1 /2", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -2367,7 +1697,6 @@ class ChecklistMeasureExtensionCest
     public function Help_LogOutFromBusiness2(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
-        $I->wait(1);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2400,7 +1729,8 @@ class ChecklistMeasureExtensionCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(9);
+        $I->wait(4);
+        $I->waitPageLoad();
     }
     
     /**
@@ -2410,10 +1740,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckMeasuresPresent_LL_LB_LBAndLL_Default_CoreAndElective(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check that LL, LB, LB&LL, Default measures with core&elective status are present in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSee("0 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -2430,7 +1758,6 @@ class ChecklistMeasureExtensionCest
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));
         $I->canSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure5Desc));
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->canSee("0 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -2455,14 +1782,11 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckMeasuresAbsent_NotSet(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check that measures with not set status are absent in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure6Desc));
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure9Desc));
     }
     
@@ -2473,10 +1797,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_LB_LL(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page - LB&LL");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("0 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -2497,10 +1819,8 @@ class ChecklistMeasureExtensionCest
         $value1   = '4';
         $value2   = '2';
                 
-        $I->wait(1);
         $I->comment("Complete Measure1 for LB&LL business: $this->business3_LB_LL");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure1']");
@@ -2514,6 +1834,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 25%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
@@ -2537,10 +1858,8 @@ class ChecklistMeasureExtensionCest
         $measDesc = $this->measure2Desc;
         $value1   = '77';
                 
-        $I->wait(1);
         $I->comment("Complete Measure8 for LB&LL business: $this->business3_LB_LL");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure2']");
@@ -2553,6 +1872,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("2 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
@@ -2573,10 +1893,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_AfterComplitingMeasures_LB_LL(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page - LB&LL");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("2 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("1 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -2595,7 +1913,6 @@ class ChecklistMeasureExtensionCest
     public function Help_LogOutFromBusiness3(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
-        $I->wait(1);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2610,10 +1927,10 @@ class ChecklistMeasureExtensionCest
     
     public function Default_Business4Registration(Step\Acceptance\Business $I)
     {
-        $firstName        = $I->GenerateNameOf("firnam");
-        $lastName         = $I->GenerateNameOf("lasnam");
-        $phoneNumber      = $I->GeneratePhoneNumber();
-        $email            = $I->GenerateEmail();
+        $firstName        = $this->firName_Bus4 = $I->GenerateNameOf("firnam");
+        $lastName         = $this->secName_Bus4 = $I->GenerateNameOf("lasnam");
+        $phoneNumber      = $this->phone_bus4 = $I->GeneratePhoneNumber();
+        $email            = $this->email_Bus4 = $I->GenerateEmail();
         $password         = $confirmPassword = 'Qq!1111111';
         $busName          = $this->business4_Default = $I->GenerateNameOf("bus4_Def");
         $busPhone         = $I->GeneratePhoneNumber();
@@ -2628,7 +1945,8 @@ class ChecklistMeasureExtensionCest
         
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
-        $I->wait(9);
+        $I->wait(4);
+        $I->waitPageLoad();
     }
     
     /**
@@ -2638,10 +1956,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckMeasuresPresent_Default_CoreAndElective(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check that Default measures with core&elective status are present in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSee("0 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -2664,10 +1980,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckMeasuresAbsent_LL_LB_LBAndLL_NotSet(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check that LL, LB, LB&LL measures and measures with not set status are absent in business checklist");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));
         $I->cantSeeElement(Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure5Desc));
@@ -2682,10 +1996,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_Default(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page - Default");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -2705,10 +2017,8 @@ class ChecklistMeasureExtensionCest
         $value1   = '66';
         $value2   = '33';
                 
-        $I->wait(1);
         $I->comment("Complete Measure1 for Default business: $this->business4_Default");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure1']");
@@ -2722,6 +2032,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("1 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
@@ -2744,10 +2055,8 @@ class ChecklistMeasureExtensionCest
         $measDesc = $this->measure2Desc;
         $value1   = '2';
                 
-        $I->wait(1);
         $I->comment("Complete Measure8 for Default business: $this->business4_Default");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure2']");
@@ -2760,6 +2069,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->canSee("2 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 100%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
@@ -2779,10 +2089,8 @@ class ChecklistMeasureExtensionCest
      */
     
     public function CheckOnReviewPage_AfterComplitingMeasures_Default(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page - Default");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist));
-        $I->wait(2);
         $I->canSee("2 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
@@ -2797,10 +2105,27 @@ class ChecklistMeasureExtensionCest
      * @group coordinator
      */
     
+    public function UpdateAddress_OnProfile_CheckNotification(AcceptanceTester $I){
+        $address  = 'New address 11111';
+        
+        $I->amOnPage(\Page\CompanyProfile::$URL);
+        $I->fillField(\Page\CompanyProfile::$AddressField_BusinessProfileTab, $address);
+        $I->click(\Page\CompanyProfile::$SaveButtonHeader_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSeeElement(\Page\ApplicationDetails::$SuccessfullySavingPopup);
+        $I->canSee("Company info successfully updated");
+        $I->cantSee("Address was changed, please check business and landscape SQUARE FOOTAGE.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Help_LogOutFromBusiness4(AcceptanceTester $I){
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsAdmin($I);
     }
     
@@ -2812,7 +2137,6 @@ class ChecklistMeasureExtensionCest
     
     public function CheckBusinessesOnDashboard(AcceptanceTester $I){
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->wait(3);
         $I->comment("Check business with NA answers:");
         $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_ProgressBar_ByBusName($this->business_NAanswers), ['style' => 'width: 100%;']);
         $I->canSee("4 / 4 measures completed", \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business_NAanswers));
@@ -2832,5 +2156,648 @@ class ChecklistMeasureExtensionCest
         $I->comment("Check LB+LL business:");
         $I->canSeeElement(\Page\Dashboard::MeasuresCompleted_ProgressBar_ByBusName($this->business3_LB_LL), ['style' => 'width: 50%;']);
         $I->canSee("2 / 4 measures completed", \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_LB_LL));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function GetBusiness1ID(AcceptanceTester $I) {
+        $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business1_LB), 'href');
+        $I->comment("Url1: $url1");
+        $u1 = explode('=', $url1);
+        $this->id_bus1_LB = $u1[1];
+        $I->comment("Business_LB_1 id: $this->id_bus1_LB.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function GetBusiness2ID(AcceptanceTester $I) {
+        $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2_LL), 'href');
+        $I->comment("Url2: $url1");
+        $u1 = explode('=', $url1);
+        $this->id_bus2_LL = $u1[1];
+        $I->comment("Business_LL_2 id: $this->id_bus2_LL.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function GetBusiness3ID(AcceptanceTester $I) {
+        $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business3_LB_LL), 'href');
+        $I->comment("Url1: $url1");
+        $u1 = explode('=', $url1);
+        $this->id_bus3_LB_LL = $u1[1];
+        $I->comment("Business_All_3 id: $this->id_bus3_LB_LL.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function GetBusiness4ID(AcceptanceTester $I) {
+        $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business4_Default), 'href');
+        $I->comment("Url1: $url1");
+        $u1 = explode('=', $url1);
+        $this->id_bus4_Default = $u1[1];
+        $I->comment("Business_Def_4 id: $this->id_bus4_Default.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function GetBusinessNAID(AcceptanceTester $I) {
+        $url1 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business_NAanswers), 'href');
+        $I->comment("Url1: $url1");
+        $u1 = explode('=', $url1);
+        $this->id_bus_NAanswers = $u1[1];
+        $I->comment("Business_NA id: $this->id_bus_NAanswers.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension_CheckPopupAppears_Business1(AcceptanceTester $I){
+        $busSq  = '14999';
+        $landSq = '1000';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus1_LB));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension2_CheckPopupAppears_Business1(AcceptanceTester $I){
+        $busSq  = '14999';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus1_LB));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension3_CheckPopupAppears_Business1(AcceptanceTester $I){
+        $landSq = '1000';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus1_LB));
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToLLExtension_CheckPopupAppears_Business1(AcceptanceTester $I){
+        $busSq  = '14999';
+        $landSq = '1000';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus1_LB));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckThatChecklistIsNotChanged_To_LL_Business1(AcceptanceTester $I) {
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_bus1_LB, $this->id_audSubgroup1_Energy));
+        $I->canSee("2 Tier 2 measures completed. A minimum of 3 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 66%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$ElectiveCompletedProgressBar, ['style' => 'width: 0%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 67%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 0 of the 1 Measures", \Page\BusinessChecklistView::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("2 of 3 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure1Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure2Desc));
+        $I->cantSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure4Desc));
+        $I->cantSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure5Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_SolidWasteGroupButton);
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_bus1_LB, $this->id_audSubgroup1_SolidWaste));
+        $I->canSee("2 Tier 2 measures completed. A minimum of 3 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 66%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$ElectiveCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 67%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSee("0 of 1 required measures completed", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 1 of the 1 Measures", \Page\BusinessChecklistView::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("2 of 3 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure7Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure8Desc));
+        //Review
+        $I->amOnPage(\Page\ReviewAndSubmit::URL_AdminLogin($this->id_bus1_LB));
+        $I->canSee("2 of 3 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
+        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::CompleteStatus);
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::InProgressStatus);
+    }
+   
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension_CheckPopupAppears_Business2(AcceptanceTester $I){
+        $busSq  = '15000';
+        $landSq = '999';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus2_LL));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension2_CheckPopupAppears_Business2(AcceptanceTester $I){
+        $busSq  = '15000';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus2_LL));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension3_CheckPopupAppears_Business2(AcceptanceTester $I){
+        $landSq = '999';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus2_LL));
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_SameExtension_CheckPopupNotAppears_Business2(AcceptanceTester $I){
+        $busSq  = '1344';
+        $landSq = '1344';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus2_LL));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension_CheckPopupAppears_Business3(AcceptanceTester $I){
+        $busSq  = '7500';
+        $landSq = '900';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus3_LB_LL));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension2_CheckPopupAppears_Business3(AcceptanceTester $I){
+        $busSq  = '7500';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus3_LB_LL));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension3_CheckPopupAppears_Business3(AcceptanceTester $I){
+        $landSq = '900';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus3_LB_LL));
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_ChangeStatusToRecognized(AcceptanceTester $I){
+        $status = \Page\BusinessChecklistView::RecognizedStatus;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_bus3_LB_LL));
+        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        $I->wait(5);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->wait(2);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateRecognizedBus_BusinessAndLandscapeSF_ToAnotherExtension_CheckPopupNotAppears_Business3(AcceptanceTester $I){
+        $busSq  = '7500';
+        $landSq = '900';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus3_LB_LL));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+   
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckThatChecklistIsNotChanged_Business3(AcceptanceTester $I) {
+                
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_bus3_LB_LL, $this->id_audSubgroup1_Energy));
+        $I->canSee("2 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$ElectiveCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 67%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 0%;']);
+        $I->canSee("1 of 2 required measures completed", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 1 of the 2 Measures", \Page\BusinessChecklistView::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("2 of 4 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure1Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure2Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure4Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure5Desc));
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_bus3_LB_LL, $this->id_audSubgroup1_SolidWaste));
+        $I->canSee("2 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$ElectiveCompletedProgressBar, ['style' => 'width: 0%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 67%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 0%;']);
+        $I->canSee("0 of 1 required measures completed", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 0 of the 1 Measures", \Page\BusinessChecklistView::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("2 of 4 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure7Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure8Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
+        $I->canSeeElement(Page\BusinessChecklistView::$LeftMenu_SolidWasteGroupButton);
+        
+        $I->amOnPage(\Page\ReviewAndSubmit::URL_AdminLogin($this->id_bus3_LB_LL));
+        $I->canSee("2 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
+        $I->canSee("1 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::InProgressStatus);
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::NotStartedStatus);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function CheckNotificationToCoordinator_Business4(\Step\Acceptance\Communication $I){
+        $subject     = 'The business has changed address.';
+        $contactInfo = "$this->firName_Bus4 $this->secName_Bus4, $this->phone_bus4, $this->email_Bus4";
+        $body_Row1   = "Dear Coordinator,";
+        $body_Row2   = "$this->business4_Default has a new location, please contact $contactInfo to initiate a site visit. If the square footage of the facility or landscaping has changed, please update the Business Profile with the current values.";
+        $sender      = $this->business4_Default;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_bus4_Default));
+        $row = $I->GetNotificationRowOnCommunicationTab($subject);
+        $I->canSee($this->program1, Page\ApplicationDetails::SenderLine_CommunicationTab($row));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab($row));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab($row));
+        $I->wait(4);
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $grabedBodyValue = $I->grabTextFrom(Page\CommunicationsView::PreviousMessage('1'));
+        $I->comment("Grabed body value: $grabedBodyValue");
+        $I->canSee($body_Row1, Page\CommunicationsView::PreviousMessage('1').'[1]');
+        $I->canSee($body_Row2, Page\CommunicationsView::PreviousMessage('1').'[2]');
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension_CheckPopupAppears_Business4(AcceptanceTester $I){
+        $busSq  = '16666';
+        $landSq = '6000';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus4_Default));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business4_CheckThatChecklistIsNotChanged_Default(AcceptanceTester $I) {
+        $I->comment("Check that Default measures with core&elective status are present in business checklist");
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_bus4_Default, $this->id_audSubgroup1_Energy));
+        $I->canSee("2 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$ElectiveCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$ElectiveProgressBarInfo);
+        $I->canSee("Complete at least 1 of the 1 Measures", \Page\BusinessChecklistView::$InfoAboutCountToCompleteElectiveMeasures);
+        $I->canSee("2 of 2 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure1Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure2Desc));
+        $I->canSeeElement(Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);
+        
+        $I->comment("Check that LL, LB, LB&LL measures and measures with not set status are absent in business checklist");
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_bus4_Default, $this->id_audSubgroup1_Energy));
+        $I->cantSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure3Desc));
+        $I->cantSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure4Desc));
+        $I->cantSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure5Desc));
+        $I->cantSeeElement(Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure6Desc));
+        $I->cantSeeElement(Page\BusinessChecklistView::$LeftMenu_SolidWasteGroupButton);
+        
+        $I->amOnPage(\Page\ReviewAndSubmit::URL_AdminLogin($this->id_bus4_Default));
+        $I->canSee("2 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
+        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_Energy));
+        $I->cantSeeElement(Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->cantSeeElement(Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::CompleteStatus);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension2_CheckPopupAppears_Business4(AcceptanceTester $I){
+        $busSq  = '16666';
+        $landSq = '300';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus4_Default));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_ToAnotherExtension3_CheckPopupAppears_Business4(AcceptanceTester $I){
+        $busSq  = '14000';
+        $landSq = '6000';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus4_Default));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateAddress_CheckPopupWithProposalToUpdateSquareFootageAppears_Business4(AcceptanceTester $I){
+        $address  = 'New address 22';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus4_Default));
+        $I->fillField(\Page\ApplicationDetails::$AddressField_BusinessProfileTab, $address);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSeeElement(\Page\ApplicationDetails::$SuccessfullySavingPopup);
+        $I->canSee("Company info successfully updated.\nAddress was changed, please check business and landscape SQUARE FOOTAGE.", \Page\ApplicationDetails::$SuccessfullySavingPopup_Text);
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$AddressField_BusinessProfileTab, $address);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_And_Address_ToAnotherExtension3_CheckPopupAppears_Business4(AcceptanceTester $I){
+        $busSq   = '13000';
+        $landSq  = '7000';
+        $address = 'New address 44';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus4_Default));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->fillField(\Page\ApplicationDetails::$AddressField_BusinessProfileTab, $address);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->cantSee("Address was changed, please check business and landscape SQUARE FOOTAGE.");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$AddressField_BusinessProfileTab, $address);
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function UpdateBusinessAndLandscapeSF_And_Address_ToSameExtension3_CheckPopupNotAppears_Business4(AcceptanceTester $I){
+        $busSq    = '14000';
+        $landSq   = '999';
+        $address  = 'New address 44';
+        
+        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessProfile($this->id_bus4_Default));
+        $I->fillField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->fillField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
+        $I->fillField(\Page\ApplicationDetails::$AddressField_BusinessProfileTab, $address);
+        $I->click(\Page\ApplicationDetails::$SaveButtonFooter_BusinessProfileTab);
+        $I->wait(4);
+        $I->canSee("Company info successfully updated");
+        $I->cantSee("Address was changed, please check business and landscape SQUARE FOOTAGE.");
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $I->canSeeInField(\Page\ApplicationDetails::$AddressField_BusinessProfileTab, $address);
+        $I->canSeeInField(\Page\ApplicationDetails::$BusinessSquareFootageField_BusinessProfileTab, $busSq);
+        $I->canSeeInField(\Page\ApplicationDetails::$LandscapeSquareFootageField_BusinessProfileTab, $landSq);
     }
 }

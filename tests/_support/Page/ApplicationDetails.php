@@ -46,22 +46,39 @@ class ApplicationDetails extends \AcceptanceTester
     public static $ContactNameField_BusinessInfoTab     = '#businesscontactform_1-full_name';
     public static $PhoneNumberField_BusinessInfoTab     = '#business_phone_disabled_input';
     public static $EmailField_BusinessInfoTab           = '#businesscontactform_1-email';
-    public static $ManageContactsButton_BusinessInfoTab = 'a#popup_link_1';
+    public static $ManageContactsButton_BusinessInfoTab = 'a#popup_link_2';
     //Tier Statuses
     public static $TierStatusTitle_BusinessInfoTab            = 'button#recognition_date_save_button';
-    public static function TierName_BusinessInfoTab($row)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
-    public static function TierStatus_BusinessInfoTab($row)   { return "[class*=margin-top]>div:nth-of-type($row) .p-label";}
-    public static $TierPromotionsTitle_BusinessInfoTab        = 'button#recognition_date_save_button';
+    public static function TierName_BusinessInfoTab($row)           { $a=$row+1; return "[class*=margin-top]>div.row:nth-of-type($a) .lite-green";}
+    public static function TierStatus_BusinessInfoTab($row)         { $a=$row+1; return "[class*=margin-top]>div.row:nth-of-type($a) .p-label";}
+    public static function TierToggleButton_BusinessInfoTab($row)   { $a=$row+1; return "[class*=margin-top]>div.row:nth-of-type($a) #undefined_switch_control";}
+    //Tier Promotions
+    public static $TierPromotionsTitle_BusinessInfoTab = 'button#recognition_date_save_button';
+    public static $PromotionHead_BusinessInfoTab       = 'button#recognition_date_save_button';
+    public static $TierNumberHead_BusinessInfoTab      = 'button#recognition_date_save_button';
+    public static $DateOfReceiptHead_BusinessInfoTab   = 'button#recognition_date_save_button';
+    public static $ReceivedHead_BusinessInfoTab        = 'button#recognition_date_save_button';
+    public static function PromotionName_BusinessInfoTab($row)              { return ".tiered-promotion tbody>tr:nth-of-type($row)>td:nth-of-type(1)";}
+    public static function TierNumber_BusinessInfoTab($row)                 { return ".tiered-promotion tbody>tr:nth-of-type($row)>td:nth-of-type(2)";}
+    public static function DateOfReceipt_BusinessInfoTab($row)              { return ".tiered-promotion tbody>tr:nth-of-type($row)>td:nth-of-type(3)";}
+    public static function ReceivedToggleButton_BusinessInfoTab($row)       { return ".tiered-promotion tbody>tr:nth-of-type($row)>td:nth-of-type(4)>div";}
+    public static function ReceivedToggleButtonSelect_BusinessInfoTab($row) { return ".tiered-promotion tbody>tr:nth-of-type($row)>td:nth-of-type(4)>select";}
+    public static function PromotionName_ByName_BusinessInfoTab($benefName)              { $a=$row+1; return "[class*=margin-top]>div.row:nth-of-type($a) .lite-green";}
+    public static function TierNumber_ByName_BusinessInfoTab($benefName)                 { $a=$row+1; return "[class*=margin-top]>div.row:nth-of-type($a) .lite-green";}
+    public static function DateOfReceipt_ByName_BusinessInfoTab($benefName)              { $a=$row+1; return "[class*=margin-top]>div.row:nth-of-type($a) .lite-green";}
+    public static function ReceivedToggleButton_ByName_BusinessInfoTab($benefName)       { $a=$row+1; return "[class*=margin-top]>div.row:nth-of-type($a) .lite-green";}
+    public static function ReceivedToggleButtonSelect_ByName_BusinessInfoTab($benefName) { $a=$row+1; return "[class*=margin-top]>div.row:nth-of-type($a) .lite-green";}
     
-    public static function TierTab_BusinessInfoTab($tierNumber)     { return "[class*=margin-top]>div:nth-of-type($row) .lite-green";}
+    public static function TierTab_BusinessInfoTab($tierName)       { return "//*[@id='tabs-1']//*[@class='tabs']/ul/li/a[text()='$tierName']";}
+    public static function TierTabActive_BusinessInfoTab($tierName) { return "//*[@id='tabs-1']//*[@class='tabs']/ul/li/a[text()='$tierName'][contains(@class, 'active')]";}
     public static $ApplicationStatusSelect_BusinessInfoTab          = '#application_dropdown_2';
     public static $PhoneConsultStatusSelect_BusinessInfoTab         = '#application_dropdown_3';
     public static $ComplianceCheckStatusSelect_BusinessInfoTab      = '#application_dropdown_4';
     public static $SiteVisitStatusSelect_BusinessInfoTab            = '#application_dropdown_5';
     public static $AuditsStatusSelect_BusinessInfoTab               = '#application_dropdown_6';
     public static $RecognitionTasksStatusSelect_BusinessInfoTab     = '#application_dropdown_7';
-    public static $AddDetailsButton_ComplianceCheck_BusinessInfoTab = 'a#popup_link_2';
-    public static $AddDetailsButton_Audits_BusinessInfoTab          = 'a#popup_link_3';
+    public static $AddDetailsButton_ComplianceCheck_BusinessInfoTab = 'a#popup_link_3';
+    public static $AddDetailsButton_Audits_BusinessInfoTab          = 'a#popup_link_4';
     
     public static function Category_BusinessInfoTab($row)            { $a = 3*$row+1; return "div.coordinator-audit-status>div:nth-of-type($a)>div";}
     public static function CategoryStatus_BusinessInfoTab($row)      { $a = 3*$row+2; return "div.coordinator-audit-status>div:nth-of-type($a)>div>span";}
@@ -101,6 +118,14 @@ class ApplicationDetails extends \AcceptanceTester
     public static function ComplianceCheckPopup_CompletionDateField($row)     { return ".modal.in table>tbody>tr:nth-of-type($row) [id*=completion_date]";}
     public static function ComplianceCheckPopup_OrganizationSelect($row)      { return ".modal.in table>tbody>tr:nth-of-type($row) [id*=audit_organization]";}
     public static function ComplianceCheckPopup_InspectorSelect($row)         { return ".modal.in table>tbody>tr:nth-of-type($row) [class*=organization_user]";}
+    public static function ComplianceCheckPopup_MessageButton($row)           { return ".modal.in table>tbody>tr:nth-of-type($row) button[href*=sent-message]";}
+    public static function ComplianceCheckPopup_ViewButton($row)              { return ".modal.in table>tbody>tr:nth-of-type($row) a[href*=view]";}
+    
+    public static function ComplianceCheckPopup_NotificationForm($row)        { return ".modal.in table>tbody>tr:nth-of-type($row)+tr .message-row";}
+    public static function ComplianceCheckPopup_SubjectField($row)            { return ".modal.in table>tbody>tr:nth-of-type($row)+tr #communication-subject";}
+    public static function ComplianceCheckPopup_MessageField($row)            { return ".modal.in table>tbody>tr:nth-of-type($row)+tr #message-body";}
+    public static function ComplianceCheckPopup_SendButton($row)              { return ".modal.in table>tbody>tr:nth-of-type($row)+tr button.post-part-form";}
+    public static function ComplianceCheckPopup_CancelButton($row)            { return ".modal.in table>tbody>tr:nth-of-type($row)+tr button.handle-show-on-click";}
     
     public static function ComplianceCheckPopup_ComplianceCheckByName($complName)      { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[1]";}
     public static function ComplianceCheckPopup_StatusSelectByName($complName)         { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[2]//select";}
@@ -109,7 +134,16 @@ class ApplicationDetails extends \AcceptanceTester
     public static function ComplianceCheckPopup_OrganizationSelectByName($complName)   { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[5]//select";}
     public static function ComplianceCheckPopup_InspectorSelectByName($complName)      { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[6]//select";}
     public static function ComplianceCheckPopup_OrganizationOptiomByName($complName, $orgName) { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[5]//select/option[contains(text(), '$orgName')]";}
-    public static function ComplianceCheckPopup_InspectorOptionByName($complName, $inspector)  { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[6]//select/option[contains(text(), '$auditor')]";}
+    public static function ComplianceCheckPopup_InspectorOptionByName($complName, $inspector)  { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[6]//select/option[contains(text(), '$inspector')]";}
+    public static function ComplianceCheckPopup_MessageButtonByName($complName)        { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[7]//button";}
+    public static function ComplianceCheckPopup_ViewButtonByName($complName)           { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/td[7]//a";}
+    
+    public static function ComplianceCheckPopup_NotificationFormByName($complName)        { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/following-sibling::tr[1]//*[contains(@class, 'message-row')]";}
+    public static function ComplianceCheckPopup_SubjectFieldByName($complName)            { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/following-sibling::tr[1]//*[@id='communication-subject']";}
+    public static function ComplianceCheckPopup_MessageFieldByName($complName)            { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/following-sibling::tr[1]//*[@id='message-body']";}
+    public static function ComplianceCheckPopup_SendButtonByName($complName)              { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/following-sibling::tr[1]//button[contains(@class, 'post-part-form')]";}
+    public static function ComplianceCheckPopup_CancelButtonByName($complName)            { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$complName')]/following-sibling::tr[1]//button[contains(@class, 'handle-show-on-click')]";}
+    
     
     public static $ComplianceCheckPopup_UpdateButton             = '.modal.in [type=submit]';
     public static $ComplianceCheckPopup_CloseButton              = '.modal.in .close';
@@ -131,6 +165,14 @@ class ApplicationDetails extends \AcceptanceTester
     public static function AuditsPopup_CompletionDateField($row)     { return ".modal.in table>tbody>tr:nth-of-type($row) [id*=completion_date]";}
     public static function AuditsPopup_OrganizationSelect($row)      { return ".modal.in table>tbody>tr:nth-of-type($row) [id*=audit_organization]";}
     public static function AuditsPopup_AuditorSelect($row)           { return ".modal.in table>tbody>tr:nth-of-type($row) [class*=organization_user]";}
+    public static function AuditsPopup_MessageButton($row)           { return ".modal.in table>tbody>tr:nth-of-type($row) button[href*=sent-message]";}
+    public static function AuditsPopup_ViewButton($row)              { return ".modal.in table>tbody>tr:nth-of-type($row) a[href*=view]";}
+    
+    public static function AuditsPopup_NotificationForm($row)        { return ".modal.in table>tbody>tr:nth-of-type($row)+tr .message-row";}
+    public static function AuditsPopup_SubjectField($row)            { return ".modal.in table>tbody>tr:nth-of-type($row)+tr #communication-subject";}
+    public static function AuditsPopup_MessageField($row)            { return ".modal.in table>tbody>tr:nth-of-type($row)+tr #message-body";}
+    public static function AuditsPopup_SendButton($row)              { return ".modal.in table>tbody>tr:nth-of-type($row)+tr button.post-part-form";}
+    public static function AuditsPopup_CancelButton($row)            { return ".modal.in table>tbody>tr:nth-of-type($row)+tr button.handle-show-on-click";}
     
     public static function AuditsPopup_AuditGroupByName($audGroup)           { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[1]";}
     public static function AuditsPopup_StatusSelectByName($audGroup)         { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[2]//select";}
@@ -140,6 +182,14 @@ class ApplicationDetails extends \AcceptanceTester
     public static function AuditsPopup_AuditorSelectByName($audGroup)        { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[6]//select";}
     public static function AuditsPopup_OrganizationOptionByName($audGroup, $orgName) { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[5]//select/option[contains(text(), '$orgName')]";}
     public static function AuditsPopup_AuditorOptionByName($audGroup, $auditor)      { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[6]//select/option[contains(text(), '$auditor')]";}
+    public static function AuditsPopup_MessageButtonByName($audGroup)        { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[7]//button";}
+    public static function AuditsPopup_ViewButtonByName($audGroup)           { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/td[7]//a";}
+    
+    public static function AuditsPopup_NotificationFormByName($audGroup)     { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/following-sibling::tr[1]//*[contains(@class, 'message-row')]";}
+    public static function AuditsPopup_SubjectFieldByName($audGroup)         { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/following-sibling::tr[1]//*[@id='communication-subject']";}
+    public static function AuditsPopup_MessageFieldByName($audGroup)         { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/following-sibling::tr[1]//*[@id='message-body']";}
+    public static function AuditsPopup_SendButtonByName($audGroup)           { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/following-sibling::tr[1]//button[contains(@class, 'post-part-form')]";}
+    public static function AuditsPopup_CancelButtonByName($audGroup)         { return "//*[@id='popup']//tbody/tr[contains(td[1]/text(), '$audGroup')]/following-sibling::tr[1]//button[contains(@class, 'handle-show-on-click')]";}
     
     public static $AuditsPopup_UpdateButton             = '.modal.in [type=submit]';
     public static $AuditsPopup_CloseButton              = '.modal.in .close';
@@ -172,7 +222,7 @@ class ApplicationDetails extends \AcceptanceTester
     //---------------------------Communication Tab------------------------------
     //--------------------------------------------------------------------------
     
-    public static $CreateNewConversationButton         = 'h2';
+    public static $CreateNewConversationButton         = "a[href*='communication/create']";
     public static $ConversationRow_CommunicationTab    = 'table[class*=table] tbody>tr';
     public static $SummaryCount_CommunicationTab       = '.summary>b:last-of-type';
     
@@ -180,6 +230,8 @@ class ApplicationDetails extends \AcceptanceTester
     public static $SenderHead_CommunicationTab         = 'table[class*=table] tr>th:first-of-type';
     public static $SubjectLinkHead_CommunicationTab    = 'table[class*=table] tr>th:nth-of-type(2) a';
     public static $SentLinkHead_CommunicationTab       = 'table[class*=table] tr>th:nth-of-type(3) a';
+    
+    public static $SubjectColumnRow_CommunicationTab   = 'table[class*=table] tbody>tr>td:nth-of-type(2)';
     
     public static function SenderLine_CommunicationTab($row)       { return "table[class*=table] tbody>tr:nth-of-type($row)>td:first-of-type"; }
     public static function SubjectLine_CommunicationTab($row)      { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(2)"; }
@@ -191,10 +243,15 @@ class ApplicationDetails extends \AcceptanceTester
     //--------------------------Business Profile Tab----------------------------
     //--------------------------------------------------------------------------
     
+    public static $RequiresNewChecklistButton_BusinessProfileTab      = '.company-status>a';
+    
     public static $BusinessNameField_BusinessProfileTab               = '#businessform-name';
     public static $AddressField_BusinessProfileTab                    = '#businessform-street_address';
     public static $City_BusinessProfileTab                            = '.company-profile-info>p:nth-of-type(1)';
     public static $Zip_BusinessProfileTab                             = '.company-profile-info>p:nth-of-type(2)';
+    
+    public static $BusinessLogo_BusinessProfileTab                    = "input[type='file']:nth-of-type(1)";
+    public static $BusinessPhoto_BusinessProfileTab                   = "input[type='file']:nth-of-type(2)";
     
     public static $PhoneField_BusinessProfileTab                      = '#businessform-phone';
     public static $FaxField_BusinessProfileTab                        = '#businessform-fax';
@@ -203,6 +260,9 @@ class ApplicationDetails extends \AcceptanceTester
     public static $FacebookLinkField_BusinessProfileTab               = '#businessform-social_facebook';
     public static $TwitterLinkField_BusinessProfileTab                = '#businessform-social_twitter';
     public static $LinkedInField_BusinessProfileTab                   = '#businessform-social_linkedin';
+    
+    public static $GoogleLinkField_BusinessProfileTab                 = '#businessform-google_link';
+    public static $YelpLinkField_BusinessProfileTab                   = '#businessform-yelp_link';
     
     public static $ZipCodeSelect_BusinessProfileTab                   = '#businessform-zip';
     public static $CitySelect_BusinessProfileTab                      = '#cities';
@@ -219,6 +279,9 @@ class ApplicationDetails extends \AcceptanceTester
     public static $NumberOfEmployeesField_BusinessProfileTab      = '#businessform-employees_number';
     public static $BusinessSquareFootageField_BusinessProfileTab  = '#businessform-business_square_footage';
     public static $LandscapeSquareFootageField_BusinessProfileTab = '#businessform-landscape_square_footage';
+    
+    public static $SaveButtonFooter_BusinessProfileTab            = '.form-group>button';
+    public static $SaveButtonHeader_BusinessProfileTab            = 'h2+button';
     
     public static function AboutQuestion_Name_ByName_BusinessProfileTab($name)                        { return "//*[@class='form-group registration-field'][contains(p/text(), '$name')]";}
     public static function AboutQuestion_AnswerButtonLabel_ByName_BusinessProfileTab($name, $answer)  { return "//*[@class='form-group registration-field'][contains(p/text(), '$name')]//div/label[contains(text(), '$answer')]";}
@@ -282,5 +345,23 @@ class ApplicationDetails extends \AcceptanceTester
     public static function Permits_Name_ByName_BusinessProfileTab($name)         { return "//*[@class='buttons-group']//label[contains(text(), '$name')]";}
     public static function Permits_ButtonLabel_ByName_BusinessProfileTab($name)  { return "//*[@class='buttons-group']//label[contains(text(), '$name')]";}
     
+    //--------------------------Extension Changed Popup--------------------------
+    public static $ExtensionPopup                    = '.modal.in';
+    
+    public static $ExtensionPopup_Title              = '.modal.in h2';
+    
+    public static $ExtensionPopup_BusinessSquareFootageText  = '.modal.in .business_square_footage';
+    public static $ExtensionPopup_LandscapeSquareFootageText = '.modal.in .landscape_square_footage';
+    public static $ExtensionPopup_QuestionText               = '.modal.in .row>div>p:last-of-type';
+    
+    public static $ExtensionPopup_SaveButton                 = '.modal.in .business-size-changed-confirm';
+    public static $ExtensionPopup_CancelButton               = '.modal.in [type=button]';
+    
+    //--------------------------Successfully Saving Popup--------------------------
+    public static $SuccessfullySavingPopup                   = '.sweet-alert.visible';
+    
+    public static $SuccessfullySavingPopup_Text              = '.sweet-alert.visible h2';
+   
+    public static $SuccessfullySavingPopup_OkButton          = '.sweet-alert.visible button.confirm';
     
     }

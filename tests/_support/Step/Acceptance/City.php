@@ -8,8 +8,8 @@ class City extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Create City");
         $I->amOnPage(\Page\CityCreate::URL());
-        $I->wait(3);
-        $I->waitForElement(\Page\CityCreate::$NameField);
+//        $I->wait(3);
+//        $I->waitForElement(\Page\CityCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\CityCreate::$NameField, $name);
         }
@@ -20,13 +20,16 @@ class City extends \AcceptanceTester
             $I->wait(5);
             $I->click(\Page\CityCreate::$CountySelect);
             $I->wait(1);
+            $I->waitPageLoad();
             $I->selectOption(\Page\CityCreate::$CountySelect, $county);
         }
         if (isset($zips)){
             $I->fillField(\Page\CityCreate::$ZipsField, $zips);
         }
         $I->click(\Page\CityCreate::$CreateButton);
-        $I->wait(5);
+        $I->wait(4);
+        $I->waitPageLoad();
+        $I->canSeeInCurrentUrl(\Page\CityList::URL());
     }  
     
     public function UpdateCity($row, $name = null, $state = null, $zips = null)
@@ -34,10 +37,11 @@ class City extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Update City");
         $I->amOnPage(\Page\CityList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->click(\Page\CityList::UpdateButtonLine($row));
-        $I->wait(1);
-        $I->waitForElement(\Page\CityUpdate::$UpdateButton);
+        $I->waitPageLoad();
+//        $I->wait(1);
+//        $I->waitForElement(\Page\CityUpdate::$UpdateButton);
         if (isset($name)){
             $I->fillField(\Page\CityUpdate::$NameField, $name);
         }
@@ -49,6 +53,8 @@ class City extends \AcceptanceTester
         }
         $I->click(\Page\CityUpdate::$UpdateButton);
         $I->wait(1);
+        $I->waitPageLoad();
+//        $I->wait(1);
     }
     
     public function CheckInFieldsOnCityUpdatePage($name = null, $state = null, $zips = null)
@@ -73,7 +79,7 @@ class City extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Get City Row Number On List");
         $I->amOnPage(\Page\CityList::$URL);
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->getAmount($I, \Page\CityList::$CityRow);
         for($i=1; $i<=$count; $i++){
             if($I->grabTextFrom(\Page\CityList::NameLine($i)) == $name){
@@ -88,13 +94,13 @@ class City extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\CityList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\CityList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\CityList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\CityList::$CityRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -115,7 +121,7 @@ class City extends \AcceptanceTester
         $I = $this;
         $I->wantTo("Check Saved Values On City List Page");
         $I->amOnPage(\Page\CityList::$URL);
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\CityList::$CreateCityButton);
         if (isset($name)){
             $I->canSee($name, \Page\CityList::NameLine($row));

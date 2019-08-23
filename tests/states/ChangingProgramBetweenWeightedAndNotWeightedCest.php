@@ -40,7 +40,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public $email_Bus1_W, $email_Bus1_NW;
     public $email_Bus2_W, $email_Bus2_NW;
     public $email_Bus3_W_NW, $email_Bus3_NW_W;
-    public $bus_busSquire  = '15000', $bus_landSquire  = '1200';
+    public $bus_busSquire  = '14900', $bus_landSquire  = '1200';
     public $business1_W, $business1_NW;
     public $business2_W, $business2_NW;
     public $business3_W_NW, $business3_NW_W;
@@ -87,7 +87,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Help_SelectDefaultState(AcceptanceTester $I)
     {
-        $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
     }
     
@@ -104,9 +103,9 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-        $I->wait(3);
+//        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
+//        $I->wait(2);
         $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -123,9 +122,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-        $I->wait(2);
         $this->id_audSubgroup1_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -144,14 +141,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
-        $I->wait(1);
         $I->reloadPage();
-        $I->wait(4);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddStateButton);
         $I->wait(3);
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $stateAdmin = $I->GetUserOnPageInList($email, $userType);
         $this->idStateAdmin = $stateAdmin['id'];
     }
@@ -165,9 +162,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function LogOut_And_LogInAsStateAdmin(AcceptanceTester $I)
     {
         $I->Logout($I);
-        $I->wait(1);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
     }
     
     /**
@@ -187,7 +182,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure1 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -210,7 +204,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure2 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -233,7 +226,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure3 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -256,7 +248,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure4 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -279,7 +270,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure5 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -302,7 +292,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure6 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -325,7 +314,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure7 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -348,7 +336,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure8 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -371,7 +358,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure9 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -436,7 +422,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      * @group coordinator
      */
     
-    public function CreateCoordinatorUser_ForProgram2(Step\Acceptance\User $I)
+    public function CreateCoordinatorUser_For_Program1_Program2(Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::coordinatorType;
         $email     = $this->emailCoordinator = $I->GenerateEmail();
@@ -446,35 +432,36 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $phone     = $I->GeneratePhoneNumber();
         
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
-        $I->wait(1);
+//        $I->wait(1);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddStateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddProgramButton);
-        $I->wait(6);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(2);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1_NW);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->click(Page\UserUpdate::$AddProgramButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
+        $I->wait(2);
+        $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2_W);
+        $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
+        $I->wait(1);
+        $I->waitPageLoad();
         $coordinator = $I->GetUserOnPageInList($email, $userType);
         $this->idCoordinator = $coordinator['id'];
-    }
-    
-    /**
-     * @group coordinator
-     */
-    
-    public function LogOut_And_LogInAsCoordinator(AcceptanceTester $I)
-    {
-        $I->Logout($I);
-        $I->wait(1);
-        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
-        $I->wait(4);
     }
     
     /**
@@ -491,13 +478,12 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $tier3OptIn = 'yes';
         
         $I->amOnPage(Page\TierManage::URL());
-        $I->wait(1);
         $I->canSee($program, Page\TierManage::$ProgramOption);
         $I->selectOption(Page\TierManage::$ProgramSelect, $program);
-        $I->wait(10);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->ManageTiers($program, null, null, null, null, null, null, null, null, $tier3, $tier3Name, $tier3Desc, $tier3OptIn);
     }
-    
     
     /**
      * @group admin
@@ -505,19 +491,87 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      * @group coordinator
      */
     
-    public function Create_Checklist1_NotWeightedProgram_ForTier1(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program1_NW;
-        $programDestination = $this->program1_NW;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '1';
-        $descs              = $this->measuresDesc_SuccessCreated;
+    public function SectorChecklistCreate_Tier1(\Step\Acceptance\SectorChecklist $I)
+    {
+        $number           = '1';
+        $sector           = \Page\SectorList::DefaultSectorOfficeRetail;
+               
+        $I->CreateSectorChecklist($number, $sector);
+//        $I->ManageSectorChecklist($this->measuresDesc_SuccessCreated, $this->statusesFirst);
+        $I->PublishSectorChecklistStatus();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function SectorChecklistCreate_Tier2(\Step\Acceptance\SectorChecklist $I)
+    {
+        $number           = '2';
+        $sector           = \Page\SectorList::DefaultSectorOfficeRetail;
+               
+        $I->CreateSectorChecklist($number, $sector);
+//        $I->ManageSectorChecklist($this->measuresDesc_SuccessCreated, $this->statusesFirst);
+        $I->PublishSectorChecklistStatus();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function SectorChecklistCreate_Tier3(\Step\Acceptance\SectorChecklist $I)
+    {
+        $number           = '3';
+        $sector           = \Page\SectorList::DefaultSectorOfficeRetail;
+               
+        $I->CreateSectorChecklist($number, $sector);
+//        $I->ManageSectorChecklist($this->measuresDesc_SuccessCreated, $this->statusesFirst);
+        $I->PublishSectorChecklistStatus();
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsCoordinator(AcceptanceTester $I)
+    {
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
+    }
+    
+   
+ 
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Update_Checklist1_NotWeightedProgram_ForTier1(\Step\Acceptance\Checklist $I) {
+        $program = $this->program1_NW;
+        $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
+        $tier    = 'Tier 1';
+        $descs   = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist_Tier1_NW_1st = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->selectOption(Page\ChecklistList::$FilterByOptInSelect, '');
         $I->wait(3);
+        $I->click(Page\ChecklistList::$FilterButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $this->id_checklist_Tier1_NW_1st = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($program, $sector, $tier));
+        
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier1_NW_1st));
+        $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier1, $this->extensions);
-        $I->PublishChecklistStatus($this->id_checklist_Tier1_NW_1st);
+//        $I->PublishChecklistStatus($this->id_checklist_Tier1_NW_1st);
         
 //        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier1_NW_1st));
 //        $I->wait(1);
@@ -541,19 +595,26 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      * @group coordinator
      */
     
-    public function Create_Checklist2_WeightedProgram_ForTier1(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program2_W;
-        $programDestination = $this->program2_W;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '1';
-        $descs              = $this->measuresDesc_SuccessCreated;
+    public function Update_Checklist2_WeightedProgram_ForTier1(\Step\Acceptance\Checklist $I) {
+        $program = $this->program2_W;
+        $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
+        $tier    = 'Tier 1';
+        $descs   = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist_Tier1_W_1st = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->selectOption(Page\ChecklistList::$FilterByOptInSelect, '');
         $I->wait(3);
+        $I->click(Page\ChecklistList::$FilterButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $this->id_checklist_Tier1_W_1st = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($program, $sector, $tier));
+        
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier1_W_1st));
+        $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier1, $this->extensions);
-        $I->PublishChecklistStatus($this->id_checklist_Tier1_W_1st);
+//        $I->PublishChecklistStatus($this->id_checklist_Tier1_W_1st);
 //        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier1_W_1st));
 //        $I->wait(1);
 //        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
@@ -576,33 +637,40 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      * @group coordinator
      */
     
-    public function Create_Checklist1_NotWeightedProgram_ForTier2(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program1_NW;
-        $programDestination = $this->program1_NW;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
+    public function Update_Checklist1_NotWeightedProgram_ForTier2(\Step\Acceptance\Checklist $I) {
+        $program = $this->program1_NW;
+        $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
+        $tier    = 'Tier 2';
+        $descs   = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist_Tier2_NW_1st = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->selectOption(Page\ChecklistList::$FilterByOptInSelect, '');
         $I->wait(3);
+        $I->click(Page\ChecklistList::$FilterButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $this->id_checklist_Tier2_NW_1st = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($program, $sector, $tier));
+        
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier2_NW_1st));
+        $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier2_1st, $this->extensions);
 //        $I->PublishChecklistStatus($this->id_checklist_Tier2_NW_1st);
-        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_NW_1st));
-        $I->wait(1);
-        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
-        $I->wait(1); 
-        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 50);
-        $I->canSee("You have 1 draft version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
-        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
-        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
-        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername3'));
-        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('Tier 2'));
-        $I->canSee('Need to create Draft Version', Page\ChecklistManage::PublishAllPopup_StatusLine('tiername3'));
-        $I->canSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
+//        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_NW_1st));
+//        $I->wait(1);
+//        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
+//        $I->wait(3);
+//        $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
+//        $I->wait(1); 
+//        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 100);
+//        $I->canSee("You have 1 draft version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
+//        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
+//        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
+//        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername3'));
+//        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('Tier 2'));
+//        $I->canSee('Need to create Draft Version', Page\ChecklistManage::PublishAllPopup_StatusLine('tiername3'));
+//        $I->canSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
     }
     
     /**
@@ -611,41 +679,48 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      * @group coordinator
      */
     
-    public function Create_Checklist2_WeightedProgram_ForTier2(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program2_W;
-        $programDestination = $this->program2_W;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '2';
-        $descs              = $this->measuresDesc_SuccessCreated;
+    public function Update_Checklist2_WeightedProgram_ForTier2(\Step\Acceptance\Checklist $I) {
+        $program = $this->program2_W;
+        $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
+        $tier    = 'Tier 2';
+        $descs   = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist_Tier2_W_1st = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->selectOption(Page\ChecklistList::$FilterByOptInSelect, '');
         $I->wait(3);
+        $I->click(Page\ChecklistList::$FilterButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $this->id_checklist_Tier2_W_1st = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($program, $sector, $tier));
+        
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier2_W_1st));
+        $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier2_2nd, $this->extensions);
 //        $I->PublishChecklistStatus($this->id_checklist_Tier2_W_1st);
-        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_W_1st));
-        $I->wait(1);
-        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
-        $I->wait(1); 
-        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 50);
-        $I->canSee("You have 1 draft version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
-        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
-        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
-        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername3'));
-//        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('tiername1'));
-        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('Tier 2'));
-        $I->cantSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
-        $I->click(Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
-        $I->wait(3);
-        $popup2 = $I->getAmount($I, ".showSweetAlert.visible");
-        if($popup2 == '1'){
-            $I->click(".confirm");
-            $I->wait(3);
-        }
-        $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
+//        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_W_1st));
+//        $I->wait(1);
+//        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
+//        $I->wait(3);
+//        $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
+//        $I->wait(1); 
+//        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 100);
+//        $I->canSee("You have 1 draft version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
+//        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
+//        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
+//        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername3'));
+////        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('tiername1'));
+//        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('Tier 2'));
+//        $I->cantSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
+//        $I->click(Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
+//        $I->wait(3);
+//        $popup2 = $I->getAmount($I, ".showSweetAlert.visible");
+//        if($popup2 == '1'){
+//            $I->click(".confirm");
+//            $I->wait(3);
+//        }
+//        $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
     }
     
     /**
@@ -654,41 +729,48 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      * @group coordinator
      */
     
-    public function Create_Checklist1_NotWeightedProgram_ForTier3(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program1_NW;
-        $programDestination = $this->program1_NW;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
-        $descs              = $this->measuresDesc_SuccessCreated;
+    public function Update_Checklist1_NotWeightedProgram_ForTier3(\Step\Acceptance\Checklist $I) {
+        $program = $this->program1_NW;
+        $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
+        $tier    = 'tiername3';
+        $descs   = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist_Tier3_NW_1st = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->selectOption(Page\ChecklistList::$FilterByOptInSelect, '');
         $I->wait(3);
+        $I->click(Page\ChecklistList::$FilterButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $this->id_checklist_Tier3_NW_1st = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($program, $sector, $tier));
+        
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier3_NW_1st));
+        $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier3, $this->extensions);
 //        $I->PublishChecklistStatus($this->id_checklist_Tier3_NW_1st);
-        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier3_NW_1st));
-        $I->wait(1);
-        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
-        $I->wait(1); 
-        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 50);
-        $I->canSee("You have 2 drafts version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
-        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
-        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
-        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername3'));
-        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('Tier 2'));
-        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('tiername3'));
-        $I->cantSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
-        $I->click(Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
-        $I->wait(3);
-        $popup2 = $I->getAmount($I, ".showSweetAlert.visible");
-        if($popup2 == '1'){
-            $I->click(".confirm");
-            $I->wait(3);
-        }
-        $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
+//        $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier3_NW_1st));
+//        $I->wait(1);
+//        $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
+//        $I->wait(3);
+//        $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
+//        $I->wait(1); 
+//        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 100);
+//        $I->canSee("You have 2 drafts version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
+//        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
+//        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
+//        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername3'));
+//        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('Tier 2'));
+//        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('tiername3'));
+//        $I->cantSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
+//        $I->click(Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
+//        $I->wait(3);
+//        $popup2 = $I->getAmount($I, ".showSweetAlert.visible");
+//        if($popup2 == '1'){
+//            $I->click(".confirm");
+//            $I->wait(3);
+//        }
+//        $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
     }
     
     /**
@@ -697,19 +779,36 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      * @group coordinator
      */
     
-    public function Create_Checklist2_WeightedProgram_ForTier3(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program2_W;
-        $programDestination = $this->program2_W;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '3';
-        $descs              = $this->measuresDesc_SuccessCreated;
+    public function Update_Checklist2_WeightedProgram_ForTier3(\Step\Acceptance\Checklist $I) {
+        $program = $this->program2_W;
+        $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
+        $tier    = 'Tier 3';
+        $descs   = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist_Tier3_W_1st = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->amOnPage(Page\ChecklistList::URL());
+        $I->selectOption(Page\ChecklistList::$FilterByOptInSelect, '');
         $I->wait(3);
+        $I->click(Page\ChecklistList::$FilterButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $this->id_checklist_Tier3_W_1st = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($program, $sector, $tier));
+        
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier3_W_1st));
+        $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier3, $this->extensions);
-        $I->PublishChecklistStatus($this->id_checklist_Tier3_W_1st);
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsAdmin1(AcceptanceTester $I)
+    {
+        $I->reloadPage();
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
     }
     
     /**
@@ -726,11 +825,22 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $tier1OptIn = 'yes';
         
         $I->amOnPage(Page\TierManage::URL());
-        $I->wait(1);
         $I->canSee($program, Page\TierManage::$ProgramOption);
         $I->selectOption(Page\TierManage::$ProgramSelect, $program);
-        $I->wait(10);
+        $I->wait(3);
+        $I->waitPageLoad();
         $I->ManageTiers($program, $tier1, $tier1Name, $tier1Desc, $tier1OptIn);
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function LogOut_And_LogInAsCoordinator22(AcceptanceTester $I)
+    {
+        $I->reloadPage();
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, 'coordinator');
     }
     
     /**
@@ -799,81 +909,13 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function NotWeightedProgram_Tier1_AddDefineTotalsValuesForChecklist(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_DefineTotalTab($this->id_checklist_Tier1_NW_1st));
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(2);
+        $I->UpdateDefineTotalValue('def', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('lb', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
+        $I->UpdateDefineTotalValue('ll', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::Energy_AuditGroup, $this->audSubgroup1_Energy, '1');
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(2);
-        
-        $I->comment("-----                      -----                       -----");
-        $I->waitForElement(".tabs a[href*='lb'].active", 150);
-        $I->wait(1);
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(2);
-        
-        $I->comment("-----                      -----                       -----");
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_EnergyGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_Energy), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
     }
     
     /**
@@ -884,48 +926,10 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function NotWeightedProgram_Tier2_AddDefineTotalsValuesForChecklist(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier2_NW_1st));
-        $I->wait(3);
-        $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
+        $I->UpdateDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
+        $I->UpdateDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
+        $I->UpdateDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
-        $I->wait(1);
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
-        
-        $I->comment("-----                      -----                       -----");
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->fillField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        $I->click(\Page\ChecklistManage::$SaveButton);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->wait(3);
     }
     
     /**
@@ -936,7 +940,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Help_LogOut(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
         $I->Logout($I);
     }
     
@@ -971,7 +974,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
-        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+        $I->waitPageLoad();
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 200);
     }
     
     /**
@@ -984,10 +988,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure6Desc;
         $value1   = '88';
                 
-        $I->wait(1);
         $I->comment("Complete Measure6 for business: $this->business1_NW");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure6']");
@@ -999,7 +1001,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("1 Tier 2 measures completed. A minimum of 5 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 20%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 25%;']);
@@ -1018,10 +1021,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business1_NW_CheckOnReviewPage_AfterComplitingMeasures_Tier2(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier2_NW_1st));
-        $I->wait(2);
         $I->canSee("1 of 5 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("1 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -1039,10 +1040,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business1_NW_CheckOnReviewPage_AfterComplitingMeasures_Tier3(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier3_NW_1st));
-        $I->wait(2);
         $I->canSee("1 of 5 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -1060,7 +1059,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Help_LogOut1(AcceptanceTester $I) {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
     }
@@ -1096,7 +1094,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
-        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+        $I->waitPageLoad();
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 200);
     }
     
     /**
@@ -1108,21 +1107,20 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function Business1_W_CheckPoints(Step\Acceptance\Business $I)
     {
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSee("4 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure4Desc));
         $I->canSee("2 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure2Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->canSee("8 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure8Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->canSee("6 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure6Desc));
         $I->canSee("2 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure2Desc));
         $I->canSee("5 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure5Desc));
         $I->canSee("4 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure4Desc));
         $I->canSee("3 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure3Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->canSee("9 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure9Desc));
     }
     
@@ -1136,10 +1134,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure4Desc;
         $value1   = '66';
                 
-        $I->wait(1);
         $I->comment("Complete Measure4 for business: $this->business1_W");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure4']");
@@ -1151,7 +1147,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(5);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("1 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 100%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
@@ -1161,15 +1158,16 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("4 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("4 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
         $I->canSee("Total Points Earned: 4", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
         $I->canSee("4", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
+    
     
     /**
      * @group admin
@@ -1181,10 +1179,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure6Desc;
         $value1   = '66';
                 
-        $I->wait(1);
         $I->comment("Complete Measure6 for business: $this->business1_W");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure6']");
@@ -1196,7 +1192,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(5);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("1 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
@@ -1206,14 +1203,56 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSee("1 of 2 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("4 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("4 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("1 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("6 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("6 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 4", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 10", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("4", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("10", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_W_CompleteMeasure8(AcceptanceTester $I) {
+        $measDesc = $this->measure8Desc;
+        $value1   = '111';
+                
+        $I->comment("Complete Measure8 for business: $this->business1_W");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure8]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure8']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSee("1 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 0%;']);
+        //Tier1 in left menu
+        $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
+        $I->canSee("12 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        //Tier2 in left menu
+        $I->canSee("1 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
+        $I->canSee("18 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        //Total in left menu
+        $I->canSee("Total Points Earned: 18", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        //Total 
+        $I->canSee("18", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -1223,36 +1262,34 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business1_W_CheckOnReviewPage_Tier1_Completed(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier1_W_1st));
-        $I->wait(2);
         $I->canSee("tiername1 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("1 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
-        $I->canSee("4 tiername1 points earned. A minimum of 9 tiername1 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
+        $I->canSee("12 tiername1 points earned. A minimum of 9 tiername1 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalCoreMeasures_ProgressBar, ['style' => 'width: 100%;']);
-        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 45%;']);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("4 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("6 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("18 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("4", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::CompleteStatus);
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
-        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::InProgressStatus);
+        $I->canSee("8", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("4", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("18", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -1262,26 +1299,24 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business1_W_CheckOnReviewPage_Tier2_Completed(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier2_W_1st));
-        $I->wait(2);
         $I->canSee("Tier 2 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("1 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
-        $I->canSee("0 Tier 2 points earned. A minimum of 12 Tier 2 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
+        $I->canSee("18 Tier 2 points earned. A minimum of 12 Tier 2 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalCoreMeasures_ProgressBar, ['style' => 'width: 50%;']);
-        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 84%;']);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("4 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("6 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("18 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("6", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1289,9 +1324,9 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
-        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::InProgressStatus);
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("4", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("18", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -1300,7 +1335,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Help_LogOut2(AcceptanceTester $I) {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->LoginAsAdmin($I);
@@ -1312,11 +1346,9 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function LogOut_And_LogInAsStateAdmin2(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
     }
     
     /**
@@ -1357,7 +1389,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Help_LogOut4(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
         $I->Logout($I);
     }
     
@@ -1392,7 +1423,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
-        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+        $I->waitPageLoad();
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 200);
     }
     
     /**
@@ -1402,10 +1434,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business2_NW_CheckOnReviewPage_NotComplitedMeasures_Tier2(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier2_NW_1st));
-        $I->wait(2);
         $I->canSee("0 of 5 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("0 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -1423,10 +1453,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business2_NW_CheckOnReviewPage_NotComplitedMeasures_Tier3(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier3_NW_1st));
-        $I->wait(2);
         $I->canSee("0 of 5 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -1444,7 +1472,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Help_LogOut5(AcceptanceTester $I) {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
     }
@@ -1480,7 +1507,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
-        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+        $I->waitPageLoad();
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 200);
     }
     
     /**
@@ -1492,21 +1520,20 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function Business2_W_CheckPoints(Step\Acceptance\Business $I)
     {
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSee("4 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure4Desc));
         $I->canSee("2 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure2Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->canSee("8 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure8Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->canSee("6 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure6Desc));
         $I->canSee("2 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure2Desc));
         $I->canSee("5 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure5Desc));
         $I->canSee("4 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure4Desc));
         $I->canSee("3 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure3Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->canSee("9 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure9Desc));
     }
     
@@ -1517,10 +1544,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business2_W_CheckOnReviewPage_Tier1_NotCompleted(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier1_W_1st));
-        $I->wait(2);
         $I->canSee("tiername1 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("0 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
@@ -1529,14 +1554,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1556,10 +1581,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business2_W_CheckOnReviewPage_Tier2_NotCompleted(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier2_W_1st));
-        $I->wait(2);
         $I->canSee("Tier 2 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("0 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
@@ -1568,14 +1591,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1594,7 +1617,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Help_LogOut6(AcceptanceTester $I) {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->LoginAsAdmin($I);
@@ -1606,11 +1628,9 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function LogOut_And_LogInAsStateAdmin3(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
     }
     
     /**
@@ -1621,7 +1641,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function CheckOldChecklistsArePublished(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistList::URL());
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_W_1st));
@@ -1631,7 +1650,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->selectOption(\Page\ChecklistList::$FilterByOptInSelect, '');
         $I->wait(1);
         $I->click(Page\ChecklistList::$FilterButton);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_W_1st));
@@ -1650,7 +1670,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function CloneTier2ChecklistVersion_Prog1NW_W(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_NW_1st));
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
         $I->click(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
         $I->wait(3);
@@ -1666,54 +1685,69 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('2'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
         $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
-//        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
         
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier2_NW_2nd));
-        $I->wait(2);
+//        $I->wait(2);
         $I->click(Page\ChecklistManage::$Filter_ByStatusSelect);
         $I->wait(1);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses_Tier2_1st, $this->extensions);
         $I->canSee("Points", \Page\ChecklistManage::$PointsTab);
         $I->cantSee("define total measures needed", \Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->CheckSavedChecklistPoints('', '', '', '');
+        $I->CheckSavedChecklistPoints('0', '0', '0', '0');
         //old checklist version
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier2_NW_1st));
-        $I->wait(2);
         $I->click(Page\ChecklistManage::$Filter_ByStatusSelect);
         $I->wait(1);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses_Tier2_1st, $this->extensions);
         $I->cantSee("Points", \Page\ChecklistManage::$PointsTab);
         $I->canSee("define total measures needed", \Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         $I->wait(3);
         $I->click(\Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='def'].active", 150);
         $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->canSeeInField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
+        $I->waitPageLoad();
+        $I->CheckSavedDefineTotalValue('def', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, null, null, $requiredElective = '1');
+        $I->CheckSavedDefineTotalValue('ll', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, null, null, $requiredElective = '1');
+        $I->CheckSavedDefineTotalValue('lb', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, null, null, $requiredElective = '0');
+        $I->CheckSavedDefineTotalValue('all', \Page\AuditGroupList::SolidWaste_AuditGroup, $this->audSubgroup1_SolidWaste, null, null, $requiredElective = '1');
         
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='ll'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->canSeeInField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
-        
-        $I->comment("-----                      -----                       -----");
-        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
-        $I->wait(2);
-        $I->waitForElement(".tabs a[href*='all'].active", 150);
-        $I->wait(1);
-        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
-        $I->wait(2);
-        $I->canSeeInField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
+////        $I->waitForElement(".tabs a[href*='def'].active", 150);
+////        $I->wait(1);
+//        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+////        $I->waitForElement("//p[text()='Solid Waste']", 60);
+//        $I->canSeeInField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
+//        
+//        $I->comment("-----                      -----                       -----");
+//        $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+////        $I->waitForElement(".tabs a[href*='ll'].active", 150);
+////        $I->wait(1);
+//        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+////        $I->waitForElement("//p[text()='Solid Waste']", 60);
+//        $I->canSeeInField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
+//        
+//        $I->comment("-----                      -----                       -----");
+//        $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+////        $I->waitForElement(".tabs a[href*='all'].active", 150);
+////        $I->wait(1);
+//        $I->click(Page\ChecklistManage::$FilterMenu_SolidWasteGroupButton);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+////        $I->waitForElement("//p[text()='Solid Waste']", 60);
+//        $I->canSeeInField(\Page\ChecklistManage::CountOfElectiveEnabledMeasuresFieldLine_DefineTotalTab($this->audSubgroup1_SolidWaste), '1');
     }
     
     /**
@@ -1724,9 +1758,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Publish_NewChecklist_Tier2_Prog1NW_W(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_NW_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
         $I->wait(1); 
         $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 50);
@@ -1748,9 +1780,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier2_VersionTab_AfterTryingToPublishNewWeightedChecklist_Prog1NW_W(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_NW_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
         $I->canSee("Published", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
         
@@ -1762,7 +1792,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('2'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
         $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
-//        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
     }
     
     /**
@@ -1773,7 +1803,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function CheckOldChecklistsArePublished_AfterTryingToPublishNewWeightedChecklist(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistList::URL());
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_W_1st));
@@ -1783,7 +1812,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->selectOption(\Page\ChecklistList::$FilterByOptInSelect, '');
         $I->wait(1);
         $I->click(Page\ChecklistList::$FilterButton);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_W_1st));
@@ -1808,7 +1838,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $this->id_checklist_Tier1_NW_2nd = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier1_Updated, $this->extensions);
     }
     
@@ -1828,7 +1859,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $this->id_checklist_Tier3_NW_2nd = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         
         $I->click(Page\ChecklistManage::$ManageMeasuresTab);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier3, $this->extensions);
     }
     
@@ -1840,12 +1872,10 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Publish_NewChecklist_Tier3_Prog1NW_W(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier3_NW_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
         $I->wait(1); 
-        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 50);
+        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 100);
         $I->canSee("You have 2 drafts version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
         $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
         $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
@@ -1871,9 +1901,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier1_VersionTab_AfterPublishingNewWeightedChecklist_Prog1NW_W(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier1_NW_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
         $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
         
@@ -1896,21 +1924,21 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier2_VersionTab_AfterPublishingNewWeightedChecklist_Prog1NW_W(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_NW_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
-        $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
+        $I->canSee("Archived", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
         
         $I->canSeeElement(\Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
+        $I->cantSeeElement(\Page\ChecklistManage::ViewButtonLine_VersionHistoryTab('1'));
         
         $I->cantSeeElement(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->canSeeElement(\Page\ChecklistManage::ViewButtonLine_VersionHistoryTab('2'));
     }
     
     /**
@@ -1921,21 +1949,21 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier3_VersionTab_AfterPublishingNewWeightedChecklist_Prog1NW_W(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier3_NW_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
-        $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
+        $I->canSee("Archived", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
         
         $I->canSeeElement(\Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
+        $I->cantSeeElement(\Page\ChecklistManage::ViewButtonLine_VersionHistoryTab('1'));
         
         $I->cantSeeElement(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->canSeeElement(\Page\ChecklistManage::ViewButtonLine_VersionHistoryTab('2'));
     }
     
     //-------------------------------------------Program2 NW->W-----------------------------------------
@@ -1948,7 +1976,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function CloneTier2ChecklistVersion_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_W_1st));
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
         $I->click(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
         $I->wait(3);
@@ -1964,21 +1991,20 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('2'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
         $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
         
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier2_W_2nd));
-        $I->wait(2);
         $I->click(Page\ChecklistManage::$Filter_ByStatusSelect);
         $I->wait(1);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, "View All");
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->CheckSavedValuesOnManageChecklistPage($this->measuresDesc_SuccessCreated, $this->statuses_Tier2_2nd, $this->extensions);
         $I->cantSee("Points", \Page\ChecklistManage::$PointsTab);
         $I->canSee("define total measures needed", \Page\ChecklistManage::$DefineTotalMeasuresNeededTab);
         
         //old checklist version
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier2_W_1st));
-        $I->wait(2);
         $I->CheckSavedChecklistPoints('11', '13', '12', '14');
     }
     
@@ -1990,12 +2016,10 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Publish_NewChecklist_Tier2_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_W_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
         $I->wait(1); 
-        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 50);
+        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 100);
         $I->canSee("You have 1 draft version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
         $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
         $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
@@ -2005,7 +2029,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
         $I->cantSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAnywayButton);
         $I->click(Page\ChecklistManage::$PublishAllPopup_PublishAnywayButton);
-        $I->wait(3);
+        $I->wait(5);
         $popup2 = $I->getAmount($I, ".showSweetAlert.visible");
         if($popup2 == '1'){
             $I->click(".confirm");
@@ -2022,7 +2046,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function CheckOldChecklists_AfterTier2Publish_PublishAnyway_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistList::URL());
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_2nd));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_2nd));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_W_2nd));
@@ -2035,16 +2058,17 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->selectOption(\Page\ChecklistList::$FilterByStatusSelect, '');
         $I->wait(1);
         $I->click(Page\ChecklistList::$FilterButton);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_2nd));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_2nd));
         $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_NW_1st));
-        $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_1st));
-        $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_1st));
+        $I->canSee("Archived", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_1st));
+        $I->canSee("Archived", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_1st));
         
         $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_W_1st));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_W_2nd));
-        $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_W_1st));
+        $I->canSee("Archived", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_W_1st));
         $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_W_1st));
     }
     
@@ -2056,9 +2080,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier1_VersionTab_AfterPublishingTier2_NewNotWeightedChecklist_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier1_W_1st));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
         
         $I->cantSeeElement(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('1'));
@@ -2075,21 +2097,21 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier2_VersionTab_AfterPublishingTier2_NewNotWeightedChecklist_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_W_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
-        $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
+        $I->canSee("Archived", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
         
         $I->canSeeElement(\Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
+        $I->cantSeeElement(\Page\ChecklistManage::ViewButtonLine_VersionHistoryTab('1'));
         
         $I->cantSeeElement(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->canSeeElement(\Page\ChecklistManage::ViewButtonLine_VersionHistoryTab('2'));
     }
     
     /**
@@ -2100,9 +2122,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier3_VersionTab_AfterPublishingTier2_NewNotWeightedChecklist_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier3_W_1st));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
         
         $I->cantSeeElement(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('1'));
@@ -2118,16 +2138,19 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Create_NewChecklist_Tier1_Prog2W_NW(\Step\Acceptance\Checklist $I) {
-        $sourceProgram      = $this->program2_W;
-        $programDestination = $this->program2_W;
-        $sectorDestination  = 'Office / Retail';
-        $tier               = '1';
         $descs              = $this->measuresDesc_SuccessCreated;
         
-        $this->id_checklist_Tier1_W_2nd = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-        
-        $I->click(Page\ChecklistManage::$ManageMeasuresTab);
+        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier1_W_1st));
+        $I->click(Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
         $I->wait(3);
+        $I->reloadPage();
+        $I->waitPageLoad();
+        $this->id_checklist_Tier1_W_2nd = $I->grabTextFrom(Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
+        
+        $I->amOnPage(Page\ChecklistManage::URL($this->id_checklist_Tier1_W_2nd));
+        $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->ManageChecklist($descs, $this->statuses_Tier1, $this->extensions);
     }
     
@@ -2139,20 +2162,10 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Publish_NewChecklist_Tier1_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier1_W_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
         $I->wait(3);
         $I->click(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab(1));
         $I->wait(1); 
-        $I->waitForElement(Page\ChecklistManage::$PublishAllPopup, 50);
-        $I->canSee("You have 2 drafts version.", Page\ChecklistManage::$PublishAllPopup_DraftVersionCountInfo);
-        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername1'));
-        $I->canSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('Tier 2'));
-        $I->cantSeeElement(Page\ChecklistManage::PublishAllPopup_TierNameLine('tiername3'));
-        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('tiername1'));
-        $I->canSee('Draft', Page\ChecklistManage::PublishAllPopup_StatusLine('Tier 2'));
-        $I->cantSeeElementIsDisabled($I, Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
-        $I->click(Page\ChecklistManage::$PublishAllPopup_PublishAllDraftButton);
         $I->wait(3);
         $popup2 = $I->getAmount($I, ".showSweetAlert.visible");
         if($popup2 == '1'){
@@ -2160,6 +2173,10 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
             $I->wait(3);
         }
         $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
+        
+        //old checklist version
+        $I->amOnPage(\Page\ChecklistManage::URL($this->id_checklist_Tier1_W_1st));
+        $I->CheckSavedChecklistPoints('8', '10', '9', '11');
     }
     
     /**
@@ -2170,7 +2187,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function CheckOldChecklistsAreDraft_NewArePublished(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistList::URL());
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_2nd));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_2nd));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_W_2nd));
@@ -2184,17 +2200,18 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->selectOption(\Page\ChecklistList::$FilterByStatusSelect, '');
         $I->wait(1);
         $I->click(Page\ChecklistList::$FilterButton);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_2nd));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_2nd));
         $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_NW_1st));
-        $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_1st));
-        $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_1st));
+        $I->canSee("Archived", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_NW_1st));
+        $I->canSee("Archived", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_NW_1st));
         
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_W_2nd));
         $I->canSee("Published", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_W_2nd));
         $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier1_W_1st));
-        $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_W_1st));
+        $I->canSee("Archived", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier2_W_1st));
         $I->canSee("Draft", \Page\ChecklistList::VersionStatusByIdLine($this->id_checklist_Tier3_W_1st));
     }
     
@@ -2206,16 +2223,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier1_VersionTab_AfterPublishingAll_NewNotWeightedChecklist_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier1_W_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
         $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
          
         $I->canSeeElement(\Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
         
         $I->cantSeeElement(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('2'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
@@ -2231,21 +2246,20 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier2_VersionTab_AfterPublishingAll_NewNotWeightedChecklist_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier2_W_2nd));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Published", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
-        $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
+        $I->canSee("Archived", \Page\ChecklistManage::StatusLine_VersionHistoryTab('2'));
         
         $I->canSeeElement(\Page\ChecklistManage::UnPublishButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('1'));
         $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('1'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('1'));
         
+        $I->canSeeElement(\Page\ChecklistManage::ViewButtonLine_VersionHistoryTab('2'));
         $I->cantSeeElement(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
-        $I->canSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::EditButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::CloneButtonLine_VersionHistoryTab('2'));
+        $I->cantSeeElement(\Page\ChecklistManage::ArchiveButtonLine_VersionHistoryTab('2'));
     }
     
     /**
@@ -2256,9 +2270,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Check_Tier3_VersionTab_AfterPublishingAll_NewNotWeightedChecklist_Prog2W_NW(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_checklist_Tier3_W_1st));
-        $I->wait(1);
         $I->waitForElement(\Page\ChecklistManage::$VersionHistoryTab, 60);
-        $I->wait(3);
         $I->canSee("Draft", \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
         
         $I->cantSeeElement(\Page\ChecklistManage::PublishButtonLine_VersionHistoryTab('1'));
@@ -2280,7 +2292,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $points_LL_LB       = '7';
                 
         $I->amOnPage(Page\ChecklistManage::URL_PointsTab($this->id_checklist_Tier2_NW_2nd));
-        $I->wait(2);
         $I->UpdateChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
     }
     
@@ -2297,7 +2308,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $points_LL_LB       = '9';
                 
         $I->amOnPage(Page\ChecklistManage::URL_PointsTab($this->id_checklist_Tier3_NW_2nd));
-        $I->wait(2);
         $I->UpdateChecklistPoints($points_Default, $points_LB, $points_LL, $points_LL_LB);
     }
     
@@ -2309,7 +2319,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function Help_LogOut8(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
-        $I->wait(1);
         $I->Logout($I);
     }
     
@@ -2344,7 +2353,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
-        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+        $I->waitPageLoad();
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 200);
     }
     
     /**
@@ -2356,17 +2366,16 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function Business3_W_NW_CheckThatPointsValuesAreAbsent(Step\Acceptance\Business $I)
     {
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSeeElement(\Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure2Desc));
         $I->canSeeElement(\Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));
         $I->cantSeeElement(\Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure2Desc));
         $I->cantSeeElement(\Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure4Desc));
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier1_NW_2nd");
-        $I->wait(2);
+        
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier1_W_2nd");
         $I->canSeeElement(\Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure8Desc));
         $I->cantSeeElement(\Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure8Desc));
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_NW_2nd");
-        $I->wait(2);
+        
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_W_2nd");
         $I->canSeeElement(\Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure2Desc));
         $I->canSeeElement(\Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure3Desc));
         $I->canSeeElement(\Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure4Desc));
@@ -2378,8 +2387,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->cantSeeElement(\Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure4Desc));
         $I->cantSeeElement(\Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure5Desc));
         $I->cantSeeElement(\Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure6Desc));
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier2_NW_2nd");
-        $I->wait(2);
+        
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier2_W_2nd");
         $I->canSeeElement(\Page\RegistrationStarted::MeasureDescription_ByDesc($this->measure9Desc));
         $I->cantSeeElement(\Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure9Desc));
     }
@@ -2394,10 +2403,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure2Desc;
         $value1   = '88';
                 
-        $I->wait(1);
         $I->comment("Complete Measure2 for business: $this->business3_W_NW");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure2']");
@@ -2409,7 +2416,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("0 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -2434,10 +2442,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure4Desc;
         $value1   = '88';
                 
-        $I->wait(1);
         $I->comment("Complete Measure4 for business: $this->business3_W_NW");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure4']");
@@ -2449,7 +2455,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(3);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("1 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 100%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
@@ -2471,10 +2478,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business3_W_NW_CheckOnReviewPage_AfterComplitingMeasures_Tier1(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier1_W_2nd));
-        $I->wait(2);
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -2492,10 +2497,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business3_W_NW_CheckOnReviewPage_AfterComplitingMeasures_Tier2(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier2_W_2nd));
-        $I->wait(2);
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("1 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -2513,7 +2516,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Help_LogOut9(AcceptanceTester $I) {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
     }
@@ -2549,7 +2551,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
                 $employees, $busFootage, $landscapeFootage);
         $I->wait(5);
-        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 100);
+        $I->waitPageLoad();
+        $I->waitForElement(Page\RegistrationStarted::$LeftMenu_GetStartedButton, 200);
     }
     
     /**
@@ -2561,20 +2564,19 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function Business3_NW_W_CheckPoints(Step\Acceptance\Business $I)
     {
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSee("1 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure1Desc));
         $I->canSee("2 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure2Desc));
         $I->canSee("3 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure3Desc));
         $I->canSee("6 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure6Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->canSee("9 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure9Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier3_NW_2nd");
-        $I->wait(2);
         $I->canSee("3 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure3Desc));
         $I->canSee("5 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure5Desc));
+        
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier3_NW_2nd");
-        $I->wait(2);
         $I->canSee("7 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure7Desc));
         $I->canSee("8 points", \Page\RegistrationStarted::MeasurePoints_ByDesc($this->measure8Desc));
     }
@@ -2589,10 +2591,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure3Desc;
         $value1   = '66';
                 
-        $I->wait(1);
         $I->comment("Complete Measure3 for business: $this->business3_NW_W");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure3]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure3']");
@@ -2604,7 +2604,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(5);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 25%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 25%;']);
@@ -2614,10 +2615,10 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSee("1 of 4 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("1 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
         $I->canSee("Total Points Earned: 3", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -2634,10 +2635,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure5Desc;
         $value1   = '12';
                 
-        $I->wait(1);
         $I->comment("Complete Measure5 for business: $this->business3_NW_W");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier3_NW_2nd");
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure5']");
@@ -2649,24 +2648,25 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(5);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->canSee("1 tiername3 measures completed. A minimum of 2 tiername3 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
-        $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_GetStarted_ProgressBar, ['style' => 'width: 50%;']);
-        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 100%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("1 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("1 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("5 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("5 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 3", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 8", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("3", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("8", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -2676,10 +2676,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business3_NW_W_CheckOnReviewPage_Tier2_Completed(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier2_NW_2nd));
-        $I->wait(2);
         $I->canSee("Tier 2 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
@@ -2688,14 +2686,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 50%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("5 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("5 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2705,7 +2703,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("3", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("8", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -2715,10 +2713,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Business3_NW_W_CheckOnReviewPage_Tier3_Completed(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier3_NW_2nd));
-        $I->wait(2);
         $I->canSee("tiername3 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("1 tiername3 measures completed. A minimum of 2 tiername3 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
@@ -2727,14 +2723,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 63%;']);
         //Tier1
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("5 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("5 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("5", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2744,7 +2740,7 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::NotStartedStatus);
         //Total
-        $I->canSee("3", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("8", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -2753,7 +2749,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function Help_LogOut10(AcceptanceTester $I) {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->LoginAsAdmin($I);
@@ -2765,11 +2760,9 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function LogOut_And_LogInAsStateAdmin4(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
         $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, 'state admin');
-        $I->wait(2);
     }
     
     /**
@@ -2780,7 +2773,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function GetID_Business1_NW(AcceptanceTester $I) {
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->wait(2);
         $url = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business1_NW), 'href');
         $I->comment("Url2: $url");
         $u = explode('=', $url);
@@ -2810,7 +2802,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function GetID_Business2_NW(AcceptanceTester $I) {
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->wait(2);
         $url = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2_NW), 'href');
         $I->comment("Url2: $url");
         $u = explode('=', $url);
@@ -2847,7 +2838,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function CheckOld_Business1_NW_CheckThatPointsAreAbsent(Step\Acceptance\Business $I)
     {
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure1Desc));
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure2Desc));
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure3Desc));
@@ -2856,18 +2846,18 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure6Desc));
+        
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure9Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure9Desc));
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_NW_1st");
-        $I->wait(2);
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier3_NW_1st");
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure3Desc));
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure5Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure5Desc));
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier2_NW_1st");
-        $I->wait(2);
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier3_NW_1st");
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure7Desc));
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure8Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure7Desc));
@@ -2883,10 +2873,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure6Desc;
         $value1   = '88';
                 
-        $I->wait(1);
         $I->comment("Complete Measure6 for business: $this->business1_NW");
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure6']");
@@ -2912,10 +2900,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function CheckOld_Business1_NW_CheckOnReviewPage_AfterComplitingMeasures_Tier2(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_AdminLogin($this->id_business1_NW));
-        $I->wait(2);
         $I->canSee("1 of 5 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("1 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -2933,10 +2919,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function CheckOld_Business1_NW_CheckOnReviewPage_AfterComplitingMeasures_Tier3(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_Tier_AdminLogin($this->id_business1_NW, $this->id_checklist_Tier3_NW_1st));
-        $I->wait(2);
         $I->canSee("1 of 5 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -2945,6 +2929,293 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_ElectiveLine_ByName($this->audSubgroup1_SolidWaste));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::NotStartedStatus);
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusLine_ByName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::NotStartedStatus);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_NW_CompleteMeasure3(AcceptanceTester $I) {
+        $measDesc = $this->measure3Desc;
+        $value1   = '66';
+                
+        $I->comment("Complete Measure3 for business: $this->business1_NW");
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy));
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure3]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
+        $I->wait(1);
+        $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->fillField(\Page\BusinessChecklistView::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+        $I->wait(1);
+        $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSee("2 Tier 2 measures completed. A minimum of 5 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 40%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 40%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 0%;']);
+        $I->canSee("2 of 4 required measures completed", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        //Tier2 in left menu
+        $I->canSee("2 of 5 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        //Tier3 in left menu
+        $I->canSee("0 of 2 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("2"));;
+        //Total 
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_NW_CompleteMeasure5(AcceptanceTester $I) {
+        $measDesc = $this->measure5Desc;
+        $value1   = '12';
+                
+        $I->comment("Complete Measure5 for business: $this->business1_NW");
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier3_NW_1st");
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
+        $I->wait(1);
+        $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->fillField(\Page\BusinessChecklistView::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+        $I->wait(1);
+        $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSee("1 tiername3 measures completed. A minimum of 2 tiername3 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 0%;']);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        //Tier2 in left menu
+        $I->canSee("2 of 5 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        //Tier3 in left menu
+        $I->canSee("1 of 2 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("2"));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_NW_CompleteMeasure9(AcceptanceTester $I) {
+        $measDesc = $this->measure9Desc;
+        $value1   = '12';
+                
+        $I->comment("Complete Measure9 for business: $this->business1_NW");
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_SolidWaste));
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure9]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure9']");
+        $I->wait(1);
+        $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->fillField(\Page\BusinessChecklistView::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+        $I->wait(1);
+        $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSee("3 Tier 2 measures completed. A minimum of 5 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 60%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$ElectiveCompletedProgressBar, ['style' => 'width: 100%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 60%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        //Tier2 in left menu
+        $I->canSee("3 of 5 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        //Tier3 in left menu
+        $I->canSee("1 of 2 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("2"));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_NW_CompleteMeasure2_NA(AcceptanceTester $I) {
+        $measDesc = $this->measure2Desc;
+        $value1   = '12';
+                
+        $I->comment("Complete Measure9 for business: $this->business1_NW");
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy));
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+        $I->wait(1);
+        $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'na');
+        $I->wait(1);
+        $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->canSee("4 Tier 2 measures completed. A minimum of 5 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
+        $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 80%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 75%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_ApplicationDetails_ProgressBar, ['style' => 'width: 80%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 75%;']);
+        $I->canSeeElement(\Page\BusinessChecklistView::$LeftMenu_SolidWasteGroup_ProgressBar, ['style' => 'width: 100%;']);
+        $I->canSee("3 of 4 required measures completed", \Page\BusinessChecklistView::$CoreProgressBarInfo);
+        //Tier2 in left menu
+        $I->canSee("4 of 5 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        //Tier3 in left menu
+        $I->canSee("1 of 2 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("2"));
+    }
+    
+    //---------------------------------------------------------Renew checklist for Business1_NW----------------------------------------------------------
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function ChangeStatusToRequiresRenewal_Business1_NW(AcceptanceTester $I){
+        $status = \Page\BusinessChecklistView::RequiresRenewalStatus;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1_NW));
+        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        $I->wait(4);
+        $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
+        $I->wait(5);
+        $I->waitForElement(".modal.in", 120);
+        $I->wait(1);
+        $I->click(".modal.in .close");
+        $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
+        $I->canSee("Tier 2", \Page\BusinessChecklistView::LeftMenu_TierName('1'));
+        $I->canSee("3 of 4 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
+        $I->canSee("Tier 2", \Page\ApplicationDetails::TierName_BusinessInfoTab(1));
+        $I->canSee(\Page\ApplicationDetails::InProcessStatus, \Page\ApplicationDetails::TierStatus_BusinessInfoTab(1));
+        $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$ApplicationStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
+        $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$PhoneConsultStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
+        $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$ComplianceCheckStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
+        $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$SiteVisitStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
+        $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$AuditsStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
+        $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$RecognitionTasksStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
+        $I->canSee(Page\AuditGroupList::Energy_AuditGroup, \Page\ApplicationDetails::Category_BusinessInfoTab('1'));
+        $I->canSeeElement(\Page\ApplicationDetails::CategoryStatus_BusinessInfoTab('1').\Page\ApplicationDetails::Yellow_ProgressStatus);
+        $I->canSeeElement(\Page\ApplicationDetails::CategoryAuditStatus_BusinessInfoTab('1').\Page\ApplicationDetails::Grey_ProgressStatus);
+        $I->canSee(Page\AuditGroupList::SolidWaste_AuditGroup, \Page\ApplicationDetails::Category_BusinessInfoTab('2'));
+        $I->canSeeElement(\Page\ApplicationDetails::CategoryStatus_BusinessInfoTab('2').\Page\ApplicationDetails::Green_ProgressStatus);
+        $I->canSeeElement(\Page\ApplicationDetails::CategoryAuditStatus_BusinessInfoTab('2').\Page\ApplicationDetails::Grey_ProgressStatus);
+        $I->canSeeInField(\Page\ApplicationDetails::$GeneralProgramNotesField_BusinessInfoTab, '');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NewApplication_Business1_NW_CheckPoints(Step\Acceptance\Business $I)
+    {
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy));
+        $I->canSee("6 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure6Desc));
+        $I->canSee("3 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
+        $I->canSee("2 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
+        $I->canSee("1 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure1Desc));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_SolidWaste));
+        $I->canSee("9 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure9Desc));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier3_NW_2nd");
+        $I->canSee("5 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure5Desc));
+        $I->canSee("3 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_NW, $this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier3_NW_2nd");
+        $I->canSee("8 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure8Desc));
+        $I->canSee("7 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure7Desc));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NewApplication_Business1_NW_CheckOnReviewPage_Tier2(AcceptanceTester $I) {
+        $I->comment("Check on Review Page");
+        $I->amOnPage(\Page\ReviewAndSubmit::URL_AdminLogin($this->id_business1_NW));
+        $I->canSee("Tier 2 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
+        
+        $I->canSee("3 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
+        $I->canSee("18 Tier 2 points earned. A minimum of 6 Tier 2 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalCoreMeasures_ProgressBar, ['style' => 'width: 75%;']);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
+        //Tier1
+        $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("3 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
+        $I->canSee("18 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        //Tier2
+        $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
+        $I->canSee("5 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        
+        $I->canSee("3 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("9", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::InProgressStatus);
+        
+        $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSee("9", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
+        //Total
+        $I->canSee("23", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function NewApplication_Business1_NW_CheckOnReviewPage_Tier3(AcceptanceTester $I) {
+        $I->comment("Check on Review Page");
+        $I->amOnPage(\Page\ReviewAndSubmit::URL_Tier_AdminLogin($this->id_business1_NW, $this->id_checklist_Tier3_NW_2nd));
+        $I->canSee("tiername3 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
+        
+        $I->canSee("1 tiername3 measures completed. A minimum of 2 tiername3 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
+        $I->canSee("5 tiername3 points earned. A minimum of 8 tiername3 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalCoreMeasures_ProgressBar, ['style' => 'width: 50%;']);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 63%;']);
+        //Tier1
+        $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("3 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
+        $I->canSee("18 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        //Tier2
+        $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
+        $I->canSee("5 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        
+        $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
+        $I->canSee("5", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::CompleteStatus);
+        
+        $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
+        $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::NotStartedStatus);
+        //Total
+        $I->canSee("23", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2960,22 +3231,21 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     
     public function CheckOld_Business1_W_CheckPoints(Step\Acceptance\Business $I)
     {
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier1_W_1st");
         $I->canSee("4 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure4Desc));
         $I->canSee("2 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier1_W_1st");
         $I->canSee("8 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure8Desc));
+        
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->canSee("6 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure6Desc));
         $I->canSee("2 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
         $I->canSee("5 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure5Desc));
         $I->canSee("4 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure4Desc));
         $I->canSee("3 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
+        
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->canSee("9 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure9Desc));
     }
     
@@ -2989,10 +3259,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $measDesc = $this->measure4Desc;
         $value1   = '66';
                 
-        $I->wait(1);
         $I->comment("Complete Measure4 for business: $this->business1_W");
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier1_W_1st");
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure4']");
@@ -3009,14 +3277,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSee("You have completed all measures.", \Page\BusinessChecklistView::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("4 points earned", \Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("12 points", \Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("1 of 2 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("6 points earned", \Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("18 points", \Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 4", \Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 18", \Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("4", Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+        $I->canSee("18", Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3028,11 +3296,9 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function CheckOld_Business1_W_CompletingMeasure6(AcceptanceTester $I) {
         $measDesc = $this->measure6Desc;
         $value1   = '66';
-                
-        $I->wait(1);
+         
         $I->comment("Complete Measure6 for business: $this->business1_W");
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_W, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure6]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure6']");
@@ -3049,14 +3315,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSee("1 of 2 required measures completed", \Page\BusinessChecklistView::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("4 points earned", \Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("12 points", \Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("1 of 2 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("6 points earned", \Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("18 points", \Page\BusinessChecklistView::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 4", \Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 18", \Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("4", Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
+        $I->canSee("18", Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3066,36 +3332,34 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function CheckOld_Business1_W_CheckOnReviewPage_Tier1_Completed(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
-        $I->amOnPage(\Page\ReviewAndSubmit::URL_AdminLogin($this->id_business1_W));
-        $I->wait(2);
+        $I->amOnPage(\Page\ReviewAndSubmit::URL_Tier_AdminLogin($this->id_business1_W, $this->id_checklist_Tier1_W_1st));
         $I->canSee("tiername1 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("1 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
-        $I->canSee("4 tiername1 points earned. A minimum of 9 tiername1 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
+        $I->canSee("12 tiername1 points earned. A minimum of 9 tiername1 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalCoreMeasures_ProgressBar, ['style' => 'width: 100%;']);
-        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 45%;']);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("4 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("6 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("18 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("4", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_Energy).Page\ReviewAndSubmit::CompleteStatus);
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
-        $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
-        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::InProgressStatus);
+        $I->canSee("8", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("4", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("18", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3105,26 +3369,24 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function CheckOld_Business1_W_CheckOnReviewPage_Tier2_Completed(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_Tier_AdminLogin($this->id_business1_W, $this->id_checklist_Tier2_W_1st));
-        $I->wait(2);
         $I->canSee("Tier 2 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("1 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
-        $I->canSee("0 Tier 2 points earned. A minimum of 12 Tier 2 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
+        $I->canSee("18 Tier 2 points earned. A minimum of 12 Tier 2 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalCoreMeasures_ProgressBar, ['style' => 'width: 50%;']);
-        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 84%;']);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("4 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("6 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("18 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("6", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3132,9 +3394,9 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_SolidWaste));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
-        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::InProgressStatus);
+        $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("4", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("18", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3146,7 +3408,6 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function CheckOld_Business2_NW_CheckThatPointsAreAbsent(Step\Acceptance\Business $I)
     {
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_NW, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure1Desc));
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure2Desc));
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure3Desc));
@@ -3155,18 +3416,18 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure6Desc));
+        
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_NW, $this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure9Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure9Desc));
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_NW, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_NW, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier3_NW_1st");
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure3Desc));
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure5Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure5Desc));
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_NW, $this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_NW, $this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier3_NW_1st");
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure7Desc));
         $I->canSeeElement(\Page\BusinessChecklistView::MeasureDescription_ByDesc($this->measure8Desc));
         $I->cantSeeElement(\Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure7Desc));
@@ -3180,10 +3441,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function CheckOld_Business2_NW_CheckOnReviewPage_NotComplitedMeasures_Tier2(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_AdminLogin($this->id_business2_NW));
-        $I->wait(2);
         $I->canSee("0 of 5 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("0 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -3201,10 +3460,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function CheckOld_Business2_NW_CheckOnReviewPage_NotComplitedMeasures_Tier3(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("After Compliting Measures - Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_Tier_AdminLogin($this->id_business2_NW, $this->id_checklist_Tier3_NW_1st));
-        $I->wait(2);
         $I->canSee("0 of 5 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
@@ -3224,21 +3481,17 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
     public function CheckOld_Business2_W_CheckPoints(Step\Acceptance\Business $I)
     {
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_W, $this->id_audSubgroup1_Energy));
-        $I->wait(2);
         $I->canSee("4 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure4Desc));
         $I->canSee("2 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_W, $this->id_audSubgroup1_SolidWaste));
-        $I->wait(2);
         $I->canSee("8 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure8Desc));
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_W, $this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->canSee("6 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure6Desc));
         $I->canSee("2 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure2Desc));
         $I->canSee("5 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure5Desc));
         $I->canSee("4 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure4Desc));
         $I->canSee("3 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure3Desc));
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_W, $this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier2_W_1st");
-        $I->wait(2);
         $I->canSee("9 points", \Page\BusinessChecklistView::MeasurePoints_ByDesc($this->measure9Desc));
     }
     
@@ -3249,10 +3502,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function CheckOld_Business2_W_CheckOnReviewPage_Tier1_NotCompleted(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_AdminLogin($this->id_business2_W));
-        $I->wait(2);
         $I->canSee("tiername1 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("0 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
@@ -3261,14 +3512,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3288,10 +3539,8 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
      */
     
     public function CheckOld_Business2_W_CheckOnReviewPage_Tier2_NotCompleted(AcceptanceTester $I) {
-        $I->wait(1);
         $I->comment("Check on Review Page");
         $I->amOnPage(\Page\ReviewAndSubmit::URL_Tier_AdminLogin($this->id_business2_W, $this->id_checklist_Tier2_W_1st));
-        $I->wait(2);
         $I->canSee("Tier 2 Review & Submit", \Page\ReviewAndSubmit::$ReviewTitle);
         
         $I->canSee("0 Tier 2 measures completed. A minimum of 2 Tier 2 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
@@ -3300,14 +3549,14 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /2", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));

@@ -55,6 +55,7 @@ class CumulativePointsCest
     public function Help_LoginAsNationalAdmin(AcceptanceTester $I)
     {
         $I->LoginAsAdmin($I);
+//        $this->state = 'Washington';
     }
     
     /**
@@ -65,8 +66,8 @@ class CumulativePointsCest
     
     public function Help_CreateState(Step\Acceptance\State $I)
     {
-        $name = $this->state = $I->GenerateNameOf("StExtentInpWeight");
-        $shortName = 'EIW';
+        $name = $this->state = $I->GenerateNameOf("StCumulativeInput");
+        $shortName = 'CI';
         $weighted  = 'Input';
         
         $I->CreateState($name, $shortName, $weighted);
@@ -98,7 +99,7 @@ class CumulativePointsCest
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
         $I->wait(3);
-        $I->amOnPage(Page\AuditSubgroupList::URL());
+        $I->amOnPage(Page\AuditSubgroupList::URL().'?sort=-id');
         $I->wait(2);
         $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
@@ -117,7 +118,7 @@ class CumulativePointsCest
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
         $I->wait(3);
-        $I->amOnPage(Page\AuditSubgroupList::URL());
+        $I->amOnPage(Page\AuditSubgroupList::URL().'?sort=-id');
         $I->wait(2);
         $this->id_audSubgroup1_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
@@ -179,7 +180,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas1;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure1 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -202,7 +203,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas2;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure2 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -225,7 +226,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas3;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure3 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -248,7 +249,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas4;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure4 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -271,7 +272,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas5;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure5 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -294,7 +295,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas6;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure6 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -317,7 +318,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas7;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure7 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -340,7 +341,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas8;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure8 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -363,7 +364,7 @@ class CumulativePointsCest
         $points         = $this->pointsMeas9;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, $points);
-        $I->amOnPage(Page\MeasureList::URL());
+        $I->amOnPage(Page\MeasureList::URL().'?sort=-id');
         $I->wait(5);
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure9 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -392,14 +393,29 @@ class CumulativePointsCest
      */
     
     public function Help_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
-        $city    = $this->city1 = $I->GenerateNameOf("CityEIW1");
+        $city    = $this->city1 = $I->GenerateNameOf("CityCI1");
         $cityArr = [$city];
         $state   = $this->state;
         $zips    = $this->zip1 = $I->GenerateZipCode();
-        $program = $this->program1 = $I->GenerateNameOf("ProgEIW1");
+        $program = $this->program1 = $I->GenerateNameOf("ProgCI1");
         
         $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_UpdateProgram1_Weighted(Step\Acceptance\Program $I) {
+        $weighted = 'Input';
+        $program = $this->program1;
+        
+        $prog = $I->GetProgramOnPageInList($program);
+        $idProg = $prog['id'];
+        $I->UpdateProgram($idProg, null, null, null, $weighted);
     }
     
     //----------------------------Create Coordinator----------------------------
@@ -502,7 +518,7 @@ class CumulativePointsCest
 //        $I->canSee("Points was not updated!");
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
@@ -517,7 +533,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
@@ -532,7 +548,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
@@ -547,7 +563,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
     }
     
@@ -622,7 +638,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
@@ -637,7 +653,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
@@ -652,7 +668,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
@@ -667,7 +683,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
     }
     
@@ -742,7 +758,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_Default.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LBTab_DefineTotalTab);
@@ -757,7 +773,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LLTab_DefineTotalTab);
@@ -772,7 +788,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LL.", \Page\ChecklistManage::$Error_RequiredPoints);
         
         $I->comment("-----                      -----                       -----");
         $I->click(\Page\ChecklistManage::$LB_LLTab_DefineTotalTab);
@@ -787,7 +803,7 @@ class CumulativePointsCest
         $I->waitForText("Points was not updated!", 100);
         $I->click(".confirm");
         $I->wait(4);
-        $I->canSee("Total amount of complete points is greater that sum of points of all measures related to $this->state state. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
+        $I->canSee("Total amount of complete points is greater that sum of points of all active measures in this checklist. Maximum amount of point is $max_points_LL_LB.", \Page\ChecklistManage::$Error_RequiredPoints);
         
     }
     
@@ -1395,14 +1411,14 @@ class CumulativePointsCest
         $I->canSee("0 of 1 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("Tier 2 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("Tiername3 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('2'));
-        $I->canSee("Tiername3 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
         $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -1435,14 +1451,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1472,14 +1488,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1526,10 +1542,10 @@ class CumulativePointsCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
         $I->canSee("Total Points Earned: 3", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -1553,14 +1569,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("Tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1588,14 +1604,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 30%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("Tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1647,10 +1663,10 @@ class CumulativePointsCest
         $I->cantSeeElement(\Page\RegistrationStarted::$ElectiveProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("10 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("10 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
         $I->canSee("Total Points Earned: 10", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -1674,14 +1690,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("10 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("10 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1709,14 +1725,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("10 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("10 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1796,14 +1812,14 @@ class CumulativePointsCest
         $I->canSee("0 of 4 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("Tier 2 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
         $I->canSee("0 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("Tiername3 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('2'));
-        $I->canSee("Tiername3 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
         $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -1842,14 +1858,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1880,14 +1896,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1934,14 +1950,14 @@ class CumulativePointsCest
         $I->canSee("1 of 4 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("1 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 3", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("3", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -1961,14 +1977,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 15%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("Tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -1978,7 +1994,7 @@ class CumulativePointsCest
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("3", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -1998,14 +2014,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("Tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2015,7 +2031,7 @@ class CumulativePointsCest
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::NotStartedStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("3", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     
@@ -2057,14 +2073,14 @@ class CumulativePointsCest
         $I->cantSeeElement(\Page\RegistrationStarted::$ElectiveProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("1 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("7 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("7 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 10", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("10", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -2084,14 +2100,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 15%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("7 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("7 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2100,7 +2116,7 @@ class CumulativePointsCest
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("10", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -2117,17 +2133,17 @@ class CumulativePointsCest
         $I->canSee("0 tiername3 measures completed. A minimum of 2 tiername3 measures are required.", \Page\ReviewAndSubmit::$TotalCoreMeasuresInfo_ProgressBar);
         $I->canSee("7 tiername3 points earned. A minimum of 41 tiername3 points are required.", \Page\ReviewAndSubmit::$TotalPointsInfo_ProgressBar);
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalCoreMeasures_ProgressBar, ['style' => 'width: 0%;']);
-        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 18%;']);
+        $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 17%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("7 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("7 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2137,7 +2153,7 @@ class CumulativePointsCest
         $I->canSee("7", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::InProgressStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("10", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -2438,7 +2454,7 @@ class CumulativePointsCest
         $phoneNumber      = $I->GeneratePhoneNumber();
         $email            = $this->email_Bus2_Def = $I->GenerateEmail();
         $password         = $confirmPassword = 'Qq!1111111';
-        $busName          = $this->business1_Default = $I->GenerateNameOf("bus2_Def");
+        $busName          = $this->business2_Default = $I->GenerateNameOf("bus2_Def");
         $busPhone         = $I->GeneratePhoneNumber();
         $address          = $I->GenerateNameOf("addr");
         $zip              = $this->zip1;
@@ -2473,19 +2489,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\RegistrationStarted::$LeftMenu_EnergyGroup_ProgressBar, ['style' => 'width: 0%;']);
         //Tier1 in left menu
         $I->canSee("Tiername1 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tiername1 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("Tier 2 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("Tiername3 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('3'));
-        $I->canSee("Tiername3 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('3'));
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
         $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -2532,13 +2548,13 @@ class CumulativePointsCest
         $I->cantSeeElement(\Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("2 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("2 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("2 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("2 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("2 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
         $I->canSee("Total Points Earned: 2", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -2565,19 +2581,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("2", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2607,19 +2623,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 40%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2649,19 +2665,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 17%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2685,7 +2701,7 @@ class CumulativePointsCest
         $value1   = '66';
                 
         $I->wait(1);
-        $I->comment("Complete Measure3 for Default business: $this->business1_Default");
+        $I->comment("Complete Measure3 for Default business: $this->business2_Default");
         $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_Tier2__2nd");
         $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure3]"], $style = 'visibility');
@@ -2708,13 +2724,13 @@ class CumulativePointsCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("2 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("5 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("5 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("5 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("5 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
         $I->canSee("Total Points Earned: 5", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -2733,8 +2749,8 @@ class CumulativePointsCest
         $value2   = '1';
                 
         $I->wait(1);
-        $I->comment("Complete Measure7 for Default business: $this->business1_Default");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier3__1st");
+        $I->comment("Complete Measure7 for Default business: $this->business2_Default");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_Tier3__2nd");
         $I->wait(2);
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure7]"], $style = 'visibility');
         $I->wait(2);
@@ -2758,13 +2774,13 @@ class CumulativePointsCest
         $I->cantSeeElement(\Page\RegistrationStarted::$ElectiveProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("2 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("5 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("5 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("12 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
         $I->canSee("Total Points Earned: 12", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -2788,19 +2804,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("5 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("5 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("12 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("2", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2828,19 +2844,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("5 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("5 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("12 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2868,19 +2884,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("5 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("5 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("12 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -2958,19 +2974,19 @@ class CumulativePointsCest
         $I->canSee("0 of 1 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("Tiername1 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tiername1 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("Tier 2 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
         $I->canSee("0 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("Tiername3 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('3'));
-        $I->canSee("Tiername3 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('3'));
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
         $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -3021,17 +3037,17 @@ class CumulativePointsCest
         $I->canSee("0 of 1 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("2 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("1 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 2", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("2", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
         $I->canSee("tier desc1", Page\RegistrationStarted::$TierDescription_RightBlock);
     }
     
@@ -3054,19 +3070,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 15%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("2", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3075,7 +3091,7 @@ class CumulativePointsCest
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("2", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3097,19 +3113,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("1 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3118,7 +3134,7 @@ class CumulativePointsCest
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("2", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3140,19 +3156,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 0%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("2 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("0 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("0 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3162,7 +3178,7 @@ class CumulativePointsCest
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::NotStartedStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("2", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3199,17 +3215,17 @@ class CumulativePointsCest
         $I->canSee("2 of 4 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("2 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("2 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("0 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("0 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 5", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("5", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3250,17 +3266,17 @@ class CumulativePointsCest
         $I->canSee("0 of 1 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("2 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("2 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("2 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("0 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("7 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("7 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 12", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("12", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3299,17 +3315,17 @@ class CumulativePointsCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("10 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("10 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("2 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("1 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("7 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("7 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 20", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("20", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3348,17 +3364,17 @@ class CumulativePointsCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("10 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("10 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("2 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("2 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("12 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 25", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("25", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3397,17 +3413,17 @@ class CumulativePointsCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("14 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("14 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("2 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("17 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("17 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("2 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("26 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("26 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 14", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 29", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("14", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("29", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3445,17 +3461,17 @@ class CumulativePointsCest
         $I->canSee("3 of 4 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("14 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("14 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("3 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("23 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("23 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("2 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("26 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("26 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 14", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 35", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("14", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("35", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3495,17 +3511,17 @@ class CumulativePointsCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("14 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("14 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("4 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("24 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("24 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("2 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("26 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("26 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 14", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 36", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("14", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("36", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3543,13 +3559,13 @@ class CumulativePointsCest
         $I->cantSeeElement(\Page\RegistrationStarted::$ElectiveProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("14 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("14 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("4 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("33 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("33 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("2 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("45 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("45 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
         $I->canSee("Total Points Earned: 45", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -3578,7 +3594,7 @@ class CumulativePointsCest
         $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(5);
+        $I->wait(8);
         $I->canSee("0 tiername1 measures completed. A minimum of 1 tiername1 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 0%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -3589,17 +3605,17 @@ class CumulativePointsCest
         $I->canSee("0 of 1 required measures completed", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("0 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("10 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("10 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("4 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("19 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("19 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("2 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("12 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
-        $I->canSee("Total Points Earned: 0", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
+        $I->canSee("Total Points Earned: 41", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
-        $I->canSee("0", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
+        $I->canSee("41", Page\RegistrationStarted::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3619,19 +3635,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 72%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("10 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("10 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("4 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("19 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("19 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("2 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("12 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("2", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3640,7 +3656,7 @@ class CumulativePointsCest
         $I->canSee("8", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("41", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3660,19 +3676,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 58%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("10 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("10 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("4 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("19 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("19 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("2 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("12 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("4 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("10", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3681,7 +3697,7 @@ class CumulativePointsCest
         $I->canSee("9", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("41", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3701,19 +3717,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 27%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("0 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("10 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("10 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("4 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("19 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("19 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("2 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("12 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("12 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("5", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3723,7 +3739,7 @@ class CumulativePointsCest
         $I->canSee("7", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("41", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -3759,13 +3775,13 @@ class CumulativePointsCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier1 in left menu
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("14 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("14 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier2 in left menu
         $I->canSee("4 of 4 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("33 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("33 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Tier3 in left menu
         $I->canSee("2 of 2 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("3"));
-        $I->canSee("45 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
+        $I->canSee("45 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('3'));
         //Total in left menu
         $I->canSee("Total Points Earned: 45", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -3789,19 +3805,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("14 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("14 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("4 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("33 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("33 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("2 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("45 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("45 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("6", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3830,19 +3846,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("14 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("14 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("4 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("33 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("33 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("2 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("45 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("45 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("4 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("10", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -3871,19 +3887,19 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier1
         $I->canSee("tiername1 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("tiername1 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("14 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("14 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("4 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("33 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("33 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('3'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('3'));
         $I->canSee("2 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('3'));
-        $I->canSee("45 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
+        $I->canSee("45 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('3'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("5", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -4049,14 +4065,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("10 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("10 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -4084,14 +4100,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 100%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("10 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("10 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /0", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -4112,7 +4128,7 @@ class CumulativePointsCest
     
     public function SubmitBusiness1_ReviewAndSubmitPage(AcceptanceTester $I) {
         $I->wait(2);
-        $I->amOnPage(\Page\ReviewAndSubmit::$URL);
+        $I->amOnPage(\Page\ReviewAndSubmit::URL_BusinessLogin($this->id_checklist_Tier3__1st));
         $I->wait(2);
         $I->scrollTo(Page\ReviewAndSubmit::$SubmitMyApplicationButton);
         $I->wait(1);
@@ -4143,14 +4159,14 @@ class CumulativePointsCest
         $I->canSee("You have completed all measures.", \Page\RegistrationStarted::$CoreProgressBarInfo);
         //Tier2 in left menu
         $I->canSee("Tier 2 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
         $I->canSee("1 of 1 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("1"));
-        $I->canSee("3 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('1'));
         //Tier3 in left menu
         $I->canSee("Tiername3 Required Measures", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('2'));
-        $I->canSee("Tiername3 Points", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
         $I->canSee("0 of 0 measures completed", \Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo("2"));
-        $I->canSee("10 points earned", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
+        $I->canSee("10 points", \Page\RegistrationStarted::LeftMenu_EarnedPointsInfo('2'));
         //Total in left menu
         $I->canSee("Total Points Earned: 10", \Page\RegistrationStarted::$LeftMenu_TotalPointsEarnedInfo);
         //Total 
@@ -4213,14 +4229,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 15%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("7 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("7 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("1 /4", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("3", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -4229,7 +4245,7 @@ class CumulativePointsCest
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::CompleteStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("10", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
     
     /**
@@ -4249,14 +4265,14 @@ class CumulativePointsCest
         $I->canSeeElement(\Page\ReviewAndSubmit::$TotalPoints_ProgressBar, ['style' => 'width: 18%;']);
         //Tier2
         $I->canSee("Tier 2 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('1'));
-        $I->canSee("Tier 2 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('1'));
         $I->canSee("1 of 4 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('1'));
-        $I->canSee("3 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
+        $I->canSee("3 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('1'));
         //Tier3
         $I->canSee("tiername3 Required Measures", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresLabel('2'));
-        $I->canSee("tiername3 Points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
+        $I->canSee("Total points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsLabel('2'));
         $I->canSee("0 of 2 measures completed", \Page\ReviewAndSubmit::TierProgress_CompletedMeasuresInfo('2'));
-        $I->canSee("7 points earned", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
+        $I->canSee("7 points", \Page\ReviewAndSubmit::TierProgress_EarnedPointsInfo('2'));
         
         $I->canSee("0 /1", Page\ReviewAndSubmit::Review_CoreLine_ByName($this->audSubgroup1_Energy));
         $I->canSee("0", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::Energy_AuditGroup));
@@ -4266,6 +4282,6 @@ class CumulativePointsCest
         $I->canSee("7", Page\ReviewAndSubmit::Review_PointsLine_ByGroupName(Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->canSeeElement(Page\ReviewAndSubmit::Review_StatusInPointsColumnLine_ByGroupName($this->audSubgroup1_SolidWaste).Page\ReviewAndSubmit::InProgressStatus);
         //Total
-        $I->canSee("0", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
+        $I->canSee("10", Page\ReviewAndSubmit::$TotalPointsCount_RightBlock);
     }
 }

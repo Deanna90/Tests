@@ -12,6 +12,7 @@ class AuditGroupList extends \AcceptanceTester
     const Transportation_AuditGroup      = 'Transportation';
     const Wastewater_AuditGroup          = 'Wastewater';
     const Water_AuditGroup               = 'Water';
+    const Community_AuditGroup           = 'Community';
     
     public static $Title                         = 'h1';
     public static $AuditGroupRow                 = 'table[class*=table] tbody>tr';

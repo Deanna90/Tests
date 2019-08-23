@@ -22,6 +22,14 @@ class BusinessRegistration
     public static $ZipField                    = '#business-zip';
     public static $BusinessWebsiteField        = '#business-website';
     
+    //--------------------------City Zip Message Popup--------------------------
+    public static $CityZipMessagePopup             = '.sweet-alert.showSweetAlert.visible';
+    public static $CityZipMessagePopup_Title       = '.sweet-alert.showSweetAlert.visible h2';
+    public static $CityZipMessagePopup_MessageText = '.sweet-alert.showSweetAlert.visible h2+p';
+    
+//    public static $CityZipMessagePopup_SaveButton                 = '.modal.in .business-size-changed-confirm';
+    public static $CityZipMessagePopup_OkButton = '.sweet-alert.showSweetAlert.visible button.confirm';
+    
     public static $Error_FirstName              = '#user-first_name+.help-block';
     public static $Error_LastName               = '#user-last_name+.help-block';
     public static $Error_PhoneNumber            = '#user-phone+.help-block';
@@ -118,6 +126,9 @@ class BusinessRegistration
     public static $CityOption                  = '#cities option';
     public static $StateOption                 = '#business-state_name option';
     public static $BusinessTypeOption          = '#business-sector_id option';
+    
+    public static function selectCityOption($row)          { return "//*[@id='cities']/option[$row]";}
+    public static function selectCityOptionByName($name)   { return "//*[@id='cities']/option[text()='$name']";}
     
     public static $ContactInfoBlockTitle             = '[for=state-name]';
     public static $BusinessInfoBlockTitle            = '[for=state-short_name]';

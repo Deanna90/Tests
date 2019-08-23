@@ -21,7 +21,8 @@ class MyStatus_TierStatus
     public static function TierName_TierPointLevelsBlock($row)    {  return "//div[contains(@class, 'application-info')][1]/div/div[$row]/p[1]";}
     public static function TierPoints_TierPointLevelsBlock($row)  {  return "//div[contains(@class, 'application-info')][1]/div/div[$row]/p[2]";}
     
-    public static $BenefitsByTierBlock_Title                      = "//div[contains(@class, 'application-info')][2]//h3";
-    public static function TierName_BenefitsByTierBlock($row)     {  return "//div[contains(@class, 'application-info')][2]/div/div[$row]/p[1]";}
-    public static function Benefit_BenefitsByTierBlock($row)      {  return "//div[contains(@class, 'application-info')][2]/div/div[$row]/p[2]";}
+    public static $BenefitsByTierBlock_Title                      = "//div[contains(@class, 'application-info')][last()]//h3";
+    public static function TierName_BenefitsByTierBlock($row)                   {  return "//div[contains(@class, 'application-info')][last()]/div/div[$row]/p[1]";}
+    public static function Benefit_BenefitsByTierBlock($rowTier, $rowBenefit)   {  $a=$rowBenefit+1; return "//div[contains(@class, 'application-info')][last()]/div/div[$rowTier]/p[$a]";}
+    public static function BenefitOk_BenefitsByTierBlock($rowTier, $rowBenefit) {  $a=$rowBenefit+1; return "//div[contains(@class, 'application-info')][last()]/div/div[$rowTier]/p[$a]/span[not(contains(@class, 'hidden'))]";}
 }

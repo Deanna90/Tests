@@ -25,7 +25,7 @@ class QuestionWeightPointsCest
     public $measure15Desc, $idMeasure15, $pointsMeas15;
     public $measuresDesc_SuccessCreated = [], $pointsT1 = '65', $pointsT2 = '0', $pointsT3 = '25', $completePointsT1 = '0', $completePointsT2 = '0', $completePointsT3 = '0', 
                             $coreCountT1 = '0', $coreCountT2 = '4', $coreCountT3 = '3', $completeCoreMeasuresT1 = '0', $completeCoreMeasuresT2 = '0', $completeCoreMeasuresT3 = '0';
-    public $city1, $zip1, $program1;
+    public $city1, $zip1, $program1, $county;
     public $statusesT1 = ['elective', 'elective', 'elective', 'elective', 'elective', 'elective', 'elective', 'elective', 'elective', 'not set',  'not set', 'not set',  'not set',  'not set',  'not set'];
     public $statusesT2 = ['core',     'elective', 'core',     'not set',  'elective', 'elective', 'core',     'not set',  'elective', 'not set',  'not set', 'elective', 'elective', 'core',     'not set'];
     public $statusesT3 = ['elective', 'not set',  'not set',  'not set',  'not set',  'not set',  'not set',  'elective', 'elective', 'elective', 'core',    'elective', 'core',     'elective', 'core'];
@@ -37,7 +37,7 @@ class QuestionWeightPointsCest
     public $measuresText          = " required measures";
     public $pointsText            = " points";
     public $measuresCompletedText = " measures completed";
-    public $pointsEarnedText      = " points earned";
+    public $pointsEarnedText      = " points";
     
     public function Help2_1_LoginAsNationalAdmin(AcceptanceTester $I)
     {
@@ -504,6 +504,14 @@ class QuestionWeightPointsCest
                                             $multipAnswerToggleStatus= 'ignore', null, $yesNoNameArray, $yesNoValueArray, $sectionNameArray, $sectionValueArray);
     }
     
+    //-------------------------------Create county------------------------------
+    public function CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
+    }
+    
     public function Help1_6_3_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
         $city    = $this->city1 = $I->GenerateNameOf("CityQW1");
         $cityArr = [$city];
@@ -511,8 +519,17 @@ class QuestionWeightPointsCest
         $zips    = $this->zip1 = $I->GenerateZipCode();
         $program = $this->program1 = $I->GenerateNameOf("ProgQW1");
         
-        $I->CreateCity($city, $state, $zips);
+        $I->CreateCity($city, $state, $zips, $this->county);
         $Y->CreateProgram($program, $state, $cityArr);
+    }
+    
+    public function Help_UpdateProgram1_Weighted(Step\Acceptance\Program $I) {
+        $weighted = 'Question';
+        $program = $this->program1;
+        
+        $prog = $I->GetProgramOnPageInList($program);
+        $idProg = $prog['id'];
+        $I->UpdateProgram($idProg, null, null, null, $weighted);
     }
     
     public function Help1_15_CreateChecklistForTier1(\Step\Acceptance\Checklist $I) {
@@ -523,17 +540,11 @@ class QuestionWeightPointsCest
         $descs              = $this->measuresDesc_SuccessCreated;
         $points             = $this->pointsT1;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $this->id_checklistT1 = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statusesT1);
-        $this->checklistUrlT1 = $I->grabFromCurrentUrl();
-        $I->comment("Url tier1 checklist: $this->checklistUrlT1");
-        $u1 = explode('=', $this->checklistUrlT1);
-        $urlEnd = $u1[1];
-        $u2 = explode('&', $urlEnd);
-        $this->id_checklistT1 = $u2[0];
         $I->comment("Tier1 checklist id: $this->id_checklistT1");
-        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($this->id_checklistT1));
-        $I->PublishChecklistStatus();
+//        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($this->id_checklistT1));
+        $I->PublishChecklistStatus($this->id_checklistT1);
         $I->amOnPage(Page\ChecklistManage::URL_PointsTab($this->id_checklistT1));
         $I->UpdateChecklistPoints($points);
     }
@@ -546,17 +557,11 @@ class QuestionWeightPointsCest
         $descs              = $this->measuresDesc_SuccessCreated;
         $points             = $this->pointsT2;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $this->id_checklistT2 = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statusesT2);
-        $this->checklistUrlT2 = $I->grabFromCurrentUrl();
-        $I->comment("Url tier2 checklist: $this->checklistUrlT2");
-        $u1 = explode('=', $this->checklistUrlT2);
-        $urlEnd = $u1[1];
-        $u2 = explode('&', $urlEnd);
-        $this->id_checklistT2 = $u2[0];
         $I->comment("Tier2 checklist id: $this->id_checklistT2");
-        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($this->id_checklistT2));
-        $I->PublishChecklistStatus();
+//        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($this->id_checklistT2));
+        $I->PublishChecklistStatus($this->id_checklistT2);
         $I->amOnPage(Page\ChecklistManage::URL_PointsTab($this->id_checklistT2));
         $I->UpdateChecklistPoints($points);
     }
@@ -569,17 +574,11 @@ class QuestionWeightPointsCest
         $descs              = $this->measuresDesc_SuccessCreated;
         $points             = $this->pointsT3;
         
-        $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
+        $this->id_checklistT3 = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
         $I->ManageChecklist($descs, $this->statusesT3);
-        $this->checklistUrlT3 = $I->grabFromCurrentUrl();
-        $I->comment("Url tier3 checklist: $this->checklistUrlT3");
-        $u1 = explode('=', $this->checklistUrlT3);
-        $urlEnd = $u1[1];
-        $u2 = explode('&', $urlEnd);
-        $this->id_checklistT3 = $u2[0];
         $I->comment("Tier3 checklist id: $this->id_checklistT3");
-        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($this->id_checklistT3));
-        $I->PublishChecklistStatus();
+//        $I->amOnPage(Page\ChecklistManage::URL_VersionTab($this->id_checklistT3));
+        $I->PublishChecklistStatus($this->id_checklistT3);
         $I->amOnPage(Page\ChecklistManage::URL_PointsTab($this->id_checklistT3));
         $I->UpdateChecklistPoints($points);
     }
@@ -617,13 +616,13 @@ class QuestionWeightPointsCest
         
         $I->wait(1);
         $I->comment("Check total points value: $points on checklist preview page. Completed points value: $completePoints");
-        $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklistT1, $this->id_audSubgroup1_Energy));
+        $I->amOnPage(Page\ChecklistPreview::URl($this->id_checklistT1, $this->id_audSubgroup1_Energy));
         $I->wait(3);
-        $I->canSee("$completePoints $this->tier1Name points earned. A minimum of $this->pointsT1 $this->tier1Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$completePoints $this->tier1Name points earned. A minimum of $this->pointsT1 $this->tier1Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
         $I->canSee("$this->completeCoreMeasuresT1 $this->tier1Name measures completed. A minimum of $this->coreCountT1 $this->tier1Name measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklistT1, $this->id_audSubgroup1_SolidWaste));
         $I->wait(3);
-        $I->canSee("$completePoints $this->tier1Name points earned. A minimum of $this->pointsT1 $this->tier1Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$completePoints $this->tier1Name points earned. A minimum of $this->pointsT1 $this->tier1Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
         $I->canSee("$this->completeCoreMeasuresT1 $this->tier1Name measures completed. A minimum of $this->coreCountT1 $this->tier1Name measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
     }
     
@@ -658,11 +657,11 @@ class QuestionWeightPointsCest
         $I->comment("Check total points value: $this->pointsT2 on checklist preview page. Completed points value: $completePoints");
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklistT2, $this->id_audSubgroup1_Energy));
         $I->wait(3);
-        $I->canSee("$completePoints $this->tier2Name points earned. A minimum of $this->pointsT2 $this->tier2Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$completePoints $this->tier2Name points earned. A minimum of $this->pointsT2 $this->tier2Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
         $I->canSee("$this->completeCoreMeasuresT2 $this->tier2Name measures completed. A minimum of $this->coreCountT2 $this->tier2Name measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklistT2, $this->id_audSubgroup1_SolidWaste));
         $I->wait(3);
-        $I->canSee("$completePoints $this->tier2Name points earned. A minimum of $this->pointsT2 $this->tier2Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$completePoints $this->tier2Name points earned. A minimum of $this->pointsT2 $this->tier2Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
         $I->canSee("$this->completeCoreMeasuresT2 $this->tier2Name measures completed. A minimum of $this->coreCountT2 $this->tier2Name measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
     }
     
@@ -697,11 +696,11 @@ class QuestionWeightPointsCest
         $I->comment("Check total points value: $this->pointsT3 on checklist preview page. Completed points value: $completePoints");
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklistT3, $this->id_audSubgroup1_Energy));
         $I->wait(3);
-        $I->canSee("$completePoints of $this->tier3Name points earned. A minimum of $this->pointsT3 $this->tier3Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$completePoints of $this->tier3Name points earned. A minimum of $this->pointsT3 $this->tier3Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
         $I->canSee("$this->completeCoreMeasuresT3 $this->tier3Name measures completed. A minimum of $this->coreCountT3 $this->tier3Name measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
         $I->amOnPage(Page\ChecklistPreview::URL($this->id_checklistT3, $this->id_audSubgroup1_SolidWaste));
         $I->wait(3);
-        $I->canSee("$completePoints of $this->tier3Name points earned. A minimum of $this->pointsT3 $this->tier3Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
+//        $I->canSee("$completePoints of $this->tier3Name points earned. A minimum of $this->pointsT3 $this->tier3Name points are required.", Page\ChecklistPreview::$TotalPointsInfo_ProgressBar);
         $I->canSee("$this->completeCoreMeasuresT3 $this->tier3Name measures completed. A minimum of $this->coreCountT3 $this->tier3Name measures are required.", \Page\ChecklistPreview::$TotalMeasuresInfo_ProgressBar);
     }
     
@@ -774,7 +773,7 @@ class QuestionWeightPointsCest
         //tier1
         $I->canSee($this->tier1Name, Page\RegistrationStarted::LeftMenu_TierName('1'));
         $I->canSee("$this->tier1Name $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('1'));
-        $I->canSee("$this->tier1Name $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
+        $I->canSee("TOTAL POINTS EARNED", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('1'));
         $I->canSee($this->completeCoreMeasuresT1, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('1'));
         $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('1'));
         $I->canSee("$this->completeCoreMeasuresT1 of $this->coreCountT1"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('1'));
@@ -782,7 +781,7 @@ class QuestionWeightPointsCest
         //tier2
         $I->canSee($this->tier2Name, Page\RegistrationStarted::LeftMenu_TierName('2'));
         $I->canSee("$this->tier2Name $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('2'));
-        $I->canSee("$this->tier2Name $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
+        $I->canSee("TOTAL POINTS EARNED", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('2'));
         $I->canSee($this->completeCoreMeasuresT2, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('2'));
         $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('2'));
         $I->canSee("$this->completeCoreMeasuresT2 of $this->coreCountT2"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('2'));
@@ -790,7 +789,7 @@ class QuestionWeightPointsCest
         //tier3
         $I->canSee($this->tier3Name, Page\RegistrationStarted::LeftMenu_TierName('3'));
         $I->canSee("$this->tier3Name $this->measuresText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresLabel('3'));
-        $I->canSee("$this->tier3Name $this->pointsText", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('3'));
+        $I->canSee("TOTAL POINTS EARNED", Page\RegistrationStarted::LeftMenu_EarnedPointsLabel('3'));
         $I->canSee($this->completeCoreMeasuresT3, Page\RegistrationStarted::LeftMenu_CompletedMeasuresCount('3'));
         $I->canSee("$completePoints", Page\RegistrationStarted::LeftMenu_EarnedPointsCount('3'));
         $I->canSee("$this->completeCoreMeasuresT3 of $this->coreCountT3"."$this->measuresCompletedText", Page\RegistrationStarted::LeftMenu_CompletedMeasuresInfo('3'));
@@ -830,7 +829,7 @@ class QuestionWeightPointsCest
         $this->completeCoreMeasuresT2 = $this->completeCoreMeasuresT2 + 1;
         $completePoints = $this->completePointsT1;
 //        $I->canSee("$completePoints $this->tier1Name points earned. A minimum of $this->pointsT1 $this->tier1Name points are required.", \Page\RegistrationStarted::$TotalPointsInfo_ProgressBar);
-        $I->canSee("$this->completeCoreMeasures $this->tier1Name measures completed. A minimum of $this->coreCountT1 $this->tier1Name measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
+        $I->canSee("$this->completeCoreMeasuresT1 $this->tier1Name measures completed. A minimum of $this->coreCountT1 $this->tier1Name measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSee($completePoints, Page\BusinessChecklistView::$TotalPointsCount_RightBlock);
         $I->canSee("TOTAL POINTS EARNED: $completePoints", Page\BusinessChecklistView::$LeftMenu_TotalPointsEarnedInfo);
         $I->canSee($this->completePointsT1, Page\BusinessChecklistView::LeftMenu_EarnedPointsCount('1'));

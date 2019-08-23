@@ -9,14 +9,16 @@ class Tier extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\TierManage::URL());
-        $I->wait(2);
+//        $I->wait(2);
         if (isset($program)){
             $I->selectOption(\Page\TierManage::$ProgramSelect, $program);
-            $I->wait(2);
+            $I->wait(1);
+            $I->waitPageLoad();
         }
         if (isset($tier1)){
             $I->click(\Page\TierManage::$Tier1Button_LeftMenu);
-            $I->wait(3);
+            $I->wait(1);
+            $I->waitPageLoad();
             switch ($tier1OptIn){
                 case 'yes':
                     $I->click(\Page\TierManage::$YesRadioButton_OptIn);
@@ -36,7 +38,8 @@ class Tier extends \AcceptanceTester
         }
         if (isset($tier2)){
             $I->click(\Page\TierManage::$Tier2Button_LeftMenu);
-            $I->wait(3);
+            $I->wait(1);
+            $I->waitPageLoad();
             switch ($tier2OptIn){
                 case 'yes':
                     $I->click(\Page\TierManage::$YesRadioButton_OptIn);
@@ -56,7 +59,8 @@ class Tier extends \AcceptanceTester
         }
         if (isset($tier3)){
             $I->click(\Page\TierManage::$Tier3Button_LeftMenu);
-            $I->wait(3);
+            $I->wait(1);
+            $I->waitPageLoad();
             switch ($tier3OptIn){
                 case 'yes':
                     $I->click(\Page\TierManage::$YesRadioButton_OptIn);
@@ -74,9 +78,10 @@ class Tier extends \AcceptanceTester
                 $I->fillField(\Page\TierManage::$TierDescriptionField, $tier3Desc);
             }
         }
-        $I->wait(1);
         $I->click(\Page\TierManage::$SaveButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->wait(1);
     }
     
     public function ManageTier($tierNumber = '1', $optIn = 'yes', $tierName = null, $tierDesc = null)
@@ -112,6 +117,49 @@ class Tier extends \AcceptanceTester
         }
         if (isset($tierDesc)){
             $I->fillField(\Page\TierManage::$TierDescriptionField, $tierDesc);
+        }
+        $I->wait(1);
+    }
+    
+    public function AddBenefitToTier($program = null, $tierNumber = '1', $benefitsArray = null)
+    {
+        $I = $this;
+        $I->amOnPage(\Page\TierManage::URL());
+//        $I->wait(2);
+        if (isset($program)){
+            $I->selectOption(\Page\TierManage::$ProgramSelect, $program);
+            $I->wait(1);
+            $I->waitPageLoad();
+        }
+        switch ($tierNumber){
+            case '1':
+                $I->click(\Page\TierManage::$Tier1Button_LeftMenu);
+                $I->wait(1);
+                $I->waitPageLoad();
+                break;
+            case '2':
+                $I->click(\Page\TierManage::$Tier2Button_LeftMenu);
+                $I->wait(1);
+                $I->waitPageLoad();
+                break;
+            case '3':
+                $I->click(\Page\TierManage::$Tier3Button_LeftMenu);
+                $I->wait(1);
+                $I->waitPageLoad();
+                break;
+        }
+        if (isset($benefitsArray)){
+            for ($i=1, $c= count($benefitsArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\TierManage::$AddPromotionalBenefitButton);
+                $I->wait(1);
+                $I->waitPageLoad();
+                $I->fillField(\Page\TierManage::$TitleField_AddPromotionalBenefitPopup, $benefitsArray[$k]);
+                $I->wait(1);
+                $I->click(\Page\TierManage::$AddButton_AddPromotionalBenefitPopup);
+                $I->wait(1);
+                $I->waitPageLoad();
+            }
         }
         $I->wait(1);
     }

@@ -1,9 +1,11 @@
 <?php
 namespace Page;
 
-class AuditOrganizationList
+class AuditOrganizationList extends \AcceptanceTester
 {
-    public static $URL                               = '/master-admin/audit-organization/index';
+    
+    public static function URL()                    { return parent::$URL_UserAccess."/audit-organization/index";}
+    public static function UrlPageNumber($number)   { return parent::$URL_UserAccess."/audit-organization/index?page=$number"; }
     public static $Title                             = 'h1';
     public static $AuditOrganizationRow              = 'table[class*=table] tbody>tr';
     

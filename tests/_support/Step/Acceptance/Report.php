@@ -25,6 +25,8 @@ class Report extends \AcceptanceTester
             $I->cantSeeElement($selector);
         }
         else {
+            $m = $I->grabTextFrom($selector);
+            $I->comment("Shown in report: $m");
             $I->canSee("$$moneySaved", $selector);
         }
     }

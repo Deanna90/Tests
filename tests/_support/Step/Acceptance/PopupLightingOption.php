@@ -7,26 +7,27 @@ class PopupLightingOption extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\PopupLighting_BuildingTypesCreate::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\PopupLighting_BuildingTypesCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\PopupLighting_BuildingTypesCreate::$NameField, $name);
         }
         $I->click(\Page\PopupLighting_BuildingTypesCreate::$CreateButton);
-        $I->wait(1);
+        $I->waitPageLoad('60');
+//        $I->wait(1);
     }  
     
     public function GetBuildingTypeOnPageInList($name)
     {
         $I = $this;
         $I->amOnPage(\Page\PopupLighting_BuildingTypesList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\PopupLighting_BuildingTypesList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\PopupLighting_BuildingTypesList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\PopupLighting_BuildingTypesList::$BuildingTypeRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -46,7 +47,7 @@ class PopupLightingOption extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\PopupLighting_DeerHoursCreate::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\PopupLighting_DeerHoursCreate::$HouField);
         if (isset($lightingType)){
             $I->selectOption(\Page\PopupLighting_DeerHoursCreate::$LightingTypeSelect, $lightingType);
@@ -64,20 +65,21 @@ class PopupLightingOption extends \AcceptanceTester
             $I->fillField(\Page\PopupLighting_DeerHoursCreate::$InteractiveEffectsField, $interactiveEffects);
         }
         $I->click(\Page\PopupLighting_DeerHoursCreate::$CreateButton);
-        $I->wait(1);
+        $I->waitPageLoad('60');
+//        $I->wait(1);
     }  
     
     public function GetLightingDeerHoursOnPageInList($lightingType, $buildingType, $buildingSpace, $hou, $interactiveEffects)
     {
         $I = $this;
         $I->amOnPage(\Page\PopupLighting_DeerHoursList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\PopupLighting_DeerHoursList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\PopupLighting_DeerHoursList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\PopupLighting_DeerHoursList::$DeerHourRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -103,7 +105,7 @@ class PopupLightingOption extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\PopupLighting_FixtureMapsCreate::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\PopupLighting_FixtureMapsCreate::$ReplacementLightingNameField);
         if (isset($replacementLightingName)){
             $I->fillField(\Page\PopupLighting_FixtureMapsCreate::$ReplacementLightingNameField, $replacementLightingName);
@@ -124,20 +126,21 @@ class PopupLightingOption extends \AcceptanceTester
             $I->selectOption(\Page\PopupLighting_FixtureMapsCreate::$TechnologyTypeSelect, $lightingType);
         }
         $I->click(\Page\PopupLighting_FixtureMapsCreate::$CreateButton);
-        $I->wait(1);
+        $I->waitPageLoad('60');
+//        $I->wait(1);
     }  
     
     public function GetLightingFixtureMapOnPageInList($replacementLightingName)
     {
         $I = $this;
         $I->amOnPage(\Page\PopupLighting_FixtureMapsList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\PopupLighting_FixtureMapsList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\PopupLighting_FixtureMapsList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\PopupLighting_FixtureMapsList::$FixtureMapRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){

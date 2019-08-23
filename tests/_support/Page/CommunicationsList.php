@@ -16,10 +16,14 @@ class CommunicationsList extends \AcceptanceTester
     public static $SubjectLinkHead                = 'table[class*=table] tr>th:nth-of-type(2)';
     public static $SentLinkHead                   = 'table[class*=table] tr>th:nth-of-type(3)';
     
+    public static $SubjectColumnRow               = 'table[class*=table] tbody>tr>td:nth-of-type(2)';
+    
     public static function SenderLine($row)       { return "table[class*=table] tbody>tr:nth-of-type($row)>td:first-of-type"; }
     public static function SubjectLine($row)      { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(2)"; }
     public static function SentLine($row)         { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(3)"; }
     public static function ViewButtonLine($row)   { return "table[class*=table] tbody>tr:nth-of-type($row) [title=View]"; }
     public static function DeleteButtonLine($row) { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Delete]"; }
+    
+    public static function SubjectLine_ByName($subject)   { return "//table[contains(@class, 'table-striped')]//tbody/tr/td[text()='$subject']"; }
 
 }

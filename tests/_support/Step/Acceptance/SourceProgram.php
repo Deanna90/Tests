@@ -3,12 +3,12 @@ namespace Step\Acceptance;
 
 class SourceProgram extends \AcceptanceTester
 {
-    public function CreateSourceProgram($title = null, $content = null, $file = 'null', $color = '#0b0749', $subdomain = null)
+    public function CreateSourceProgram($title = null, $content = null, $file = null, $color = null, $subdomain = null)
     {
         $I = $this;
         $I->comment("Create Source Program:");
         $I->amOnPage(\Page\SourceProgramCreate::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\SourceProgramCreate::$TitleField);
         if (isset($title)){
             $I->fillField(\Page\SourceProgramCreate::$TitleField, $title);
@@ -26,7 +26,8 @@ class SourceProgram extends \AcceptanceTester
             $I->selectOption(\Page\SourceProgramCreate::$SubdomainSelect, $subdomain);
         }
         $I->click(\Page\SourceProgramCreate::$CreateButton);
-        $I->wait(1);
+        $I->waitPageLoad('60');
+//        $I->wait(1);
     }  
     
     public function GetSourceProgramOnPageInList($title)
@@ -34,13 +35,13 @@ class SourceProgram extends \AcceptanceTester
         $I = $this;
         $I->comment("Get Source Program on list. Get id, page number and row:");
         $I->amOnPage(\Page\SourceProgramList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\SourceProgramList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\SourceProgramList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\SourceProgramList::$SourceProgramRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){

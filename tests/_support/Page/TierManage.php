@@ -19,6 +19,12 @@ class TierManage extends \AcceptanceTester
     public static $SaveButton                  = 'button.btn-green-lite';
     public static $AddPromotionalBenefitButton = '#popup_link_0';
     
+    public static $AddPromotionalBenefitPopup                  = ".modal.in";
+    public static $Title_AddPromotionalBenefitPopup            = ".modal.in h2";
+    public static $TitleField_AddPromotionalBenefitPopup       = ".modal.in #benefit-title";
+    public static $AddButton_AddPromotionalBenefitPopup        = '.modal.in button[name=add-audit]';
+    public static $CloseButton_AddPromotionalBenefitPopup      = '.modal.in .close';
+    
     public static $YesRadioButton_OptIn        = "//tr/td[2]//*[@class='radio-wrapper checkbox-tier']";
     public static $NoRadioButton_OptIn         = "//tr/td[3]//*[@class='radio-wrapper checkbox-tier']";
     public static $YesRadioButtonLabel_OptIn   = '[for=radio-yes2]';

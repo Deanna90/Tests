@@ -8,8 +8,6 @@ class InspectorOrganization extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\InspectorOrganizationCreate::URL());
-        $I->wait(1);
-        $I->waitForElement(\Page\InspectorOrganizationCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\InspectorOrganizationCreate::$NameField, $name);
         }
@@ -46,14 +44,15 @@ class InspectorOrganization extends \AcceptanceTester
         $I->scrollTo(\Page\InspectorOrganizationCreate::$CreateButton);
         $I->wait(1);
         $I->click(\Page\InspectorOrganizationCreate::$CreateButton);
-        $I->wait(5);
+        $I->wait(1);
+        $I->waitPageLoad();
     }  
 
     public function UpdateInspectorOrganization($row, $name = null, $status = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\InspectorOrganizationList::$URL);
-        $I->wait(3);
+        $I->amOnPage(\Page\InspectorOrganizationList::URL());
+//        $I->wait(3);
         $I->click(\Page\InspectorOrganizationList::UpdateButtonLine($row));
         $I->wait(3);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$NameField);
@@ -64,7 +63,7 @@ class InspectorOrganization extends \AcceptanceTester
             $I->selectOption(\Page\InspectorOrganizationUpdate::$StatusSelect, $status);
         }
         $I->click(\Page\InspectorOrganizationUpdate::$UpdateButton);
-        $I->wait(2);
+        $I->waitPageLoad();
     }
     
     public function CheckInFieldsOnInspectorOrganizationUpdatePage($name = null, $state=null, $status = null)
@@ -86,24 +85,33 @@ class InspectorOrganization extends \AcceptanceTester
     public function GetInspectorOrganizationRowNumber($name)
     {
         $I = $this;
-        $I->amOnPage(\Page\InspectorOrganizationList::$URL);
-        $I->wait(1);
+        $I->amOnPage(\Page\InspectorOrganizationList::URL());
+//        $I->wait(1);
         $count = $I->getAmount($I, \Page\InspectorOrganizationList::$InspectorOrganizationRow);
         for($i=1; $i<=$count; $i++){
             if($I->grabTextFrom(\Page\InspectorOrganizationList::NameLine($i)) == $name){
                 break;
             }
         }
-        $I->comment("Compliance Check Type $name is on $i row");
+        $I->comment("Inspector Organization: $name is on $i row");
         return $i;
+    }
+    
+    public function GetOrganizationIDFromUrl($I)
+    {
+        $I = $this;
+        $urlUpdatePage = $I->grabFromCurrentUrl();
+        $I->comment("Url: $urlUpdatePage");
+        $u = explode('=', $urlUpdatePage);
+        $orgID = $u[1];
+        $I->comment("Organization ID: $orgID.");
+        return $orgID;
     }
     
     public function CheckValuesOnInspectorOrganizationListPage($row, $name = null, $state=null, $status = null, $createdDate = null, $updatedDate = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\InspectorOrganizationList::$URL);
-        $I->wait(1);
-        $I->waitForElement(\Page\InspectorOrganizationList::$CreateInspectorOrganizationButton);
+        $I->amOnPage(\Page\InspectorOrganizationList::URL());
         if (isset($name)){
             $I->canSee($name, \Page\InspectorOrganizationList::NameLine($row));
         }

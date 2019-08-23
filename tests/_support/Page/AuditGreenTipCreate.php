@@ -8,16 +8,22 @@ class AuditGreenTipCreate extends \AcceptanceTester
     
     public static $CreateButton                  = '.audit-green-tip-create [type=submit]';
     public static $UseForAllProgramsToggleButton = '#auditgreentip-all_programs_switch_control';
+    public static $IsPublicToggleButton          = '#auditgreentip-is_public_switch_control';
     
     public static $UseForAllProgramsToggleLabel  = '[for=auditgreentip-all_programs]';
+    public static $IsPublicToggleLabel           = '[for=auditgreentip-is_public_switch_control]';
     
     public static $ProgramSelect         = '#auditgreentip_program_ids_chosen';
     public static $ProgramOption         = '#auditgreentip_program_ids_chosen>div>ul>li';
+    public static $InformationTypeSelect = '#auditgreentip-information_type';
+    public static $InformationTypeOption = '#auditgreentip-information_type option';
     
     public static $TitleField            = '#auditgreentip-title';
     public static $TitleLabel            = '[for=auditgreentip-title]';
     public static $DescriptionField      = '#auditgreentip-description';
     public static $DescriptionLabel      = '[for=auditgreentip-description]';
+    public static $AttachmentField       = '#auditgreentip-attachment';
+    public static $AttachmentLabel       = '[for=auditgreentip-attachment]';
     
     public static $DeleteProgramOption   = "#auditgreentip_program_ids_chosen [class*='close']";
     

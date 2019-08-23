@@ -14,6 +14,7 @@ class CommunicationsView extends \AcceptanceTester
     
     public static $MessageLabel       = '[for=message-body]';
     
-    public static function PreviousMessage($rowFromDown)     {  return ".col-md-12>div:nth-last-of-type($rowFromDown).row>div.col-md-6 .stick>p:nth-of-type(2)";}
-    public static function PreviousMessageTime($rowFromDown) {  return ".col-md-12>div:nth-last-of-type($rowFromDown).row>div.col-md-6 .stick .message-time";}
+    public static function PreviousMessage($rowFromDown)       {  $a=$rowFromDown-1; return "//*[@class='col-md-12']/div[last()-$a][@class='row']/div[contains(@class,'col-md-6')]/div/div/p[normalize-space()][not(@class='message-time')]";}
+    public static function PreviousMessageSender($rowFromDown) {  return ".col-md-12>div:nth-last-of-type($rowFromDown).row>div.col-md-6 .stick .message-time";}
+    public static function PreviousMessageTime($rowFromDown)   {  return ".col-md-12>div:nth-last-of-type($rowFromDown).row>div.col-md-6 .stick .message-time span";}
 }

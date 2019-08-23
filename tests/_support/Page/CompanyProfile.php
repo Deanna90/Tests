@@ -9,6 +9,11 @@ class CompanyProfile
     public static $City_BusinessProfileTab                            = '.company-profile-info>p:nth-of-type(2)';
     public static $Zip_BusinessProfileTab                             = '.company-profile-info>p:nth-of-type(3)';
     
+    public static $BusinessLogo_SavedImage_BusinessProfileTab         = "#logo_file-img";
+    public static $BusinessPhoto_SavedImage_BusinessProfileTab        = "#photo_file-img";
+    public static $BusinessLogo_BusinessProfileTab                    = "input[type='file']:nth-of-type(1)";
+    public static $BusinessPhoto_BusinessProfileTab                   = "//input[@type='file'][2]";
+    
     public static $AddressField_BusinessProfileTab                    = '#businessform-street_address';
     public static $PhoneField_BusinessProfileTab                      = '#businessform-phone';
     public static $FaxField_BusinessProfileTab                        = '#businessform-fax';
@@ -18,6 +23,9 @@ class CompanyProfile
     public static $TwitterLinkField_BusinessProfileTab                = '#businessform-social_twitter';
     public static $LinkedInField_BusinessProfileTab                   = '#businessform-social_linkedin';
     
+    public static $GoogleLinkField_BusinessProfileTab                 = '#businessform-google_link';
+    public static $YelpLinkField_BusinessProfileTab                   = '#businessform-yelp_link';
+    
     public static $SectorSelect_BusinessProfileTab                    = '#businessform-sector_id';
     public static $BusinessTypeSelect_BusinessProfileTab              = '#businessform-category_id';
     public static $BusinessCategorySelect_BusinessProfileTab          = "[name='BusinessForm[sub_category_id]']";
@@ -25,6 +33,9 @@ class CompanyProfile
     public static $BusinessDescriptionField_BusinessProfileTab        = '#businessform-description';
     public static $DescribeHowBusinessIsGreenField_BusinessProfileTab = '#businessform-how_green';
     public static $TestimonialsField_BusinessProfileTab               = '#businessform-testimonials';
+    
+    public static $SaveButtonFooter_BusinessProfileTab            = '.form-group>button';
+    public static $SaveButtonHeader_BusinessProfileTab            = 'h2+button';
     
     //About the business block
     public static $NumberOfEmployeesField_BusinessProfileTab      = '#businessform-employees_number';
@@ -92,5 +103,12 @@ class CompanyProfile
     
     public static function Permits_Name_ByName_BusinessProfileTab($name)         { return "//*[@class='buttons-group']//label[contains(text(), '$name')]";}
     public static function Permits_ButtonLabel_ByName_BusinessProfileTab($name)  { return "//*[@class='buttons-group']//label[contains(text(), '$name')]";}
+    
+    //--------------------------Successfully Saving Popup--------------------------
+    public static $SuccessfullySavingPopup                   = '.sweet-alert.visible';
+    
+    public static $SuccessfullySavingPopup_Text              = '.sweet-alert.visible h2';
+   
+    public static $SuccessfullySavingPopup_OkButton          = '.sweet-alert.visible button.confirm';
     
 }

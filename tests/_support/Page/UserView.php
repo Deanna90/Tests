@@ -43,7 +43,7 @@ class UserView
     //Business user
     public static $BusinessesHeadTitle          = 'h2+div .panel-heading';
     public static $AssignBusinessButton         = 'a[href*=assign-business]';
-    public static function BusinessNameLine_ByName($name)              { return "//li[contains(text(), '$name')]";}
+    public static function BusinessNameLinkLine_ByName($name)              { return "//li/a[contains(text(), '$name')]";}
     
     public static $AssignBusinessesPopup_Form                = '.modal-content';
     public static $AssignBusinessesPopup_Title               = '.modal-content h2';

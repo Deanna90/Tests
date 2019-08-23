@@ -4,11 +4,17 @@ namespace Page;
 class RegistrationStarted
 {
     public static $URL_Started                 = '/user/application/index';
+    public static $URL_TierLanding             = '/user/application/info';
     public static $URL_Review                  = '/user/application/review';
     public static function URL_AuditGroup($idSubGr)  { return "/user/application/complete-measures?audit_subgroup_id=$idSubGr";}
 
     
     public static $Title                       = 'h2';
+    public static $TierTitle                   = 'h4>strong';
+    
+    public static $OnlyViewModeAlert = '.right-column-checklist .alert';
+    const OnlyViewModeMessage        = "Tier is available in view mode only.";
+    
     
     public static $RegistrationMenuItem        = 'a.first';
     public static $ApplicationMenuItem         = 'a.second';
@@ -18,12 +24,13 @@ class RegistrationStarted
     public static function selectBusinessOption($row)             { return ".dropdown-few-business ul>li:nth-of-type($row)>a";}
     public static function selectBusinessOptionByName($business)  { return "//div[contains(@class, 'dropdown-few-business')]//ul/li/a[text()='$business']";}
     
-    public static $InfoForNextTierButton      = '.pull-right>p:first-of-type';
-    public static $NextTierButton             = '.pull-right>a:first-of-type';
-    public static $PreviousTierButton         = '.pull-right>a:last-of-type';
+    public static $InfoForNextTierButton      = '.col-md-3>div:last-of-type.row p:first-of-type';
+    public static $NextTierButton             = '.col-md-3>div:last-of-type.row a:first-of-type';
+    public static $PreviousTierButton         = '.col-md-3>div:last-of-type.row a:last-of-type';
     
     public static $SaveButton_Footer          = '.success.save-buttons button[type=submit].btn-green';
-    public static $SaveAndNextButton_Footer   = '.success.save-buttons button[name=save_next]';
+    public static $SaveAndNextButton_Footer   = '.success.save-buttons button[name*=save_next]';
+    public static $NextButton_Footer          = '.success.save-buttons button[type=submit]+a';
     public static $PreviousButton_Footer      = '.success.save-buttons>div:first-of-type a.btn-md';
     public static $ReviewButton_Footer        = '.success.save-buttons>div:last-of-type a.btn-md';
     
@@ -40,10 +47,10 @@ class RegistrationStarted
     public static $TotalPointsCount_RightBlock   = '.text-center>div:nth-of-type(1)>p:nth-of-type(2)';
     public static $TierDescription_RightBlock    = '.text-center>p.progress-description>strong';
     
-    public static $GetStartedButton           = '[type=submit][class*=success]';
-    public static $HowToUseThisAppButton      = '#checklist-number [selected]';
+    public static $GetStartedButton           = '.columns-content a[href*=tier]';
+    public static $HowToUseThisAppButton      = "a[data-target='#how-to-use']";
     //-----Left Menu-----
-    public static $LeftMenu_GetStartedButton               = '.getstarted-group';
+    public static $LeftMenu_GetStartedButton               = '.getstarted-group a';
     
     public static $LeftMenu_EnergyGroupButton              = '.energy-group';
     public static $LeftMenu_GeneralGroupButton             = '.general-group';
@@ -86,26 +93,40 @@ class RegistrationStarted
     public static function CoordinatorEmail_ByEmail($email) { return "//*[@class='contact-info-list']//li[contains(a[2]/text(), '$email')]/a[2]";}
     public static function CoordinatorPhone_ByEmail($email) { return "//*[@class='contact-info-list']//li[contains(a[2]/text(), '$email')]/a[1]";}
     
-    public static function MeasureDescription_ByDesc($desc)      { return "//*[@id='measures-form']//p[contains(text(), '$desc')]";}
+    public static $CompletionMessage    = '.content-tier-info>p.progress-description.padding_bottom3p';
+    
+    public static function MeasureDescription_ByDesc($desc)      { return "//*[@id='measures-form']//div[text()[contains(., '$desc')]]";}
 //    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
     public static function MeasureGreenTip($grTip)               { return "//*[@class='short-articles link-green no-ajax'][contains(h4/text(), 'Measure')]//*[text()='$grTip']";}
-    public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
-    public static function MeasureToggleButton2_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//*[@id='relmeasuretobusiness-answer_type']";}
-    public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//li//div[contains(p/text(), '$desc')]/span";}
+    public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
+    public static function MeasureToggleButton2_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[@id='relmeasuretobusiness-answer_type']";}
+    public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//span[contains(@class, 'margin-0')]";}
+    public static function UploadButton_ByDesc($desc)            { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[contains(@class, 'file-upload')]/span";}
+    public static function UploadInput_ByDesc($desc)             { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//input[@type='file']";}
+    public static function UploadedFile_ByDesc($desc, $row)      { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[contains(@class, 'added-files')]/p[$row]";}
+    public static function ViewButton_UploadedFile_ByDesc($desc, $row)      { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[contains(@class, 'added-files')]/p[$row]//a[1]";}
+    public static function DeleteButton_UploadedFile_ByDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[contains(@class, 'added-files')]/p[$row]//a[2]";}
     
-    public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span";}
-    public static function SubmeasureLink_ByMeasureDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]/div/span//a";}
-    public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//select";}
-    public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//input";}
-    public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
-    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(div/p/text(), '$desc')]//ul/li[$row]//select[contains(@class, 'form-control popup-switcher')]";}
+    public static function FlagCheckboxLabel_ByDesc($desc)       { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[contains(@for, 'flag')]";}
+    public static function PostCheckboxLabel_ByDesc($desc)       { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[contains(@for, 'post')]";}
+    public static function HelpCheckboxLabel_ByDesc($desc)       { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[contains(@for, 'help')]";}
+    
+    public static function MeasureToolTip_ByDesc($desc)          { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//div[@class='linked-measure-description'][@data-toggle='tooltip']";}
+    public static function HelpCheckboxToolTip_ByDesc($desc)     { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[contains(label/@for, 'help')]/div[@class='tooltip fade top in']//*[@class='tooltip-inner']";}
+    
+    public static function Submeasure_ByMeasureDesc($desc, $row)        { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]/div/span";}
+    public static function SubmeasureLink_ByMeasureDesc($desc, $row)    { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]/div/span//a";}
+    public static function SubmeasureSelect_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]//select";}
+    public static function SubmeasureField_ByMeasureDesc($desc, $row)   { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]//input";}
+    public static function SubmeasureToggleButton_2Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]//div[contains(@class, 'switch-control-2-items')]";}
+    public static function SubmeasureToggleButton_3Items_ByMeasureDesc($desc, $row)  { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//ul/li[$row]//select[contains(@class, 'form-control popup-switcher')]";}
     
     public static function AuditGreenTip_ByTipDesc($grTip)              { return "//*[@class='right-column-block']//h4[text()='$grTip']/i";}
     
-    public static $CoreProgressBarInfo           = '#measures-form>div:first-of-type .progress-wrapper+span';
+    public static $CoreProgressBarInfo           = '#measures-form>div:nth-of-type(2) .progress-wrapper+span';
     public static $ElectiveProgressBarInfo       = '#measures-form>div:nth-last-of-type(3) .progress-wrapper+span';
     
-    public static $CoreCompletedProgressBar      = '#measures-form>div:first-of-type .progress-wrapper .progress-bar';
+    public static $CoreCompletedProgressBar      = '#measures-form>div:nth-of-type(2) .progress-wrapper .progress-bar';
     public static $ElectiveCompletedProgressBar  = '#measures-form>div:nth-last-of-type(3) .progress-wrapper .progress-bar';
     
     public static $CoreMeasuresTitle             = "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]";
@@ -114,8 +135,8 @@ class RegistrationStarted
     public static $InfoAboutCountToCompleteElectiveMeasures   = "//*[@id='measures-form']//div[contains(h3/text(), 'Elective measures')]/div/p[1]";
     
     
-    public static function Core_MeasureDescription_ByDesc($desc)        { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]//p[contains(text(), '$desc')]";}
-    public static function Elective_MeasureDescription_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]//p[contains(text(), '$desc')]";}
+    public static function Core_MeasureDescription_ByDesc($desc)        { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]//div[text()[contains(., '$desc')]]";}
+    public static function Elective_MeasureDescription_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]//div[text()[contains(., '$desc')]]";}
     
     
     //-----------------------------Therms Popup---------------------------------
@@ -160,7 +181,7 @@ class RegistrationStarted
     public static $WasteDiversionPopup_AfterGBTab                      = ".modal.in [href='#tab-after']";
     
     public static function WasteDiversionPopup_CommoditySelect($row, $beforeOrAfter)              { return "#commodity_id_$beforeOrAfter"."_"."$row";}
-    public static function WasteDiversionPopup_ContainerTypeSelect($row, $beforeOrAfter)          { return "#container_$beforeOrAfter"."_"."$row";}
+    public static function WasteDiversionPopup_ContainerTypeSelect($row, $beforeOrAfter)          { return "#yards_$beforeOrAfter"."_"."$row";}
     public static function WasteDiversionPopup_ContainersField($row, $beforeOrAfter)              { return "#containers_$beforeOrAfter"."_"."$row";}
     public static function WasteDiversionPopup_CollectionPerWeekField($row, $beforeOrAfter)       { return "#pick_up_to_week_$beforeOrAfter"."_"."$row";}
     public static function WasteDiversionPopup_CompactedToggleButton($row, $beforeOrAfter)        { return "[name='rows[$row][$beforeOrAfter][compacted]']+div";}
@@ -168,6 +189,17 @@ class RegistrationStarted
     
     public static function WasteDiversionPopup_SaveChangesButton($beforeOrAfter)        { return ".modal.in #tab-$beforeOrAfter tbody>tr:first-of-type button[type=submit]";}
     public static $WasteDiversionPopup_CloseButton              = '.modal.in .close';
-    public static $WasteDiversionPopup_SaveButton_NoAnswer      = '.modal.in .close-popup';
+    public static $WasteDiversionPopup_NO_SaveButton           = '.modal.in .close-popup';
     
+    public static $WasteDiversionPopup_NO_AllPaperLabel        = '.modal.in .close-popup';
+    public static $WasteDiversionPopup_NO_BottlesAndCansLabel  = '.modal.in .close-popup';
+    public static $WasteDiversionPopup_NO_CompostLabel         = '.modal.in .close-popup';
+    
+    public static $WasteDiversionPopup_NO_AllPaperInput        = ".modal.in [name='all_paper_percent']";
+    public static $WasteDiversionPopup_NO_BottlesAndCansInput  = ".modal.in [name='bottles_cans_percent']";
+    public static $WasteDiversionPopup_NO_CompostInput         = ".modal.in [name='compost_percent']";
+    
+    public static $WasteDiversionPopup_NO_AllPaperProgressBar       = '.modal.in #factor_bar_0 .factor_slider';
+    public static $WasteDiversionPopup_NO_BottlesAndCansProgressBar = '.modal.in #factor_bar_1 .factor_slider';
+    public static $WasteDiversionPopup_NO_CompostProgressBar        = '.modal.in #factor_bar_2 .factor_slider';
 }

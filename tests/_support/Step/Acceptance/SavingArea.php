@@ -9,7 +9,7 @@ class SavingArea extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\SavingAreaCreate::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $I->waitForElement(\Page\SavingAreaCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\SavingAreaCreate::$NameField, $name);
@@ -71,20 +71,21 @@ class SavingArea extends \AcceptanceTester
         $I->scrollTo(\Page\SavingAreaCreate::$CreateButton);
         $I->wait(1);
         $I->click(\Page\SavingAreaCreate::$CreateButton);
-        $I->wait(1);
+        $I->waitPageLoad('60');
+//        $I->wait(1);
     }  
     
     public function GetSavingAreaOnPageInList($name)
     {
         $I = $this;
         $I->amOnPage(\Page\SavingAreaList::URL());
-        $I->wait(1);
+//        $I->wait(1);
         $count = $I->grabTextFrom(\Page\SavingAreaList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\SavingAreaList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\SavingAreaList::$SavingAreaRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){

@@ -6,6 +6,9 @@ class ChecklistList extends \AcceptanceTester
     public static function URL()        { return parent::$URL_UserAccess.'/checklist/list';}
     public static $Title                = 'h1';
     public static $ChecklistRow         = 'table[class*=table] tbody>tr';
+    public static $SummaryCount         = '.summary>b:last-of-type';
+     
+    public static $EmptyListLabel               = 'tr .empty';
     
     public static $CreateChecklistButton         = 'a.btn-green-outline';
     public static $FilterButton                  = 'button.btn-green-lite[type=submit]';
@@ -56,4 +59,12 @@ class ChecklistList extends \AcceptanceTester
     public static function VersionStatusByIdLine($id) { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$id')]/td[5]"; }
     public static function UpdatedByIdLine($id)       { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$id')]/td[6]"; }
     public static function ManageButtonByIdLine($id)  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td/text(), '$id')]//a"; }
+    
+    public static function Id_ByProg_Sect_Tier_Line($program, $sector, $tier)            { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td[2]/text(), '$program') and contains(td[3]/text(), '$sector') and contains(td[4]/text(), '$tier')]/td[1]"; }
+    public static function Program_ByProg_Sect_Tier_Line($program, $sector, $tier)       { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td[2]/text(), '$program') and contains(td[3]/text(), '$sector') and contains(td[4]/text(), '$tier')]/td[2]"; }
+    public static function Sector_ByProg_Sect_Tier_Line($program, $sector, $tier)        { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td[2]/text(), '$program') and contains(td[3]/text(), '$sector') and contains(td[4]/text(), '$tier')]/td[3]"; }
+    public static function Tier_ByProg_Sect_Tier_Line($program, $sector, $tier)          { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td[2]/text(), '$program') and contains(td[3]/text(), '$sector') and contains(td[4]/text(), '$tier')]/td[4]"; }
+    public static function VersionStatus_ByProg_Sect_Tier_Line($program, $sector, $tier) { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td[2]/text(), '$program') and contains(td[3]/text(), '$sector') and contains(td[4]/text(), '$tier')]/td[5]"; }
+    public static function Updated_ByProg_Sect_Tier_Line($program, $sector, $tier)       { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td[2]/text(), '$program') and contains(td[3]/text(), '$sector') and contains(td[4]/text(), '$tier')]/td[6]"; }
+    public static function ManageButton_ByProg_Sect_Tier_Line($program, $sector, $tier)  { return "//table[@class='table-striped custom-table']/tbody/tr[contains(td[2]/text(), '$program') and contains(td[3]/text(), '$sector') and contains(td[4]/text(), '$tier')]//a"; }
 }

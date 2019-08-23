@@ -22,7 +22,7 @@ class ReportResult
     public static $CertifiedBusinessesLabel  = "//*[@class='company-status']//p[contains(text(), 'CERTIFIED BUSINESSES')]";
     
     public static $DateRangeStartInfo        = "//*[@class='company-status'][contains(p/text(), 'DATE RANGE START')]/p[2]";
-    public static $DateRangeEndInfo          = "//*[@class='company-status'][contains(p/text(), 'DATE RANGE END')]/p[2]";
+    public static $DateRangeEndInfo          = "//*[@class='company-status'][contains(p[3]/text(), 'DATE RANGE END')]/p[4]";
     
     public static function StateInfo($row)      { $a = $row + 1; return "//*[@class='company-status'][contains(p/text(), 'STATE')]/p[$a]";}
     public static function MeasuresInfo($row)   { $a = $row + 1; return "//*[@class='company-status'][contains(p/text(), 'MEASURES')]/p[$a]";}

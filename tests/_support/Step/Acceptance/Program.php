@@ -7,14 +7,13 @@ class Program extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\ProgramCreate::URL());
-        $I->wait(3);
-        $I->waitForElement(\Page\ProgramCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\ProgramCreate::$NameField, $name);
         }
         if (isset($state)){
             $I->selectOption(\Page\ProgramCreate::$StateSelect, $state);
             $I->wait(5);
+            $I->waitPageLoad();
         }
         if (isset($cityArray)){
             for ($i=1, $c= count($cityArray); $i<=$c; $i++){
@@ -26,20 +25,20 @@ class Program extends \AcceptanceTester
         }
         $I->selectOption(\Page\ProgramCreate::$RecertificationCycleSelect, $recerticationCycle);
         $I->click(\Page\ProgramCreate::$CreateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad('150');
     }  
     
     public function GetProgramOnPageInList($name)
     {
         $I = $this;
         $I->amOnPage(\Page\ProgramList::URL());
-        $I->wait(1);
         $count = $I->grabTextFrom(\Page\ProgramList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\ProgramList::UrlPageNumber($i));
-            $I->wait(1);
+//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\ProgramList::$ProgramRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -86,6 +85,7 @@ class Program extends \AcceptanceTester
             $I->selectOption(\Page\ProgramUpdate::$RecertificationCycleSelect, $recerticationCycle);
         }
         $I->click(\Page\ProgramUpdate::$UpdateButton);
-        $I->wait(3);
+        $I->wait(1);
+        $I->waitPageLoad();
     }  
 }

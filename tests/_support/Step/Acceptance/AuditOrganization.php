@@ -8,8 +8,7 @@ class AuditOrganization extends \AcceptanceTester
     {
         $I = $this;
         $I->amOnPage(\Page\AuditOrganizationCreate::URL());
-        $I->wait(1);
-        $I->waitForElement(\Page\AuditOrganizationCreate::$NameField);
+//        $I->waitForElement(\Page\AuditOrganizationCreate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\AuditOrganizationCreate::$NameField, $name);
         }
@@ -46,16 +45,18 @@ class AuditOrganization extends \AcceptanceTester
         $I->scrollTo(\Page\AuditOrganizationCreate::$CreateButton);
         $I->wait(1);
         $I->click(\Page\AuditOrganizationCreate::$CreateButton);
-        $I->wait(5);
+        $I->wait(1);
+        $I->waitPageLoad();
     }
     
     public function UpdateAuditOrganization($row, $name = null, $status = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\AuditOrganizationList::$URL);
-        $I->wait(1);
+        $I->amOnPage(\Page\AuditOrganizationList::URL());
+//        $I->wait(1);
         $I->click(\Page\AuditOrganizationList::UpdateButtonLine($row));
         $I->wait(1);
+        $I->waitPageLoad();
         $I->waitForElement(\Page\AuditOrganizationUpdate::$NameField);
         if (isset($name)){
             $I->fillField(\Page\AuditOrganizationUpdate::$NameField, $name);
@@ -66,7 +67,8 @@ class AuditOrganization extends \AcceptanceTester
         $I->scrollTo(\Page\AuditOrganizationUpdate::$UpdateButton);
         $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$UpdateButton);
-        $I->wait(2);
+        $I->wait(1);
+        $I->waitPageLoad();
     }
     
     public function CheckInFieldsOnAuditOrganizationUpdatePage($name = null, $state=null, $status = null)
@@ -88,8 +90,7 @@ class AuditOrganization extends \AcceptanceTester
     public function GetAuditOrganizationRowNumber($name)
     {
         $I = $this;
-        $I->amOnPage(\Page\AuditOrganizationList::$URL);
-        $I->wait(1);
+        $I->amOnPage(\Page\AuditOrganizationList::URL());
         $count = $I->getAmount($I, \Page\AuditOrganizationList::$AuditOrganizationRow);
         for($i=1; $i<=$count; $i++){
             if($I->grabTextFrom(\Page\AuditOrganizationList::NameLine($i)) == $name){
@@ -100,12 +101,22 @@ class AuditOrganization extends \AcceptanceTester
         return $i;
     }
     
+    public function GetOrganizationIDFromUrl($I)
+    {
+        $I = $this;
+        $urlUpdatePage = $I->grabFromCurrentUrl();
+        $I->comment("Url: $urlUpdatePage");
+        $u = explode('=', $urlUpdatePage);
+        $orgID = $u[1];
+        $I->comment("Organization ID: $orgID.");
+        return $orgID;
+    }
+    
     public function CheckValuesOnAuditOrganizationListPage($row, $name = null, $state=null, $status = null, $createdDate = null, $updatedDate = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\AuditOrganizationList::$URL);
-        $I->wait(1);
-        $I->waitForElement(\Page\AuditOrganizationList::$CreateAuditOrganizationButton);
+        $I->amOnPage(\Page\AuditOrganizationList::URL());
+//        $I->waitForElement(\Page\AuditOrganizationList::$CreateAuditOrganizationButton);
         if (isset($name)){
             $I->canSee($name, \Page\AuditOrganizationList::NameLine($row));
         }

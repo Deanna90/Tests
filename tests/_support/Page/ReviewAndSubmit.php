@@ -4,14 +4,19 @@ namespace Page;
 class ReviewAndSubmit extends \AcceptanceTester
 {
     public static $URL                       =  "/user/application/review?just_submit=1";
-    public static function URL_BusinessLogin($checklistID)  {    return "/user/application/review?tier_id=$checklistID&just_submit=1";}
-    public static function URL_AdminLogin($businessID)      {    return parent::$URL_UserAccess."/business/review?business_id=$businessID&just_submit=1";}
+    public static function URL_BusinessLogin($checklistID)  {    return "/user/application/review?tier_id=$checklistID";}
+    public static function URL_AdminLogin($businessID)      {    return parent::$URL_UserAccess."/business/review?business_id=$businessID&";}
     public static function URL_Tier_AdminLogin($businessID, $tierID)      {    return parent::$URL_UserAccess."/business/review?business_id=$businessID&tier_id=$tierID";}
     
     //-----Review & Submit Page-----
     
     public static $SubmitMyApplicationButton = '.input-row button[type=submit]';
-    public static $ReviewTitle                          = '.text-center>h2';
+    public static $GoToNextLevelButton       = '.input-row a';
+    public static $SendHelpRequestButton     = 'h2 a';
+    public static $ReviewNextTierButton      = 'h2~a:last-of-type>strong:first-child';
+    public static $ReviewPreviousTierButton  = '.fa-chevron-left+strong';
+    public static $ReviewTitle               = '.text-center>h2';
+    public static $SubmittedDateInfo         = '.info-before-submit span';
     
     public static $CategoriesHead        = '#measures-form>div:first-of-type h3';
     public static $CoreMeasuresHead      = '#measures-form>div:first-of-type h3';
