@@ -1,7 +1,7 @@
 <?php
 namespace Page;
 
-class PopupLighting_FixtureMapsList extends PopupLighting_BuildingTypesList
+class PopupLighting_FixtureMapsList extends \AcceptanceTester
 {
     public static function URL()                      { return parent::$URL_UserAccess."/popup-lighting-fixture-map/index";}
     public static function UrlPageNumber($number)     { return parent::$URL_UserAccess."/popup-lighting-fixture-map/index?page=$number"; }
@@ -12,9 +12,9 @@ class PopupLighting_FixtureMapsList extends PopupLighting_BuildingTypesList
     public static $CreateFixtureMapsButton            = '.left-column-buttons>a';
     
     //Left Menu Items
-    public static $BuildingTypeButton                 = parent::BuildingTypeButton;
-    public static $DeerHourButton                     = parent::DeerHourButton;
-    public static $FixtureMapButton                   = parent::FixtureMapButton;
+    public static function BuildingTypeButton()      { return \Page\PopupLighting_BuildingTypesList::BuildingTypeButton;}
+    public static function DeerHourButton()          { return \Page\PopupLighting_BuildingTypesList::DeerHourButton;}
+    public static function FixtureMapButton()        { return \Page\PopupLighting_BuildingTypesList::FixtureMapButton;}
     
    
     public static $IdLinkHead                         = 'table[class*=table] tr>th:first-of-type a';

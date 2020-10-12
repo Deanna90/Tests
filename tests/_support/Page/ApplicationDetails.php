@@ -29,6 +29,8 @@ class ApplicationDetails extends \AcceptanceTester
     const NotSuitableStatus     = 'Not Suitable';
     const ExpiredStatus         = 'Expired';
     const RejectedStatus        = 'Rejected';
+    const RecertifyStatus       = 'Recertify';
+    const RecertifyingStatus    = 'Recertifying';
     
     const ArchivedStatus        = 'Archived';
     
@@ -239,6 +241,11 @@ class ApplicationDetails extends \AcceptanceTester
     public static function DeleteButtonLine_CommunicationTab($row) { return "table[class*=table] tbody>tr:nth-of-type($row)>td [title=Delete]"; }
     public static function ViewButtonLine_CommunicationTab($row)   { return "table[class*=table] tbody>tr:nth-of-type($row)>td [title=View]"; }
 
+    public static function SenderLine_BySubject_CommunicationTab($subject)       { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td[1]"; }
+    public static function SubjectLine_BySubject_CommunicationTab($subject)      { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td[2]"; }
+    public static function SentLine_BySubject_CommunicationTab($subject)         { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td[3]"; }
+    public static function DeleteButtonLine_BySubject_CommunicationTab($subject) { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td//*[@title='Delete']"; }
+    public static function ViewButtonLine_BySubject_CommunicationTab($subject)   { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td//*[@title='View']"; }
     //--------------------------------------------------------------------------
     //--------------------------Business Profile Tab----------------------------
     //--------------------------------------------------------------------------

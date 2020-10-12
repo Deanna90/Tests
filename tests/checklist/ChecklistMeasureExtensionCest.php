@@ -1130,7 +1130,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->waitPageLoad();
         $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
-        $I->assertEquals('true', $readonly);
+        $I->assertSame('true', $readonly);
         $I->canSee("1 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 25%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 0%;']);
@@ -1167,9 +1167,9 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->waitPageLoad();
         $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
-        $I->assertEquals('true', $readonly);
+        $I->assertSame('true', $readonly);
         $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), 'readonly');
-        $I->assertEquals('true', $readonly);
+        $I->assertSame('true', $readonly);
         $I->canSee("2 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 50%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);
@@ -1245,7 +1245,7 @@ class ChecklistMeasureExtensionCest
         $I->wait(3);
         $I->waitPageLoad();
         $readonly = $I->grabAttributeFrom(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
-        $I->assertEquals('true', $readonly);
+        $I->assertSame('true', $readonly);
         $I->canSee("4 Tier 2 measures completed. A minimum of 4 Tier 2 measures are required.", \Page\RegistrationStarted::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\RegistrationStarted::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 100%;']);
         $I->canSeeElement(\Page\RegistrationStarted::$CoreCompletedProgressBar, ['style' => 'width: 100%;']);

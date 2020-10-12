@@ -27,6 +27,7 @@ class Dashboard extends \AcceptanceTester
     const Tier3_Filter                = 'Tier 3';
     const Recognized_Filter           = 'Recognized';
     const PendingRenewals_Filter      = 'Pending Renewals';
+    const Recertifying_Filter         = 'Recertifying';
     const Decertified_Filter          = 'Decertified';
     const Disqualified_Filter         = 'Disqualified';
     const Nonresponsive_Filter        = 'Nonresponsive';

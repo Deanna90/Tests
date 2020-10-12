@@ -43,6 +43,11 @@ class WS_CompletionNotificationsCest
     public $Subject_P1L_message_65points_EMAIL, $Body_P1L_message_65points_EMAIL, $Subject_P1L_message_Energy_Pollution_EMAIL, $Body_P1L_message_Energy_Pollution_EMAIL;
     public $P2L_message_Solid, $P2L_message_Pollution, $P2L_message_Water_Energy;
 
+    public $subject_SL_Tier2_EMAIL, $body_SL_Tier2_EMAIL;
+    public $subject_P1L_Tier2_3_EMAIL, $body_P1L_Tier2_EMAIL, $body_P1L_Tier3_EMAIL;
+    public $subject_P2L_Tier2_EMAIL, $body_P2L_Tier2_EMAIL, $message_P2L_Tier2_EMAIL;
+    public $subject_P3L_Tier3_EMAIL, $body_P3L_Tier3_EMAIL, $message_P3L_Tier3_EMAIL, $body_SL_Tier2_EMAIL_P3;
+    
     /**
      * @group admin
      * @group stateadmin
@@ -239,6 +244,105 @@ class WS_CompletionNotificationsCest
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
         $I->amOnPage(Page\AuditSubgroupList::URL());
         $this->id_audSubgroup1_Community = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
+    }
+    
+    //-------------------------------Create county------------------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCounty(\Step\Acceptance\County $I) {
+        $name    = $this->county = $I->GenerateNameOf("County");
+        $state   = $this->state;
+        
+        $I->CreateCounty($name, $state);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+        $city     = $this->city1 = $I->GenerateNameOf("CityW_1_");
+        $cityArr  = [$city];
+        $state    = $this->state;
+        $zips     = $this->zip1 = $I->GenerateZipCode();
+        $program  = $this->program1_W = $I->GenerateNameOf("ProgW_1_");
+        $weighted = 'Input';
+        
+        $I->CreateCity($city, $state, $zips, $this->county);
+        $Y->CreateProgram($program, $state, $cityArr);
+        $prog = $Y->GetProgramOnPageInList($program);
+        $idProg = $prog['id'];
+        $Y->UpdateProgram($idProg, null, null, null, $weighted);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCity2_And_Program2(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+        $city     = $this->city2 = $I->GenerateNameOf("CityW_2_");
+        $cityArr  = [$city];
+        $state    = $this->state;
+        $zips     = $this->zip2 = $I->GenerateZipCode();
+        $program  = $this->program2_W = $I->GenerateNameOf("ProgW_2_");
+        $weighted = 'Input';
+        
+        $I->CreateCity($city, $state, $zips, $this->county);
+        $Y->CreateProgram($program, $state, $cityArr);
+        $prog = $Y->GetProgramOnPageInList($program);
+        $idProg = $prog['id'];
+        $Y->UpdateProgram($idProg, null, null, null, $weighted);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCity3_And_Program3(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+        $city     = $this->city3 = $I->GenerateNameOf("CityW_3_");
+        $cityArr  = [$city];
+        $state    = $this->state;
+        $zips     = $this->zip3 = $I->GenerateZipCode();
+        $program  = $this->program3_W = $I->GenerateNameOf("ProgW_3_");
+        $weighted = 'Input';
+        
+        $I->CreateCity($city, $state, $zips, $this->county);
+        $Y->CreateProgram($program, $state, $cityArr);
+        $prog = $Y->GetProgramOnPageInList($program);
+        $idProg = $prog['id'];
+        $Y->UpdateProgram($idProg, null, null, null, $weighted);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Help_CreateCity4_And_Program4(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
+        $city     = $this->city4 = $I->GenerateNameOf("CityNW_4_");
+        $cityArr  = [$city];
+        $state    = $this->state;
+        $zips     = $this->zip4 = $I->GenerateZipCode();
+        $program  = $this->program4_NW = $I->GenerateNameOf("ProgNW_4_");
+        $weighted = 'No';
+        
+        $I->CreateCity($city, $state, $zips, $this->county);
+        $Y->CreateProgram($program, $state, $cityArr);
+        $prog = $Y->GetProgramOnPageInList($program);
+        $idProg = $prog['id'];
+        $Y->UpdateProgram($idProg, null, null, null, $weighted);
     }
     
     /**
@@ -493,104 +597,6 @@ class WS_CompletionNotificationsCest
         $this->measuresDesc_SuccessCreated[] = $desc;
     }
     
-    //-------------------------------Create county------------------------------
-    
-    /**
-     * @group admin
-     * @group stateadmin
-     * @group coordinator
-     */
-    
-    public function Help_CreateCounty(\Step\Acceptance\County $I) {
-        $name    = $this->county = $I->GenerateNameOf("County");
-        $state   = $this->state;
-        
-        $I->CreateCounty($name, $state);
-    }
-    
-    /**
-     * @group admin
-     * @group stateadmin
-     * @group coordinator
-     */
-    
-    public function Help_CreateCity1_And_Program1(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
-        $city     = $this->city1 = $I->GenerateNameOf("CityW_1_");
-        $cityArr  = [$city];
-        $state    = $this->state;
-        $zips     = $this->zip1 = $I->GenerateZipCode();
-        $program  = $this->program1_W = $I->GenerateNameOf("ProgW_1_");
-        $weighted = 'Input';
-        
-        $I->CreateCity($city, $state, $zips, $this->county);
-        $Y->CreateProgram($program, $state, $cityArr);
-        $prog = $Y->GetProgramOnPageInList($program);
-        $idProg = $prog['id'];
-        $Y->UpdateProgram($idProg, null, null, null, $weighted);
-    }
-    
-    /**
-     * @group admin
-     * @group stateadmin
-     * @group coordinator
-     */
-    
-    public function Help_CreateCity2_And_Program2(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
-        $city     = $this->city2 = $I->GenerateNameOf("CityW_2_");
-        $cityArr  = [$city];
-        $state    = $this->state;
-        $zips     = $this->zip2 = $I->GenerateZipCode();
-        $program  = $this->program2_W = $I->GenerateNameOf("ProgW_2_");
-        $weighted = 'Input';
-        
-        $I->CreateCity($city, $state, $zips, $this->county);
-        $Y->CreateProgram($program, $state, $cityArr);
-        $prog = $Y->GetProgramOnPageInList($program);
-        $idProg = $prog['id'];
-        $Y->UpdateProgram($idProg, null, null, null, $weighted);
-    }
-    
-    /**
-     * @group admin
-     * @group stateadmin
-     * @group coordinator
-     */
-    
-    public function Help_CreateCity3_And_Program3(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
-        $city     = $this->city3 = $I->GenerateNameOf("CityW_3_");
-        $cityArr  = [$city];
-        $state    = $this->state;
-        $zips     = $this->zip3 = $I->GenerateZipCode();
-        $program  = $this->program3_W = $I->GenerateNameOf("ProgW_3_");
-        $weighted = 'Input';
-        
-        $I->CreateCity($city, $state, $zips, $this->county);
-        $Y->CreateProgram($program, $state, $cityArr);
-        $prog = $Y->GetProgramOnPageInList($program);
-        $idProg = $prog['id'];
-        $Y->UpdateProgram($idProg, null, null, null, $weighted);
-    }
-    
-    /**
-     * @group admin
-     * @group stateadmin
-     * @group coordinator
-     */
-    
-    public function Help_CreateCity4_And_Program4(\Step\Acceptance\City $I, Step\Acceptance\Program $Y) {
-        $city     = $this->city4 = $I->GenerateNameOf("CityNW_4_");
-        $cityArr  = [$city];
-        $state    = $this->state;
-        $zips     = $this->zip4 = $I->GenerateZipCode();
-        $program  = $this->program4_NW = $I->GenerateNameOf("ProgNW_4_");
-        $weighted = 'No';
-        
-        $I->CreateCity($city, $state, $zips, $this->county);
-        $Y->CreateProgram($program, $state, $cityArr);
-        $prog = $Y->GetProgramOnPageInList($program);
-        $idProg = $prog['id'];
-        $Y->UpdateProgram($idProg, null, null, null, $weighted);
-    }
     
     //----------------------------Create Coordinator----------------------------
     
@@ -607,7 +613,7 @@ class WS_CompletionNotificationsCest
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null);
         $I->wait(1);
         $I->reloadPage();
         $I->waitPageLoad();
@@ -919,6 +925,28 @@ class WS_CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function StateLevel_CreateCompletionNotification_Tier2_Email(\Step\Acceptance\CompletionNotifications $I) {
+        $program = null;
+        $message = null;
+        $auditGroupsArray = null;
+        $sendEmail = 'yes';
+        $this->subject_SL_Tier2_EMAIL = $emailSubject = $I->GenerateNameOf("Email subject State Level--Tier 2 ");
+        $emailBody = "Email body State Level--Tier 2--Email {business_name} has completed all the measures in the {tier_level}";
+        $this->body_SL_Tier2_EMAIL_P3 = "Email body State Level--Tier 2--Email $this->business3 has completed all the measures in the Tier 2";
+        $tierComplete = '1';
+        $tiersArray = ['Tier 2'];
+        
+        $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody, null, $tierComplete, $tiersArray);
+    }
+    
+    //---------------------------------------------------------------------------
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Program1_CreateCompletionNotification1_65points_Email(\Step\Acceptance\CompletionNotifications $I) {
         $program = $this->program1_W;
         $this->P1L_message_65points_EMAIL = $message = $I->GenerateNameOf("Message to business Program1 Level--65 Points--Email ");
@@ -947,6 +975,28 @@ class WS_CompletionNotificationsCest
         
         $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Program1Level_CreateCompletionNotification_Tier2_3_Email(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program1_W;
+        $message = null;
+        $auditGroupsArray = null;
+        $sendEmail = 'yes';
+        $this->subject_P1L_Tier2_3_EMAIL = $emailSubject = $I->GenerateNameOf("Email subject Program1 Level--Tier 2&3 --Email ");
+        $emailBody = "Email body Program1 Level--Tier 2&3 --Email {business_name} has completed all the measures in the {tier_level}";
+        $this->body_P1L_Tier3_EMAIL = "Email body Program1 Level--Tier 2&3 --Email $this->business1 has completed all the measures in the Tier 3";
+        $tierComplete = '1';
+        $tiersArray = ['Tier 2', 'Tier 3'];
+        
+        $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody, null, $tierComplete, $tiersArray);
+    }
+    
+    //________________________________________________________
     
     /**
      * @group admin
@@ -1005,6 +1055,45 @@ class WS_CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Program2Level_CreateCompletionNotification_Tier2_Email(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program2_W;
+        $this->message_P2L_Tier2_EMAIL = $message = $I->GenerateNameOf("Message to business Program2 Level--Tier 2--Email ");;
+        $auditGroupsArray = null;
+        $sendEmail = 'yes';
+        $this->subject_P2L_Tier2_EMAIL = $emailSubject = $I->GenerateNameOf("Email subject Program2 Level--Tier 2--Email ");
+        $emailBody = "Email body Program2 Level--Tier 2 --Email {business_name} has completed all the measures in the {tier_level}";
+        $tierComplete = '1';
+        $tiersArray = ['Tier 2'];
+        
+        $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody, null, $tierComplete, $tiersArray);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Program3Level_CreateCompletionNotification_Tier3_Email(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program3_W;
+        $this->message_P3L_Tier3_EMAIL = $message = $I->GenerateNameOf("Message to business Program3 Level--Tier 3--Email ");;
+        $auditGroupsArray = null;
+        $sendEmail = 'yes';
+        $this->subject_P3L_Tier3_EMAIL = $emailSubject = $I->GenerateNameOf("Email subject Program3 Level--Tier 3--Email ");
+        $emailBody = "Email body Program3 Level--Tier 3 --Email {business_name} has completed all the measures in the {tier_level}";
+        $tierComplete = '1';
+        $tiersArray = ['Tier 3'];
+        
+        $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody, null, $tierComplete, $tiersArray);
+    }
+    //_______________________________________
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Program1_EnableNotifications_Points(\Step\Acceptance\CompletionNotifications $I) {
         $program = $this->program1_W;
         
@@ -1024,6 +1113,20 @@ class WS_CompletionNotificationsCest
         
         $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
         $I->click(\Page\CompletionNotificationsOptInSettings::CompleteAuditGroupToggleButtonLine_ByNameValue($program));
+        $I->wait(2);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Program1_EnableNotifications_Tiers(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program1_W;
+        
+        $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
+        $I->click(\Page\CompletionNotificationsOptInSettings::CompleteTierToggleButtonLine_ByNameValue($program));
         $I->wait(2);
     }
     
@@ -1061,6 +1164,20 @@ class WS_CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Program2_EnableNotifications_Tiers(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program2_W;
+        
+        $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
+        $I->click(\Page\CompletionNotificationsOptInSettings::CompleteTierToggleButtonLine_ByNameValue($program));
+        $I->wait(2);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Program4_EnableNotifications_Points(\Step\Acceptance\CompletionNotifications $I) {
         $program = $this->program4_NW;
         
@@ -1080,6 +1197,20 @@ class WS_CompletionNotificationsCest
         
         $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
         $I->click(\Page\CompletionNotificationsOptInSettings::CompleteAuditGroupToggleButtonLine_ByNameValue($program));
+        $I->wait(2);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Program4_EnableNotifications_Tiers(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program4_NW;
+        
+        $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
+        $I->click(\Page\CompletionNotificationsOptInSettings::CompleteTierToggleButtonLine_ByNameValue($program));
         $I->wait(2);
     }
     
@@ -1266,14 +1397,14 @@ class WS_CompletionNotificationsCest
      * @group stateadmin
      * @group coordinator
      */
-    
+    ///////////////
     public function Energy_EmailPresent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
         $I->canSee($this->Subject_P1L_message_Energy_Pollution_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_SL_message_Energy_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_P1L_message_Energy_Pollution_EMAIL);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
     }
     
     //---------------------------Pollution group--------------------------------
@@ -1342,7 +1473,7 @@ class WS_CompletionNotificationsCest
         $I->amOnPage(\Page\CommunicationsList::URL());
         $I->canSee($this->Subject_P1L_message_Energy_Pollution_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_P1L_message_Energy_Pollution_EMAIL);
-        $I->assertEquals('2', $count);
+        $I->assertSame("2", "$count");
     }
     
     /**
@@ -1398,7 +1529,7 @@ class WS_CompletionNotificationsCest
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-        $I->assertEquals('2', $count);
+        $I->assertSame("2", "$count");
     }
     
     //-----------------------------Solid group----------------------------------
@@ -1587,7 +1718,7 @@ class WS_CompletionNotificationsCest
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-        $I->assertEquals('2', $count);
+        $I->assertSame("2", "$count");
         $I->cantSee($this->Subject_SL_message_40points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_SL_message_80points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_P1L_message_65points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
@@ -1645,7 +1776,7 @@ class WS_CompletionNotificationsCest
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-        $I->assertEquals('2', $count);
+        $I->assertSame("2", "$count");
         $I->cantSee($this->Subject_SL_message_40points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_SL_message_80points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_P1L_message_65points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
@@ -1745,6 +1876,32 @@ class WS_CompletionNotificationsCest
         $I->cantSee($this->SL_message_80points_EMAIL);
     }
     
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_EmailPresent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+        $this->body_P1L_Tier2_EMAIL = "Email body Program1 Level--Tier 2&3 --Email $this->business1 has completed all the measures in the Tier 2";
+        
+        $subject                = $this->subject_P1L_Tier2_3_EMAIL;
+        $body                   = $this->body_P1L_Tier2_EMAIL;
+        $sender                 = $this->business1;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
+        $I->canSee($this->program1_W, Page\CommunicationsList::SenderLine($row));
+        $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
+        $I->click(Page\CommunicationsList::ViewButtonLine($row));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
     //-----------------------------Water group----------------------------------
     
     /**
@@ -1833,6 +1990,21 @@ class WS_CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Tier2Completed_Only1EmailIsSent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_P1L_Tier2_3_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
+        $I->assertSame("1", "$count");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Business1_DeactivateMeasure8_No_Answer(AcceptanceTester $I) {
         $measDesc = $this->measure8Desc;
                 
@@ -1913,17 +2085,32 @@ class WS_CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Tier2Completed_Only1EmailIsSent_Business1_CommunicationTab2(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_P1L_Tier2_3_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
+        $I->assertSame("1", "$count");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Water_Only1EmailIsSent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->Subject_SL_message_Solid_Water_EMAIL;
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-        $I->assertEquals('2', $count);
+        $I->assertSame("2", "$count");
         $I->cantSee($this->Subject_SL_message_40points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_SL_message_80points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_P1L_message_65points_EMAIL);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
     }
     
     /**
@@ -2515,9 +2702,129 @@ class WS_CompletionNotificationsCest
     
     public function Business2_Community_MessagePresent(AcceptanceTester $I) {
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Community)."&tier_id=$this->id_checklist_P2_T2");
-        $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
         $I->cantSee($this->SL_message_40points_EMAIL);
         $I->cantSee($this->SL_message_80points_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_EmailPresent_Business2_CommunicationTab(\Step\Acceptance\Communication $I){
+        $this->body_P2L_Tier2_EMAIL = "Email body Program2 Level--Tier 2 --Email $this->business2 has completed all the measures in the Tier 2";
+        
+        $subject                = $this->subject_P2L_Tier2_EMAIL;
+        $body                   = $this->body_P2L_Tier2_EMAIL;
+        $sender                 = $this->business2;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
+        $I->canSee($this->program2_W, Page\CommunicationsList::SenderLine($row));
+        $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
+        $I->click(Page\CommunicationsList::ViewButtonLine($row));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Energy_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Pollution_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Pollution)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_Pollution)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Pollution_MessageAbsent_Tier3(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Pollution)."&tier_id=$this->id_checklist_P2_T3");
+        $I->cantSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Solid_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Solid_MessageAbsent_Tier3(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_P2_T3");
+        $I->cantSee($this->message_P2L_Tier2_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste)."&tier_id=$this->id_checklist_P2_T3");
+        $I->cantSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Water_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Water)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Community_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Community)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
     }
     
     //-----------------------------Water group----------------------------------
@@ -2634,6 +2941,7 @@ class WS_CompletionNotificationsCest
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Water)."&tier_id=$this->id_checklist_P2_T2");
         $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
         $I->cantSee($this->P2L_message_Water_Energy);
+        $I->cantSee($this->message_P2L_Tier2_EMAIL);
         $I->cantSee($this->SL_message_Solid_Water_EMAIL);
         $I->cantSee($this->SL_message_40points_EMAIL);
         $I->cantSee($this->SL_message_80points_EMAIL);
@@ -2669,10 +2977,26 @@ class WS_CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Tier2Completed_Only1EmailIsSent_Business2_CommunicationTab(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_P2L_Tier2_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
+        $I->assertSame("1", "$count");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Business2_ActivateMeasure8_Water_MessageWasAppeared(AcceptanceTester $I) {
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Water)."&tier_id=$this->id_checklist_P2_T2");
         $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
         $I->canSee($this->P2L_message_Water_Energy);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
         $I->cantSee($this->SL_message_Solid_Water_EMAIL);
         $I->cantSee($this->SL_message_40points_EMAIL);
         $I->cantSee($this->SL_message_80points_EMAIL);
@@ -2979,7 +3303,7 @@ class WS_CompletionNotificationsCest
 //        $I->comment("Check on Communication Tab");
 //        $I->amOnPage(\Page\CommunicationsList::URL());
 //        $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-//        $I->assertEquals('1', $count);
+//        $I->assertSame("1", "$count");
 //    }
     
     //----------------------------Solid group----------------------------------
@@ -3221,7 +3545,7 @@ class WS_CompletionNotificationsCest
         $I->amOnPage(\Page\CommunicationsList::URL());
         $I->cantSee($this->Subject_SL_message_Solid_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_SL_message_40points_EMAIL);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
         $I->cantSee($this->Subject_SL_message_80points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
     }
     
@@ -3487,9 +3811,9 @@ class WS_CompletionNotificationsCest
         $I->amOnPage(\Page\CommunicationsList::URL());
         $I->cantSee($this->Subject_SL_message_Solid_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_SL_message_40points_EMAIL);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_SL_message_80points_EMAIL);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
     }
     
     /**
@@ -3894,7 +4218,7 @@ class WS_CompletionNotificationsCest
         $I->cantSee($this->Subject_SL_message_40points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_SL_message_80points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_SL_message_Solid_Water_EMAIL);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
     }
     
     //-----------------------------Water group----------------------------------
@@ -3950,7 +4274,7 @@ class WS_CompletionNotificationsCest
         $I->cantSee($this->Subject_SL_message_40points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_SL_message_80points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_SL_message_Solid_Water_EMAIL);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
     }
     
     /**
@@ -4004,7 +4328,7 @@ class WS_CompletionNotificationsCest
         $I->cantSee($this->Subject_SL_message_40points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_SL_message_80points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_SL_message_Solid_Water_EMAIL);
-        $I->assertEquals('2', $count);
+        $I->assertSame("2", "$count");
     }
     
     //---------------------------Community group--------------------------------
@@ -4250,7 +4574,7 @@ class WS_CompletionNotificationsCest
         $I->cantSee($this->Subject_SL_message_40points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $I->cantSee($this->Subject_SL_message_80points_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($this->Subject_SL_message_Solid_Water_EMAIL);
-        $I->assertEquals('2', $count);
+        $I->assertSame("2", "$count");
     }
     
     

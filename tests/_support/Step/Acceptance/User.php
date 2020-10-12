@@ -5,7 +5,7 @@ class User extends \AcceptanceTester
 {
     
     public function CreateUser($userType = null, $email = null, $firstName = null, $lastName = null, $password = null, $confirmPassword = null, 
-                                $phone = null, $type = null, $showInfo = 'ignore')
+                                $phone = null, $type = null, $receiveNotificationArray = null, $primaryCoordinator = 'off')
     {
         $I = $this;
         $I->amOnPage(\Page\UserCreate::URL($userType));
@@ -32,25 +32,67 @@ class User extends \AcceptanceTester
         if (isset($type)){
             $I->canSeeOptionIsSelected(\Page\UserCreate::$TypeDisabledSelect, $type);
         }
-        switch ($showInfo){
-            case 'on' :
-                if($I->grabAttributeFrom(\Page\UserCreate::$ShowContactInfoCheckbox, 'checked') == NULL){
-                    $I->click(\Page\UserCreate::$ShowContactInfoCheckboxLabel);
-                }
-//                $checked = $I->grabAttributeFrom(\Page\UserCreate::$ShowContactInfoCheckbox, 'checked');
+//        if (isset($showInfoForProgramsArray)){
+//            for ($i=1, $c= count($showInfoForProgramsArray); $i<=$c; $i++){
+//                $k = $i-1;
+//                $I->click(\Page\UserCreate::$ShowContactInfoInProgramSelect);
+//                $I->wait(3);
+//                $I->click(\Page\UserCreate::selectShowContactInfoInProgramOptionByName($showInfoForProgramsArray[$k]));
+//            }
+//        }
+        if (isset($receiveNotificationArray)){
+            for ($i=1, $c= count($receiveNotificationArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\UserCreate::$ReceiveNotificationsSelect);
+                $I->wait(3);
+                $I->click(\Page\UserCreate::selectReceiveNotificationsOptionByName($receiveNotificationArray[$k]));
+            }
+        }
+        switch ($primaryCoordinator){
+            case 'on':
+                $I->click(\Page\UserCreate::$IsPrimaryCoordinatorToggleButton);
+                $I->wait(1);
+                $I->canSeeElement(\Page\UserCreate::$IsPrimaryCoordinatorInProgramsSelect.'.chosen-disabled');
                 break;
-            case 'off' :
-                if($I->grabAttributeFrom(\Page\UserCreate::$ShowContactInfoCheckbox, 'checked') == true){
-                    $I->click(\Page\UserCreate::$ShowContactInfoCheckboxLabel);
-                }
-                break;
-            case 'ignore' :
+            case 'off':
                 break;
         }
         $I->click(\Page\UserCreate::$CreateButton);
         $I->wait(2);
         $I->waitPageLoad();
 //        $I->wait(15);
+    }  
+    
+    public function AddProgramsToShowInfoDropdownOnUserUpdatePage($showInfoForProgramsArray)
+    {
+        $I = $this;
+        for ($i=1, $c= count($showInfoForProgramsArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\UserUpdate::$ShowContactInfoInProgramSelect);
+                $I->wait(3);
+                $I->click(\Page\UserUpdate::selectShowContactInfoInProgramOptionByName($showInfoForProgramsArray[$k]));
+        }
+        $I->click(\Page\UserUpdate::$UpdateButton);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->reloadPage();
+        $I->waitPageLoad();
+    }  
+        
+    public function AddProgramsToIsPrimaryForNextProgramsDropdownOnUserUpdatePage($isPrimaryForProgramsArray)
+    {
+        $I = $this;
+        for ($i=1, $c= count($isPrimaryForProgramsArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\UserUpdate::$IsPrimaryCoordinatorInProgramsSelect);
+                $I->wait(3);
+                $I->click(\Page\UserUpdate::selectIsPrimaryCoordinatorInProgramsOptionByName($isPrimaryForProgramsArray[$k]));
+        }
+        $I->click(\Page\UserUpdate::$UpdateButton);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->reloadPage();
+        $I->waitPageLoad();
     }  
     
     public function CheckInFieldsOnUserUpdatePage($email = null, $firstName = null, $lastName = null, $password = null, $confirmPassword = null, 
@@ -143,8 +185,11 @@ class User extends \AcceptanceTester
         $urlUpdatePage = $I->grabFromCurrentUrl();
         $I->comment("Url: $urlUpdatePage");
         $u = explode('=', $urlUpdatePage);
-        $userID = $u[1];
-        $I->comment("User ID: $userID.");
+        $user = $u[1];
+        $I->comment("User url: $user.");
+        $u = explode('&', $user);
+        $userID = $u[0];
+        $I->comment("User id: $userID.");
         return $userID;
     }
     
@@ -235,13 +280,12 @@ class User extends \AcceptanceTester
         }
     }
     
-    public function UpdateUser($userType = null, $email = null, $firstName = null, $lastName = null, $password = null, $confirmPassword = null, 
-                                $phone = null, $type = null)
+    public function UpdateUser($email = null, $firstName = null, $lastName = null, $password = null, $confirmPassword = null, 
+                                $phone = null, $typeSaved = null, $typeTab = null, $state = null, $programsArray = null, $primaryCoordinator = 'ignore', 
+                                $isPrimaryForProgramsArray = null, $showInfoForProgramsArray = null, $receiveNotifications = null)
     {
         $I = $this;
-        $I->amOnPage(\Page\UserCreate::URL($userType));
-//        $I->wait(1);
-//        $I->waitForElement(\Page\UserUpdate::$EmailField);
+        $I->waitPageLoad();
         if (isset($email)){
             $I->fillField(\Page\UserUpdate::$EmailField, $email);
         }
@@ -260,17 +304,167 @@ class User extends \AcceptanceTester
         if (isset($phone)){
             $I->fillField(\Page\UserUpdate::$PhoneField, $phone);
         }
-        if (isset($type)){
-            $I->canSeeOptionIsSelected(\Page\UserUpdate::$TypeDisabledSelect, $type);
+        if (isset($typeSaved)){
+            $I->canSeeOptionIsSelected(\Page\UserUpdate::$TypeDisabledSelect, $typeSaved);
         }
-        if (isset($state)){
-            
+        if(isset($email) || isset($firstName) || isset($lastName) || isset($password) || isset($confirmPassword) || isset($phone)){
+            $I->click(\Page\UserUpdate::$UpdateButton);
+            $I->waitPageLoad();
+            $I->reloadPage();
+            $I->waitPageLoad();
         }
-        if (isset($programs)){
-            
+        switch ($typeTab){
+            case 'state admin':
+                $I->canSeeElement(\Page\UserUpdate::$StateAdminTab);
+                $I->click(\Page\UserUpdate::$StateAdminTab);
+                $I->wait(1);
+                $I->waitPageLoad();
+                if(isset($state)){
+                    $I->click(\Page\UserUpdate::$AddStateButton);
+                    $I->wait(1);
+                    $I->waitPageLoad();
+                    $I->selectOption(\Page\UserUpdate::$StateSelect_AddStateForm, $state);
+                    $I->click(\Page\UserUpdate::$AddButton_AddStateForm);
+                    $I->wait(1);
+                    $I->waitPageLoad();
+                    $I->canSee($state, \Page\UserUpdate::$State);
+                }
+                break;
+            case 'coordinator':
+                $I->canSeeElement(\Page\UserUpdate::$CoordinatorTab);
+                $I->click(\Page\UserUpdate::$CoordinatorTab);
+                $I->wait(1);
+                $I->waitPageLoad();
+                if(isset($state)){
+                    $I->click(\Page\UserUpdate::$AddStateButton);
+                    $I->wait(1);
+                    $I->waitPageLoad();
+                    $I->selectOption(\Page\UserUpdate::$StateSelect_AddStateForm, $state);
+                    $I->click(\Page\UserUpdate::$AddButton_AddStateForm);
+                    $I->wait(1);
+                    $I->waitPageLoad();
+                    $I->canSee($state, \Page\UserUpdate::$State);
+                }
+                if (isset($programsArray)){
+                    for ($i=1, $c= count($programsArray); $i<=$c; $i++){
+                        $k = $i-1;
+                        $I->click(\Page\UserUpdate::$AddProgramButton);
+                        $I->wait(1);
+                        $I->waitPageLoad();
+                        $I->click(\Page\UserUpdate::$ProgramSelect_AddProgramForm);
+                        $I->waitPageLoad();
+                        $I->selectOption(\Page\UserUpdate::$ProgramSelect_AddProgramForm, $programsArray[$k]);
+                        $I->click(\Page\UserUpdate::$AddButton_AddProgramForm);
+                        $I->wait(1);
+                        $I->waitPageLoad();
+                        $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($programsArray[$k]));
+                    }
+                }
+                switch ($primaryCoordinator){
+                    case 'on':
+                        $I->click(\Page\UserCreate::$IsPrimaryCoordinatorToggleButton);
+                        $I->wait(1);
+                        if(isset($isPrimaryForProgramsArray)){
+                            for ($i=1, $c= count($isPrimaryForProgramsArray); $i<=$c; $i++){
+                                    $k = $i-1;
+                                    $I->click(\Page\UserUpdate::$IsPrimaryCoordinatorInProgramsSelect);
+                                    $I->wait(3);
+                                    $I->click(\Page\UserUpdate::selectIsPrimaryCoordinatorInProgramsOptionByName($isPrimaryForProgramsArray[$k]));
+                            }
+                        }
+                        //$I->canSeeElement(\Page\UserCreate::$IsPrimaryCoordinatorInProgramsSelect.'.chosen-disabled');
+                        break;
+                    case 'off':
+                        break;
+                    case 'ignore':
+                        break;
+                }
+                if(isset($showInfoForProgramsArray)){
+                            for ($i=1, $c= count($showInfoForProgramsArray); $i<=$c; $i++){
+                                    $k = $i-1;
+                                    $I->click(\Page\UserUpdate::$ShowContactInfoInProgramSelect);
+                                    $I->wait(3);
+                                    $I->click(\Page\UserUpdate::selectShowContactInfoInProgramOptionByName($showInfoForProgramsArray[$k]));
+                            }
+                }
+                if(isset($receiveNotifications)){
+                            for ($i=1, $c= count($receiveNotifications); $i<=$c; $i++){
+                                    $k = $i-1;
+                                    $I->click(\Page\UserUpdate::$ReceiveNotificationsSelect);
+                                    $I->wait(3);
+                                    $I->click(\Page\UserUpdate::selectReceiveNotificationsOptionByName($receiveNotifications[$k]));
+                            }
+                }
+                $I->click(\Page\UserUpdate::$UpdateButton);
+                $I->waitPageLoad();
+                $I->reloadPage();
+                $I->waitPageLoad();
+                break;
+            case 'auditor':
+                $I->canSeeElement(\Page\UserUpdate::$AuditorTab);
+                $I->click(\Page\UserUpdate::$AuditorTab);
+                $I->wait(1);
+                $I->waitPageLoad();
+                if(isset($state)){
+                    $I->click(\Page\UserUpdate::$AddStateButton);
+                    $I->wait(1);
+                    $I->waitPageLoad();
+                    $I->selectOption(\Page\UserUpdate::$StateSelect_AddStateForm, $state);
+                    $I->click(\Page\UserUpdate::$AddButton_AddStateForm);
+                    $I->wait(1);
+                    $I->waitPageLoad();
+                    $I->canSee($state, \Page\UserUpdate::$State);
+                }
+                if (isset($programsArray)){
+                    for ($i=1, $c= count($programsArray); $i<=$c; $i++){
+                        $k = $i-1;
+                        $I->click(\Page\UserUpdate::$AddProgramButton);
+                        $I->wait(1);
+                        $I->waitPageLoad();
+                        $I->click(\Page\UserUpdate::$ProgramSelect_AddProgramForm);
+                        $I->waitPageLoad();
+                        $I->selectOption(\Page\UserUpdate::$ProgramSelect_AddProgramForm, $programsArray[$k]);
+                        $I->click(\Page\UserUpdate::$AddButton_AddProgramForm);
+                        $I->wait(1);
+                        $I->waitPageLoad();
+                        $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($programsArray[$k]));
+                    }
+                }
+                break;
+            case 'inspector':
+                $I->canSeeElement(\Page\UserUpdate::$InspectorTab);
+                $I->click(\Page\UserUpdate::$InspectorTab);
+                $I->wait(1);
+                $I->waitPageLoad();
+                if(isset($state)){
+                    $I->click(\Page\UserUpdate::$AddStateButton);
+                    $I->wait(1);
+                    $I->waitPageLoad();
+                    $I->selectOption(\Page\UserUpdate::$StateSelect_AddStateForm, $state);
+                    $I->click(\Page\UserUpdate::$AddButton_AddStateForm);
+                    $I->wait(1);
+                    $I->waitPageLoad();
+                    $I->canSee($state, \Page\UserUpdate::$State);
+                }
+                if (isset($programsArray)){
+                    for ($i=1, $c= count($programsArray); $i<=$c; $i++){
+                        $k = $i-1;
+                        $I->click(\Page\UserUpdate::$AddProgramButton);
+                        $I->wait(1);
+                        $I->waitPageLoad();
+                        $I->click(\Page\UserUpdate::$ProgramSelect_AddProgramForm);
+                        $I->waitPageLoad();
+                        $I->selectOption(\Page\UserUpdate::$ProgramSelect_AddProgramForm, $programsArray[$k]);
+                        $I->click(\Page\UserUpdate::$AddButton_AddProgramForm);
+                        $I->wait(1);
+                        $I->waitPageLoad();
+                        $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($programsArray[$k]));
+                    }
+                }
+                break;
         }
-        $I->click(\Page\UserUpdate::$UpdateButton);
-        $I->waitPageLoad();
+//        $I->click(\Page\UserUpdate::$UpdateButton);
+//        $I->waitPageLoad();
     }  
     
     

@@ -1,16 +1,19 @@
 <?php
 
+use \Page as Page;
+use \Step as Step;
+use \AcceptanceTester as AcceptanceTester;
 
 class UsersAccessCest
 {
-    public $state, $program1, $program2, $idState, $county, $idCity1, $idCity2, $idCity3, $idProg2, $sector1_StAdm, $sector2_StAdm, $sector_Update, $city1, $city2, $city3, $zip1, $zip2, $zip3;
+    public $state, $program1, $program2, $idState, $county, $idCity1, $idCity2, $idCity3, $idProg2, $sector1_StAdm, $sector2_StAdm, $sector_Update, $sector_new, $city1, $city2, $city3, $zip1, $zip2, $zip3;
     public $idThermOption_NatAdm, $idBuildingType_NatAdm, $nameBuildingType_NatAdm, $idDeerHours_NatAdm, $idFixtureMap_NatAdm, $idSavingArea_NatAdm, $nameSavingArea_NatAdm, $idSourceProgram_NatAdm, 
             $idResource_NatAdm, $idVideoTutorial_NatAdm, $idGlobalVariable_NatAdm, $nameGlobalVariable_NatAdm, $titleGlobalVariable_NatAdm;
     public $idGlobalVariable_StAdm, $idSC_OfficeRetail_T1_StAdm, $idSC_OfficeRetail_T2_StAdm, $idSC_Sector1_T3_StAdm, $idApplicantEmail_StAdm, $idApplicationDirection_StAdm, $idComplianceCheck_StAdm, $nameComplianceCheck_StAdm;
     public $id_programChecklist2_T1;
     public $audSubgroup1_Energy, $idSubgroup1_Energy;
-    public $measureDesc1_Coordinator, $measureDesc2_Coordinator, $measureDesc3_Coordinator;
-    public $idMeasure1_Coordinator, $idMeasure2_Coordinator, $idMeasure3_Coordinator;
+    public $measureDesc1_Coordinator, $measureDesc2_Coordinator, $measureDesc3_Coordinator, $measureDesc4_Coordinator;
+    public $idMeasure1_Coordinator, $idMeasure2_Coordinator, $idMeasure3_Coordinator, $idMeasure4_Coordinator;
     public $measureDesc1_StateAdmin, $measureDesc2_StateAdmin, $measureDesc3_StateAdmin, $measureDesc4_StateAdmin, $measureDesc5_StateAdmin, $measureDesc6_StateAdmin, 
             $measureDesc7_StateAdmin, $measureDesc8_StateAdmin, $measureDesc9_StateAdmin;
     public $idMeasure1_StateAdmin, $idMeasure2_StateAdmin, $idMeasure3_StateAdmin, $idMeasure4_StateAdmin, $idMeasure5_StateAdmin, $idMeasure6_StateAdmin, 
@@ -29,7 +32,7 @@ class UsersAccessCest
     public $lastName_StateAdmin, $lastName_Coordinator1_Prog2, $lastName_Coordinator2, $lastName_Inspector_Prog2, $lastName_Auditor_Prog2;
     public $idStateAdmin, $idCoordinator1, $idCoordinator2, $idInspector, $idAuditor;
     public $nameInspector_Prog2, $nameAuditor;
-    public $mainMenu_NationalAdmin = ['Dashboard', 'Programs', 'Measures', 'Resources', 'Checklists', 'Tiers', 'Users', 'States & GA', 'Notification', 'Reports', 'Video Tutorials'];
+    public $mainMenu_NationalAdmin = ['Dashboard', 'Programs', 'Measures', 'Resources', 'Checklists', 'Tiers', 'Users', 'States & GA', 'Notification', 'Metrics', 'Video Tutorials'];
     public $mainMenu_StateAdmin    = ['Dashboard', 'Programs', 'Measures', 'Resources', 'Checklists', 'Tiers', 'Users', 'Notification', 'Reports', 'Video Tutorials'];
     public $mainMenu_Coordinator   = ['Dashboard', 'Sector', 'Measures', 'Resources', 'Checklists', 'Tier', 'Users', 'Notification', 'Video Tutorials', "Reports"];
     public $mainMenu_Auditor       = ['Dashboard', 'Video Tutorials', 'Communication'];
@@ -46,6 +49,7 @@ class UsersAccessCest
     public $benefits_P2_T2 = ['prom1', 'prom2'];
     public $P2_2_LandTitle1, $P2_2_LandDesc1;
     public $P2_2_LandTitle2, $P2_2_LandDesc2;
+    public $alertMessage = 'This measure is used for: ', $alertMessage_empty = 'This measure is not used in any checklist.';
 
     //--------------------------------------------------------------------------Login As National Admin------------------------------------------------------------------------------------
     
@@ -136,6 +140,7 @@ class UsersAccessCest
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('States & GA', "States"));
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('States & GA', "Sectors"));
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('States & GA', "Analytics"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('States & GA', "Business Category"));
         //Notification item
         $I->click(\Page\MainMenu::selectMenuItemByName('Notification'));
         $I->waitPageLoad();
@@ -144,9 +149,11 @@ class UsersAccessCest
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Notification', "Inspector"));
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Notification', "Completion Notifications"));
         //Reports item
-        $I->click(\Page\MainMenu::selectMenuItemByName('Reports'));
+        $I->click(\Page\MainMenu::selectMenuItemByName('Metrics'));
         $I->waitPageLoad();
-        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Reports', "Reports"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Metrics', "Metric Report"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Metrics', "Pending Renewals"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Metrics', "Certified Businesses"));
     }
     
     //---------------------------Create video tutorial--------------------------
@@ -274,14 +281,21 @@ class UsersAccessCest
         $lastName  = $I->GenerateNameOf('lastnam');
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
+        $typeTab   = 'state admin';
+        $state     = $this->state;
+        
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
-        $I->waitPageLoad();
-        $I->click(Page\UserUpdate::$AddStateButton);
-        $I->waitPageLoad();
-        $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
-        $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->waitPageLoad();
+        $I->UpdateUser(null, null, null, null, null, null, null, $typeTab, $state);
+//        $I->waitPageLoad();
+//        $I->click(Page\UserUpdate::$StateAdminTab);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->click(Page\UserUpdate::$AddStateButton);
+//        $I->waitPageLoad();
+//        $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
+//        $I->click(Page\UserUpdate::$AddButton_AddStateForm);
+//        $I->waitPageLoad();
         $stateAdmin = $I->GetUserOnPageInList($email, $userType);
         $this->idStateAdmin = $stateAdmin['id'];
     }
@@ -377,6 +391,19 @@ class UsersAccessCest
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Users', "Coordinators"));
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Users', "Inspectors"));
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Users', "Auditors"));
+        
+        //Reports item
+        $I->click(\Page\MainMenu::selectMenuItemByName('Reports'));
+        $I->waitPageLoad();
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Reports', "Metric Report"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Reports', "Pending Renewals"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Reports', "Certified Businesses"));
+        
+        //State item
+        $I->click(\Page\MainMenu::selectMenuItemByName('State'));
+        $I->waitPageLoad();
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('State', "Business Category"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('State', "Sectors"));
     }
     
     //-----------------------No ability to create state-------------------------
@@ -403,7 +430,7 @@ class UsersAccessCest
         $I->amOnPage(Page\VideoTutorialsUpdate::URL($this->idVideoTutorial_NatAdm));
         $I->canSeeElement(Page\VideoTutorialsUpdate::$StateSelect);
         $I->amOnPage(Page\VideoTutorialsView::URL($this->idVideoTutorial_NatAdm));
-        $I->canSeePageForbiddenAccess($I, "You can not access this video.");
+        $I->canSeeElement(Page\VideoTutorialsView::$Description);
     }
     
     //----------------------Ability to create source program--------------------
@@ -475,8 +502,30 @@ class UsersAccessCest
         $I->canSeePageForbiddenAccess($I);
         $I->cantSeeElement(Page\UserCreate::$EmailField);
         $I->amOnPage(Page\UserUpdate::URL($this->idStateAdmin));
-        $I->canSeePageForbiddenAccess($I, "You can`t update information about this user.");
-        $I->cantSeeElement(Page\UserUpdate::$EmailField);
+        $I->canSeeElement(\Page\UserUpdate::$EmailField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$FirstNameField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$LastNameField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$TypeDisabledSelect);
+        $I->canSeeElement(\Page\UserUpdate::$PhoneField.'[readonly]');
+        $I->canSeeElementIsDisabled($I, \Page\UserUpdate::$UpdateButton);
+        
+        $I->click(\Page\UserUpdate::$StateAdminTab);
+        $I->wait(2);
+        $I->canSee($this->state, \Page\UserUpdate::$State);
+        
+        $I->click(\Page\UserUpdate::$RolesTab);
+        $I->wait(2);
+        $I->canSeeElement(\Page\UserUpdate::RoleNameLine_ByName('State Admin'));
+        $I->cantSeeElement(\Page\UserUpdate::DeleteRoleButtonLine_ByName('State Admin'));
+        $I->canSeeElement(\Page\UserUpdate::$AddRoleButton);
+        $I->click(\Page\UserUpdate::$AddRoleButton);
+        $I->wait(2);
+        $I->canSeeElement(\Page\UserUpdate::$RoleSelect_AddRolePopup);
+        $I->canSee('coordinator', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('auditor', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('inspector', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('business', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSeeElement(\Page\UserUpdate::$AddButton_AddRolePopup);
     }
     
     //----------------------No ability to create resource-----------------------
@@ -585,20 +634,26 @@ class UsersAccessCest
         $lastName  = $I->GenerateNameOf('lastnam');
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
+        $typeTab      = 'coordinator';
+        $programArray = [$this->program2];
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null);
         $I->reloadPage();
-        $I->waitPageLoad();
-        $I->canSee($this->state, \Page\UserUpdate::$State);
-        $I->click(Page\UserUpdate::$AddProgramButton);
-        $I->wait(1);
-        $I->waitPageLoad();
-        $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
-        $I->waitPageLoad();
-        $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
-        $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(1);
-        $I->waitPageLoad();
+        $I->UpdateUser(null, null, null, null, null, null, null, $typeTab, null, $programArray);
+//        $I->waitPageLoad();
+//        $I->click(Page\UserUpdate::$CoordinatorTab);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->canSee($this->state, \Page\UserUpdate::$State);
+//        $I->click(Page\UserUpdate::$AddProgramButton);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
+//        $I->waitPageLoad();
+//        $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
+//        $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
+//        $I->wait(1);
+//        $I->waitPageLoad();
         $coordinator = $I->GetUserOnPageInList($email, $userType);
         $this->idCoordinator1 = $coordinator['id'];
     }
@@ -611,29 +666,38 @@ class UsersAccessCest
         $lastName  = $I->GenerateNameOf('lastnam');
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
+        $typeTab      = 'coordinator';
+        $programArray = [$this->program1, $this->program2];
+        $showInfo  = [$this->program1, $this->program2];
+        $primary = 'ignore';
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'on');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
-        $I->waitPageLoad();
-        $I->canSee($this->state, \Page\UserUpdate::$State);
-        $I->click(Page\UserUpdate::$AddProgramButton);
-        $I->wait(1);
-        $I->waitPageLoad();
-        $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
-        $I->waitPageLoad();
-        $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
-        $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(1);
-        $I->waitPageLoad();
-        $I->click(Page\UserUpdate::$AddProgramButton);
-        $I->wait(1);
-        $I->waitPageLoad();
-        $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
-        $I->waitPageLoad();
-        $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
-        $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(1);
-        $I->waitPageLoad();
+        $I->UpdateUser(null, null, null, null, null, null, null, $typeTab, null, $programArray, $primary, null, $showInfo);
+//        $I->waitPageLoad();
+//        $I->click(Page\UserUpdate::$CoordinatorTab);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->canSee($this->state, \Page\UserUpdate::$State);
+//        $I->click(Page\UserUpdate::$AddProgramButton);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
+//        $I->waitPageLoad();
+//        $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
+//        $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->click(Page\UserUpdate::$AddProgramButton);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
+//        $I->waitPageLoad();
+//        $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
+//        $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->AddProgramsToShowInfoDropdownOnUserUpdatePage($showInfo);
         $coordinator = $I->GetUserOnPageInList($email, $userType);
         $this->idCoordinator2 = $coordinator['id'];
     }
@@ -641,24 +705,27 @@ class UsersAccessCest
     public function StateAdmin2_8_1_CheckAllUsersListPage(\Step\Acceptance\User $I)
     {
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
-        $I->canSee('3', Page\UserList::$SummaryCount);
+        $I->canSee('2', Page\UserList::$SummaryCount);
         
         $I->comment("---Check Master admin absent in All Users list---");
         $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
         $I->cantSee('master admin', \Page\UserList::$TypeRow);
         
-        $I->comment("-------Check State admin present in All Users list------");
-        $user1 = $I->GetUserOnPageInList($this->emailStateAdmin, Page\UserCreate::allType);
-        $row = $user1['row'];
-        $I->canSee($this->emailStateAdmin, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_StateAdmin, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_StateAdmin, \Page\UserList::LastNameLine($row));
-        $I->canSee('active', \Page\UserList::StatusLine($row));
-        $I->canSee('state admin', \Page\UserList::TypeLine($row));
-        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
-        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->comment("-------Check State admin absent in All Users list------");
+        $I->cantSee($this->emailStateAdmin, \Page\UserList::$EmailRow);
+        $I->cantSee('State Admin', \Page\UserList::$TypeRow);
+        
+//        $user1 = $I->GetUserOnPageInList($this->emailStateAdmin, Page\UserCreate::allType);
+//        $row = $user1['row'];
+//        $I->canSee($this->emailStateAdmin, \Page\UserList::EmailLine($row));
+//        $I->canSee($this->firstName_StateAdmin, \Page\UserList::FirstNameLine($row));
+//        $I->canSee($this->lastName_StateAdmin, \Page\UserList::LastNameLine($row));
+//        $I->canSee('active', \Page\UserList::StatusLine($row));
+//        $I->canSee('State Admin', \Page\UserList::TypeLine($row));
+//        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+//        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+//        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+//        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------Check Coordinator1 in All Users list-------");
         $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
@@ -667,7 +734,7 @@ class UsersAccessCest
         $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
         $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
-        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+        $I->canSee('Coordinator', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
         $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
@@ -680,7 +747,7 @@ class UsersAccessCest
         $I->canSee($this->firstName_Coordinator2, \Page\UserList::FirstNameLine($row));
         $I->canSee($this->lastName_Coordinator2, \Page\UserList::LastNameLine($row));
         $I->canSee('active', \Page\UserList::StatusLine($row));
-        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+        $I->canSee('Coordinator', \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
         $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
@@ -890,6 +957,12 @@ class UsersAccessCest
         $I->cantSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Users', "Coordinators"));
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Users', "Inspectors"));
         $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Users', "Auditors"));
+        //Reports item
+        $I->click(\Page\MainMenu::selectMenuItemByName('Reports'));
+        $I->waitPageLoad();
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Reports', "Metric Report"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Reports', "Pending Renewals"));
+        $I->canSeeElement(Page\MainMenu::selectMenuItemOptionByOptionName('Reports', "Certified Businesses"));
         //Program drop down
         $I->click(Page\MainMenu::$StateSelect);
         $I->waitPageLoad();
@@ -1030,7 +1103,7 @@ class UsersAccessCest
         $I->amOnPage(Page\PopupLighting_BuildingTypesCreate::URL());
         $I->canSeePageNotFound($I);
         $I->cantSeeElement(Page\PopupLighting_BuildingTypesCreate::$NameField);
-        $I->amOnPage(Page\PopupLighting_BuildingTypesUpdate::URL('1'));
+        $I->amOnPage(Page\PopupLighting_BuildingTypesUpdate::URL(1));
         $I->canSeePageNotFound($I);
         $I->cantSeeElement(Page\PopupLighting_BuildingTypesUpdate::$NameField);
         //
@@ -1040,7 +1113,7 @@ class UsersAccessCest
         $I->amOnPage(Page\PopupLighting_DeerHoursCreate::URL());
         $I->canSeePageNotFound($I);
         $I->cantSeeElement(Page\PopupLighting_DeerHoursCreate::$BuildingSpaceSelect);
-        $I->amOnPage(Page\PopupLighting_DeerHoursUpdate::URL('1'));
+        $I->amOnPage(Page\PopupLighting_DeerHoursUpdate::URL(1));
         $I->canSeePageNotFound($I);
         $I->cantSeeElement(Page\PopupLighting_DeerHoursUpdate::$BuildingSpaceSelect);
         //
@@ -1050,7 +1123,7 @@ class UsersAccessCest
         $I->amOnPage(Page\PopupLighting_FixtureMapsCreate::URL());
         $I->canSeePageNotFound($I);
         $I->cantSeeElement(Page\PopupLighting_FixtureMapsCreate::$ReplacementLightingNameField);
-        $I->amOnPage(Page\PopupLighting_FixtureMapsUpdate::URL('1'));
+        $I->amOnPage(Page\PopupLighting_FixtureMapsUpdate::URL(1));
         $I->canSeePageNotFound($I);
         $I->cantSeeElement(Page\PopupLighting_FixtureMapsUpdate::$ReplacementLightingNameField);
     }
@@ -1110,8 +1183,34 @@ class UsersAccessCest
         $I->canSeePageForbiddenAccess($I);
         $I->cantSeeElement(Page\UserCreate::$EmailField);
         $I->amOnPage(Page\UserUpdate::URL($this->idStateAdmin));
-        $I->canSeePageForbiddenAccess($I, 'Access Denied');
-        $I->cantSeeElement(Page\UserUpdate::$EmailField);
+        $I->canSeeElement(\Page\UserUpdate::$EmailField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$FirstNameField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$LastNameField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$TypeDisabledSelect);
+        $I->canSeeElement(\Page\UserUpdate::$PhoneField.'[readonly]');
+        $I->canSeeElementIsDisabled($I, \Page\UserUpdate::$UpdateButton);
+        
+        $I->click(\Page\UserUpdate::$StateAdminTab);
+        $I->wait(2);
+        $I->canSee($this->state, \Page\UserUpdate::$State);
+        
+        $I->click(\Page\UserUpdate::$RolesTab);
+        $I->wait(2);
+        $I->canSeeElement(\Page\UserUpdate::RoleNameLine_ByName('State Admin'));
+        $I->cantSeeElement(\Page\UserUpdate::DeleteRoleButtonLine_ByName('State Admin'));
+        $I->canSeeElement(\Page\UserUpdate::$AddRoleButton);
+        $I->click(\Page\UserUpdate::$AddRoleButton);
+        $I->wait(2);
+        $I->canSeeElement(\Page\UserUpdate::$RoleSelect_AddRolePopup);
+        $I->cantSee('state admin', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->cantSee('coordinator', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('auditor', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('inspector', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('business', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSeeElement(\Page\UserUpdate::$AddButton_AddRolePopup);
+        
+//        $I->canSeePageForbiddenAccess($I, 'Access Denied');
+//        $I->cantSeeElement(Page\UserUpdate::$EmailField);
     }
     
     //----------------------No ability to create state admin--------------------
@@ -1124,11 +1223,67 @@ class UsersAccessCest
         $I->canSeePageForbiddenAccess($I);
         $I->cantSeeElement(Page\UserCreate::$EmailField);
         $I->amOnPage(Page\UserUpdate::URL($this->idCoordinator1));
-        $I->canSeePageForbiddenAccess($I, 'Access Denied');
-        $I->cantSeeElement(Page\UserUpdate::$EmailField);
+        
+        $I->canSeeElement(\Page\UserUpdate::$EmailField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$FirstNameField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$LastNameField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$TypeDisabledSelect);
+        $I->canSeeElement(\Page\UserUpdate::$PhoneField.'[readonly]');
+        $I->canSeeElementIsDisabled($I, \Page\UserUpdate::$UpdateButton);
+        
+        $I->click(\Page\UserUpdate::$CoordinatorTab);
+        $I->wait(2);
+        $I->canSee($this->state, \Page\UserUpdate::$State);
+        $I->cantSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program1));
+        $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
+        
+        $I->click(\Page\UserUpdate::$RolesTab);
+        $I->wait(2);
+        $I->canSeeElement(\Page\UserUpdate::RoleNameLine_ByName('Coordinator'));
+        $I->cantSeeElement(\Page\UserUpdate::DeleteRoleButtonLine_ByName('Coordinator'));
+        $I->canSeeElement(\Page\UserUpdate::$AddRoleButton);
+        $I->click(\Page\UserUpdate::$AddRoleButton);
+        $I->wait(2);
+        $I->canSeeElement(\Page\UserUpdate::$RoleSelect_AddRolePopup);
+        $I->cantSee('state admin', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->cantSee('coordinator', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('auditor', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('inspector', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('business', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSeeElement(\Page\UserUpdate::$AddButton_AddRolePopup);
+//        $I->canSeePageForbiddenAccess($I, 'Access Denied');
+//        $I->cantSeeElement(Page\UserUpdate::$EmailField);
         $I->amOnPage(Page\UserUpdate::URL($this->idCoordinator2));
-        $I->canSeePageForbiddenAccess($I, 'Access Denied');
-        $I->cantSeeElement(Page\UserUpdate::$EmailField);
+        
+        $I->canSeeElement(\Page\UserUpdate::$EmailField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$FirstNameField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$LastNameField.'[readonly]');
+        $I->canSeeElement(\Page\UserUpdate::$TypeDisabledSelect);
+        $I->canSeeElement(\Page\UserUpdate::$PhoneField.'[readonly]');
+        $I->canSeeElementIsDisabled($I, \Page\UserUpdate::$UpdateButton);
+        
+        $I->click(\Page\UserUpdate::$CoordinatorTab);
+        $I->wait(2);
+        $I->canSee($this->state, \Page\UserUpdate::$State);
+        $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program1));
+        $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
+        
+        $I->click(\Page\UserUpdate::$RolesTab);
+        $I->wait(2);
+        $I->canSeeElement(\Page\UserUpdate::RoleNameLine_ByName('Coordinator'));
+        $I->cantSeeElement(\Page\UserUpdate::DeleteRoleButtonLine_ByName('Coordinator'));
+        $I->canSeeElement(\Page\UserUpdate::$AddRoleButton);
+        $I->click(\Page\UserUpdate::$AddRoleButton);
+        $I->wait(2);
+        $I->canSeeElement(\Page\UserUpdate::$RoleSelect_AddRolePopup);
+        $I->cantSee('state admin', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->cantSee('coordinator', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('auditor', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('inspector', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSee('business', \Page\UserUpdate::$RoleOption_AddRolePopup);
+        $I->canSeeElement(\Page\UserUpdate::$AddButton_AddRolePopup);
+//        $I->canSeePageForbiddenAccess($I, 'Access Denied');
+//        $I->cantSeeElement(Page\UserUpdate::$EmailField);
     }
     
     //----------------------No ability to create saving area--------------------
@@ -1239,9 +1394,15 @@ class UsersAccessCest
         $password                  = $confirmPassword = $this->password;
         $phone                     = $I->GeneratePhoneNumber();
         $this->nameInspector_Prog2 = $firstName." ".$lastName;
+        $typeTab      = 'inspector';
+        $programsArray = [$this->program2];
         
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
+//        $I->UpdateUser(null, null, null, null, null, null, null, $typeTab, null, $programsArray);
+        $I->waitPageLoad();
+        $I->click(Page\UserUpdate::$InspectorTab);
+        $I->wait(1);
         $I->waitPageLoad();
         $I->canSee($this->state, \Page\UserUpdate::$State);
         $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
@@ -1259,9 +1420,15 @@ class UsersAccessCest
         $password          = $confirmPassword = $this->password;
         $phone             = $I->GeneratePhoneNumber();
         $this->nameAuditor = $firstName." ".$lastName;
+        $typeTab      = 'auditor';
+        $programsArray = [$this->program2];
         
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
+//        $I->UpdateUser(null, null, null, null, null, null, null, $typeTab, null, $programsArray);
+        $I->waitPageLoad();
+        $I->click(Page\UserUpdate::$AuditorTab);
+        $I->wait(1);
         $I->waitPageLoad();
         $I->canSee($this->state, \Page\UserUpdate::$State);
         $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
@@ -1270,7 +1437,7 @@ class UsersAccessCest
     public function Coordinator3_14_CheckAllUsersListPage(\Step\Acceptance\User $I)
     {
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
-        $I->canSee('3', Page\UserList::$SummaryCount);
+        $I->canSee('2', Page\UserList::$SummaryCount);
         
         $I->comment("-------Check Master admin absent in All Users list-------");
         $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
@@ -1278,20 +1445,22 @@ class UsersAccessCest
         
         $I->comment("--------Check State admin absent in All Users list-------");
         $I->cantSee($this->emailStateAdmin, \Page\UserList::$EmailRow);
-        $I->cantSee('state admin', \Page\UserList::$TypeRow);
+        $I->cantSee('State Admin', \Page\UserList::$TypeRow);
         
-        $I->comment("-------Check Coordinator1 present in All Users list------");
-        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
-        $row = $user2['row'];
-        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
-        $I->canSee('active', \Page\UserList::StatusLine($row));
-        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
-        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
-        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->comment("-------Check Coordinator1 absent in All Users list------");
+        $I->cantSee($this->emailCoordinator1_Prog2, \Page\UserList::$EmailRow);
+        $I->cantSee('Coordinator', \Page\UserList::$TypeRow);
+//        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
+//        $row = $user2['row'];
+//        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
+//        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
+//        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
+//        $I->canSee('active', \Page\UserList::StatusLine($row));
+//        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+//        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+//        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+//        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+//        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------Check Coordinator2 absent in All Users list-------");
         $I->cantSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::$EmailRow);
@@ -1688,14 +1857,17 @@ class UsersAccessCest
     
     //---------------Coordinator Create Not Quantitative Measures---------------
     public function StateAdmin3_5_CreateMeasure_NotQuantitative_MultipleQuestions(\Step\Acceptance\Measure $I) {
-        $desc            = $this->measureDesc1_Coordinator = $I->GenerateNameOf("Description Created by Coordinator1");
+        $desc            = $this->measureDesc1_Coordinator = $I->GenerateNameOf("Description Created by State Admin 1");
         $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'no';
         $submeasureType  = \Step\Acceptance\Measure::MultipleQuestion_MultipleAnswersSubmeasure;
         $questions       = ['ques1?', 'ques2?', 'ques3?'];
+        $sectorArray     = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector1_StAdm];
+        $useInSectorsToggleStatus = 'off';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions,  null, null, null, null, null,
+                            null, null, null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
 //        $I->wait(2);
 //        $I->selectOption(Page\MeasureList::$FilterByStatusSelect, 'pending');
@@ -1710,58 +1882,71 @@ class UsersAccessCest
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure1_Coordinator = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure1_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $sectorArray);
     }
     
     
     
     public function StateAdmin3_6_CreateMeasure_NotQuantitative_MultipleQuestionsAndNumber(\Step\Acceptance\Measure $I) {
-        $desc            = $this->measureDesc2_Coordinator = $I->GenerateNameOf("Description Created by Coordinator2");
+        $desc            = $this->measureDesc2_Coordinator = $I->GenerateNameOf("Description Created by State Admin 2");
         $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'no';
         $submeasureType  = \Step\Acceptance\Measure::MultipleQuestionAndNumber_MultipleAnswersSubmeasure;
         $questions       = ['What is your favourite color?'];
         $answers         = ['Grey', 'Green', 'Red'];
+        $sectorArray     = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector1_StAdm];
+        $useInSectorsToggleStatus = 'off';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers, null, null, null, null,
+                            null, null, null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(2);
-//        $I->selectOption(Page\MeasureList::$FilterByStatusSelect, 'pending');
-//        $I->wait(1);
-//        $I->scrollTo(Page\MeasureList::$ApplyFiltersButton);
-//        $I->wait(1);
-//        $I->click(Page\MeasureList::$ApplyFiltersButton);
-//        $I->wait(1);
-//        $I->waitPageLoad();
-//        $I->wait(6);
-//        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 45);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($this->measureDesc2_Coordinator)); 
         $this->idMeasure2_Coordinator = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure2_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $sectorArray);
     }
    
     public function StateAdmin3_7_CreateMeasure_NotQuantitative_WithoutSubmeasures(\Step\Acceptance\Measure $I) {
-        $desc            = $this->measureDesc3_Coordinator = $I->GenerateNameOf("Description Created by Coordinator3");
+        $desc            = $this->measureDesc3_Coordinator = $I->GenerateNameOf("Description Created by State Admin 3");
         $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'no';
         $submeasureType  = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
+        $useInSectorsToggleStatus = 'on';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null,
+                            null, null, null, null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
-//        $I->selectOption(Page\MeasureList::$FilterByStatusSelect, 'pending');
-//        $I->wait(1);
-//        $I->scrollTo(Page\MeasureList::$ApplyFiltersButton);
-//        $I->wait(1);
-//        $I->click(Page\MeasureList::$ApplyFiltersButton);
-//        $I->wait(1);
-//        $I->waitPageLoad();
-//        $I->wait(6);
-//        $I->waitForElement(\Page\MeasureList::$CreateMeasureButton, 45);
         $this->idMeasure3_Coordinator = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure3_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus);
+    }
+    
+    public function StateAdmin3_8_CreateMeasure_NotQuantitative_WithoutSubmeasures(\Step\Acceptance\Measure $I) {
+        $desc            = $this->measureDesc4_Coordinator = $I->GenerateNameOf("Description Created by State Admin 4_WithoutSector");
+        $auditGroup      = \Page\AuditGroupList::Energy_AuditGroup;
+        $auditSubgroup   = $this->audSubgroup1_Energy;
+        $quantitative    = 'no';
+        $submeasureType  = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
+        $sectorArray     = [];
+        $useInSectorsToggleStatus = 'off';
+        
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null,
+                            null, null, null, null, null, null, null, $sectorArray);
+        $I->amOnPage(Page\MeasureList::URL());
+        $this->idMeasure4_Coordinator = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
+        //$this->measuresDesc_SuccessCreated[] = $desc;
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure4_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray);
     }
     
     public function Coordinator10_LogOut_And_LogInAsCoordinatorr2(AcceptanceTester $I)
@@ -1780,7 +1965,7 @@ class UsersAccessCest
         $program     = [$this->program2];
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure1_Coordinator));
-        $I->CreateMeasureGreenTip($descGT, $program);
+        $I->CreateMeasureGreenTip($descGT, $program, $allPrograms = 'no');
         $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure1_Coordinator));
         $I->see($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
     }
@@ -1791,7 +1976,7 @@ class UsersAccessCest
         $program     = [$this->program2];
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure2_Coordinator));
-        $I->CreateMeasureGreenTip($descGT, $program);
+        $I->CreateMeasureGreenTip($descGT, $program, $allPrograms = 'no');
         $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure2_Coordinator));
         $I->see($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
     }
@@ -1828,6 +2013,7 @@ class UsersAccessCest
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
+        $I->cantSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_Coordinator));
     }
     
     //-------------------------Coordinator activate Tier 1----------------------
@@ -2025,6 +2211,7 @@ class UsersAccessCest
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
         $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
+        $I->cantSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_Coordinator));
         $I->ManageChecklist($descs, $this->statusesT1_Coordinator, $this->extensions_Coordinator);
         $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesT1_Coordinator, $this->extensions_Coordinator);
         $I->reloadPage();
@@ -2146,8 +2333,8 @@ class UsersAccessCest
         $I->canSeeElement(Page\RegistrationStarted::Core_MeasureDescription_ByDesc($this->measureDesc1_Coordinator));
         $I->canSeeElement(Page\RegistrationStarted::Core_MeasureDescription_ByDesc($this->measureDesc2_Coordinator));
         $I->canSeeElement(Page\RegistrationStarted::Elective_MeasureDescription_ByDesc($this->measureDesc3_Coordinator));
-        $I->canSeeElement(Page\RegistrationStarted::MeasureGreenTip($this->grTip1_Coordinator));
-        $I->canSeeElement(Page\RegistrationStarted::MeasureGreenTip($this->grTip2_Coordinator));
+        $I->canSeeElement(Page\RegistrationStarted::MeasureGreenTip($this->measureDesc1_Coordinator, $this->grTip1_Coordinator));
+        $I->canSeeElement(Page\RegistrationStarted::MeasureGreenTip($this->measureDesc2_Coordinator, $this->grTip2_Coordinator));
     }
     
     public function Business3_CheckLandingPage_Tier1(Step\Acceptance\TierLanding $I)
@@ -2225,7 +2412,7 @@ class UsersAccessCest
         $I->waitPageLoad();
     }
     
-    public function Business3_Energy_MessageAbsent_AfterCompleting(AcceptanceTester $I) {
+    public function Business3_Energy_MessagePresent_AfterCompleting(AcceptanceTester $I) {
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->idSubgroup1_Energy));
         $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
         $I->canSee($this->SL_message_Energy_Water_EMAIL);
@@ -2234,7 +2421,7 @@ class UsersAccessCest
     public function Business3_Energy_EmailAbsent_CommunicationTab(\Step\Acceptance\Communication $I){
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
-        $I->canSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
     }
     
     public function Coordinator13_2_LogOut2df(AcceptanceTester $I) {
@@ -2249,7 +2436,7 @@ class UsersAccessCest
     public function Coordinator13_2_1_CheckAllUsersListPage(\Step\Acceptance\User $I)
     {
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
-        $I->canSee('4', Page\UserList::$SummaryCount);
+        $I->canSee('3', Page\UserList::$SummaryCount);
         
         $I->comment("-------Check Master admin absent in All Users list-------");
         $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
@@ -2263,17 +2450,18 @@ class UsersAccessCest
         $I->cantSee($this->emailCoordinator1_Prog2, \Page\UserList::$EmailRow);
         
         $I->comment("-------Check Coordinator2 absent in All Users list-------");
-        $user2 = $I->GetUserOnPageInList($this->emailCoordinator2_Prog1_Prog2, Page\UserCreate::allType);
-        $row = $user2['row'];
-        $I->canSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Coordinator2, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Coordinator2, \Page\UserList::LastNameLine($row));
-        $I->canSee('active', \Page\UserList::StatusLine($row));
-        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
-        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
-        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->cantSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::$EmailRow);
+//        $user2 = $I->GetUserOnPageInList($this->emailCoordinator2_Prog1_Prog2, Page\UserCreate::allType);
+//        $row = $user2['row'];
+//        $I->canSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::EmailLine($row));
+//        $I->canSee($this->firstName_Coordinator2, \Page\UserList::FirstNameLine($row));
+//        $I->canSee($this->lastName_Coordinator2, \Page\UserList::LastNameLine($row));
+//        $I->canSee('active', \Page\UserList::StatusLine($row));
+//        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+//        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+//        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+//        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+//        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("------------Check Inspector in All Users list------------");
         $user2 = $I->GetUserOnPageInList($this->emailInspector_Prog2, Page\UserCreate::allType);
@@ -2653,16 +2841,16 @@ class UsersAccessCest
         $I->waitPageLoad();
     }
     
-    public function Business2_Energy_MessageAbsent_AfterCompleting(AcceptanceTester $I) {
+    public function Business2_Energy_MessagePresent_AfterCompleting(AcceptanceTester $I) {
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->idSubgroup1_Energy));
         $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
         $I->canSee($this->SL_message_Energy_Water_EMAIL);
     }
     
-    public function Business2_Energy_EmailPresent_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Business2_Energy_EmailAbsent_CommunicationTab(\Step\Acceptance\Communication $I){
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
-        $I->canSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
     }
     
     public function Business13_10_LogOut2(AcceptanceTester $I) {
@@ -2710,7 +2898,7 @@ class UsersAccessCest
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2));
         $I->canSee('3 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2_Prog2));
@@ -2720,7 +2908,7 @@ class UsersAccessCest
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2));
         $I->canSee('2 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
@@ -2760,7 +2948,7 @@ class UsersAccessCest
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2));
         $I->canSee('3 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2_Prog2));
@@ -2769,7 +2957,7 @@ class UsersAccessCest
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2));
         $I->canSee('2 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
@@ -2808,7 +2996,7 @@ class UsersAccessCest
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2));
         $I->canSee('3 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2_Prog2));
@@ -2817,7 +3005,7 @@ class UsersAccessCest
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2));
         $I->canSee('2 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
@@ -2857,7 +3045,7 @@ class UsersAccessCest
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2_Prog2));
         $I->canSee('3 / 3 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business2_Prog2));
@@ -2866,7 +3054,7 @@ class UsersAccessCest
         $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3_Prog2));
         $I->canSee('2 / 2 measures completed', \Page\Dashboard::MeasuresCompletedInfo_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfAudits_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
@@ -2896,9 +3084,28 @@ class UsersAccessCest
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId2));
 //        $I->wait(2);
-        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_CommunicationTab('2'));
-        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('2'));
-        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('2'));
+        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_BySubject_CommunicationTab($subject));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_BySubject_CommunicationTab($subject));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_BySubject_CommunicationTab($subject));
+//        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_CommunicationTab('2'));
+//        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('2'));
+//        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('2'));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($this->firstName_Coordinator2." ".$this->lastName_Coordinator2, Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    public function CheckEnergyCompleteMessage_Business2(AcceptanceTester $I){
+        $subject                = $this->Subject_SL_message_Energy_Water_EMAIL;
+        $body                   = $this->Body_SL_message_Energy_Water_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId2));
+        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_BySubject_CommunicationTab($subject));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_BySubject_CommunicationTab($subject));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_BySubject_CommunicationTab($subject));
         $I->wait(1);
         $I->waitPageLoad();
         $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
@@ -2913,9 +3120,13 @@ class UsersAccessCest
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId3));
 //        $I->wait(2);
-        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_CommunicationTab('2'));
-        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('2'));
-        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('2'));
+        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_BySubject_CommunicationTab($subject));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_BySubject_CommunicationTab($subject));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_BySubject_CommunicationTab($subject));
+        
+//        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_CommunicationTab('2'));
+//        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('2'));
+//        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('2'));
         $I->wait(1);
         $I->waitPageLoad();
         $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
@@ -2923,6 +3134,22 @@ class UsersAccessCest
         $I->canSee($this->firstName_Coordinator2." ".$this->lastName_Coordinator2, Page\CommunicationsView::PreviousMessageSender('1'));
     }
         
+    public function CheckEnergyCompleteMessage_Business3(AcceptanceTester $I){
+        $subject                = $this->Subject_SL_message_Energy_Water_EMAIL;
+        $body                   = $this->Body_SL_message_Energy_Water_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId3));
+        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_BySubject_CommunicationTab($subject));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_BySubject_CommunicationTab($subject));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_BySubject_CommunicationTab($subject));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($this->firstName_Coordinator2." ".$this->lastName_Coordinator2, Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
     public function Coordinator14_2_ChangeStatusToReadyForComplianceCheckTypeInPopup_Business3(AcceptanceTester $I) {
         $I->amOnPage(Page\ApplicationDetails::URL_BusinessInfo($this->busId3));
         $I->click(\Page\ApplicationDetails::$AddDetailsButton_ComplianceCheck_BusinessInfoTab);
@@ -3070,7 +3297,7 @@ class UsersAccessCest
     public function Coordinator14_6_CheckAllUsersListPage(\Step\Acceptance\User $I)
     {
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
-        $I->canSee('5', Page\UserList::$SummaryCount);
+        $I->canSee('4', Page\UserList::$SummaryCount);
         
         $I->comment("-------Check Master admin absent in All Users list-------");
         $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
@@ -3081,17 +3308,18 @@ class UsersAccessCest
         $I->cantSee('state admin', \Page\UserList::$TypeRow);
         
         $I->comment("-------Check Coordinator1 absent in All Users list-------");
-        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
-        $row = $user2['row'];
-        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
-        $I->canSee('active', \Page\UserList::StatusLine($row));
-        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
-        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
-        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->cantSee($this->emailCoordinator1_Prog2, \Page\UserList::$EmailRow);
+//        $user2 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog2, Page\UserCreate::allType);
+//        $row = $user2['row'];
+//        $I->canSee($this->emailCoordinator1_Prog2, \Page\UserList::EmailLine($row));
+//        $I->canSee($this->firstName_Coordinator1_Prog2, \Page\UserList::FirstNameLine($row));
+//        $I->canSee($this->lastName_Coordinator1_Prog2, \Page\UserList::LastNameLine($row));
+//        $I->canSee('active', \Page\UserList::StatusLine($row));
+//        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+//        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+//        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+//        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+//        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("-------Check Coordinator2 absent in All Users list-------");
         $I->cantSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::$EmailRow);
@@ -3323,7 +3551,7 @@ class UsersAccessCest
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
         
         $I->canSee("2", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         $I->canSee("2", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -3392,7 +3620,7 @@ class UsersAccessCest
         $I->canSee(\Page\Dashboard::PassedStatus, \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::PassedStatus, \Page\Dashboard::StatusOfApplication_ByBusName($this->business3_Prog2));
         $I->canSee(\Page\Dashboard::InProcessStatus, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3_Prog2));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
+        $I->canSee(\Page\Dashboard::InProgressStatus, \Page\Dashboard::TierStatus_ByBusName($this->business3_Prog2));
         
         $I->canSee("2", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         $I->canSee("2", \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -3423,7 +3651,7 @@ class UsersAccessCest
         $I->amOnPage(Page\ApplicationDetails::URL_BusinessInfo($this->busId2));
         $I->click(\Page\ApplicationDetails::$AddDetailsButton_ComplianceCheck_BusinessInfoTab);
         $I->wait(2);
-        $I->waitPageLoad();
+        $I->waitPageLoad(300);
         $I->waitForText("Assign Inspectors", 90, \Page\ApplicationDetails::$ComplianceCheckPopup_Title);
         $I->canSeeElement(\Page\ApplicationDetails::ComplianceCheckPopup_ComplianceCheckByName($this->nameComplianceCheck_StAdm));
         $I->selectOption(\Page\ApplicationDetails::ComplianceCheckPopup_StatusSelectByName($this->nameComplianceCheck_StAdm), \Page\ApplicationDetails::ReadyStatus_TierTab);
@@ -3439,7 +3667,7 @@ class UsersAccessCest
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$AddDetailsButton_Audits_BusinessInfoTab);
         $I->wait(2);
-        $I->waitPageLoad();
+        $I->waitPageLoad(300);
         $I->waitForText("Assign Auditors", 90, \Page\ApplicationDetails::$AuditsPopup_Title);
         $I->canSeeElement(\Page\ApplicationDetails::AuditsPopup_AuditGroupByName(\Page\AuditGroupList::Energy_AuditGroup));
         $I->selectOption(\Page\ApplicationDetails::AuditsPopup_StatusSelectByName(\Page\AuditGroupList::Energy_AuditGroup), \Page\ApplicationDetails::ReadyStatus_TierTab);
@@ -3564,7 +3792,7 @@ class UsersAccessCest
     public function Coordinator18_1_CheckAllUsersListPage(\Step\Acceptance\User $I)
     {
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
-        $I->canSee('6', Page\UserList::$SummaryCount);
+        $I->canSee('5', Page\UserList::$SummaryCount);
         
         $I->comment("-------Check Master admin absent in All Users list-------");
         $I->cantSee(USER_EMAIL, \Page\UserList::$EmailRow);
@@ -3578,17 +3806,18 @@ class UsersAccessCest
         $I->cantSee($this->emailCoordinator1_Prog2, \Page\UserList::$EmailRow);
         
         $I->comment("-------Check Coordinator2 absent in All Users list-------");
-        $user2 = $I->GetUserOnPageInList($this->emailCoordinator2_Prog1_Prog2, Page\UserCreate::allType);
-        $row = $user2['row'];
-        $I->canSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::EmailLine($row));
-        $I->canSee($this->firstName_Coordinator2, \Page\UserList::FirstNameLine($row));
-        $I->canSee($this->lastName_Coordinator2, \Page\UserList::LastNameLine($row));
-        $I->canSee('active', \Page\UserList::StatusLine($row));
-        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
-        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
-        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->cantSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::$EmailRow);
+//        $user2 = $I->GetUserOnPageInList($this->emailCoordinator2_Prog1_Prog2, Page\UserCreate::allType);
+//        $row = $user2['row'];
+//        $I->canSee($this->emailCoordinator2_Prog1_Prog2, \Page\UserList::EmailLine($row));
+//        $I->canSee($this->firstName_Coordinator2, \Page\UserList::FirstNameLine($row));
+//        $I->canSee($this->lastName_Coordinator2, \Page\UserList::LastNameLine($row));
+//        $I->canSee('active', \Page\UserList::StatusLine($row));
+//        $I->canSee('coordinator', \Page\UserList::TypeLine($row));
+//        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+//        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+//        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+//        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $I->comment("------------Check Inspector in All Users list------------");
         $user2 = $I->GetUserOnPageInList($this->emailInspector_Prog2, Page\UserCreate::allType);
@@ -3680,9 +3909,9 @@ class UsersAccessCest
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId1));
-        $I->canSee($this->program1, Page\ApplicationDetails::SenderLine_CommunicationTab('1'));
-        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('1'));
-        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('1'));
+        $I->canSee($this->program1, Page\ApplicationDetails::SenderLine_BySubject_CommunicationTab($subject));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_BySubject_CommunicationTab($subject));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_BySubject_CommunicationTab($subject));
         $I->wait(1);
         $I->waitPageLoad();
         $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
@@ -3696,9 +3925,9 @@ class UsersAccessCest
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId2));
-        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_CommunicationTab('2'));
-        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('2'));
-        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('2'));
+        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_BySubject_CommunicationTab($subject));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_BySubject_CommunicationTab($subject));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_BySubject_CommunicationTab($subject));
         $I->wait(1);
         $I->waitPageLoad();
         $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
@@ -3712,9 +3941,9 @@ class UsersAccessCest
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId3));
-        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_CommunicationTab('2'));
-        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('2'));
-        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('2'));
+        $I->canSee($this->program2, Page\ApplicationDetails::SenderLine_BySubject_CommunicationTab($subject));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_BySubject_CommunicationTab($subject));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_BySubject_CommunicationTab($subject));
         $I->wait(1);
         $I->waitPageLoad();
         $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
@@ -3751,6 +3980,58 @@ class UsersAccessCest
 //        $I->cantSeeElement(Page\SectorList::NameLine_ByNameValue($sector, $program));
     }
     
+    public function StateAdmin_CheckMeasure1Coord(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $disabledSectorArray    = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $useInSectorsToggleStatus = 'off';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure1_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, $disabledSectorArray);
+    }
+    
+    public function StateAdmin_CheckMeasure2Coord(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $disabledSectorArray    = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $useInSectorsToggleStatus = 'off';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure2_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, $disabledSectorArray);
+    }
+    
+    public function StateAdmin_CheckMeasure3Coord(\Step\Acceptance\Measure $I) {
+        $useInSectorsToggleStatus = 'on';
+        $useInSectorsMessage = $this->alertMessage.$this->sector_Update.', '.Page\SectorList::DefaultSectorOfficeRetail;
+        
+        $sectorArray_UpdateToOff              = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update, $this->sector2_StAdm];
+        $enabledSectorArray_UpdateToOff       = [$this->sector2_StAdm];
+        $disabledSectorArray_UpdateToOff      = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $useInSectorsToggleStatus_UpdateToOff = 'off';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure3_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, null, null, null, $useInSectorsMessage);
+        
+        
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'no');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore', $sectorArray_UpdateToOff, $disabledSectorArray_UpdateToOff, $enabledSectorArray_UpdateToOff);
+    
+    }
+    
+    public function StateAdmin_CheckMeasure4Coord(\Step\Acceptance\Measure $I) {
+        $sectorArray    = [];
+        $useInSectorsToggleStatus = 'off';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure4_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray);
+    }
+    
     //-------State Admin Create Quantitative & Not Quantitative Measures--------
     public function StateAdmin_CreateMeasure_NotQuantitative_MultipleQuestions(\Step\Acceptance\Measure $I) {
         $desc            = $this->measureDesc1_StateAdmin = $I->GenerateNameOf("Description Created by State Admin1");
@@ -3759,13 +4040,20 @@ class UsersAccessCest
         $quantitative    = 'no';
         $submeasureType  = \Step\Acceptance\Measure::MultipleQuestion_MultipleAnswersSubmeasure;
         $questions       = ['ques1?', 'ques2?', 'ques3?'];
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
+        $useInSectorsToggleStatus = 'off';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, null, null, null,
+                            null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure1_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure1_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $sectorArray);
     }
     
     public function StateAdmin_CreateMeasure_NotQuantitative_MultipleQuestionsAndNumber(\Step\Acceptance\Measure $I) {
@@ -3776,14 +4064,21 @@ class UsersAccessCest
         $submeasureType  = \Step\Acceptance\Measure::MultipleQuestionAndNumber_MultipleAnswersSubmeasure;
         $questions       = ['What is your favourite color?'];
         $answers         = ['Grey', 'Green', 'Red'];
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $useInSectorsToggleStatus = 'off';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers, null, null, null, null, null, null,
+                            null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($this->measureDesc2_StateAdmin)); 
         $this->idMeasure2_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure2_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $sectorArray);
     }
    
     public function StateAdmin_CreateMeasure_NotQuantitative_WithoutSubmeasures(\Step\Acceptance\Measure $I) {
@@ -3792,12 +4087,19 @@ class UsersAccessCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'no';
         $submeasureType  = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector2_StAdm];
+        $useInSectorsToggleStatus = 'off';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null, null,
+                            null, null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $this->idMeasure3_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure3_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray);
     }
     
     public function StateAdmin_CreateMeasure_Quantitative_MultipleQuestionsAndNumber(\Step\Acceptance\Measure $I) {
@@ -3808,13 +4110,20 @@ class UsersAccessCest
         $submeasureType  = \Step\Acceptance\Measure::MultipleQuestionAndNumber_QuantitativeSubmeasure;
         $questions       = ['What color?'];
         $answers         = ['Grey', 'Green', 'Red'];
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
+        $useInSectorsToggleStatus = 'off';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers, null, null, null, null, null,
+                            null, null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure4_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure4_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $sectorArray);
     }
     
     public function StateAdmin_CheckGlobalVariableInMeasure_Quantitative_MultipleQuestionsAndNumber(\Step\Acceptance\Measure $I) {
@@ -3855,19 +4164,26 @@ class UsersAccessCest
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::Number_QuantitativeSubmeasure;
         $questions       = ['What', "Where"];
+        $sectorArray    = [$this->sector_Update];
+        $useInSectorsToggleStatus = 'off';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, null, null,
+                            null, null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure5_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure5_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $sectorArray);
     }
     
     public function StateAdmin_CheckGlobalVariableInMeasure_Quantitative_Number(\Step\Acceptance\Measure $I) {
         $I->amOnPage(Page\MeasureUpdate::URL($this->idMeasure5_StateAdmin));
         $I->click(Page\MeasureUpdate::$ManageFormulasButton);
-        $I->wait(1);
+        $I->wait(2);
         $I->canSeeElement(\Page\MeasureFormulasPopup::$PopupForm);
         $I->wait(2);
         $I->click(\Page\MeasureFormulasPopup::$AddSavingAreaButton);
@@ -3879,7 +4195,7 @@ class UsersAccessCest
         $I->reloadPage();
         $I->waitPageLoad();
         $I->click(\Page\MeasureUpdate::$ManageFormulasButton);
-        $I->wait(1);
+        $I->wait(2);
         $I->waitPageLoad();
         $I->canSee($this->nameSavingArea_NatAdm, \Page\MeasureFormulasPopup::AreaLine('1'));
         $I->click(\Page\MeasureFormulasPopup::EditFormulaButtonLine('1'));
@@ -3894,13 +4210,20 @@ class UsersAccessCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::PopupTherms_QuantitativeSubmeasure;
+        $sectorArray    = [$this->sector2_StAdm];
+        $useInSectorsToggleStatus = 'off';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null, null,
+                            null, null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure6_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure6_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $sectorArray);
     }
     
     public function StateAdmin_CreateMeasure_Quantitative_LightingPopup(\Step\Acceptance\Measure $I) {
@@ -3909,13 +4232,19 @@ class UsersAccessCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::PopupLighting_QuantitativeSubmeasure;
+        $useInSectorsToggleStatus = 'on';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null, null,
+                            null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure7_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure7_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus);
     }
     
     public function StateAdmin_CreateMeasure_Quantitative_WasteDiversionPopup(\Step\Acceptance\Measure $I) {
@@ -3924,13 +4253,19 @@ class UsersAccessCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::PopupWasteDivertion_QuantitativeSubmeasure;
+        $useInSectorsToggleStatus = 'on';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null, null,
+                            null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure8_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure8_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus);
     }
     
     public function StateAdmin_CreateMeasure_Quantitative_WithoutSubmeasures(\Step\Acceptance\Measure $I) {
@@ -3939,13 +4274,19 @@ class UsersAccessCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
+        $useInSectorsToggleStatus = 'on';
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null, null,
+                            null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
         $this->idMeasure9_StateAdmin = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure9_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus);
     }
     
     //-----------------State Admin create Green Tips for measures---------------
@@ -3955,7 +4296,7 @@ class UsersAccessCest
         $program     = [$this->program1];
         
         $I->amOnPage(Page\MeasureGreenTipCreate::URL($this->idMeasure1_StateAdmin));
-        $I->CreateMeasureGreenTip($descGT, $program);
+        $I->CreateMeasureGreenTip($descGT, $program, $allPrograms = 'no');
         $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure1_StateAdmin));
         $I->see($descGT, \Page\MeasureGreenTipList::DescriptionLine_ByMeasureDescValue($descMeasure));
     }
@@ -3967,7 +4308,7 @@ class UsersAccessCest
         
         $I->amOnPage(Page\MeasureGreenTipList::URL($this->idMeasure2_Coordinator));
         $I->click(\Page\MeasureGreenTipList::UpdateButtonLine_ByMeasureDescValue($descMeasure));
-        $I->wait(1);
+        $I->wait(2);
         $I->waitPageLoad();
         $I->UpdateMeasureGreenTip($descGT);
         $I->amOnPage(Page\MeasureGreenTipList::URL_SelectedMeasure($this->idMeasure2_Coordinator));
@@ -3976,7 +4317,7 @@ class UsersAccessCest
     }
     
     //------------------State Admin create Checklist For Tier 2-----------------
-    public function StateAdmin_CreateChecklistForTier1_MeasuresPresent(\Step\Acceptance\SectorChecklist $I) {
+    public function StateAdmin_CreateChecklistForTier2_MeasuresPresent(\Step\Acceptance\SectorChecklist $I) {
         $sector  = \Page\SectorList::DefaultSectorOfficeRetail;
         $tier               = '2';
         
@@ -3986,11 +4327,58 @@ class UsersAccessCest
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_Coordinator));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_StateAdmin));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_StateAdmin));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_StateAdmin));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc5_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc6_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc7_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc8_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc9_StateAdmin));
+    }
+    
+    public function StateAdmin_CreateChecklistForTier2_MeasuresPresent_Sector1(\Step\Acceptance\SectorChecklist $I) {
+        $sector  = $this->sector_Update;
+        $tier               = '2';
+        $statuses = ['elective', 'core', 'core', 'elective', 'core'];
+        $descs    = [$this->measureDesc1_Coordinator, $this->measureDesc3_Coordinator, $this->measureDesc2_StateAdmin, $this->measureDesc7_StateAdmin, $this->measureDesc9_StateAdmin];
+                  
+        $I->CreateSectorChecklist($tier, $sector);
+        
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_StateAdmin));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc5_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc6_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc7_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc8_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc9_StateAdmin));
+        
+        $I->ManageSectorChecklist($descs, $statuses);
+    }
+    
+    public function StateAdmin_CreateChecklistForTier2_MeasuresPresent_Sector2(\Step\Acceptance\SectorChecklist $I) {
+        $sector  = $this->sector2_StAdm;
+        $tier               = '2';
+        
+        $I->CreateSectorChecklist($tier, $sector);
+        
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc5_StateAdmin));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc6_StateAdmin));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc7_StateAdmin));
         $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc8_StateAdmin));
@@ -4027,9 +4415,15 @@ class UsersAccessCest
         $lastName  = $I->GenerateNameOf('lastnam');
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
+        $typeTab = 'inspector';
+        $programsArray = [$this->program1, $this->program2];
         
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
+//        $I->UpdateUser(null, null, null, null, null, null, null, $typeTab, null, $programsArray);
+        $I->waitPageLoad();
+        $I->click(Page\UserUpdate::$InspectorTab);
+        $I->wait(1);
         $I->waitPageLoad();
         $I->canSee($this->state, \Page\UserUpdate::$State);
         $I->cantSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program1));
@@ -4068,6 +4462,9 @@ class UsersAccessCest
         $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
         $I->waitPageLoad();
+        $I->click(Page\UserUpdate::$AuditorTab);
+        $I->wait(1);
+        $I->waitPageLoad();
         $I->canSee($this->state, \Page\UserUpdate::$State);
         $I->cantSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program1));
         $I->cantSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
@@ -4096,27 +4493,273 @@ class UsersAccessCest
         $I->canSeeElement(\Page\UserUpdate::ProgramNameLine_ByName($this->program2));
     }
     
-    //------------------State Admin create Checklist For Tier 1-----------------
-//    public function StateAdmin_CreateChecklistForTier1(\Step\Acceptance\Checklist $I) {
-//        $sourceProgram      = \Page\ChecklistCreate::DefaultSourceProgram;
-//        $programDestination = $this->program2;
-//        $sectorDestination  = \Page\SectorList::DefaultSectorOfficeRetail;
-//        $tier               = '1';
-//        $descs              = $this->measuresDesc_SuccessCreated;
-//        
-//        $id_checklist = $I->CreateChecklist($sourceProgram, $programDestination, $sectorDestination, $tier);
-//        $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
-//        $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
-//        $I->canSeeElement(Page\ChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
-//        $I->ManageChecklist($descs, $this->statusesT1_Coordinator, $this->extensions_Coordinator);
-//        $I->CheckSavedValuesOnManageChecklistPage($descs, $this->statusesT1_Coordinator, $this->extensions_Coordinator);
-//        $I->reloadPage();
-//        $I->PublishChecklistStatus($id_checklist);
-//    }
-//    
-//    public function Help1_16_LogOutttt(AcceptanceTester $I) {
-//        $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(1);
-//        $I->Logout($I);
-//    }
+    //-----------------------Create Sector--------------------------
+    public function StateAdmin_CreateSector_New(\Step\Acceptance\Sector $I) {
+        $sector  = $this->sector_new = $I->GenerateNameOf("New_");
+        $state   = $this->state;
+        
+        $I->amOnPage(\Page\SectorCreate::URL()."?state_id=$this->idState");
+        $I->fillField(\Page\SectorCreate::$NameField, $sector);
+        $I->selectOption(\Page\SectorCreate::$StateSelect, $state);
+        $I->wait(1);
+        $I->click(\Page\SectorCreate::$CreateButton);
+        $I->waitPageLoad();
+    }
+    
+    public function StateAdmin_CreateChecklistForTier2_MeasuresPresent_New(\Step\Acceptance\SectorChecklist $I) {
+        $sector  = $this->sector_new;
+        $tier               = '2';
+        
+        $I->CreateSectorChecklist($tier, $sector);
+        
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_Coordinator));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_Coordinator));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc1_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc2_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc3_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc4_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc5_StateAdmin));
+        $I->cantSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc6_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc7_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc8_StateAdmin));
+        $I->canSeeElement(Page\SectorChecklistManage::MeasureDescLine_ManageMeasureTab($this->measureDesc9_StateAdmin));
+    }
+    
+    public function StateAdmin_CheckMeasure1Coord_2(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $disabledSectorArray    = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $useInSectorsToggleStatus = 'off';
+        
+        $useInSectorsMessage_UpdateToOn      = $this->alertMessage.$this->sector_Update.', '.Page\SectorList::DefaultSectorOfficeRetail;
+        $useInSectorsToggleStatus_UpdateToOn = 'on';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure1_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, $disabledSectorArray);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'yes');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore', null, null, null, $useInSectorsMessage_UpdateToOn);
+        $I->click(\Page\MeasureUpdate::$UpdateButton);
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus_UpdateToOn, null, null, null, $useInSectorsMessage_UpdateToOn);
+    }
+    
+    public function StateAdmin_CheckMeasure2Coord_2(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $disabledSectorArray    = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $useInSectorsToggleStatus = 'off';
+        
+        $useInSectorsMessage_UpdateToOn      = $this->alertMessage.$this->sector_Update.', '.Page\SectorList::DefaultSectorOfficeRetail;
+        $useInSectorsToggleStatus_UpdateToOn = 'on';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure2_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, $disabledSectorArray);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'yes');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore', null, null, null, $useInSectorsMessage_UpdateToOn);
+    }
+    
+    public function StateAdmin_CheckMeasure3Coord_2(\Step\Acceptance\Measure $I) {
+        $useInSectorsToggleStatus = 'on';
+        $useInSectorsMessage = $this->alertMessage.$this->sector_Update.', '.Page\SectorList::DefaultSectorOfficeRetail;
+        
+        $sectorArray_UpdateToOff              = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update, $this->sector2_StAdm, $this->sector_new];
+        $enabledSectorArray_UpdateToOff       = [$this->sector2_StAdm, $this->sector_new];
+        $disabledSectorArray_UpdateToOff      = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $useInSectorsToggleStatus_UpdateToOff = 'off';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure3_Coordinator));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, null, null, null, $useInSectorsMessage);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'no');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore', $sectorArray_UpdateToOff, $disabledSectorArray_UpdateToOff, $enabledSectorArray_UpdateToOff);
+    
+    }
+    
+    
+    
+    public function StateAdmin_CheckMeasure1StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [Page\SectorList::DefaultSectorOfficeRetail];
+        $enabledSectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
+        $useInSectorsToggleStatus = 'off';
+        
+        $useInSectorsToggleStatus_UpdateToOn = 'on';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure1_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $enabledSectorArray);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'yes');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore');
+    }
+    
+    public function StateAdmin_CheckMeasure2StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update];
+        $enabledSectorArray     = [Page\SectorList::DefaultSectorOfficeRetail];
+        $disabledSectorArray    = [$this->sector_Update];
+        $useInSectorsToggleStatus = 'off';
+        
+        $useInSectorsMessage_UpdateToOn      = $this->alertMessage.$this->sector_Update;
+        $useInSectorsToggleStatus_UpdateToOn = 'on';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure2_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, $disabledSectorArray, $enabledSectorArray);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'yes');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore', null, null, null, $useInSectorsMessage_UpdateToOn);
+    }
+    
+    public function StateAdmin_CheckMeasure3StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector2_StAdm];
+        $enabledSectorArray    = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector2_StAdm];
+        $useInSectorsToggleStatus = 'off';
+        
+        $useInSectorsToggleStatus_UpdateToOn = 'on';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure3_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $enabledSectorArray);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'yes');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore');
+    }
+    
+    public function StateAdmin_CheckMeasure4StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [Page\SectorList::DefaultSectorOfficeRetail];
+        $enabledSectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
+        $useInSectorsToggleStatus = 'off';
+        
+        $useInSectorsToggleStatus_UpdateToOn = 'on';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure4_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $enabledSectorArray);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'yes');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore');
+    }
+    
+    public function StateAdmin_CheckMeasure5StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [$this->sector_Update];
+        $enabledSectorArray    = [$this->sector_Update];
+        $useInSectorsToggleStatus = 'off';
+        
+        $useInSectorsToggleStatus_UpdateToOn = 'on';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure5_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $enabledSectorArray);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'yes');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore');
+    }
+    
+    public function StateAdmin_CheckMeasure6StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $sectorArray            = [$this->sector2_StAdm];
+        $enabledSectorArray    = [$this->sector2_StAdm];
+        $useInSectorsToggleStatus = 'off';
+        
+        $useInSectorsToggleStatus_UpdateToOn = 'on';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure6_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, $sectorArray, null, $enabledSectorArray);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'yes');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore');
+    }
+    
+    public function StateAdmin_CheckMeasure7StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $useInSectorsToggleStatus = 'on';
+        $useInSectorsMessage = $this->alertMessage.$this->sector_Update;
+        
+        $sectorArray_UpdateToOff              = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update, $this->sector2_StAdm, $this->sector_new];
+        $enabledSectorArray_UpdateToOff       = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector2_StAdm, $this->sector_new];
+        $disabledSectorArray_UpdateToOff      = [$this->sector_Update];
+        $useInSectorsToggleStatus_UpdateToOff = 'off';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure7_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, null, null, null, $useInSectorsMessage);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'no');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore', $sectorArray_UpdateToOff, $disabledSectorArray_UpdateToOff, $enabledSectorArray_UpdateToOff);
+    
+    }
+    
+    public function StateAdmin_CheckMeasure8StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $useInSectorsToggleStatus = 'on';
+        
+        $sectorArray_UpdateToOff              = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update, $this->sector2_StAdm, $this->sector_new];
+        $enabledSectorArray_UpdateToOff       = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector2_StAdm, $this->sector_new, $this->sector_Update];
+        $useInSectorsToggleStatus_UpdateToOff = 'off';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure8_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'no');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore', $sectorArray_UpdateToOff, null, $enabledSectorArray_UpdateToOff);
+    
+    }
+    
+    public function StateAdmin_CheckMeasure9StateAdmin_2(\Step\Acceptance\Measure $I) {
+        $useInSectorsToggleStatus = 'on';
+        $useInSectorsMessage = $this->alertMessage.$this->sector_Update;
+        
+        $sectorArray_UpdateToOff              = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector_Update, $this->sector2_StAdm, $this->sector_new];
+        $enabledSectorArray_UpdateToOff       = [Page\SectorList::DefaultSectorOfficeRetail, $this->sector2_StAdm, $this->sector_new];
+        $disabledSectorArray_UpdateToOff      = [$this->sector_Update];
+        $useInSectorsToggleStatus_UpdateToOff = 'off';
+        
+        $I->amOnPage(\Page\MeasureUpdate::URL($this->idMeasure9_StateAdmin));
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, $useInSectorsToggleStatus, null, null, null, $useInSectorsMessage);
+        $I->makeElementVisible(['#measure-all_sectors']);
+        $I->wait(2);
+        $I->selectOption("#measure-all_sectors", 'no');
+        $I->wait(2);
+        $I->CheckSavedValuesOnMeasureUpdatePage(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
+                        null, null, null, null, 'ignore', $sectorArray_UpdateToOff, $disabledSectorArray_UpdateToOff, $enabledSectorArray_UpdateToOff);
+    }
 }

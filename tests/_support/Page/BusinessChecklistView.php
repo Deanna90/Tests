@@ -37,6 +37,7 @@ class BusinessChecklistView extends \AcceptanceTester
     
     public static $LeftMenu_DeleteApplicationButton        = '.delete-app-btn';
     public static $LeftMenu_BusinessLoginButton            = "a[href*='business/login']";
+    public static $LeftMenu_GetNewChecklistButton          = "a.new-checklist-btn";
     public static $LeftMenu_PrintFirstTierButton           = '#checklist-number option';
     public static $LeftMenu_PrintSecondTierButton          = '#checklist-number option';
     public static $LeftMenu_PrintThirdTierButton           = '#checklist-number option';
@@ -87,6 +88,8 @@ class BusinessChecklistView extends \AcceptanceTester
     const DisqualifiedStatus         = 'Disqualified';
     const NonresponsiveStatus        = 'Nonresponsive';
     const RequiresRenewalStatus      = 'Requires renewal';
+    const RecertifyStatus            = 'Recertify';
+    const RecertifyingStatus         = 'Recertifying';
     const MovedClosedStatus          = 'Moved/Closed';
     const NotSuitableStatus          = 'Not Suitable';
     const ExpiredStatus              = 'Expired';

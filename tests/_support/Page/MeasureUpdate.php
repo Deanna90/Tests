@@ -20,6 +20,20 @@ class MeasureUpdate extends \AcceptanceTester
     public static $FormulasAlert_MultipleQuestionAndNumber        = '.formulas-alert strong';
     public static $FormulasAllertOption_MultipleQuestionAndNumber = '.formulas-alert p';
     
+    public static $SectorSelect                 = '#measure_sector_ids_chosen';
+    public static $SelectedSectorOption         = '#measure_sector_ids_chosen a>span';
+    public static $SectorOption                 = '#measure_sector_ids_chosen+div ul>li';
+    public static $SectorSelectLabel            = '[for=measure_sector_ids]';
+    
+    public static function selectSectorOption($number)                  { return "#measure_sector_ids_chosen>div>ul>li:nth-of-type($number)";}
+    public static function selectSectorOptionByName($name)              { return "//*[@id='measure_sector_ids_chosen']//*[@class='chosen-results']/li[text()='$name']";}
+    public static function SelectedSectorOption($number)                { return "#measure_sector_ids_chosen>ul>li.search-choice:nth-of-type($number)";}
+    public static function SelectedSectorOptionByName($name)            { return "//*[@id='measure_sector_ids_chosen']/ul/li[contains(@class, 'search-choice')]/span[text()='$name']";}
+    public static function Disabled_SelectedSectorOptionByName($name)   { return "//*[@id='measure_sector_ids_chosen']/ul/li[@class='search-choice search-choice-disabled']/span[text()='$name']";}
+    public static function RemoveIcon_SelectedSectorOptionByName($name) { return "//*[@id='measure_sector_ids_chosen']/ul/li[contains(@class, 'search-choice')]/span[text()='$name']/following-sibling::a";}
+
+    public static $UsedInSectorAlertMessage       = '.field-measure-all_sectors~div.alert-info';
+    
     public static $DescriptionField       = '#measure-description';
     public static $PointsField            = '#measure-points';
     
@@ -47,6 +61,7 @@ class MeasureUpdate extends \AcceptanceTester
     public static $AuditSubgroupSelectLabel = '[for=subgroups]';
     public static $StateDisableSelectLabel  = '[for=measure-state_id]';
     
+    public static $UseInAllSectorsToggleButton    = '#measure-all_sectors_switch_control';
     public static $IsQuantitativeToggleLabel      = '[for=measure-is_quantitative]';
     public static $HaveMultipleAnswersToggleLabel = '[for=measureform-hasmultiplequestions]';
     

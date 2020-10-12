@@ -328,9 +328,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $password  = $confirmPassword = $this->password;
         $phone     = $this->phone_Coordinator5_WithoutState = $I->GeneratePhoneNumber();
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null);
         $I->waitForElement(".confirm", 150);
-        $I->wait(2);
 //        $I->SearchUserByEmailOnPageInList($userType, $email);
 //        $this->idCoordinator5_WithoutState = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -346,11 +345,12 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $password  = $confirmPassword = $this->password;
         $phone     = $this->phone_Coordinator4_WithoutProgram = $I->GeneratePhoneNumber();
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null);
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -359,7 +359,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(2);
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->wait(5);
+        $I->wait(2);
+        $I->waitPageLoad();
 //        $I->SearchUserByEmailOnPageInList($userType, $email);
 //        $this->idCoordinator4_WithoutProgram = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -372,12 +373,14 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $lastName  = $this->lastName_Coordinator1_Prog1 = $I->GenerateNameOf('lastnam_1');
         $password  = $confirmPassword = $this->password;
         $phone     = $this->phone_Coordinator1_Prog1 = $I->GeneratePhoneNumber();
+        $showInfoForProgramsArray = [$this->program1];
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'on');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null);
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -397,7 +400,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->AddProgramsToShowInfoDropdownOnUserUpdatePage($showInfoForProgramsArray);
 //        $I->SearchUserByEmailOnPageInList($userType, $email);
 //        $this->idCoordinator1_Prog1 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -410,12 +415,14 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $lastName  = $this->lastName_Coordinator2_Prog2 = $I->GenerateNameOf('lastnam_2');
         $password  = $confirmPassword = $this->password;
         $phone     = $this->phone_Coordinator2_Prog2 = $I->GeneratePhoneNumber();
+        $showInfoForProgramsArray = [$this->program2];
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'on');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null);
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -435,7 +442,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->AddProgramsToShowInfoDropdownOnUserUpdatePage($showInfoForProgramsArray);
 //        $I->SearchUserByEmailOnPageInList($userType, $email);
 //        $this->idCoordinator2_Prog2 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -448,12 +457,14 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $lastName  = $this->lastName_Coordinator3_Prog1_Prog2 = $I->GenerateNameOf('lastnam_1_2');
         $password  = $confirmPassword = $this->password;
         $phone     = $this->phone_Coordinator3_Prog1_Prog2 = $I->GeneratePhoneNumber();
+        $showInfoForProgramsArray = [$this->program1, $this->program2];
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'on');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null);
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -484,7 +495,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitPageLoad();
+        $I->AddProgramsToShowInfoDropdownOnUserUpdatePage($showInfoForProgramsArray);
 //        $I->SearchUserByEmailOnPageInList($userType, $email);
 //        $this->idCoordinator3_Prog1_Prog2 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -530,7 +543,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -539,7 +553,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(2);
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->wait(5);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->SearchUserByEmailOnPageInList($userType, $email);
         $this->idAuditor4_WithoutProgram = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -560,7 +575,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -580,7 +596,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->SearchUserByEmailOnPageInList($userType, $email);
         $this->idAuditor1_Prog1 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -601,7 +618,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -621,7 +639,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->SearchUserByEmailOnPageInList($userType, $email);
         $this->idAuditor2_Prog2 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -642,7 +661,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -667,13 +687,15 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddProgramButton);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->SearchUserByEmailOnPageInList($userType, $email);
         $this->idAuditor3_Prog1_Prog2 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -688,7 +710,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->cantSeeElement(\Page\AuditOrganizationUpdate::ProgramNameLine_ByName($this->program2));
         $I->cantSeeElement(\Page\AuditOrganizationUpdate::ProgramNameLine_ByName($this->program1));
         $I->wait(2);
@@ -714,7 +737,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Energy_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -728,7 +752,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::General_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -742,7 +767,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -756,7 +782,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Water_AuditGroup));
         $I->wait(2);
         $I->click(Page\AuditOrganizationUpdate::$AddProgramButton);
@@ -771,7 +798,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 200);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$AddMemberButton);
         $I->wait(3);
@@ -789,9 +817,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::UserLine_ByName($this->fullName_Auditor1_Prog1));
-        $I->wait(3);
     }
     
     //---------------Create Audit Organization With Program2--------------------
@@ -804,7 +832,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->cantSeeElement(\Page\AuditOrganizationUpdate::ProgramNameLine_ByName($this->program2));
         $I->cantSeeElement(\Page\AuditOrganizationUpdate::ProgramNameLine_ByName($this->program1));
@@ -820,6 +849,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\AuditOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->wait(2);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
         $I->wait(4);
@@ -832,7 +862,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Energy_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -846,7 +877,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::PollutionPrevention_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -860,7 +892,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -874,7 +907,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Water_AuditGroup));
         $I->wait(2);
         $I->click(\Page\AuditOrganizationUpdate::$AddMemberButton);
@@ -893,7 +927,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::UserLine_ByName($this->fullName_Auditor2_Prog2));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddMemberButton);
@@ -912,9 +947,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::UserLine_ByName($this->fullName_Auditor3_Prog1_Prog2));
-        $I->wait(3);
     }
     
     //------------Create Audit Organization With Program1 & Program2------------
@@ -927,7 +962,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->cantSeeElement(\Page\AuditOrganizationUpdate::ProgramNameLine_ByName($this->program2));
         $I->cantSeeElement(\Page\AuditOrganizationUpdate::ProgramNameLine_ByName($this->program1));
@@ -943,7 +979,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\AuditOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(Page\AuditOrganizationUpdate::$AddProgramButton);
         $I->wait(3);
         $I->waitForElement(Page\AuditOrganizationUpdate::$ProgramSelect_AddProgramForm, 200);
@@ -956,7 +993,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\AuditOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
         $I->wait(4);
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, 150);
@@ -968,7 +1006,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        $I->wait(1);
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::PollutionPrevention_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -982,7 +1022,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::General_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -996,7 +1037,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -1010,7 +1052,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Water_AuditGroup));
         $I->wait(2);
         $I->click(\Page\AuditOrganizationUpdate::$AddMemberButton);
@@ -1029,7 +1072,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::UserLine_ByName($this->fullName_Auditor1_Prog1));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddMemberButton);
@@ -1048,7 +1092,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::UserLine_ByName($this->fullName_Auditor2_Prog2));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddMemberButton);
@@ -1067,9 +1112,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::UserLine_ByName($this->fullName_Auditor3_Prog1_Prog2));
-        $I->wait(3);
     }
     
     //----------------Create Audit Organization Without Programs----------------
@@ -1082,7 +1127,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
         $I->wait(4);
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, 150);
@@ -1094,7 +1140,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::PollutionPrevention_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -1108,7 +1155,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::General_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -1122,7 +1170,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -1136,9 +1185,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Energy_AuditGroup));
-        $I->wait(2);
     }
     
     //-----------------Create Audit Organization Without Auditors---------------
@@ -1151,7 +1200,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(Page\AuditOrganizationUpdate::$AddProgramButton);
         $I->wait(3);
         $I->waitForElement(Page\AuditOrganizationUpdate::$ProgramSelect_AddProgramForm, 200);
@@ -1164,7 +1214,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\AuditOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(Page\AuditOrganizationUpdate::$AddProgramButton);
         $I->wait(3);
         $I->waitForElement(Page\AuditOrganizationUpdate::$ProgramSelect_AddProgramForm, 200);
@@ -1177,7 +1228,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\AuditOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
         $I->wait(4);
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AuditGroupSelect_AddAuditGroupForm, 150);
@@ -1189,7 +1241,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::PollutionPrevention_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -1203,7 +1256,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::General_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -1217,7 +1271,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::SolidWaste_AuditGroup));
         $I->wait(3);
         $I->click(\Page\AuditOrganizationUpdate::$AddAuditGroupButton);
@@ -1231,9 +1286,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\AuditOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\AuditOrganizationUpdate::AuditGroupLine_ByName(\Page\AuditGroupList::Energy_AuditGroup));
-        $I->wait(2);
     }
     
     
@@ -1281,7 +1336,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -1311,7 +1367,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -1331,7 +1388,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->SearchUserByEmailOnPageInList($userType, $email);
         $this->idInspector1_Prog1 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -1352,7 +1410,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -1372,7 +1431,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->SearchUserByEmailOnPageInList($userType, $email);
         $this->idInspector2_Prog2 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -1393,7 +1453,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(3);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->waitForElement(Page\UserUpdate::$AddStateButton, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -1418,13 +1479,15 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(2);
         $I->click(Page\UserUpdate::$AddProgramButton);
         $I->wait(3);
+        $I->waitPageLoad();
         $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 200);
         $I->wait(2);
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
-        $I->wait(6);
+        $I->wait(2);
+        $I->waitPageLoad();
         $I->SearchUserByEmailOnPageInList($userType, $email);
         $this->idInspector3_Prog1_Prog2 = $I->grabTextFrom(\Page\UserList::IdLine(1));
     }
@@ -1439,7 +1502,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->cantSeeElement(\Page\InspectorOrganizationUpdate::ProgramNameLine_ByName($this->program2));
         $I->cantSeeElement(\Page\InspectorOrganizationUpdate::ProgramNameLine_ByName($this->program1));
         $I->wait(2);
@@ -1464,7 +1528,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck1));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1478,7 +1543,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck2));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1492,7 +1558,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck3_Created));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1506,7 +1573,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck4));
         $I->wait(2);
         $I->click(Page\InspectorOrganizationUpdate::$AddProgramButton);
@@ -1521,6 +1589,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\InspectorOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
+        $I->waitPageLoad();
         $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddMemberButton);
         $I->wait(3);
@@ -1534,13 +1603,13 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->selectOption(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, $this->fullName_Inspector1_Prog1);
         $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddButton_AddMemberForm);
-        $I->wait(5);
+        $I->wait(6);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->fullName_Inspector1_Prog1));
-        $I->wait(3);
     }
     
     //---------------Create Inspector Organization With Program2--------------------
@@ -1553,7 +1622,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(Page\InspectorOrganizationUpdate::$AddProgramButton);
         $I->wait(3);
         $I->waitForElement(Page\InspectorOrganizationUpdate::$ProgramSelect_AddProgramForm, 200);
@@ -1575,7 +1645,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck1));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1589,7 +1660,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck2));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddMemberButton);
@@ -1608,7 +1680,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->fullName_Inspector2_Prog2));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddMemberButton);
@@ -1623,13 +1696,13 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->selectOption(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, $this->fullName_Inspector3_Prog1_Prog2);
         $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddButton_AddMemberForm);
-        $I->wait(5);
+        $I->wait(6);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->fullName_Inspector2_Prog2));
-        $I->wait(3);
     }
     
     //------------Create Inspector Organization With Program1 & Program2------------
@@ -1642,7 +1715,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(Page\InspectorOrganizationUpdate::$AddProgramButton);
         $I->wait(3);
         $I->waitForElement(Page\InspectorOrganizationUpdate::$ProgramSelect_AddProgramForm, 200);
@@ -1655,7 +1729,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\InspectorOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(Page\InspectorOrganizationUpdate::$AddProgramButton);
         $I->wait(3);
         $I->waitForElement(Page\InspectorOrganizationUpdate::$ProgramSelect_AddProgramForm, 200);
@@ -1678,7 +1753,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck2));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1692,7 +1768,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck4));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddMemberButton);
@@ -1707,11 +1784,12 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->selectOption(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, $this->fullName_Inspector1_Prog1);
         $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddButton_AddMemberForm);
-        $I->wait(5);
+        $I->wait(6);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->fullName_Inspector1_Prog1));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddMemberButton);
@@ -1725,11 +1803,12 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->selectOption(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, $this->fullName_Inspector2_Prog2);
         $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddButton_AddMemberForm);
-        $I->wait(5);
+        $I->wait(6);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->fullName_Inspector2_Prog2));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddMemberButton);
@@ -1744,13 +1823,13 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->selectOption(\Page\InspectorOrganizationUpdate::$MemberSelect_AddMemberForm, $this->fullName_Inspector3_Prog1_Prog2);
         $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddButton_AddMemberForm);
-        $I->wait(5);
+        $I->wait(6);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::UserLine_ByName($this->fullName_Inspector3_Prog1_Prog2));
-        $I->wait(3);
     }
     
     //----------------Create Inspector Organization Without Programs----------------
@@ -1763,7 +1842,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
         $I->wait(4);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$ComplianceCheckTypeSelect_AddComplianceCheckTypeForm, 150);
@@ -1775,7 +1855,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck1));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1789,7 +1870,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck2));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1803,6 +1885,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
+        //$I->waitPageLoad();
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck3_Created));
         $I->wait(3);
@@ -1817,9 +1900,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck4));
-        $I->wait(3);
     }
     
     //-----------------Create Inspector Organization Without Auditors---------------
@@ -1832,7 +1915,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(6);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(Page\InspectorOrganizationUpdate::$AddProgramButton);
         $I->wait(3);
         $I->waitForElement(Page\InspectorOrganizationUpdate::$ProgramSelect_AddProgramForm, 200);
@@ -1845,7 +1929,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\InspectorOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(Page\InspectorOrganizationUpdate::$AddProgramButton);
         $I->wait(3);
         $I->waitForElement(Page\InspectorOrganizationUpdate::$ProgramSelect_AddProgramForm, 200);
@@ -1858,7 +1943,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(Page\InspectorOrganizationUpdate::$AddProgramButton, 200);
         $I->wait(2);
         $I->reloadPage();
-        $I->wait(2);
+        $I->waitPageLoad();
+        $I->wait(1);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
         $I->wait(4);
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$ComplianceCheckTypeSelect_AddComplianceCheckTypeForm, 150);
@@ -1870,7 +1956,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck1));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1884,7 +1971,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck2));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1898,7 +1986,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck3_Created));
         $I->wait(3);
         $I->click(\Page\InspectorOrganizationUpdate::$AddComplianceCheckTypeButton);
@@ -1912,9 +2001,9 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->wait(1);
         $I->reloadPage();
-        $I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
+        $I->waitPageLoad();
+        //$I->waitForElement(\Page\InspectorOrganizationUpdate::$AddMemberButton, 150);
         $I->canSeeElement(\Page\InspectorOrganizationUpdate::ComplianceCheckTypeLine_ByName($this->complCheck4));
-        $I->wait(3);
     }
     
     //---------------------------Login as Coordinator1--------------------------
@@ -1939,6 +2028,36 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
         $I->wait(3);
         
+        //Coordinator 1 present
+        $I->comment("-------------------Coordinator1 PRESENT------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailCoordinator1_Prog1, Page\UserCreate::allType);
+        $row = $user1['row'];
+        $I->canSee($this->emailCoordinator1_Prog1, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator1_Prog1, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator1_Prog1, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($coordinator_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        //Coordinator 5 absent
+        $I->comment("-------------------Coordinator2 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator2_Prog2, \Page\UserList::$EmailRow);
+        
+        //Coordinator 5 absent
+        $I->comment("-------------------Coordinator3 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator3_Prog1_Prog2, \Page\UserList::$EmailRow);
+        
+        //Coordinator 5 absent
+        $I->comment("-------------------Coordinator4 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator4_WithoutProgram, \Page\UserList::$EmailRow);
+        
+        //Coordinator 5 absent
+        $I->comment("-------------------Coordinator5 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator5_WithoutState, \Page\UserList::$EmailRow);
+        
         //Inspector 1 present
         $I->comment("-------------------Inspector1 PRESENT------------------");
         $user1 = $I->GetUserOnPageInList($this->emailInspector1_Prog1, Page\UserCreate::allType);
@@ -1954,8 +2073,18 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 2 absent
-        $I->comment("-------------------Inspector2 Absent------------------");
-        $I->cantSee($this->emailInspector2_Prog2, \Page\UserList::$EmailRow);
+        $I->comment("-------------------Inspector2 PRESENT------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailInspector2_Prog2, Page\UserCreate::allType);
+        $row = $user1['row'];
+        $I->canSee($this->emailInspector2_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Inspector2_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Inspector2_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 3 present
         $I->comment("-------------------Inspector3 PRESENT------------------");
@@ -1969,7 +2098,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
         $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 4 present
         $I->comment("-------------------Inspector4 PRESENT------------------");
@@ -1982,7 +2111,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 5 absent
@@ -2004,8 +2133,18 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 2 absent
-        $I->comment("-------------------Auditor2 Absent------------------");
-        $I->cantSee($this->emailAuditor2_Prog2, \Page\UserList::$EmailRow);
+        $I->comment("-------------------Auditor2 PRESENT------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailAuditor2_Prog2, Page\UserCreate::allType);
+        $row = $user1['row'];
+        $I->canSee($this->emailAuditor2_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Auditor2_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Auditor2_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 3 present
         $I->comment("-------------------Auditor3 PRESENT------------------");
@@ -2019,7 +2158,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
         $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 4 present
         $I->comment("-------------------Auditor4 PRESENT------------------");
@@ -2032,7 +2171,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 5 absent
@@ -2048,7 +2187,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $auditor_type     = 'auditor';
         
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::inspectorType));
-        $I->wait(3);
+//        $I->wait(3);
         
         //Inspector 1 present
         $I->comment("-------------------Inspector1 PRESENT------------------");
@@ -2065,8 +2204,18 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 2 absent
-        $I->comment("-------------------Inspector2 Absent------------------");
-        $I->cantSee($this->emailInspector2_Prog2, \Page\UserList::$EmailRow);
+        $I->comment("-------------------Inspector2 PRESENT------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailInspector2_Prog2, Page\UserCreate::inspectorType);
+        $row = $user1['row'];
+        $I->canSee($this->emailInspector2_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Inspector2_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Inspector2_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 3 present
         $I->comment("-------------------Inspector3 PRESENT------------------");
@@ -2093,7 +2242,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 5 absent
@@ -2126,7 +2275,17 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         
         //Auditor 2 absent
         $I->comment("-------------------Auditor2 ABSENT------------------");
-        $I->cantSee($this->emailAuditor2_Prog2, \Page\UserList::$EmailRow);
+        $user1 = $I->GetUserOnPageInList($this->emailAuditor2_Prog2, Page\UserCreate::auditorType);
+        $row = $user1['row'];
+        $I->canSee($this->emailAuditor2_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Auditor2_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Auditor2_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 3 present
         $I->comment("-------------------Auditor3 PRESENT------------------");
@@ -2153,7 +2312,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 5 absent
@@ -2289,9 +2448,49 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
         $I->wait(3);
         
-        //Inspector 1 ABSENT
-        $I->comment("-------------------Inspector1 ABSENT------------------");
-        $I->cantSee($this->emailInspector1_Prog1, \Page\UserList::$EmailRow);
+        //Coordinator 1 absent
+        $I->comment("-------------------Coordinator1 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator1_Prog1, \Page\UserList::$EmailRow);
+        
+        //Coordinator 2 present
+        $I->comment("-------------------Coordinator2 Present------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailCoordinator2_Prog2, Page\UserCreate::allType);
+        $row = $user1['row'];
+        $I->canSee($this->emailCoordinator2_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator2_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator2_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($coordinator_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        //Coordinator 3 absent
+        $I->comment("-------------------Coordinator3 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator3_Prog1_Prog2, \Page\UserList::$EmailRow);
+        
+        //Coordinator 1 absent
+        $I->comment("-------------------Coordinator4 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator4_WithoutProgram, \Page\UserList::$EmailRow);
+        
+        //Coordinator 1 absent
+        $I->comment("-------------------Coordinator5 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator5_WithoutState, \Page\UserList::$EmailRow);
+        
+        //Inspector 1 present
+        $I->comment("-------------------Inspector1 Present------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailInspector1_Prog1, Page\UserCreate::allType);
+        $row = $user1['row'];
+        $I->canSee($this->emailInspector1_Prog1, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Inspector1_Prog1, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Inspector1_Prog1, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 2 present
         $I->comment("-------------------Inspector2 Present------------------");
@@ -2319,7 +2518,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
         $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 4 present
         $I->comment("-------------------Inspector4 PRESENT------------------");
@@ -2332,7 +2531,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 5 absent
@@ -2341,7 +2540,17 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         
         //Auditor 1 ABSENT
         $I->comment("-------------------Auditor1 ABSENT------------------");
-        $I->cantSee($this->emailAuditor1_Prog1, \Page\UserList::$EmailRow);
+        $user1 = $I->GetUserOnPageInList($this->emailAuditor1_Prog1, Page\UserCreate::allType);
+        $row = $user1['row'];
+        $I->canSee($this->emailAuditor1_Prog1, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Auditor1_Prog1, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Auditor1_Prog1, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 2 present
         $I->comment("-------------------Auditor2 Present------------------");
@@ -2369,7 +2578,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
         $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 4 present
         $I->comment("-------------------Auditor4 PRESENT------------------");
@@ -2382,7 +2591,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 5 absent
@@ -2401,8 +2610,18 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(3);
         
         //Inspector 1 absent
-        $I->comment("-------------------Inspector1 ABSENT------------------");
-        $I->cantSee($this->emailInspector1_Prog1, \Page\UserList::$EmailRow);
+        $I->comment("-------------------Inspector1 PRESENT------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailInspector1_Prog1, Page\UserCreate::inspectorType);
+        $row = $user1['row'];
+        $I->canSee($this->emailInspector1_Prog1, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Inspector1_Prog1, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Inspector1_Prog1, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 2 present
         $I->comment("-------------------Inspector2 PRESENT------------------");
@@ -2443,7 +2662,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 5 absent
@@ -2461,8 +2680,18 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->wait(3);
         
         //Auditor 1 ABSENT
-        $I->comment("-------------------Auditor1 ABSENT------------------");
-        $I->cantSee($this->emailAuditor1_Prog1, \Page\UserList::$EmailRow);
+        $I->comment("-------------------Auditor1 PRESENT------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailAuditor1_Prog1, Page\UserCreate::auditorType);
+        $row = $user1['row'];
+        $I->canSee($this->emailAuditor1_Prog1, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Auditor1_Prog1, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Auditor1_Prog1, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 2 present
         $I->comment("-------------------Auditor2 Present------------------");
@@ -2503,7 +2732,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 5 absent
@@ -2641,6 +2870,36 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->amOnPage(\Page\UserList::URL(\Page\UserCreate::allType));
         $I->wait(3);
         
+        //Coordinator 1 absent
+        $I->comment("-------------------Coordinator1 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator1_Prog1, \Page\UserList::$EmailRow);
+        
+        //Coordinator 2 absent
+        $I->comment("-------------------Coordinator2 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator2_Prog2, \Page\UserList::$EmailRow);
+        
+        //Coordinator 3 present
+        $I->comment("-------------------Coordinator3 PRESENT------------------");
+        $user1 = $I->GetUserOnPageInList($this->emailCoordinator3_Prog1_Prog2, Page\UserCreate::allType);
+        $row = $user1['row'];
+        $I->canSee($this->emailCoordinator3_Prog1_Prog2, \Page\UserList::EmailLine($row));
+        $I->canSee($this->firstName_Coordinator3_Prog1_Prog2, \Page\UserList::FirstNameLine($row));
+        $I->canSee($this->lastName_Coordinator3_Prog1_Prog2, \Page\UserList::LastNameLine($row));
+        $I->canSee($status, \Page\UserList::StatusLine($row));
+        $I->canSee($coordinator_type, \Page\UserList::TypeLine($row));
+        $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
+        $I->cantSeeElement(\Page\UserList::UpdateButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        
+        //Coordinator 4 absent
+        $I->comment("-------------------Coordinator4 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator4_WithoutProgram, \Page\UserList::$EmailRow);
+        
+        //Coordinator 5 absent
+        $I->comment("-------------------Coordinator5 ABSENT------------------");
+        $I->cantSee($this->emailCoordinator5_WithoutState, \Page\UserList::$EmailRow);
+        
         //Inspector 1 present
         $I->comment("-------------------Inspector1 PRESENT------------------");
         $user1 = $I->GetUserOnPageInList($this->emailInspector1_Prog1, Page\UserCreate::allType);
@@ -2680,8 +2939,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 4 present
         $I->comment("-------------------Inspector4 PRESENT------------------");
@@ -2694,7 +2953,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 5 absent
@@ -2740,8 +2999,8 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
-        $I->canSeeElement(\Page\UserList::ViewButtonLine($row));
+        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 4 present
         $I->comment("-------------------Auditor4 PRESENT------------------");
@@ -2754,7 +3013,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 5 absent
@@ -2811,7 +3070,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 4 present
@@ -2825,7 +3084,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($inspector_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Inspector 5 absent
@@ -2881,7 +3140,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 4 present
@@ -2895,7 +3154,7 @@ class CoordinatorUpdateAuditorsAndInspectorsCest
         $I->canSee($auditor_type, \Page\UserList::TypeLine($row));
         $I->canSee($this->todayDate, \Page\UserList::CreatedLine($row));
         $I->canSeeElement(\Page\UserList::UpdateButtonLine($row));
-        $I->canSeeElement(\Page\UserList::DeleteButtonLine($row));
+        $I->cantSeeElement(\Page\UserList::DeleteButtonLine($row));
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         //Auditor 5 absent

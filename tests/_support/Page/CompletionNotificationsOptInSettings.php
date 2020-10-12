@@ -22,7 +22,8 @@ class CompletionNotificationsOptInSettings extends \AcceptanceTester
     //By Name & Program values
     public static function ProgramLine_ByNameValue($program)                        { return "//table[contains(@class, 'table-striped')]//tbody/tr[contains(td[1]/text(), '$program')]/td[1]"; }
     public static function CompleteAuditGroupToggleButtonLine_ByNameValue($program) { return "//table[contains(@class, 'table-striped')]//tbody/tr[contains(td[1]/text(), '$program')]/td[2]/div"; }
-    public static function ReachPointsToggleButtonLine_ByNameValue($program)        { return "//table[contains(@class, 'table-striped')]//tbody/tr[contains(td[1]/text(), '$program')]/td[3]/div"; }
+    public static function CompleteTierToggleButtonLine_ByNameValue($program)       { return "//table[contains(@class, 'table-striped')]//tbody/tr[contains(td[1]/text(), '$program')]/td[3]/div"; }
+    public static function ReachPointsToggleButtonLine_ByNameValue($program)        { return "//table[contains(@class, 'table-striped')]//tbody/tr[contains(td[1]/text(), '$program')]/td[4]/div"; }
     
     public static function CompleteAuditGroupToggleButtonSelectLine_ByNameValue($program) { return "//table[contains(@class, 'table-striped')]//tbody/tr[contains(td[1]/text(), '$program')]/td[2]/select"; }
     public static function ReachPointsToggleButtonSelectLine_ByNameValue($program)        { return "//table[contains(@class, 'table-striped')]//tbody/tr[contains(td[1]/text(), '$program')]/td[3]/select"; }

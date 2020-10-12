@@ -9,8 +9,23 @@ class MeasureCreate extends \AcceptanceTester
     public static $MeasurePointsBlockTitle = '.row>div:nth-of-type(2) .panel-heading';
     
     public static $CreateButton                    = '[type=submit][class*=success]';
+    public static $UseInAllSectorsToggleButton     = '#measure-all_sectors_switch_control';
     public static $IsQuantitativeToggleButton      = '#measure-is_quantitative_switch_control';
     public static $HaveMultipleAnswersToggleButton = '#measureform-hasmultiplequestions_switch_control';
+    
+    public static $SectorSelect                 = '#measure_sector_ids_chosen';
+    public static $SelectedSectorOption         = '#measure_sector_ids_chosen a>span';
+    public static $SectorOption                 = '#measure_sector_ids_chosen+div ul>li';
+    public static $SectorSelectLabel            = '[for=measure_sector_ids]';
+    
+    public static function selectSectorOption($number)                  { return "#measure_sector_ids_chosen>div>ul>li:nth-of-type($number)";}
+    public static function selectSectorOptionByName($name)              { return "//*[@id='measure_sector_ids_chosen']//*[@class='chosen-results']/li[text()='$name']";}
+    public static function SelectedSectorOption($number)                { return "#measure_sector_ids_chosen>ul>li.search-choice:nth-of-type($number)";}
+    public static function SelectedSectorOptionByName($name)            { return "//*[@id='measure_sector_ids_chosen']/ul/li[@class='search-choice']/span[text()='$name']";}
+    public static function Disabled_SelectedSectorOptionByName($name)   { return "//*[@id='measure_sector_ids_chosen']/ul/li[@class='search-choice search-choice-disabled']/span[text()='$name']";}
+    public static function RemoveIcon_SelectedSectorOptionByName($name) { return "//*[@id='measure_sector_ids_chosen']/ul/li[@class='search-choice']/span[text()='$name']/following-sibling::a";}
+
+    public static $UsedInSectorAlertMessage       = '.field-measure-all_sectors~div.alert-info';
     
     public static $DescriptionField           = '#measure-description';
     public static $PointsField                = '#measure-points';
@@ -40,8 +55,9 @@ class MeasureCreate extends \AcceptanceTester
     public static $AuditSubgroupSelectLabel = '[for=subgroups]';
     public static $StateDisableSelectLabel  = '[for=measure-state_id]';
     
-    public static $IsQuantitativeToggleLabel      = '[for=state-is_weighted]';
-    public static $HaveMultipleAnswersToggleLabel = '[for=state-is_weighted]';
+    public static $UseInAllSectorsToggleLabel     = '[for=measure-all_sectors]';
+    public static $IsQuantitativeToggleLabel      = '[for=measure-is_quantitative]';
+    public static $HaveMultipleAnswersToggleLabel = '[for=measureform-hasmultiplequestions]';
     
     public static $DescriptionErrorHelpBlock      = '#measure-description+.help-block';
     public static $AuditGroupErrorHelpBlock       = '#measure-audit_group_id+.help-block';

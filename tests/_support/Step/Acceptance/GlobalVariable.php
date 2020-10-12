@@ -11,9 +11,11 @@ class GlobalVariable extends \AcceptanceTester
         $I->waitForElement(\Page\GlobalVariableCreate::$TitleField);
         if (isset($title)){
             $I->fillField(\Page\GlobalVariableCreate::$TitleField, $title);
+            $I->wait(5);
         }
         if (isset($name)){
             $I->fillField(\Page\GlobalVariableCreate::$NameField, $name);
+            $I->wait(7);
         }
         if (isset($value)){
             $I->fillField(\Page\GlobalVariableCreate::$ValueField, $value);

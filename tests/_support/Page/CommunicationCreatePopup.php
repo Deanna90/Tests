@@ -4,7 +4,7 @@ namespace Page;
 class CommunicationCreatePopup
 {
     const SendMessagePopup                                   = '.modal.in';
-    public static $SendMessagePopup_SubjectField             = '.modal.in #communication-subject';
+    public static $SendMessagePopup_SubjectField             = ".modal.in input[id*='-subject']";
     public static $SendMessagePopup_MessageField             = '.modal.in #ck_editor_modal';
     public static $SendMessagePopup_SubjectLabel             = '.modal.in [for=communication-subject]';
     public static $SendMessagePopup_MessageLabel             = '.modal.in [for=ck_editor_modal]';

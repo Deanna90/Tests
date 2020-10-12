@@ -1125,7 +1125,7 @@ class FewBusinessesWithSameProgramForUserCest
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId2));
         
         $I->canSee('Tier 2', \Page\ApplicationDetails::TierName_BusinessInfoTab('1'));
-        $I->canSee($this->todayDate, \Page\ApplicationDetails::TierStatus_BusinessInfoTab('1'));
+        $I->canSee('(NOT SET)', \Page\ApplicationDetails::TierStatus_BusinessInfoTab('1'));
         
         $I->wait(1);
         $I->click(\Page\BusinessChecklistView::$LeftMenu_EnergyGroupButton);

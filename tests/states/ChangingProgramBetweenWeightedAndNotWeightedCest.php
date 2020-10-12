@@ -3093,13 +3093,24 @@ class ChangingProgramBetweenWeightedAndNotWeightedCest
         $status = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1_NW));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
         $I->wait(4);
-        $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
-        $I->wait(5);
-        $I->waitForElement(".modal.in", 120);
+        $I->waitForElement(".showSweetAlert.visible", 120);
         $I->wait(1);
-        $I->click(".modal.in .close");
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
         $I->wait(5);
         $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
         $I->canSee("Tier 2", \Page\BusinessChecklistView::LeftMenu_TierName('1'));

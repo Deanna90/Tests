@@ -99,8 +99,17 @@ class Acceptance extends \Codeception\Module
         return $number;
     }
     
-    public function assertEquals($expected, $actual, $message = '') {
-        parent::assertEquals($expected, $actual, $message);
+    /**
+     * Checks that two variables are equal.
+     *
+     * @param        $expected
+     * @param        $actual
+     * @param string $message
+     * @param float  $delta
+     */
+    
+    public function assertEquals($expected, $actual, $message = '', $delta = null) {
+        parent::assertEquals($expected, $actual, $message, $delta);
     }
 
     public function fail($message) {

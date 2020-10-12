@@ -15,7 +15,7 @@ class Measure extends \AcceptanceTester
     
     public function CreateMeasure($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
                                    $questions = null, $options = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $points = null, $yesNoNameArray = null, 
-                                   $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null, $reamOrLbs = null)
+                                   $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null, $reamOrLbs = null, $sectorArray = null)
     {
         $I = $this;
         $I->amOnPage(\Page\MeasureCreate::URL());
@@ -37,6 +37,21 @@ class Measure extends \AcceptanceTester
             $I->wait(5);
             $I->selectOption(\Page\MeasureCreate::$AuditSubgroupSelect, $auditSubgroup);
             $I->wait(6);
+        }
+        if (isset($sectorArray)){
+                $I->makeElementVisible(['#measure-all_sectors']);
+                $I->wait(2);
+                $I->selectOption("#measure-all_sectors", 'no');
+                $I->wait(2);
+                //$I->click(\Page\MeasureCreate::$UseInAllSectorsToggleButton);
+                $I->wait(1);
+                $I->waitPageLoad();
+            for ($i=1, $c= count($sectorArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\MeasureCreate::$SectorSelect);
+                $I->wait(3);
+                $I->click(\Page\MeasureCreate::selectSectorOptionByName($sectorArray[$k]));
+            }
         }
         switch ($quantitative){
             case 'yes':
@@ -236,7 +251,7 @@ class Measure extends \AcceptanceTester
     public function CheckSavedValuesOnMeasureUpdatePage($desc = null, $auditGroup = null, $auditSubgroup = null, $quantitative = 'ignore', $submeasureType = null,
                            $questions = null, $answers = null, $requiredTotalAnswers = null, $popupDesc = null, $state = null, $quantToggleStatus = 'ignore', 
                            $multipAnswerToggleStatus ='ignore', $points = null, $yesNoNameArray = null, $yesNoValueArray = null, $sectionNameArray = null, $sectionValueArray = null, 
-                           $reamOrLbs = null)
+                           $reamOrLbs = null, $useInSectorsToggleStatus = 'ignore', $sectorsArray = null, $disabledSectorsArray = null, $enabledSectorsArray = null, $usedInSectorsAlertMessage = 'This measure is not used in any checklist.')
     {
         $I = $this;
         $I->waitPageLoad();
@@ -248,6 +263,44 @@ class Measure extends \AcceptanceTester
         }
         if (isset($auditSubgroup)){
             $I->canSeeOptionIsSelected(\Page\MeasureUpdate::$AuditSubgroupSelect, $auditSubgroup);
+        }
+        switch ($useInSectorsToggleStatus){
+            case 'on':
+                $I->canSeeElement(\Page\MeasureUpdate::$UseInAllSectorsToggleButton." [style*='(111, 183, 80)']");
+                $I->cantSeeElement(\Page\MeasureUpdate::$SectorSelect);
+                if (isset($usedInSectorsAlertMessage)){
+                    $I->canSee($usedInSectorsAlertMessage, \Page\MeasureUpdate::$UsedInSectorAlertMessage);
+                }
+                break;
+            case 'off':
+                $I->canSeeElement(\Page\MeasureUpdate::$UseInAllSectorsToggleButton." [style*='(209, 74, 60)']");
+                $I->canSeeElement(\Page\MeasureUpdate::$SectorSelect);
+                break;
+            case 'ignore':
+                break;
+        }
+        if (isset($sectorsArray)){
+            for ($i=1, $c= count($sectorsArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->canSeeElement(\Page\MeasureUpdate::SelectedSectorOptionByName($sectorsArray[$k]));
+                $I->wait(1);
+            }
+        }
+        if (isset($disabledSectorsArray)){
+            for ($i=1, $c= count($disabledSectorsArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->canSeeElement(\Page\MeasureUpdate::Disabled_SelectedSectorOptionByName($disabledSectorsArray[$k]));
+                $I->cantSeeElement(\Page\MeasureUpdate::RemoveIcon_SelectedSectorOptionByName($disabledSectorsArray[$k]));
+                $I->wait(1);
+            }
+        }
+        if (isset($enabledSectorsArray)){
+            for ($i=1, $c= count($enabledSectorsArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->cantSeeElement(\Page\MeasureUpdate::Disabled_SelectedSectorOptionByName($enabledSectorsArray[$k]));
+                $I->canSeeElement(\Page\MeasureUpdate::RemoveIcon_SelectedSectorOptionByName($enabledSectorsArray[$k]));
+                $I->wait(1);
+            }
         }
         switch ($quantToggleStatus){
             case 'on':

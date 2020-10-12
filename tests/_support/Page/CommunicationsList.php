@@ -25,5 +25,12 @@ class CommunicationsList extends \AcceptanceTester
     public static function DeleteButtonLine($row) { return "table[class*=table] tbody>tr:nth-of-type($row) [title=Delete]"; }
     
     public static function SubjectLine_ByName($subject)   { return "//table[contains(@class, 'table-striped')]//tbody/tr/td[text()='$subject']"; }
+    
+    public static function SenderLine_BySubject_CommunicationTab($subject)       { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td[1]"; }
+    public static function SubjectLine_BySubject_CommunicationTab($subject)      { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td[2]"; }
+    public static function SentLine_BySubject_CommunicationTab($subject)         { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td[3]"; }
+    public static function DeleteButtonLine_BySubject_CommunicationTab($subject) { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td//*[@title='Delete']"; }
+    public static function ViewButtonLine_BySubject_CommunicationTab($subject)   { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/text(), '$subject')]/td//*[@title='View']"; }
+   
 
 }

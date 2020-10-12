@@ -1335,7 +1335,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailAuditor5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('16', $count);
+        $I->assertSame("16", "$count");
     }
     
     public function NationalAdmin1_8_CheckAllUsersUpdateAndViewPages(\Step\Acceptance\User $I)
@@ -2448,7 +2448,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailAuditor5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('15', $count);
+        $I->assertSame("15", "$count");
     }
     
     //---------------------------Login as State Admin3--------------------------
@@ -2684,7 +2684,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailAuditor5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('10', $count);
+        $I->assertSame("10", "$count");
     }
     
     public function Coordinator1_CheckAuditorsListPage(\Step\Acceptance\User $I)
@@ -2761,7 +2761,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailAuditor5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('4', $count);
+        $I->assertSame("4", "$count");
     }
     
     public function Coordinator1_CheckInspectorsListPage(\Step\Acceptance\User $I)
@@ -2838,7 +2838,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailInspector5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('4', $count);
+        $I->assertSame("4", "$count");
     }
     
     public function Coordinator1_CheckBusinessUsersListPage(\Step\Acceptance\User $I)
@@ -2874,7 +2874,7 @@ class ChangingLoginUserForBusinessCest
         
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
     }
     
     //---------------------------Login as Coordinator2--------------------------
@@ -3085,7 +3085,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailAuditor5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('10', $count);
+        $I->assertSame("10", "$count");
     }
     
     public function Coordinator2_CheckInspectorsUsersListPage(\Step\Acceptance\User $I)
@@ -3162,7 +3162,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailInspector5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('4', $count);
+        $I->assertSame("4", "$count");
     }
     
     public function Coordinator2_CheckAuditorsUsersListPage(\Step\Acceptance\User $I)
@@ -3239,7 +3239,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailAuditor5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('4', $count);
+        $I->assertSame("4", "$count");
     }
     
     public function Coordinator2_CheckBusinessUsersListPage(\Step\Acceptance\User $I)
@@ -3274,7 +3274,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
     }
     
     //---------------------------Login as Coordinator3--------------------------
@@ -3606,7 +3606,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailAuditor5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('11', $count);
+        $I->assertSame("11", "$count");
     }
     
     public function Coordinator3_CheckInspectorsUsersListPage(\Step\Acceptance\User $I)
@@ -3723,7 +3723,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailInspector5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('4', $count);
+        $I->assertSame("4", "$count");
     }
     
     public function Coordinator3_CheckAuditorsUsersListPage(\Step\Acceptance\User $I)
@@ -3842,7 +3842,7 @@ class ChangingLoginUserForBusinessCest
         $I->cantSee($this->emailAuditor5_WithoutState, \Page\UserList::$EmailRow);
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('4', $count);
+        $I->assertSame("4", "$count");
     }
     
     public function Coordinator3_CheckBusinessUsersListPage(\Step\Acceptance\User $I)
@@ -3907,7 +3907,7 @@ class ChangingLoginUserForBusinessCest
 //        $I->cantSeeElement(\Page\UserList::ViewButtonLine($row));
         
         $count = $I->getAmount($I, \Page\UserList::$EmailRow);
-        $I->assertEquals('2', $count);
+        $I->assertSame("2", "$count");
     }
     
     

@@ -57,6 +57,7 @@ class NeedRenewalList extends \AcceptanceTester
     public static function ExpirationDateLine($row)     { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(3)"; }
     public static function ReNotifyDateLine($row)       { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(4)"; }
     public static function ExtendedDateLine($row)       { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(5)"; }
+    public static function NotifyButtonLine($row)       { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(6) [href*=/notify]"; }
     public static function RenotifyButtonLine($row)     { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(6) [href*=re-notify]"; }
     public static function Extend3MonthButtonLine($row) { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(6) [href*=extend]"; }
     public static function DecertifyButtonLine($row)    { return "table[class*=table] tbody>tr:nth-of-type($row)>td:nth-of-type(6) [href*=decertify]"; }
@@ -65,7 +66,8 @@ class NeedRenewalList extends \AcceptanceTester
     public static function CompanyNameLine_ByBusName($business)        { return "//table[contains(@class, 'table')]//tbody/tr/td[2]/a[contains(text(), '$business')]"; }
     public static function ExpirationDateLine_ByBusName($business)     { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/a/text(), '$business')]/td[3]"; }
     public static function ReNotifyDateLine_ByBusName($business)       { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/a/text(), '$business')]/td[4]"; }
-    public static function ExtendedDateLine_ByBusName($business)       { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/a/text(), '$business')]/td[5]"; }
+    public static function ExtendedDateLine_ByBusName($business)       { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/a/text(), '$business')]/td[5]";}
+    public static function NotifyButtonLine_ByBusName($business)       { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/a/text(), '$business')]/td[6]/a[contains(@href, '/notify')]"; }
     public static function RenotifyButtonLine_ByBusName($business)     { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/a/text(), '$business')]/td[6]/a[contains(@href, 're-notify')]"; }
     public static function Extend3MonthButtonLine_ByBusName($business) { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/a/text(), '$business')]/td[6]/a[contains(@href, 'extend')]"; }
     public static function DecertifyButtonLine_ByBusName($business)    { return "//table[contains(@class, 'table')]//tbody/tr[contains(td[2]/a/text(), '$business')]/td[6]/a[contains(@href, 'decertify')]"; }

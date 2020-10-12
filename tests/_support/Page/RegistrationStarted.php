@@ -93,11 +93,11 @@ class RegistrationStarted
     public static function CoordinatorEmail_ByEmail($email) { return "//*[@class='contact-info-list']//li[contains(a[2]/text(), '$email')]/a[2]";}
     public static function CoordinatorPhone_ByEmail($email) { return "//*[@class='contact-info-list']//li[contains(a[2]/text(), '$email')]/a[1]";}
     
-    public static $CompletionMessage    = '.content-tier-info>p.progress-description.padding_bottom3p';
+    public static $CompletionMessage    = '.content-tier-info>div.padding_bottom3p';
     
     public static function MeasureDescription_ByDesc($desc)      { return "//*[@id='measures-form']//div[text()[contains(., '$desc')]]";}
 //    public static function MeasureGreenTip_ByDesc($desc, $grTip) { return "//*[@id='measures-form']//p[contains(text(), '$desc')]/span[@data-original-title='<p>$grTip</p>\n']";}
-    public static function MeasureGreenTip($grTip)               { return "//*[@class='short-articles link-green no-ajax'][contains(h4/text(), 'Measure')]//*[text()='$grTip']";}
+    public static function MeasureGreenTip($desc, $grTip)        { return "//*[@id='measures-form']//div[div/div/div/text()[contains(., '$desc')]]/following-sibling::div//div[1]/div[1]/p[text()='$grTip']";}
     public static function MeasureToggleButton_ByDesc($desc)     { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[@id='relmeasuretobusiness-answer_type_switch_control']";}
     public static function MeasureToggleButton2_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//*[@id='relmeasuretobusiness-answer_type']";}
     public static function MeasurePoints_ByDesc($desc)           { return "//*[@id='measures-form']//div[contains(@class, 'row') and contains(div/div/., '$desc')]//span[contains(@class, 'margin-0')]";}
@@ -135,8 +135,8 @@ class RegistrationStarted
     public static $InfoAboutCountToCompleteElectiveMeasures   = "//*[@id='measures-form']//div[contains(h3/text(), 'Elective measures')]/div/p[1]";
     
     
-    public static function Core_MeasureDescription_ByDesc($desc)        { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Core measures')]//div[text()[contains(., '$desc')]]";}
-    public static function Elective_MeasureDescription_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/h3/text(), 'Elective measures')]//div[text()[contains(., '$desc')]]";}
+    public static function Core_MeasureDescription_ByDesc($desc)        { return "//*[@id='measures-form']//div[contains(div/div/h3/text(), 'Core measures')]//ol//div[text()[contains(., '$desc')]]";}
+    public static function Elective_MeasureDescription_ByDesc($desc)    { return "//*[@id='measures-form']//div[contains(div/div/h3/text(), 'Elective measures')]//ol//div[text()[contains(., '$desc')]]";}
     
     
     //-----------------------------Therms Popup---------------------------------
@@ -188,7 +188,7 @@ class RegistrationStarted
     public static function WasteDiversionPopup_CompactedToggleButtonSelect($row, $beforeOrAfter)  { return "[name='rows[$row][$beforeOrAfter][compacted]']";}
     
     public static function WasteDiversionPopup_SaveChangesButton($beforeOrAfter)        { return ".modal.in #tab-$beforeOrAfter tbody>tr:first-of-type button[type=submit]";}
-    public static $WasteDiversionPopup_CloseButton              = '.modal.in .close';
+    public static $WasteDiversionPopup_CloseButton             = '.modal.in .close';
     public static $WasteDiversionPopup_NO_SaveButton           = '.modal.in .close-popup';
     
     public static $WasteDiversionPopup_NO_AllPaperLabel        = '.modal.in .close-popup';

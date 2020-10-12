@@ -178,8 +178,10 @@ class RequiresRenewalCest
         $quantitative   = 'yes';
         $submeasureType = \Step\Acceptance\Measure::Number_QuantitativeSubmeasure;
         $questions      = ['question1', 'question2'];
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, null, null,
+                            null, null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure1 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -198,8 +200,10 @@ class RequiresRenewalCest
         $auditSubgroup  = $this->audSubgroup1_Energy;
         $quantitative   = 'yes';
         $submeasureType = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null,
+                            null, null, null, null, null, $sectorArray);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure2 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -222,7 +226,8 @@ class RequiresRenewalCest
         $answers        = ['Grey', 'Green', 'Red'];
         $reamOrLbs      = ['lbs', 'ream', "ream"];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers, null, null, null, null, null, null, null, null, $reamOrLbs);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers, null, null, null, null, null, 
+                            null, null, null, $reamOrLbs);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure3 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
@@ -241,8 +246,10 @@ class RequiresRenewalCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::PopupTherms_QuantitativeSubmeasure;
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null,
+                            null, null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
@@ -262,8 +269,10 @@ class RequiresRenewalCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::PopupLighting_QuantitativeSubmeasure;
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null,
+                            null, null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
@@ -283,8 +292,10 @@ class RequiresRenewalCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::PopupWasteDivertion_QuantitativeSubmeasure;
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null,
+                            null, null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
@@ -305,8 +316,10 @@ class RequiresRenewalCest
         $quantitative    = 'no';
         $submeasureType  = \Step\Acceptance\Measure::MultipleQuestion_MultipleAnswersSubmeasure;
         $questions       = ['ques1?', 'ques2?', 'ques3?'];
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, null, null, null, null, null, null,
+                            null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
@@ -328,8 +341,10 @@ class RequiresRenewalCest
         $submeasureType  = \Step\Acceptance\Measure::MultipleQuestionAndNumber_MultipleAnswersSubmeasure;
         $questions       = ['Question1?', 'Question2?', 'Question3?'];
         $answers         = ['Opt1', 'Opt2', 'Opt3'];
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions, $answers, null, null, null, null, null,
+                            null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
@@ -349,8 +364,10 @@ class RequiresRenewalCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'no';
         $submeasureType  = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null,
+                            null, null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
@@ -370,8 +387,10 @@ class RequiresRenewalCest
         $auditSubgroup   = $this->audSubgroup1_Energy;
         $quantitative    = 'yes';
         $submeasureType  = \Step\Acceptance\Measure::PopupWasteDivertion_QuantitativeSubmeasure;
+        $sectorArray    = [Page\SectorList::DefaultSectorOfficeRetail];
         
-        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
+        $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, null, null, null, null, null, null,
+                            null, null, null, null, null);
         $I->amOnPage(Page\MeasureList::URL());
         $I->waitForElement(\Page\MeasureList::$CreateMeasureButton);
         $I->canSee(Page\MeasureList::CreateTipButtonName, Page\MeasureList::CreateTipButtonLine_ByDescValue($desc)); 
@@ -429,7 +448,7 @@ class RequiresRenewalCest
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
         $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -645,13 +664,24 @@ class RequiresRenewalCest
         $status = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        
+        $I->cantSee(\Page\BusinessChecklistView::RequiresRenewalStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        $I->cantSee(\Page\BusinessChecklistView::RecertifyStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
         $I->wait(4);
-        $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
-        $I->wait(5);
-        $I->waitForElement(".modal.in", 120);
+        $I->waitForElement(".showSweetAlert.visible", 120);
         $I->wait(1);
-        $I->click(".modal.in .close");
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
         $I->wait(5);
         $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
         $I->canSee("Tier 2", \Page\BusinessChecklistView::LeftMenu_TierName('1'));
@@ -1036,7 +1066,7 @@ class RequiresRenewalCest
         $I->wait(2);
         $I->waitPageLoad();
         $readonly = $I->grabAttributeFrom(\Page\BusinessChecklistView::SubmeasureField_ByMeasureDesc($measDesc, '1'), 'readonly');
-        $I->assertEquals('true', $readonly);
+        $I->assertSame("true", "$readonly");
         $I->canSee("1 Tier 2 measures completed. A minimum of 6 Tier 2 measures are required.", \Page\BusinessChecklistView::$TotalMeasuresInfo_ProgressBar);
         $I->canSeeElement(\Page\BusinessChecklistView::$TotalCompletedMeasures_ProgressBar, ['style' => 'width: 16%;']);
         $I->canSeeElement(\Page\BusinessChecklistView::$CoreCompletedProgressBar, ['style' => 'width: 17%;']);
@@ -1068,7 +1098,7 @@ class RequiresRenewalCest
         $I->scrollTo("[data-measure-id='$this->idMeasure10']");
         $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(3);
+        $I->wait(2);
         $I->click(Page\BusinessChecklistView::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '2'));
         $I->wait(15);
         $I->executeJS('$(".modal.in [name=all_paper_percent]").val("25");'); 
@@ -1150,13 +1180,24 @@ class RequiresRenewalCest
         $status = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        
+        $I->cantSee(\Page\BusinessChecklistView::RequiresRenewalStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        $I->cantSee(\Page\BusinessChecklistView::RecertifyStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
         $I->wait(4);
-        $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
-        $I->wait(5);
-        $I->waitForElement(".modal.in", 120);
+        $I->waitForElement(".showSweetAlert.visible", 120);
         $I->wait(1);
-        $I->click(".modal.in .close");
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
         $I->wait(5);
         $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
         $I->canSee("Tier 2", \Page\BusinessChecklistView::LeftMenu_TierName('1'));
@@ -1583,7 +1624,7 @@ class RequiresRenewalCest
         $I->scrollTo("[data-measure-id='$this->idMeasure5']");
         $I->wait(1);
         $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(4);
+        $I->wait(2);
         $I->click(Page\BusinessChecklistView::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '1'));
         $I->wait(4);
         $I->selectOption(\Page\BusinessChecklistView::$LightingPopup_BuildingTypeSelect, 'Hotel');
@@ -1743,14 +1784,14 @@ class RequiresRenewalCest
      * @group stateadmin
      * @group coordinator
      */
-    
+    /////////////////////////////////////////////////////////////////////////////
     public function ChangeBusiness1StatusToRecognized_3rdApplication(AcceptanceTester $I){
         $status = \Page\BusinessChecklistView::RecognizedStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(5);
-        $I->waitForElement(".modal.in", 120);
+        $I->waitForElement(".modal.in", 200);
         $I->wait(1);
         $I->click(".modal.in .close");
         $I->wait(5);
@@ -1778,10 +1819,11 @@ class RequiresRenewalCest
      * @group coordinator
      */
     
-    public function ChangeBusiness1StatusToRequiresRenewal_3rdApplication(AcceptanceTester $I){
-        $status = \Page\BusinessChecklistView::RequiresRenewalStatus;
+    public function ChangeBusiness1StatusToRecertify_3rdApplication(AcceptanceTester $I){
+        $status = \Page\BusinessChecklistView::RecertifyStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
+        $I->cantSee(\Page\BusinessChecklistView::RequiresRenewalStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(4);
         $I->click(\Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
@@ -1795,7 +1837,7 @@ class RequiresRenewalCest
         $I->cantSeeElement("#communication-user_type");
         $I->click(".modal.in .close");
         $I->wait(5);
-        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::RecertifyingStatus);
         $I->canSee("Tier 2", \Page\BusinessChecklistView::LeftMenu_TierName('1'));
         $I->canSee("3 of 6 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
         $I->canSee("Tier 2", \Page\ApplicationDetails::TierName_BusinessInfoTab(1));
@@ -2183,9 +2225,9 @@ class RequiresRenewalCest
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure7]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure7']");
-        $I->wait(1);
+        $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(1);
+        $I->wait(2);
         $I->click(\Page\BusinessChecklistView::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '1'));
         $I->click(\Page\BusinessChecklistView::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '3'));
         $I->wait(1);
@@ -2220,9 +2262,9 @@ class RequiresRenewalCest
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure9]"], $style = 'visibility');
         $I->wait(2);
         $I->scrollTo("[data-measure-id='$this->idMeasure9']");
-        $I->wait(1);
+        $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(1);
+        $I->wait(2);
         $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
         $I->wait(1);
         $I->click(\Page\BusinessChecklistView::$SaveButton_Footer);
@@ -2258,7 +2300,7 @@ class RequiresRenewalCest
         $I->comment("Complete Measure3 and save.");
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
         $I->makeElementVisible(["[data-measure-id=$this->idMeasure3]"], $style = 'visibility');
-        $I->wait(3);
+        $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
         $I->wait(2);
         $I->selectOption(\Page\BusinessChecklistView::SubmeasureSelect_ByMeasureDesc($measDesc, '1'), $option1);
@@ -2297,6 +2339,9 @@ class RequiresRenewalCest
         $I->comment("Delete Uploaded File To Measure2 and save.");
         $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
         $I->click(\Page\BusinessChecklistView::DeleteButton_UploadedFile_ByDesc($measDesc, '1'));
+        $I->wait(3);
+        $I->canSeeInPopup("Are you sure you want to delete this?");
+        $I->acceptPopup();
         $I->wait(3);
         $I->canSeeElement(\Page\BusinessChecklistView::UploadButton_ByDesc($measDesc));
         $I->cantSeeElement(\Page\BusinessChecklistView::UploadedFile_ByDesc($measDesc, '1'));
@@ -2361,7 +2406,7 @@ class RequiresRenewalCest
         $I->comment("First row (current applicaton):");
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
         $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
-        $I->canSee(Page\ApplicationDetails::InProcessStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
+        $I->canSee(Page\ApplicationDetails::RecertifyingStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate4, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDate4, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
         $I->canSeeElement(Page\ApplicationDetails::ViewButtonLine_RecordsTab('1'));
@@ -2397,15 +2442,18 @@ class RequiresRenewalCest
      * @group coordinator
      */
     
-    public function Business_ChangeStatusToRequiresNewChecklist_PressOnRequiresNewChecklistButton_4thApplication(AcceptanceTester $I){
+    public function Business_ChangeStatusToRecertify_PressOnRequiresNewChecklistButton_4thApplication(AcceptanceTester $I){
         $status = \Page\BusinessChecklistView::RequiresNewChecklistStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        $I->wait(1);
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
         $I->wait(4);
-        $I->click(\Page\BusinessChecklistView::$RequiresNewChecklistButton_BusinessInfoTab);
-        $I->wait(5);
-        $I->waitForElement(".showSweetAlert.visible", 120);
+        $I->waitForElement(".showSweetAlert.visible", 200);
         $I->wait(1);
         $I->cantSee("Send Message");
         $I->cantSee("Create Communication");
@@ -2413,12 +2461,12 @@ class RequiresRenewalCest
         $I->cantSeeElement("#communication-subject");
         $I->cantSeeElement("#communication-user_type");
         $I->click(".showSweetAlert.visible .confirm");
-        $I->wait(5);
-        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
+        $I->wait(10);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::RecertifyingStatus);
         $I->canSee("Tier 2", \Page\BusinessChecklistView::LeftMenu_TierName('1'));
         $I->canSee("6 of 6 measures completed", \Page\BusinessChecklistView::LeftMenu_CompletedMeasuresInfo("1"));
         $I->canSee("Tier 2", \Page\ApplicationDetails::TierName_BusinessInfoTab(1));
-        $I->canSee($this->todayDate, \Page\ApplicationDetails::TierStatus_BusinessInfoTab(1));
+        $I->canSee('(NOT SET)', \Page\ApplicationDetails::TierStatus_BusinessInfoTab(1));
         $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$ApplicationStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
         $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$PhoneConsultStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
         $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$ComplianceCheckStatusSelect_BusinessInfoTab, \Page\ApplicationDetails::PendingStatus_TierTab);
@@ -2592,7 +2640,7 @@ class RequiresRenewalCest
         $I->comment("First row (current applicaton):");
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
         $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
-        $I->canSee(Page\ApplicationDetails::InProcessStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
+        $I->canSee(Page\ApplicationDetails::RecertifyingStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate5, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDate5, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
         $I->canSeeElement(Page\ApplicationDetails::ViewButtonLine_RecordsTab('1'));
@@ -2650,7 +2698,6 @@ class RequiresRenewalCest
         $I->canSeeOptionIsSelected(Page\BusinessChecklistView::ThermsPopup_OptionSelect_Section2('1'), $this->thermName);
         $I->canSeeInField(Page\BusinessChecklistView::ThermsPopup_TotalEstimatedField_Section2('1'), '25');
         $I->canSeeInField(Page\BusinessChecklistView::$ThermsPopup_TotalReadonlyField, $thermsSum);
-//        $I->wait(1);
     }
     
     /**

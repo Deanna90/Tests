@@ -1,14 +1,14 @@
 <?php
 namespace Page;
 
-class PopupLighting_DeerHoursCreate extends PopupLighting_BuildingTypesList
+class PopupLighting_DeerHoursCreate extends \AcceptanceTester
 {
     public static function URL()           {  return parent::$URL_UserAccess.'/popup-lighting-deer-hour/create';}
     public static $Title                   = 'h1';
     
-    public static $BuildingTypeButton      = parent::BuildingTypeButton;
-    public static $DeerHourButton          = parent::DeerHourButton;
-    public static $FixtureMapButton        = parent::FixtureMapButton;
+    public static function BuildingTypeButton()      { return \Page\PopupLighting_BuildingTypesList::BuildingTypeButton;}
+    public static function DeerHourButton()          { return \Page\PopupLighting_BuildingTypesList::DeerHourButton;}
+    public static function FixtureMapButton()        { return \Page\PopupLighting_BuildingTypesList::FixtureMapButton;}
     
     public static $CreateButton            = '[type=submit][class*=success]';
    

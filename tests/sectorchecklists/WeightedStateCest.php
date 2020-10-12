@@ -1,4 +1,4 @@
-f<?php
+<?php
 
 
 class WeightedStateCest
@@ -1345,22 +1345,52 @@ class WeightedStateCest
         $status                 = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1_Prog_W_S1));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        
+        $I->cantSee(\Page\BusinessChecklistView::RequiresRenewalStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        $I->cantSee(\Page\BusinessChecklistView::RecertifyStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
+        $I->wait(4);
+        $I->waitForElement(".showSweetAlert.visible", 120);
         $I->wait(1);
-        $I->waitPageLoad();
-        $I->click(Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
         $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
     }
     
     public function Business2_ChangeStatusToRequiresRenewal(AcceptanceTester $I){
         $status                 = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business2_Prog_NW_S2));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        
+        $I->cantSee(\Page\BusinessChecklistView::RequiresRenewalStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        $I->cantSee(\Page\BusinessChecklistView::RecertifyStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
+        $I->wait(4);
+        $I->waitForElement(".showSweetAlert.visible", 120);
         $I->wait(1);
-        $I->waitPageLoad();
-        $I->click(Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
         $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
     }
     
     //-----------------------Activate Tier 1 for Program1-----------------------
@@ -2938,22 +2968,52 @@ class WeightedStateCest
         $status                 = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1_Prog_W_S1));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        
+        $I->cantSee(\Page\BusinessChecklistView::RequiresRenewalStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        $I->cantSee(\Page\BusinessChecklistView::RecertifyStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
+        $I->wait(4);
+        $I->waitForElement(".showSweetAlert.visible", 120);
         $I->wait(1);
-        $I->waitPageLoad();
-        $I->click(Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
         $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
     }
     
     public function Business2_ChangeStatusToRequiresRenewal2(AcceptanceTester $I){
         $status                 = \Page\BusinessChecklistView::RequiresRenewalStatus;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business2_Prog_NW_S2));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        
+        $I->cantSee(\Page\BusinessChecklistView::RequiresRenewalStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        $I->cantSee(\Page\BusinessChecklistView::RecertifyStatus, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab.' option');
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
+        $I->wait(4);
+        $I->waitForElement(".showSweetAlert.visible", 120);
         $I->wait(1);
-        $I->waitPageLoad();
-        $I->click(Page\BusinessChecklistView::$AddNewChecklistButton_BusinessInfoTab);
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
         $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
     }
     
     

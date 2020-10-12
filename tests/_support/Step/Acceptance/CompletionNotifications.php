@@ -3,7 +3,7 @@ namespace Step\Acceptance;
 
 class CompletionNotifications extends \AcceptanceTester
 {
-    public function CreateCompletionNotification($program = null, $message = null, $auditGroupsArray = null, $sendEmail = 'no', $emailSubject = null, $emailBody = null, $points = null)
+    public function CreateCompletionNotification($program = null, $message = null, $auditGroupsArray = null, $sendEmail = 'no', $emailSubject = null, $emailBody = null, $points = null, $tierComplete = null, $tiersArray = null)
     {
         $I = $this;
         $I->amOnPage(\Page\CompletionNotificationsManage::URL());
@@ -16,6 +16,21 @@ class CompletionNotifications extends \AcceptanceTester
         }
         $I->click(\Page\CompletionNotificationsManage::$NewNotificationButton);
         $I->wait(3);
+        $I->waitPageLoad();
+        if (isset($tierComplete)){
+            $I->click(\Page\CompletionNotificationsCreatePopup::$TypeSelect);
+            $I->wait(2);
+            $I->selectOption(\Page\CompletionNotificationsCreatePopup::$TypeSelect, 'Complete Tier');
+            $I->wait(3);
+        }
+        if (isset($tiersArray)){
+            for ($i=1, $c= count($tiersArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\CompletionNotificationsCreatePopup::$TierNumbersSelect);
+                $I->wait(3);
+                $I->click(\Page\CompletionNotificationsCreatePopup::selectTierNumbersOptionByName($tiersArray[$k]));
+            }
+        }
         switch ($sendEmail){
             case 'no':
                 $I->cantSeeElement(\Page\CompletionNotificationsCreatePopup::$EmailSubjectField);

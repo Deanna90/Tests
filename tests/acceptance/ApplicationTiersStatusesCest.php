@@ -534,7 +534,7 @@ class ApplicationTiersStatusesCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
-        
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\MainMenu::selectMenuItemByName('Dashboard'));
         $I->cantSee('Registration', \Page\MainMenu::$StartedMenuItem_Registration);
         $I->cantSee('Application', \Page\MainMenu::$StartedMenuItem_Application);
@@ -804,7 +804,7 @@ class ApplicationTiersStatusesCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
-        
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\MainMenu::selectMenuItemByName('Dashboard'));
         $I->cantSee('Registration', \Page\MainMenu::$StartedMenuItem_Registration);
         $I->cantSee('Application', \Page\MainMenu::$StartedMenuItem_Application);
@@ -838,7 +838,7 @@ class ApplicationTiersStatusesCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
-        
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\MainMenu::selectMenuItemByName('Dashboard'));
         $I->cantSee('Registration', \Page\MainMenu::$StartedMenuItem_Registration);
         $I->cantSee('Application', \Page\MainMenu::$StartedMenuItem_Application);
@@ -869,7 +869,7 @@ class ApplicationTiersStatusesCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
-        
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\MainMenu::selectMenuItemByName('Dashboard'));
         $I->cantSee('Registration', \Page\MainMenu::$StartedMenuItem_Registration);
         $I->cantSee('Application', \Page\MainMenu::$StartedMenuItem_Application);
@@ -900,7 +900,7 @@ class ApplicationTiersStatusesCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
-        
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\MainMenu::selectMenuItemByName('Dashboard'));
         $I->cantSee('Registration', \Page\MainMenu::$StartedMenuItem_Registration);
         $I->cantSee('Application', \Page\MainMenu::$StartedMenuItem_Application);
@@ -1182,6 +1182,8 @@ class ApplicationTiersStatusesCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
         
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
+        
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
         $I->cantSeeElement(\Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Disqualified_Filter));
@@ -1360,7 +1362,7 @@ class ApplicationTiersStatusesCest
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
         $I->wait(3);
-        
+        $I->waitPageLoad();
         $I->canSeeElement(\Page\MainMenu::selectMenuItemByName('Dashboard'));
         $I->cantSee('Registration', \Page\MainMenu::$StartedMenuItem_Registration);
         $I->cantSee('Application', \Page\MainMenu::$StartedMenuItem_Application);
@@ -1409,6 +1411,8 @@ class ApplicationTiersStatusesCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -1608,6 +1612,8 @@ class ApplicationTiersStatusesCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
         
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
+        
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
@@ -1646,192 +1652,196 @@ class ApplicationTiersStatusesCest
         $I->reloadPage();
         $I->waitPageLoad();
     }
-    
-    public function Help1_18_Dashboard234(AcceptanceTester $I){
-        $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
-        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
-        
-        $I->canSee('2', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
-        $I->canSee('2', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::PhoneConsult_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::SiteVisit_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Audit_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ComplianceCheck_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier1_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
-        
-        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
-    }
-    
-    public function Dashboard_CheckCurrentTiers_AfterChangingStatusToRecognized(AcceptanceTester $I){
-        $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business1)); //Tier3 current
-        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business1));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business1));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business1));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business1));
-        
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
-        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
-        
-        $I->canSee("tiername1", \Page\Dashboard::TierName_ByBusName($this->business3));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-    }
-    
-    public function Business3_MarkTier2_AsCompleted(AcceptanceTester $I){
-        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId3));
-        $I->click(\Page\ApplicationDetails::TierToggleButton_BusinessInfoTab('2'));
-        $I->wait(3);
-//        $I->waitPageLoad();
-        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('1'));
-        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('2'));
-        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('3'));
-    }
-    
-    public function Help1_18_Dashboard23(AcceptanceTester $I){
-        $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
-        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
-        
-        $I->canSee('2', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
-        $I->canSee('2', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::PhoneConsult_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::SiteVisit_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Audit_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ComplianceCheck_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier1_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
-        
-        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
-    }
-    
-    public function Dashboard_CheckCurrentTiers_ChangingStatusToRecognized2(AcceptanceTester $I){
-        $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business1)); //Tier3 current
-        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business1));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business1));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business1));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business1));
-        
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
-        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
-        
-        $I->canSee("tiername1", \Page\Dashboard::TierName_ByBusName($this->business3));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-    }
-    
-    public function Business3_MarkTier3_AsNotCompleted(AcceptanceTester $I){
-        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId3));
-        $I->click(\Page\ApplicationDetails::TierToggleButton_BusinessInfoTab('3'));
-        $I->wait(3);
-//        $I->waitPageLoad();
-        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('1'));
-        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('2'));
-        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('3'));
-    }
-    
-    public function Help1_18_Dashboard233(AcceptanceTester $I){
-        $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
-        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
-        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
-        
-        $I->canSee('2', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
-        $I->canSee('2', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::PhoneConsult_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::SiteVisit_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Audit_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ComplianceCheck_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier1_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
-        
-        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
-        
-        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
-    }
-    
-    public function Dashboard_CheckCurrentTiers_ChangingStatusToRecognized23(AcceptanceTester $I){
-        $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business1)); //Tier3 current
-        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business1));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business1));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business1));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business1));
-        
-        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
-        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
-        $I->canSee("Passed", \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
-        
-        $I->canSee("tiername1", \Page\Dashboard::TierName_ByBusName($this->business3));
-        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
-        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
-    }
+//    
+//    public function Help1_18_Dashboard234(AcceptanceTester $I){
+//        $I->amOnPage(\Page\Dashboard::URL());
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
+//        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
+//        
+//        $I->canSee('2', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
+//        $I->canSee('2', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::PhoneConsult_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::SiteVisit_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Audit_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ComplianceCheck_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier1_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
+//        
+//        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
+//    }
+//    
+//    public function Dashboard_CheckCurrentTiers_AfterChangingStatusToRecognized(AcceptanceTester $I){
+//        $I->amOnPage(\Page\Dashboard::URL());
+//        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business1)); //Tier3 current
+//        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business1));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business1));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business1));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business1));
+//        
+//        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
+//        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
+//        
+//        $I->canSee("tiername1", \Page\Dashboard::TierName_ByBusName($this->business3));
+//        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
+//    }
+//    
+//    public function Business3_MarkTier2_AsCompleted(AcceptanceTester $I){
+//        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId3));
+//        $I->click(\Page\ApplicationDetails::TierToggleButton_BusinessInfoTab('2'));
+//        $I->wait(3);
+////        $I->waitPageLoad();
+//        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('1'));
+//        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('2'));
+//        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('3'));
+//    }
+//    
+//    public function Help1_18_Dashboard23(AcceptanceTester $I){
+//        $I->amOnPage(\Page\Dashboard::URL());
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
+//        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
+//        
+//        $I->canSee('2', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
+//        $I->canSee('2', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::PhoneConsult_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::SiteVisit_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Audit_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ComplianceCheck_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier1_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
+//        
+//        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
+//    }
+//    
+//    public function Dashboard_CheckCurrentTiers_ChangingStatusToRecognized2(AcceptanceTester $I){
+//        $I->amOnPage(\Page\Dashboard::URL());
+//        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business1)); //Tier3 current
+//        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business1));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business1));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business1));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business1));
+//        
+//        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
+//        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
+//        
+//        $I->canSee("tiername1", \Page\Dashboard::TierName_ByBusName($this->business3));
+//        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
+//    }
+//    
+//    public function Business3_MarkTier3_AsNotCompleted(AcceptanceTester $I){
+//        $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId3));
+//        $I->click(\Page\ApplicationDetails::TierToggleButton_BusinessInfoTab('3'));
+//        $I->wait(3);
+////        $I->waitPageLoad();
+//        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('1'));
+//        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('2'));
+//        $I->canSee($this->todayDate, Page\ApplicationDetails::TierStatus_BusinessInfoTab('3'));
+//    }
+//    
+//    public function Help1_18_Dashboard233(AcceptanceTester $I){
+//        $I->amOnPage(\Page\Dashboard::URL());
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business1));
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business2));
+//        $I->canSeeElement(\Page\Dashboard::BusinessLink_ByBusName($this->business3));
+//        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
+//        
+//        $I->canSee('2', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
+//        $I->canSee('2', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::PhoneConsult_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::SiteVisit_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Audit_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ComplianceCheck_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier1_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
+//        
+//        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
+//        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
+//        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::MovedClosed_Filter));
+//        
+//        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::NotSuitable_Filter));
+//    }
+//    
+//    public function Dashboard_CheckCurrentTiers_ChangingStatusToRecognized23(AcceptanceTester $I){
+//        $I->amOnPage(\Page\Dashboard::URL());
+//        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business1)); //Tier3 current
+//        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business1));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business1));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business1));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business1));
+//        
+//        $I->canSee("Tier 2", \Page\Dashboard::TierName_ByBusName($this->business2));
+//        $I->canSee("In progress", \Page\Dashboard::TierStatus_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfAudits_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business2));
+//        $I->canSee("Passed", \Page\Dashboard::StatusOfApplication_ByBusName($this->business2));
+//        
+//        $I->canSee("tiername1", \Page\Dashboard::TierName_ByBusName($this->business3));
+//        $I->canSee($this->todayDate, \Page\Dashboard::TierStatus_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfAudits_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfCompliance_ByBusName($this->business3));
+//        $I->canSee("In progress", \Page\Dashboard::StatusOfApplication_ByBusName($this->business3));
+//    }
 }

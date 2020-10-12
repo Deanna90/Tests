@@ -264,7 +264,7 @@ class RecordsAndNeedsRenewalListCest
      * @group coordinator
      */
     
-    public function CreateCoordinatorUser_ForProgram2(Step\Acceptance\User $I)
+    public function CreateCoordinatorUser_ForProgram1(Step\Acceptance\User $I)
     {
         $userType  = Page\UserCreate::coordinatorType;
         $email     = $this->emailCoordinator = $I->GenerateEmail();
@@ -273,7 +273,7 @@ class RecordsAndNeedsRenewalListCest
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone);
         $I->reloadPage();
         $I->waitPageLoad();
         $I->click(Page\UserUpdate::$AddStateButton);
@@ -414,6 +414,7 @@ class RecordsAndNeedsRenewalListCest
     /**
      * @group admin
      * @group stateadmin
+     * @group coordinator
      */
     
     public function Help_DashboardHelp(AcceptanceTester $I){
@@ -454,7 +455,10 @@ class RecordsAndNeedsRenewalListCest
         $this->todayDate  = date("m/d/Y");
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        $I->canSeeOptionIsSelected(\Page\ApplicationDetails::$StatusSelect_BusinessInfoTab, $status);
+        //$I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
         $I->wait(2);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
@@ -615,12 +619,16 @@ class RecordsAndNeedsRenewalListCest
 //        $renewalDate     = '10/25/2017';
         
         $Recog            = strtotime("-9 months", strtotime($this->todayDate));
-        $Renew            = strtotime("+3 months", strtotime($this->todayDate));
         $lastModifiedDate = "(not set)";
         $recognitionDate  = date("m/d/Y", $Recog);
+        $Renew            = strtotime("+12 months", strtotime($recognitionDate));
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->fillField(\Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$SaveDateButton_BusinessInfoTab);
@@ -655,7 +663,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -709,6 +718,10 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->fillField(\Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$SaveDateButton_BusinessInfoTab);
@@ -743,7 +756,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -797,6 +811,10 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->fillField(\Page\BusinessChecklistView::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\BusinessChecklistView::$SaveDateButton_BusinessInfoTab);
@@ -883,6 +901,10 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = $this->todayDate;
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->fillField(\Page\BusinessChecklistView::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\BusinessChecklistView::$SaveDateButton_BusinessInfoTab);
@@ -917,7 +939,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -971,6 +994,10 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->fillField(\Page\BusinessChecklistView::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\BusinessChecklistView::$SaveDateButton_BusinessInfoTab);
@@ -1005,7 +1032,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -1060,6 +1088,10 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->fillField(\Page\BusinessChecklistView::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\BusinessChecklistView::$SaveDateButton_BusinessInfoTab);
@@ -1094,7 +1126,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -1149,6 +1182,10 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->fillField(\Page\BusinessChecklistView::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\BusinessChecklistView::$SaveDateButton_BusinessInfoTab);
@@ -1183,7 +1220,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -1238,8 +1276,12 @@ class RecordsAndNeedsRenewalListCest
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(3);
+        $I->wait(5);
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->canSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -1324,7 +1366,11 @@ class RecordsAndNeedsRenewalListCest
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(3);
+        $I->wait(5);
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->cantSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -1355,7 +1401,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -1410,7 +1457,7 @@ class RecordsAndNeedsRenewalListCest
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(3);
+        $I->wait(5);
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
@@ -1496,7 +1543,7 @@ class RecordsAndNeedsRenewalListCest
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(3);
+        $I->wait(5);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->cantSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -1527,7 +1574,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -1572,8 +1620,8 @@ class RecordsAndNeedsRenewalListCest
      * @group coordinator
      */
     
-    public function ChangeStatusToRequiresRenewalFromRecognized2(AcceptanceTester $I){
-        $status                 = \Page\ApplicationDetails::RequiresRenewalStatus;
+    public function ChangeStatusToRecertifyFromRecognized2(AcceptanceTester $I){
+        $status                 = \Page\ApplicationDetails::RecertifyStatus;
         $Recog                  = strtotime("-2 years +1 day", strtotime($this->todayDate));
         $Renew                  = strtotime("-1 year +1 day", strtotime($this->todayDate));
         $lastModifiedDate       = "(not set)";
@@ -1584,8 +1632,11 @@ class RecordsAndNeedsRenewalListCest
         $renewalDateRecords     = "(not set)";
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(3);
+        $I->wait(5);
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDateArchive);
         $I->comment("Check on Need Renewal list when new checklist wasn't added");
         $I->amOnPage(\Page\NeedRenewalList::URL());
@@ -1605,6 +1656,9 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeOptionIsSelected(Page\ApplicationDetails::$StatusSelect_BusinessInfoTab, Page\ApplicationDetails::RecognizedStatus);
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDateArchive);
         
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(3);
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDateArchive);
@@ -1619,7 +1673,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
         $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
-        $I->canSee(Page\ApplicationDetails::InProcessStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
+        $I->canSee(Page\ApplicationDetails::RecertifyingStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDateRecords, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDateRecords, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
         $I->canSeeElement(Page\ApplicationDetails::ViewButtonLine_RecordsTab('1'));
@@ -1631,7 +1685,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeElement(Page\ApplicationDetails::ViewButtonLine_RecordsTab('2'));
         $I->comment("Check on Business Info Tab when new checklist was added");
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
-        $I->canSeeOptionIsSelected(Page\ApplicationDetails::$StatusSelect_BusinessInfoTab, Page\ApplicationDetails::InProcessStatus);
+        $I->canSeeOptionIsSelected(Page\ApplicationDetails::$StatusSelect_BusinessInfoTab, Page\ApplicationDetails::RecertifyingStatus);
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
     }
     
@@ -1641,13 +1695,14 @@ class RecordsAndNeedsRenewalListCest
      * @group coordinator
      */
     
-    public function CheckFilterOnDashboard14_ToRequiresRenewalFromRecognized2(AcceptanceTester $I){
+    public function CheckFilterOnDashboard14_ToRecertifyFromRecognized2(AcceptanceTester $I){
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
-        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
@@ -1659,12 +1714,14 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
         
-        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("1", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -1677,7 +1734,7 @@ class RecordsAndNeedsRenewalListCest
         $I->wait(2);
         $I->waitForElement("label[data-key=all].active", 60);
         $I->wait(2);
-        $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
+        $I->canSee(\Page\Dashboard::Recertifying_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business1));
         $I->canSee("(not set)", \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business1));
         $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
         $I->cantSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business1));
@@ -1708,8 +1765,12 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate            = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId1));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        //$I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(3);
+        $I->wait(5);
         $I->canSeeInField(Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDateDefault);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
@@ -1772,7 +1833,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -1788,11 +1850,13 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("1", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -1852,16 +1916,22 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Renotify Business1 on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
-        $I->click(\Page\NeedRenewalList::RenotifyButtonLine_ByBusName($this->business1));
-        $I->wait(3);
+        $I->click(\Page\NeedRenewalList::NotifyButtonLine_ByBusName($this->business1));
+        $I->wait(5);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->wait(1);
+        $I->cantSeeElement(Page\CommunicationCreatePopup::$SendMessagePopup_UserTypeSelect);
+        $I->canSeeInField(Page\CommunicationCreatePopup::$SendMessagePopup_SubjectField, $subject);
+        $I->click(Page\CommunicationCreatePopup::$SendMessagePopup_SendButton);
+        $I->wait(10);
         $I->waitPageLoad();
-        $I->canSee($this->todayDate, Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business1));
+        $I->canSee('', Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business1));
         $I->canSee('', Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business1));
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->busId1));
         $I->canSee($this->program1, Page\ApplicationDetails::SenderLine_CommunicationTab('1'));
         $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab('1'));
-        $I->canSee('3 seconds ago', Page\ApplicationDetails::SentLine_CommunicationTab('1'));
+        //$I->canSee('3 seconds ago', Page\ApplicationDetails::SentLine_CommunicationTab('1'));
         $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab('1'));
         $I->wait(1);
         $I->waitPageLoad();
@@ -1913,10 +1983,10 @@ class RecordsAndNeedsRenewalListCest
         $I->comment("1. Extend 3 Months for Business1 on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->click(\Page\NeedRenewalList::Extend3MonthButtonLine_ByBusName($this->business1));
-        $I->wait(4);
+        $I->wait(5);
         $I->waitPageLoad();
         $I->canSee($renewalDatePlus3Months, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business1));
-        $I->canSee($this->todayDate, Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business1));
+        $I->canSee('', Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business1));
         $I->canSee($this->todayDate, Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business1));
         $I->comment("Check on Records Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
@@ -1936,10 +2006,10 @@ class RecordsAndNeedsRenewalListCest
         $I->comment("2. Extend 3 Months for Business1 on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->click(\Page\NeedRenewalList::Extend3MonthButtonLine_ByBusName($this->business1));
-        $I->wait(4);
+        $I->wait(5);
         $I->waitPageLoad();
         $I->canSee($renewalDatePlus6Months, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business1));
-        $I->canSee($this->todayDate, Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business1));
+        $I->canSee('', Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business1));
         $I->canSee("$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business1));
         $I->comment("Check on Records Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
@@ -1959,11 +2029,11 @@ class RecordsAndNeedsRenewalListCest
         $I->comment("3. Extend 3 Months for Business1 on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->click(\Page\NeedRenewalList::Extend3MonthButtonLine_ByBusName($this->business1));
-        $I->wait(4);
+        $I->wait(5);
         $I->waitPageLoad();
         $I->comment("Maybe fail here if today is 29-31 day in month. It's okay. Fail on next row:");
         $I->canSee($renewalDatePlus9Months, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business1));
-        $I->canSee($this->todayDate, Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business1));
+        $I->canSee('', Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business1));
         $I->canSee("$this->todayDate\n$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business1));
         $I->comment("Check on Records Tab");
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId1));
@@ -1993,7 +2063,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -2009,11 +2080,13 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("1", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -2054,11 +2127,11 @@ class RecordsAndNeedsRenewalListCest
         $I->fillField(\Page\BusinessChecklistView::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\BusinessChecklistView::$SaveDateButton_BusinessInfoTab);
-        $I->wait(2);
+        $I->wait(4);
         $I->comment("Decertify from Need Renewal list page");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->click(\Page\NeedRenewalList::DecertifyButtonLine_ByBusName($this->business1));
-        $I->wait(4);
+        $I->wait(5);
         $I->cantSeeElement(Page\NeedRenewalList::CompanyNameLine_ByBusName($this->business1));
         $I->canSeeElement(Page\NeedRenewalList::$EmptyListLabel);
         $I->comment("Check on Records Tab");
@@ -2102,6 +2175,8 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("0", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -2377,10 +2452,26 @@ class RecordsAndNeedsRenewalListCest
         $renewalDateArchive      = "(not set)";
                 
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId2));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
-        $I->click(\Page\ApplicationDetails::$AddNewChecklistButton_BusinessInfoTab);
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
         $I->wait(4);
+        $I->waitForElement(".showSweetAlert.visible", 120);
+        $I->wait(1);
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
+        $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->canSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -2441,6 +2532,8 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("0", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
         
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
+        
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
         $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Nonresponsive_Filter));
@@ -2500,10 +2593,26 @@ class RecordsAndNeedsRenewalListCest
         $renewalDateArchive1      = "(not set)";
                 
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId2));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
-        $I->click(\Page\ApplicationDetails::$AddNewChecklistButton_BusinessInfoTab);
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
         $I->wait(4);
+        $I->waitForElement(".showSweetAlert.visible", 120);
+        $I->wait(1);
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
+        $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->canSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -2570,6 +2679,8 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("0", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -2639,7 +2750,7 @@ class RecordsAndNeedsRenewalListCest
         $I->fillField(\Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$SaveDateButton_BusinessInfoTab);
-        $I->wait(2);
+        $I->wait(4);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->cantSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -2690,7 +2801,8 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('5', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
         $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
@@ -2711,6 +2823,8 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("1", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -2757,7 +2871,7 @@ class RecordsAndNeedsRenewalListCest
      */
     
     public function ChangeStatusToRequiresRenewalFromRecognized_Business2(AcceptanceTester $I){
-        $status           = \Page\BusinessChecklistView::RequiresRenewalStatus;
+        $status           = \Page\BusinessChecklistView::RecertifyStatus;
         $lastModifiedDate = $this->todayDate;
         $recognitionDate  = "(not set)";
         $renewalDate      = "(not set)";
@@ -2777,10 +2891,14 @@ class RecordsAndNeedsRenewalListCest
         $renewalDateArchive1      = "(not set)";
                 
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId2));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(2);
         $I->click(\Page\ApplicationDetails::$AddNewChecklistButton_BusinessInfoTab);
-        $I->wait(4);
+        $I->wait(5);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->canSeeElement(\Page\NeedRenewalList::CompanyNameLine_ByBusName($this->business2));
@@ -2789,7 +2907,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId2));
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
         $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
-        $I->canSee(Page\ApplicationDetails::InProcessStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
+        $I->canSee(Page\ApplicationDetails::RecertifyingStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDate, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
         $I->canSeeElement(Page\ApplicationDetails::ViewButtonLine_RecordsTab('1'));
@@ -2834,10 +2952,11 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('5', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
-        $I->canSee('4', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
@@ -2849,12 +2968,14 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
         
-        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("1", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -2871,7 +2992,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business1));
         
-        $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
+        $I->canSee(\Page\Dashboard::Recertifying_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business2));
         $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business2));
         $I->cantSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business2));
@@ -2923,10 +3044,26 @@ class RecordsAndNeedsRenewalListCest
         $renewalDateArchive1      = "(not set)";
                 
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId2));
-        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(2);
-        $I->click(\Page\ApplicationDetails::$AddNewChecklistButton_BusinessInfoTab);
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        //$I->canSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
+        $I->click(\Page\BusinessChecklistView::$LeftMenu_GetNewChecklistButton);
+        $I->wait(3);
+        $I->canSee("Are you sure?");
+        $I->canSee("You really want requires new checklist?");
+        $I->click(".confirm");
         $I->wait(4);
+        $I->waitForElement(".showSweetAlert.visible", 120);
+        $I->wait(1);
+        $I->cantSee("Send Message");
+        $I->cantSee("Create Communication");
+        $I->cantSee("Subject");
+        $I->cantSeeElement("#communication-subject");
+        $I->cantSeeElement("#communication-user_type");
+        $I->click(".showSweetAlert.visible .confirm");
+        $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::RecertifyingStatus);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->canSeeElement(\Page\NeedRenewalList::CompanyNameLine_ByBusName($this->business2));
@@ -2935,7 +3072,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId2));
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
         $I->canSee($lastModifiedDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
-        $I->canSee(Page\ApplicationDetails::InProcessStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
+        $I->canSee(Page\ApplicationDetails::RecertifyingStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDate, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
         $I->canSeeElement(Page\ApplicationDetails::ViewButtonLine_RecordsTab('1'));
@@ -2987,10 +3124,11 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 1 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('5', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
-        $I->canSee('4', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
@@ -3002,12 +3140,14 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
         
-        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("1", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -3026,7 +3166,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business1));
         
-        $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
+        $I->canSee(\Page\Dashboard::Recertifying_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business2));
         $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business2));
         $I->cantSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business2));
@@ -3062,6 +3202,10 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId3));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(3);
         $I->reloadPage();
@@ -3069,7 +3213,7 @@ class RecordsAndNeedsRenewalListCest
         $I->fillField(\Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$SaveDateButton_BusinessInfoTab);
-        $I->wait(2);
+        $I->wait(4);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->cantSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -3104,14 +3248,18 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId4));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(3);
+        $I->wait(4);
         $I->reloadPage();
         $I->waitPageLoad();
         $I->fillField(\Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$SaveDateButton_BusinessInfoTab);
-        $I->wait(2);
+        $I->wait(4);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->cantSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -3146,14 +3294,18 @@ class RecordsAndNeedsRenewalListCest
         $renewalDate      = date("m/d/Y", $Renew);
         
         $I->amOnPage(\Page\ApplicationDetails::URL_BusinessInfo($this->busId5));
+        
+        $I->cantSee(\Page\ApplicationDetails::RequiresRenewalStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        $I->cantSee(\Page\ApplicationDetails::RecertifyStatus, \Page\ApplicationDetails::$StatusSelect_BusinessInfoTab." option");
+        
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
-        $I->wait(3);
+        $I->wait(4);
         $I->reloadPage();
         $I->waitPageLoad();
         $I->fillField(\Page\ApplicationDetails::$RecognitionDateField_BusinessInfoTab, $recognitionDate);
         $I->wait(1);
         $I->click(\Page\ApplicationDetails::$SaveDateButton_BusinessInfoTab);
-        $I->wait(2);
+        $I->wait(4);
         $I->comment("Check on Need Renewal list");
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->cantSeeElement(\Page\NeedRenewalList::$EmptyListLabel);
@@ -3196,10 +3348,11 @@ class RecordsAndNeedsRenewalListCest
         
         $I->comment("Check on Dashboard");
         $I->amOnPage(\Page\Dashboard::URL());
-        $I->canSee("Alert you have 4 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
+        $I->cantSeeElement(\Page\Dashboard::$NeedRenewalBusinessesAlert);
+//        $I->canSee("Alert you have 4 companies", \Page\Dashboard::$NeedRenewalBusinessesAlert);
         $I->canSee('5', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::All_Filter));
         
-        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::ChecklistSubmission3_Filter));
@@ -3211,12 +3364,14 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::Tier3_Filter));
         
-        $I->canSee('4', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
-        $I->canSee('1', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
+        $I->canSee('3', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter));
+        $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Recertification_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier1_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier2_Filter));
         $I->canSee('0', \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::Tier3_Filter));
         $I->canSee("4", \Page\Dashboard::FilterSubItemCount_ByFilterName(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::PendingRenewals_Filter));
+        
+        $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Recertifying_Filter));
         
         $I->canSee('1', \Page\Dashboard::FilterItemCount_ByFilterName(\Page\Dashboard::Decertified_Filter));
         
@@ -3235,9 +3390,9 @@ class RecordsAndNeedsRenewalListCest
         $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business1));
         $I->canSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business1));
         
-        $I->canSee(\Page\Dashboard::InProcess_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
+        $I->canSee(\Page\Dashboard::Recertifying_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business2));
         $I->canSee($recognitionDate, \Page\Dashboard::Date_StatusOfBus_ByBusName($this->business2));
-        $I->canSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business2));
+        $I->cantSeeElement(\Page\Dashboard::CertificationDate_ByBusName($this->business2));
         $I->cantSeeElement(\Page\Dashboard::CertificationDateLabel_ByBusName($this->business2));
         
         $I->canSee(\Page\Dashboard::Recognized_Filter, \Page\Dashboard::StatusOfBusiness_ByBusName($this->business3));
@@ -3290,22 +3445,34 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\NeedRenewalList::URL());
         $I->canSee($renewalDateArchive3, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business2));
         
-        $I->click(\Page\NeedRenewalList::RenotifyButtonLine_ByBusName($this->business2));
-        $I->wait(3);
-        $I->canSee($this->todayDate, Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
+        $I->click(\Page\NeedRenewalList::NotifyButtonLine_ByBusName($this->business2));
+        $I->wait(5);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->wait(1);
+        $I->cantSeeElement(Page\CommunicationCreatePopup::$SendMessagePopup_UserTypeSelect);
+        $I->canSeeInField(Page\CommunicationCreatePopup::$SendMessagePopup_SubjectField, $subject);
+        $I->click(Page\CommunicationCreatePopup::$SendMessagePopup_SendButton);
+        $I->wait(13);
+        $I->canSee('', Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
         $I->canSee('', Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business2));
         $I->canSee($renewalDateArchive3, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business2));
         
         $I->click(\Page\NeedRenewalList::RenotifyButtonLine_ByBusName($this->business2));
-        $I->wait(3);
-        $I->canSee("$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
+        $I->wait(5);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->wait(1);
+        $I->cantSeeElement(Page\CommunicationCreatePopup::$SendMessagePopup_UserTypeSelect);
+        $I->canSeeInField(Page\CommunicationCreatePopup::$SendMessagePopup_SubjectField, $subject);
+        $I->click(Page\CommunicationCreatePopup::$SendMessagePopup_SendButton);
+        $I->wait(13);
+        $I->canSee("$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
         $I->canSee('', Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business2));
         $I->comment("-----");
         $I->canSee($renewalDateArchive3, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business2));
         
         $I->click(\Page\NeedRenewalList::Extend3MonthButtonLine_ByBusName($this->business2));
-        $I->wait(3);
-        $I->canSee("$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
+        $I->wait(4);
+        $I->canSee("$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
         $I->canSee("$this->todayDate", Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business2));
         $I->comment("-----");
         $I->comment("Previous Expiration Date: $renewalDateArchive3");
@@ -3318,13 +3485,19 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee($renewalDateArchive3, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business2));
         
         $I->click(\Page\NeedRenewalList::RenotifyButtonLine_ByBusName($this->business2));
-        $I->wait(3);
-        $I->canSee("$this->todayDate\n$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
+        $I->wait(5);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->wait(1);
+        $I->cantSeeElement(Page\CommunicationCreatePopup::$SendMessagePopup_UserTypeSelect);
+        $I->canSeeInField(Page\CommunicationCreatePopup::$SendMessagePopup_SubjectField, $subject);
+        $I->click(Page\CommunicationCreatePopup::$SendMessagePopup_SendButton);
+        $I->wait(13);
+        $I->canSee("$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
         $I->canSee("$this->todayDate", Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business2));
         
         $I->click(\Page\NeedRenewalList::Extend3MonthButtonLine_ByBusName($this->business2));
-        $I->wait(3);
-        $I->canSee("$this->todayDate\n$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
+        $I->wait(4);
+        $I->canSee("$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business2));
         $I->canSee("$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business2));
         $I->comment("-----");
         $I->comment("Previous Expiration Date: $renewalDateArchive3");
@@ -3351,7 +3524,7 @@ class RecordsAndNeedsRenewalListCest
         $I->amOnPage(\Page\ApplicationDetails::URL_Records($this->busId2));
         $I->canSee($this->todayDate, Page\ApplicationDetails::CreatedLine_RecordsTab('1'));
         $I->canSee($this->todayDate, Page\ApplicationDetails::LastModifiedLine_RecordsTab('1'));
-        $I->canSee(Page\ApplicationDetails::InProcessStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
+        $I->canSee(Page\ApplicationDetails::RecertifyingStatus, Page\ApplicationDetails::StatusLine_RecordsTab('1'));
         $I->canSee($recognitionDate, Page\ApplicationDetails::RecognitionLine_RecordsTab('1'));
         $I->canSee($renewalDate, Page\ApplicationDetails::RenewalLine_RecordsTab('1'));
         $I->canSeeElement(Page\ApplicationDetails::ViewButtonLine_RecordsTab('1'));
@@ -3411,7 +3584,7 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('', Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business3));
         
         $I->click(\Page\NeedRenewalList::Extend3MonthButtonLine_ByBusName($this->business3));
-        $I->wait(3);
+        $I->wait(4);
         $I->canSee("", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business3));
         $I->canSee("$this->todayDate", Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business3));
         $I->comment("-----");
@@ -3458,14 +3631,26 @@ class RecordsAndNeedsRenewalListCest
         $I->canSee('', Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business4));
         $I->canSee('', Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business4));
         
-        $I->click(\Page\NeedRenewalList::RenotifyButtonLine_ByBusName($this->business4));
-        $I->wait(3);
-        $I->canSee("$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business4));
+        $I->click(\Page\NeedRenewalList::NotifyButtonLine_ByBusName($this->business4));
+        $I->wait(5);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->wait(1);
+        $I->cantSeeElement(Page\CommunicationCreatePopup::$SendMessagePopup_UserTypeSelect);
+        $I->canSeeInField(Page\CommunicationCreatePopup::$SendMessagePopup_SubjectField, $subject);
+        $I->click(Page\CommunicationCreatePopup::$SendMessagePopup_SendButton);
+        $I->wait(13);
+        $I->canSee("", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business4));
         $I->canSee("", Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business4));
         $I->canSee($renewalDate, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business4));
         $I->click(\Page\NeedRenewalList::RenotifyButtonLine_ByBusName($this->business4));
-        $I->wait(3);
-        $I->canSee("$this->todayDate\n$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business4));
+        $I->wait(5);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->wait(1);
+        $I->cantSeeElement(Page\CommunicationCreatePopup::$SendMessagePopup_UserTypeSelect);
+        $I->canSeeInField(Page\CommunicationCreatePopup::$SendMessagePopup_SubjectField, $subject);
+        $I->click(Page\CommunicationCreatePopup::$SendMessagePopup_SendButton);
+        $I->wait(13);
+        $I->canSee("$this->todayDate", Page\NeedRenewalList::ReNotifyDateLine_ByBusName($this->business4));
         $I->canSee("", Page\NeedRenewalList::ExtendedDateLine_ByBusName($this->business4));
         $I->canSee($renewalDate, Page\NeedRenewalList::ExpirationDateLine_ByBusName($this->business4));
         

@@ -20,13 +20,13 @@ class LandingForTier extends \AcceptanceTester
     public static $GreenColor            = "[@style='background-color: rgba(111, 183, 80, 0.20);']";
     public static $GrayColor             = "[@style='background-color: #f8f8f8']";
     
-    public static function Line($row)                { return "#w1>div:nth-of-type($row)>div"; }
-    public static function TitleLine($row)           { return "#w1>div:nth-of-type($row)>div>p:nth-of-type(1)"; }
-    public static function DescriptionLine($row)     { return "#w1>div:nth-of-type($row)>div>p:nth-of-type(2)"; }
+    public static function Line($row)                { return "#w2>div:nth-of-type($row)>div"; }
+    public static function TitleLine($row)           { return "#w2>div:nth-of-type($row)>div>p:nth-of-type(1)"; }
+    public static function DescriptionLine($row)     { return "#w2>div:nth-of-type($row)>div>p:nth-of-type(2)"; }
     
-    public static function Line_ByTitle($title)              { return "//*[@id='w1']/div/div[contains(p[1]/text(), '$title')]"; }
-    public static function TitleLine_ByTitle($title)         { return "//*[@id='w1']/div/div/p[1][text()='$title']"; }
-    public static function DescriptionLine_ByTitle($title)   { return "//*[@id='w1']/div/div[contains(p[1]/text(), '$title')]/p[2]"; }
+    public static function Line_ByTitle($title)              { return "//*[@id='w2']/div/div[contains(p[1]/text(), '$title')]"; }
+    public static function TitleLine_ByTitle($title)         { return "//*[@id='w2']/div/div/p[1][text()='$title']"; }
+    public static function DescriptionLine_ByTitle($title)   { return "//*[@id='w2']/div/div[contains(p[1]/text(), '$title')]/p[2]"; }
     
     public static $BenefitsBlock                      = '.benefits';
     public static $Title_BenefitsBlock                = '.short-benefits-title';

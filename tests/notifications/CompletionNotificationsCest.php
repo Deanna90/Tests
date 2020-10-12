@@ -42,6 +42,11 @@ class CompletionNotificationsCest
     public $Subject_P2L_message_Community_EMAIL, $Body_P2L_message_Community_EMAIL, $Subject_P2L_message_Water_EMAIL, $Body_P2L_message_Water_EMAIL;
     public $P3L_message_Energy_Pollution;
     
+    public $subject_SL_Tier2_EMAIL, $body_SL_Tier2_EMAIL;
+    public $subject_P1L_Tier2_3_EMAIL, $body_P1L_Tier2_EMAIL, $body_P1L_Tier3_EMAIL;
+    public $subject_P2L_Tier2_EMAIL, $body_P2L_Tier2_EMAIL, $message_P2L_Tier2_EMAIL;
+    public $subject_P3L_Tier3_EMAIL, $body_P3L_Tier3_EMAIL, $message_P3L_Tier3_EMAIL, $body_SL_Tier2_EMAIL_P3;
+    
     /**
      * @group admin
      * @group stateadmin
@@ -577,7 +582,7 @@ class CompletionNotificationsCest
         $password  = $confirmPassword = $this->password;
         $phone     = $I->GeneratePhoneNumber();
         
-        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null, $showInfo = 'off');
+        $I->CreateUser($userType, $email, $firstName, $lastName, $password, $confirmPassword, $phone, null);
         $I->wait(1);
         $I->reloadPage();
         $I->waitPageLoad();
@@ -816,6 +821,28 @@ class CompletionNotificationsCest
         $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody);
     }
     
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function StateLevel_CreateCompletionNotification_Tier2_Email(\Step\Acceptance\CompletionNotifications $I) {
+        $program = null;
+        $message = null;
+        $auditGroupsArray = null;
+        $sendEmail = 'yes';
+        $this->subject_SL_Tier2_EMAIL = $emailSubject = $I->GenerateNameOf("Email subject State Level--Tier 2 ");
+        $emailBody = "Email body State Level--Tier 2--Email {business_name} has completed all the measures in the {tier_level}";
+        $this->body_SL_Tier2_EMAIL_P3 = "Email body State Level--Tier 2--Email $this->business3 has completed all the measures in the Tier 2";
+        $tierComplete = '1';
+        $tiersArray = ['Tier 2'];
+        
+        $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody, null, $tierComplete, $tiersArray);
+    }
+    //___________________________________________________
+    
     /**
      * @group admin
      * @group stateadmin
@@ -849,6 +876,28 @@ class CompletionNotificationsCest
         
         $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody);
     }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Program1Level_CreateCompletionNotification_Tier2_3_Email(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program1;
+        $message = null;
+        $auditGroupsArray = null;
+        $sendEmail = 'yes';
+        $this->subject_P1L_Tier2_3_EMAIL = $emailSubject = $I->GenerateNameOf("Email subject Program1 Level--Tier 2&3 --Email ");
+        $emailBody = "Email body Program1 Level--Tier 2&3 --Email {business_name} has completed all the measures in the {tier_level}";
+        $this->body_P1L_Tier3_EMAIL = "Email body Program1 Level--Tier 2&3 --Email $this->business1 has completed all the measures in the Tier 3";
+        $tierComplete = '1';
+        $tiersArray = ['Tier 2', 'Tier 3'];
+        
+        $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody, null, $tierComplete, $tiersArray);
+    }
+    
+    //________________________________________________________
     
     /**
      * @group admin
@@ -907,6 +956,27 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Program2Level_CreateCompletionNotification_Tier2_Email(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program2;
+        $this->message_P2L_Tier2_EMAIL = $message = $I->GenerateNameOf("Message to business Program2 Level--Tier 2--Email ");;
+        $auditGroupsArray = null;
+        $sendEmail = 'yes';
+        $this->subject_P2L_Tier2_EMAIL = $emailSubject = $I->GenerateNameOf("Email subject Program2 Level--Tier 2--Email ");
+        $emailBody = "Email body Program2 Level--Tier 2 --Email {business_name} has completed all the measures in the {tier_level}";
+        $tierComplete = '1';
+        $tiersArray = ['Tier 2'];
+        
+        $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody, null, $tierComplete, $tiersArray);
+    }
+    
+    //_______________________________________
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Program3Level_CreateCompletionNotification1_Energy_Pollution(\Step\Acceptance\CompletionNotifications $I) {
         $program = $this->program3;
         $this->P3L_message_Energy_Pollution = $message = $I->GenerateNameOf("Message to business Program3 Level--Energy&Pollution ");
@@ -924,11 +994,49 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Program3Level_CreateCompletionNotification_Tier3_Email(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program3;
+        $this->message_P3L_Tier3_EMAIL = $message = $I->GenerateNameOf("Message to business Program3 Level--Tier 3--Email ");;
+        $auditGroupsArray = null;
+        $sendEmail = 'yes';
+        $this->subject_P3L_Tier3_EMAIL = $emailSubject = $I->GenerateNameOf("Email subject Program3 Level--Tier 3--Email ");
+        $emailBody = "Email body Program3 Level--Tier 3 --Email {business_name} has completed all the measures in the {tier_level}";
+        $tierComplete = '1';
+        $tiersArray = ['Tier 3'];
+        
+        $I->CreateCompletionNotification($program, $message, $auditGroupsArray, $sendEmail, $emailSubject, $emailBody, null, $tierComplete, $tiersArray);
+    }
+    
+    //_______________________________________
+    
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Program1_EnableNotifications(\Step\Acceptance\CompletionNotifications $I) {
         $program = $this->program1;
         
         $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
         $I->click(\Page\CompletionNotificationsOptInSettings::CompleteAuditGroupToggleButtonLine_ByNameValue($program));
+        $I->wait(2);
+        $I->click(\Page\CompletionNotificationsOptInSettings::CompleteTierToggleButtonLine_ByNameValue($program));
+        $I->wait(2);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Program2_EnableNotifications_OnlyCompleteTiers(\Step\Acceptance\CompletionNotifications $I) {
+        $program = $this->program2;
+        
+        $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
+        $I->click(\Page\CompletionNotificationsOptInSettings::CompleteTierToggleButtonLine_ByNameValue($program));
         $I->wait(2);
     }
     
@@ -943,6 +1051,8 @@ class CompletionNotificationsCest
         
         $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
         $I->click(\Page\CompletionNotificationsOptInSettings::CompleteAuditGroupToggleButtonLine_ByNameValue($program));
+        $I->wait(2);
+        $I->click(\Page\CompletionNotificationsOptInSettings::CompleteTierToggleButtonLine_ByNameValue($program));
         $I->wait(2);
     }
     
@@ -1141,6 +1251,78 @@ class CompletionNotificationsCest
     
     /**
      * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin1(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin1(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator1(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function GetBusiness1ID(AcceptanceTester $I) {
+        $url = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business1), 'href');
+        $I->comment("Url: $url");
+        $u2 = explode('=', $url);
+        $this->id_business1 = $u2[1];
+        $I->comment("Business1 id: $this->id_business1.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Energy_EmailAbsent_Business1_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsBusiness1(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus1, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
      * @group stateadmin
      * @group coordinator
      */
@@ -1197,13 +1379,62 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Pollution_EmailPresent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Pollution_EmailAbsent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->Subject_P1L_message_Pollution_EMAIL;
         $body                   = $this->Body_P1L_message_Pollution_EMAIL;
         $sender                 = $this->business1;
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->Subject_P1L_message_Pollution_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Pollution_EmailPresent_Business1_Communications(\Step\Acceptance\Communication $I){
+        $subject                = $this->Subject_P1L_message_Pollution_EMAIL;
+        $body                   = $this->Body_P1L_message_Pollution_EMAIL;
+        $sender                 = $this->business1;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
         $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
         $I->canSee($this->program1, Page\CommunicationsList::SenderLine($row));
         $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
@@ -1213,6 +1444,19 @@ class CompletionNotificationsCest
         $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
         $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
         $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsBusiness1_2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus1, $this->password, $I, $type='business');
     }
     
     /**
@@ -1261,13 +1505,75 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Pollution_Only1EmailPresent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Pollution_EmailAbsent2_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->Subject_P1L_message_Pollution_EMAIL;
+        $body                   = $this->Body_P1L_message_Pollution_EMAIL;
+        $sender                 = $this->business1;
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->Subject_P1L_message_Pollution_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Pollution_Only1EmailPresent_Business1_Communications(\Step\Acceptance\Communication $I){
+        $subject                = $this->Subject_P1L_message_Pollution_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsBusiness1_3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus1, $this->password, $I, $type='business');
     }
     
     /**
@@ -1322,6 +1628,64 @@ class CompletionNotificationsCest
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
         $I->cantSee($this->Subject_SL_message_Solid_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Solid_EmailAbsent_Business1_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
+        $I->cantSee($this->Subject_SL_message_Solid_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsBusiness1_4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus1, $this->password, $I, $type='business');
     }
     
     /**
@@ -1398,6 +1762,64 @@ class CompletionNotificationsCest
     
     /**
      * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin5(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin5(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator5(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Solid_EmailAbsent2_Business1_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
+        $I->cantSee($this->Subject_SL_message_Solid_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsBusiness1_5(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus1, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
      * @group stateadmin
      * @group coordinator
      */
@@ -1446,6 +1868,64 @@ class CompletionNotificationsCest
     
     /**
      * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin6(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin6(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator6(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Water_EmailAbsent1_Business1_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsBusiness1_6(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus1, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
      * @group stateadmin
      * @group coordinator
      */
@@ -1486,13 +1966,62 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Water_EmailPresent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Water_EmailAbsent2_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->Subject_SL_message_Energy_Water_EMAIL;
         $body                   = $this->Body_SL_message_Energy_Water_EMAIL;
         $sender                 = $this->business1;
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin7(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin7(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator7(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Water_EmailPresent_Business1_Communications(\Step\Acceptance\Communication $I){
+        $subject                = $this->Subject_SL_message_Energy_Water_EMAIL;
+        $body                   = $this->Body_SL_message_Energy_Water_EMAIL;
+        $sender                 = $this->business1;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
         $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
         $I->canSee($this->program1, Page\CommunicationsList::SenderLine($row));
         $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
@@ -1502,6 +2031,19 @@ class CompletionNotificationsCest
         $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
         $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
         $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsBusiness1_7(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus1, $this->password, $I, $type='business');
     }
     
     /**
@@ -1584,6 +2126,96 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Tier2Completed_EmailAbsent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+        $this->body_P1L_Tier2_EMAIL = "Email body Program1 Level--Tier 2&3 --Email $this->business1 has completed all the measures in the Tier 2";
+        
+        $subject                = $this->subject_P1L_Tier2_3_EMAIL;
+        $body                   = $this->body_P1L_Tier2_EMAIL;
+        $sender                 = $this->business1;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->subject_P1L_Tier2_3_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin8(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin8(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator8(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_EmailPresent_Business1_Communications(\Step\Acceptance\Communication $I){
+        $this->body_P1L_Tier2_EMAIL = "Email body Program1 Level--Tier 2&3 --Email $this->business1 has completed all the measures in the Tier 2";
+        
+        $subject                = $this->subject_P1L_Tier2_3_EMAIL;
+        $body                   = $this->body_P1L_Tier2_EMAIL;
+        $sender                 = $this->business1;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
+        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
+        $I->canSee($this->program1, Page\CommunicationsList::SenderLine($row));
+        $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
+        $I->click(Page\CommunicationsList::ViewButtonLine($row));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsBusiness1_8(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus1, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Business1_DeactivateMeasure7_No_Answer(AcceptanceTester $I) {
         $measDesc = $this->measure7Desc;
                 
@@ -1656,13 +2288,12 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Water_Only1EmailIsSent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Water_EmailIsAbsent_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->Subject_SL_message_Energy_Water_EMAIL;
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
-        $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-        $I->assertEquals('1', $count);
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
     }
     
     /**
@@ -1671,7 +2302,82 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Help_LogOut1(AcceptanceTester $I) {
+    public function Tier2Completed_EmailAbsent2_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->subject_P1L_Tier2_3_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business1_LogoutAndLoginAsAdmin9(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business1_LogoutAndLoginAsStateAdmin9(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business1_LogoutAndLoginAsCoordinator9(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Water_Only1EmailIsSent_Business1_Communications(\Step\Acceptance\Communication $I){
+        $subject                = $this->Subject_SL_message_Energy_Water_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
+        $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
+        $I->assertSame("1", "$count");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Only1EmailIsSent_Business1_Communications(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_P1L_Tier2_3_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
+        $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
+        $I->assertSame("1", "$count");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business1_LogOut1(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
         $I->LogIn_TRUEorFALSE($I);
         $I->Logout($I);
@@ -2076,12 +2782,65 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function GetBusiness2ID(AcceptanceTester $I) {
+        $url = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2), 'href');
+        $I->comment("Url: $url");
+        $u2 = explode('=', $url);
+        $this->id_business2 = $u2[1];
+        $I->comment("Business1 id: $this->id_business2.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Program2_EnableNotifications(\Step\Acceptance\CompletionNotifications $I) {
         $program = $this->program2;
         
         $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
         $I->click(\Page\CompletionNotificationsOptInSettings::CompleteAuditGroupToggleButtonLine_ByNameValue($program));
-        $I->wait(2);
+        $I->wait(3);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Energy_EmailAbsent_Business2_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business2));
+        $I->wait(3);
+        $I->waitPageLoad();
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Solid_EmailAbsent_Business2_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business2));
+        $I->cantSee($this->Subject_SL_message_Solid_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Water_EmailAbsent_Business2_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business2));
+        $I->cantSee($this->Subject_P2L_message_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
     }
     
     /**
@@ -2272,6 +3031,183 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Tier2Completed_EmailAbsent_Business2_CommunicationTab(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->subject_P2L_Tier2_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business2_LogoutAndLoginAsAdmin9(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business2_LogoutAndLoginAsStateAdmin9(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business2_LogoutAndLoginAsCoordinator9(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_EmailPresent_Business2_Communications(\Step\Acceptance\Communication $I){
+        $this->body_P2L_Tier2_EMAIL = "Email body Program2 Level--Tier 2 --Email $this->business2 has completed all the measures in the Tier 2";
+        
+        $subject                = $this->subject_P2L_Tier2_EMAIL;
+        $body                   = $this->body_P2L_Tier2_EMAIL;
+        $sender                 = $this->business2;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business2));
+        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
+        $I->canSee($this->program2, Page\CommunicationsList::SenderLine($row));
+        $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
+        $I->click(Page\CommunicationsList::ViewButtonLine($row));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business2_LogoutAndLoginAsBusiness2_2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus2, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Energy_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Pollution_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Pollution)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_Pollution)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Pollution_MessageAbsent_Tier3(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Pollution)."&tier_id=$this->id_checklist_P2_T3");
+        $I->cantSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Solid_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Solid_MessageAbsent_Tier3(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_P2_T3");
+        $I->cantSee($this->message_P2L_Tier2_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste)."&tier_id=$this->id_checklist_P2_T3");
+        $I->cantSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Water_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Water)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Business2_Community_MessagePresent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Community)."&tier_id=$this->id_checklist_P2_T2");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P2L_Tier2_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Business2_Community_MessagePresent1(AcceptanceTester $I) {
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Community)."&tier_id=$this->id_checklist_P2_T2");
         $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
@@ -2290,9 +3226,70 @@ class CompletionNotificationsCest
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->Subject_P2L_message_Community_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business2_LogoutAndLoginAsAdmin91(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business2_LogoutAndLoginAsStateAdmin91(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business2_LogoutAndLoginAsCoordinator91(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Community_EmailAbsent_Business2_Communications(\Step\Acceptance\Communication $I){
+        $subject = $this->Subject_P2L_message_Community_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business2));
         $I->canSee($subject, Page\CommunicationsList::$SubjectColumnRow);
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business2_LogoutAndLoginAsBusiness2_4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus2, $this->password, $I, $type='business');
     }
     
     /**
@@ -2445,6 +3442,81 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Tier2Completed_Only1EmailIsAbsent_Business2_CommunicationTab(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_P2L_Tier2_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->subject_P2L_Tier2_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business2_LogoutAndLoginAsAdmin92(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business2_LogoutAndLoginAsStateAdmin92(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business2_LogoutAndLoginAsCoordinator92(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_Only1EmailIsSent_Business2_Communications(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_P2L_Tier2_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business2));
+        $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
+        $I->assertSame("1", "$count");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business2_LogoutAndLoginAsBusiness2_3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus2, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Business2_Water_MessageWasAppeared(AcceptanceTester $I) {
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Water)."&tier_id=$this->id_checklist_P2_T2");
         $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
@@ -2457,15 +3529,60 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Water_Only1EmailIsSent_Business2_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Water_Only1EmailIsAbsent_Business2_CommunicationTab(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->Subject_P2L_message_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business2_LogoutAndLoginAsAdmin93(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business2_LogoutAndLoginAsStateAdmin93(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business2_LogoutAndLoginAsCoordinator93(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Water_Only1EmailIsSent_Business2_Communications(\Step\Acceptance\Communication $I){
         $subject                = $this->Subject_P2L_message_Water_EMAIL;
         $body                   = $this->Body_P2L_message_Water_EMAIL;
         $sender                 = $this->business2;
         
         $I->comment("Check on Communication Tab");
-        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business2));
         $count= $I->GetCountOfSameNotificationOnCommunicationListForBusiness($subject);
-        $I->assertEquals('1', $count);
+        $I->assertSame("1", "$count");
     }
     
     /**
@@ -2561,6 +3678,78 @@ class CompletionNotificationsCest
     
     /**
      * @group admin
+     */
+    
+    public function Business3_LogoutAndLoginAsAdmin1(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business3_LogoutAndLoginAsStateAdmin1(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsCoordinator1(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function GetBusiness3ID(AcceptanceTester $I) {
+        $url = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business3), 'href');
+        $I->comment("Url: $url");
+        $u2 = explode('=', $url);
+        $this->id_business3 = $u2[1];
+        $I->comment("Business1 id: $this->id_business3.");
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Energy_EmailAbsent_Business3_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsBusiness3_1(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus3, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
      * @group stateadmin
      * @group coordinator
      */
@@ -2617,7 +3806,7 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Pollution_EmailPresent_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Pollution_EmailAbsent_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->Subject_P1L_message_Pollution_EMAIL;
         $body                   = $this->Body_P1L_message_Pollution_EMAIL;
         $sender                 = $this->business1;
@@ -2625,6 +3814,68 @@ class CompletionNotificationsCest
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
         $I->cantSee($this->Subject_P1L_message_Pollution_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business3_LogoutAndLoginAsAdmin2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business3_LogoutAndLoginAsStateAdmin2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsCoordinator2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Pollution_EmailAbsent_Business3_Communications(\Step\Acceptance\Communication $I){
+        $subject                = $this->Subject_P1L_message_Pollution_EMAIL;
+        $body                   = $this->Body_P1L_message_Pollution_EMAIL;
+        $sender                 = $this->business1;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
+        $I->cantSee($this->Subject_P1L_message_Pollution_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsBusiness3_2(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus3, $this->password, $I, $type='business');
     }
     
     /**
@@ -2721,6 +3972,64 @@ class CompletionNotificationsCest
     
     /**
      * @group admin
+     */
+    
+    public function Business3_LogoutAndLoginAsAdmin3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business3_LogoutAndLoginAsStateAdmin3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsCoordinator3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Solid_EmailAbsent_Business3_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
+        $I->cantSee($this->Subject_SL_message_Solid_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsBusiness3_3(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus3, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
      * @group stateadmin
      * @group coordinator
      */
@@ -2784,7 +4093,65 @@ class CompletionNotificationsCest
     public function Solid_EmailAbsent2_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($this->Subject_SL_message_Solid_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business3_LogoutAndLoginAsAdmin4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business3_LogoutAndLoginAsStateAdmin4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsCoordinator4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Solid_EmailAbsent2_Business3_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
         $I->canSee($this->Subject_SL_message_Solid_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsBusiness3_4(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus3, $this->password, $I, $type='business');
     }
     
     /**
@@ -2829,10 +4196,68 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Water_EmailAbsent_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Water_EmailAbsent2_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
         $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business3_LogoutAndLoginAsAdmin5(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business3_LogoutAndLoginAsStateAdmin5(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsCoordinator5(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Water_EmailAbsent_Business3_Communications(\Step\Acceptance\Communication $I){
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
+        $I->cantSee($this->Subject_SL_message_Energy_Water_EMAIL, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsBusiness3_5(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus3, $this->password, $I, $type='business');
     }
     
     /**
@@ -2877,13 +4302,60 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
-    public function Water_EmailPresent_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function Water_EmailAbsent_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
+        $subject                = $this->Subject_SL_message_Energy_Water_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($subject, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business3_LogoutAndLoginAsAdmin6(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business3_LogoutAndLoginAsStateAdmin6(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsCoordinator6(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Water_EmailPresent_Business3_Communications(\Step\Acceptance\Communication $I){
         $subject                = $this->Subject_SL_message_Energy_Water_EMAIL;
         $body                   = $this->Body_SL_message_Energy_Water_EMAIL;
         $sender                 = $this->business3;
         
         $I->comment("Check on Communication Tab");
-        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
         $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
         $I->canSee($this->program3, Page\CommunicationsList::SenderLine($row));
         $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
@@ -2893,6 +4365,19 @@ class CompletionNotificationsCest
         $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
         $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
         $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsBusiness3_6(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus3, $this->password, $I, $type='business');
     }
     
     /**
@@ -2973,6 +4458,92 @@ class CompletionNotificationsCest
      * @group coordinator
      */
     
+    public function Tier2Completed_EmailAbsent_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_SL_Tier2_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($subject, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business3_LogoutAndLoginAsAdmin7(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business3_LogoutAndLoginAsStateAdmin7(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsCoordinator7(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier2Completed_EmailPresent_Business3_Communications(\Step\Acceptance\Communication $I){
+        $this->body_SL_Tier2_EMAIL_P3 = "Email body State Level--Tier 2--Email $this->business3 has completed all the measures in the Tier 2";
+        
+        $subject                = $this->subject_SL_Tier2_EMAIL;
+        $body                   = $this->body_SL_Tier2_EMAIL_P3;
+        $sender                 = $this->business3;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
+        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
+        $I->canSee($this->program3, Page\CommunicationsList::SenderLine_BySubject_CommunicationTab($subject));
+        $I->canSee($subject, Page\CommunicationsList::SubjectLine_BySubject_CommunicationTab($subject));
+        $I->click(Page\CommunicationsList::ViewButtonLine_BySubject_CommunicationTab($subject));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsBusiness3_7(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus3, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
     public function Help_LogOut3(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
         $I->LogIn_TRUEorFALSE($I);
@@ -3010,8 +4581,33 @@ class CompletionNotificationsCest
         $I->amOnPage(\Page\CompletionNotificationsOptInSettings::URL());
         $I->makeElementVisible(["[name=opt_in]"], $style = 'visibility');
         $I->wait(2);
+        $I->waitPageLoad();
         $I->selectOption(\Page\CompletionNotificationsOptInSettings::CompleteAuditGroupToggleButtonSelectLine_ByNameValue($program), 'no');
         $I->wait(3);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Program3_UpdateTier3Name(\Step\Acceptance\Tier $I) {
+        $program    = $this->program3;
+        $tier3      = '3';
+        $tier3Name  = "Innovator";
+        $tier3Desc  = null;
+        $tier3OptIn = 'ignore';
+        
+        $I->amOnPage(Page\TierManage::URL());
+        $I->canSee($program, Page\TierManage::$ProgramOption);
+        $I->selectOption(Page\TierManage::$ProgramSelect, $program);
+        $I->wait(4);
+        $I->waitPageLoad();
+        $I->canSee('Tier 1', Page\TierManage::$Tier1Button_LeftMenu);
+        $I->canSee('Tier 2', Page\TierManage::$Tier2Button_LeftMenu);
+        $I->canSee('Tier 3', Page\TierManage::$Tier3Button_LeftMenu);
+        $I->ManageTiers($program, null, null, null, null, null, null, null, null, $tier3, $tier3Name, $tier3Desc, $tier3OptIn);
     }
     
     /**
@@ -3104,6 +4700,325 @@ class CompletionNotificationsCest
         $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Community));
         $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
         $I->cantSee($this->SL_message_Community);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_CompleteMeasure11_Yes_Answer_Tier3(AcceptanceTester $I) {
+        $measDesc = $this->measure11Desc;
+                
+        $I->comment("Complete Measure11 for business: $this->business3");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_P3_T3");
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure11]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure11']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_CompleteMeasure12_Yes_Answer_Tier3(AcceptanceTester $I) {
+        $measDesc = $this->measure12Desc;
+                
+        $I->comment("Complete Measure12 for business: $this->business3");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste)."&tier_id=$this->id_checklist_P3_T3");
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure12]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure12']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $I->waitPageLoad();
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_EmailAbsent_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_P3L_Tier3_EMAIL;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\CommunicationsList::URL());
+        $I->cantSee($subject, Page\CommunicationsList::$SubjectColumnRow);
+    }
+    
+    /**
+     * @group admin
+     */
+    
+    public function Business3_LogoutAndLoginAsAdmin8(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsAdmin($I);
+    }
+    
+    /**
+     * @group stateadmin
+     */
+    
+    public function Business3_LogoutAndLoginAsStateAdmin8(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailStateAdmin, $this->password, $I, $type='state admin');
+    }
+    
+    /**
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsCoordinator8(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->emailCoordinator, $this->password, $I, $type='coordinator');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_EmailPresent_Business3_Communications(\Step\Acceptance\Communication $I){
+        $this->body_P3L_Tier3_EMAIL = "Email body Program3 Level--Tier 3 --Email $this->business3 has completed all the measures in the Innovator";
+        
+        $subject                = $this->subject_P3L_Tier3_EMAIL;
+        $body                   = $this->body_P3L_Tier3_EMAIL;
+        $sender                 = $this->business3;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
+        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
+        $I->canSee($this->program3, Page\CommunicationsList::SenderLine($row));
+        $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
+        $I->click(Page\CommunicationsList::ViewButtonLine($row));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_LogoutAndLoginAsBusiness3_8(AcceptanceTester $I)
+    {
+        $I->LogIn_TRUEorFALSE($I);
+        $I->Logout($I);
+        $I->LoginAsUser($this->email_Bus3, $this->password, $I, $type='business');
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_Business3_Energy_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_Business3_Pollution_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Pollution)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_Pollution)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_Business3_Pollution_MessagePresent_Tier3(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Pollution)."&tier_id=$this->id_checklist_P3_T3");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_Business3_Solid_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_Business3_Solid_MessagePresent_Tier3(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_P3_T3");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P3L_Tier3_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste)."&tier_id=$this->id_checklist_P3_T3");
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_Business3_Water_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Water)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Tier3Completed_Business3_Community_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Community)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_Pollution_MessagePresent_Tier3(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Pollution));
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_Solid_MessagePresent_Tier3(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste));
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P3L_Tier3_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste));
+        $I->canSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->canSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_Energy_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_Solid_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_SolidWaste)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_SolidWaste)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_Pollution_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Pollution)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+        
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup2_Pollution)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_Water_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Water)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
+    }
+    
+    /**
+     * @group admin
+     * @group stateadmin
+     * @group coordinator
+     */
+    
+    public function Business3_Community_MessageAbsent_Tier2(AcceptanceTester $I) {
+        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Community)."&tier_id=$this->id_checklist_P3_T2");
+        $I->cantSeeElement(\Page\RegistrationStarted::$CompletionMessage);
+        $I->cantSee($this->message_P3L_Tier3_EMAIL);
     }
     
     /**

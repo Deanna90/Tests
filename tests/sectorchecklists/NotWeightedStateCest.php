@@ -54,21 +54,17 @@ class NotWeightedStateCest
     
     public function Help_SelectDefaultState(AcceptanceTester $I)
     {
-        $I->wait(2);
         $I->SelectDefaultState($I, $this->state);
     }
     
     public function CheckDefaultSectors(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->amOnPage(\Page\SectorList::URL());
-//        $I->wait(2);
         $count = $I->grabTextFrom(\Page\SectorList::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\SectorList::UrlPageNumber($i));
-//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\SectorList::$SectorRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -97,27 +93,20 @@ class NotWeightedStateCest
     {
         $name = $this->sector1 = $I->GenerateNameOf('Sec1_');
         
-        $I->wait(1);
         $I->CreateSector($name, $this->state);
-//        $I->wait(1);
         $I->GetSectorOnPageInList($name);
         $this->sectors_default[] = $this->sector1;
     }
     
     public function CheckManageSectorsList_Empty(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->amOnPage(\Page\SectorsManage::URL());
-//        $I->wait(2);
-//        $I->cantSeeElement(\Page\SectorsManage::$SectorRow);
         $I->canSeeElement(\Page\SectorsManage::$EmptyListLabel);
     }
     
     public function CheckSectorsInSectorDropdown_SectorChecklistCreatePage(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->amOnPage(\Page\SectorChecklistCreate::URL_WithoutStateId());
-//        $I->wait(2);
         $count = $I->getAmount($I, \Page\SectorChecklistCreate::$SectorOption);
         $I->comment("Sector option count = $count");
         for($i=1; $i<=$count; $i++){
@@ -166,9 +155,7 @@ class NotWeightedStateCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-//        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-//        $I->wait(2);
         $this->id_audSubgroup1_Energy = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -179,9 +166,7 @@ class NotWeightedStateCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-//        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-//        $I->wait(2);
         $this->id_audSubgroup1_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -192,9 +177,7 @@ class NotWeightedStateCest
         $state      = $this->state;
         
         $I->CreateAuditSubgroup($name, $auditGroup, $state);
-//        $I->wait(3);
         $I->amOnPage(Page\AuditSubgroupList::URL());
-//        $I->wait(2);
         $this->id_audSubgroup2_SolidWaste = $I->grabTextFrom(Page\AuditSubgroupList::IdLine_ByNameValue($name));
     }
     
@@ -207,9 +190,7 @@ class NotWeightedStateCest
         $questions      = ['question1', 'question2'];
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure1 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -223,9 +204,7 @@ class NotWeightedStateCest
         $submeasureType = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure2 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -240,9 +219,7 @@ class NotWeightedStateCest
         $questions      = ['question1', 'question2'];
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure3 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -256,9 +233,7 @@ class NotWeightedStateCest
         $submeasureType = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure4 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -273,9 +248,7 @@ class NotWeightedStateCest
         $questions      = ['question1', 'question2'];
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure5 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -289,9 +262,7 @@ class NotWeightedStateCest
         $submeasureType = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure6 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -306,9 +277,7 @@ class NotWeightedStateCest
         $questions      = ['question1', 'question2'];
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure7 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -322,9 +291,7 @@ class NotWeightedStateCest
         $submeasureType = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure8 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -339,9 +306,7 @@ class NotWeightedStateCest
         $questions      = ['question1', 'question2'];
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType, $questions);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure9 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -355,9 +320,7 @@ class NotWeightedStateCest
         $submeasureType = \Step\Acceptance\Measure::WithoutSubmeasures_QuantitativeSubmeasure;
         
         $I->CreateMeasure($desc, $auditGroup, $auditSubgroup, $quantitative, $submeasureType);
-//        $I->wait(3);
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(3);
         $I->waitForElement(\Page\MeasureList::$MeasureRow, 5);
         $this->idMeasure10 = $I->grabTextFrom(Page\MeasureList::IdLine_ByDescValue($desc));
         $this->measuresDesc_SuccessCreated[] = $desc;
@@ -417,7 +380,6 @@ class NotWeightedStateCest
         $group              = Page\AuditGroupList::SolidWaste_AuditGroup;
         
         $I->amOnPage(\Page\SectorChecklistManage::URL($this->id_SC_Sector1_T2));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(3);
         $I->ManageSectorChecklist($this->measuresDesc_SuccessCreated, $this->statuses_SC_Sector1_T2_version1);
@@ -457,15 +419,12 @@ class NotWeightedStateCest
     
     public function CheckManageSectorsList_Program1Sectors(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->amOnPage(\Page\SectorsManage::URL());
-//        $I->wait(2);
         $count = $I->grabTextFrom(\Page\SectorsManage::$SummaryCount);
         $pageCount = ceil($count/20);
         $I->comment("Page count = $pageCount");
         for($i=1; $i<=$pageCount; $i++){
             $I->amOnPage(\Page\SectorsManage::UrlPageNumber($i));
-//            $I->wait(1);
             $rows = $I->getAmount($I, \Page\SectorsManage::$SectorRow);
             $I->comment("Count of rows = $rows");
             for($j=1; $j<=$rows; $j++){
@@ -509,9 +468,7 @@ class NotWeightedStateCest
     
     public function CheckManageSectorsList_Program1_Program2_Sectors(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->amOnPage(\Page\SectorsManage::URL());
-//        $I->wait(2);
         $countAll = $I->grabTextFrom(\Page\SectorsManage::$SummaryCount);
         
         $I->selectOption(Page\SectorsManage::$FilterByProgramSelect, $this->program1);
@@ -585,12 +542,11 @@ class NotWeightedStateCest
         }
         
         $countSum = $count1+$count2;
-        $I->assertEquals($countSum, $countAll);
+        $I->assertSame("$countSum", $countAll);
     }
     
     public function CheckChecklistList_Empty(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistList::URL());
-//        $I->wait(2);
         $I->cantSeeElement(\Page\ChecklistList::IdByIdLine($this->id_SC_Sector1_T2)); 
         
         $I->cantSeeElement(\Page\ChecklistList::IdByIdLine($this->id_SC_Sector1_T1));
@@ -599,9 +555,7 @@ class NotWeightedStateCest
     
     public function ActivateSector1_ForProgram1(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->amOnPage(\Page\SectorsManage::URL());
-//        $I->wait(2);
         $I->selectOption(\Page\SectorsManage::$FilterBySectorSelect, $this->sector1);
         $I->click(\Page\SectorsManage::$FilterButton);
         $I->wait(2);
@@ -611,7 +565,6 @@ class NotWeightedStateCest
     
     public function CheckPublishedChecklistForProgram1(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistList::URL());
-//        $I->wait(2); 
         $I->canSee('Published', \Page\ChecklistList::VersionStatus_ByProg_Sect_Tier_Line($this->program1, $this->sector1, 'Tier 2'));
         
         $I->cantSeeElement(\Page\ChecklistList::Id_ByProg_Sect_Tier_Line($this->program1, $this->sector1, 'Tier 1'));
@@ -635,7 +588,6 @@ class NotWeightedStateCest
         $tier1OptIn = 'yes';
         
         $I->amOnPage(Page\TierManage::URL());
-//        $I->wait(1);
         $I->canSee($program, Page\TierManage::$ProgramOption);
         $I->selectOption(Page\TierManage::$ProgramSelect, $program);
         $I->wait(10);
@@ -646,7 +598,6 @@ class NotWeightedStateCest
     
     public function CheckLeftColumnAndDefineTotals_OnManageProgramChecklist_Tier1_Program1(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T1));
-//        $I->wait(2);
         
         $I->Check_CountOf_Core_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '1', $llCount = '1', $allCount = '1');
         $I->Check_CountOf_Elective_Measures_IncludedMeasuresForm($defaultCount = '2', $lbCount = '2', $llCount = '2', $allCount = '2');
@@ -672,7 +623,6 @@ class NotWeightedStateCest
     
     public function CheckLeftColumnAndDefineTotals_OnManageProgramChecklist_Tier2_Program1(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T2));
-//        $I->wait(2);
         
         $I->Check_CountOf_Core_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '1', $llCount = '1', $allCount = '1');
         $I->Check_CountOf_Elective_Measures_IncludedMeasuresForm($defaultCount = '1', $lbCount = '1', $llCount = '1', $allCount = '1');
@@ -701,7 +651,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure3Desc, $this->measure4Desc, $this->measure5Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T1));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(3);
         $I->waitPageLoad();
@@ -714,7 +663,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure1Desc, $this->measure2Desc, $this->measure5Desc, $this->measure6Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T2));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(3);
         $I->waitPageLoad();
@@ -767,7 +715,6 @@ class NotWeightedStateCest
         $tier3OptIn = 'yes';
         
         $I->amOnPage(Page\TierManage::URL());
-//        $I->wait(1);
         $I->canSee($program, Page\TierManage::$ProgramOption);
         $I->selectOption(Page\TierManage::$ProgramSelect, $program);
         $I->wait(10);
@@ -777,9 +724,7 @@ class NotWeightedStateCest
     
     public function ActivateSector1_ForProgram2(AcceptanceTester $I)
     {
-        $I->wait(1);
         $I->amOnPage(\Page\SectorsManage::URL());
-//        $I->wait(2);
         $I->selectOption(\Page\SectorsManage::$FilterBySectorSelect, $this->sector1);
         $I->click(\Page\SectorsManage::$FilterButton);
         $I->wait(2);
@@ -791,7 +736,6 @@ class NotWeightedStateCest
     
     public function CheckPublishedChecklistForProgram2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(\Page\ChecklistList::URL());
-//        $I->wait(2); 
         $I->canSee('Published', \Page\ChecklistList::VersionStatus_ByProg_Sect_Tier_Line($this->program1, $this->sector1, 'tiername1'));
         $I->canSee('Published', \Page\ChecklistList::VersionStatus_ByProg_Sect_Tier_Line($this->program1, $this->sector1, 'Tier 2'));
         $I->canSee('Published', \Page\ChecklistList::VersionStatus_ByProg_Sect_Tier_Line($this->program2, $this->sector1, 'Tier 2'));
@@ -814,7 +758,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure3Desc, $this->measure4Desc, $this->measure5Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T1));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(3);
         $I->waitPageLoad();
@@ -827,7 +770,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure1Desc, $this->measure2Desc, $this->measure5Desc, $this->measure6Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T2));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(3);
         $I->waitPageLoad();
@@ -842,7 +784,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure3Desc, $this->measure4Desc, $this->measure5Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T1));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(4);
         $I->ManageChecklist($addit_descs, $statuses);
@@ -861,7 +802,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure1Desc, $this->measure2Desc, $this->measure5Desc, $this->measure6Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T2));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(4);
         $I->waitPageLoad();
@@ -877,7 +817,6 @@ class NotWeightedStateCest
     
     public function CheckLeftColumnAndDefineTotals_OnManageProgramChecklist_Tier2_Program2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T2));
-//        $I->wait(2);
         
         $I->Check_CountOf_Core_Measures_IncludedMeasuresForm($defaultCount = '2', $lbCount = '2', $llCount = '2', $allCount = '2');
         $I->Check_CountOf_Elective_Measures_IncludedMeasuresForm($defaultCount = '2', $lbCount = '2', $llCount = '2', $allCount = '2');
@@ -950,7 +889,6 @@ class NotWeightedStateCest
     
     public function CheckBlocked_SectorChecklist_Tier2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\SectorChecklistManage::URL($this->id_SC_Sector1_T2));
-//        $I->wait(2);
         
         $I->canSeeElement(Page\SectorChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\SectorChecklistManage::OnlyViewModeMessage, Page\SectorChecklistManage::$OnlyViewModeAlert);
@@ -970,7 +908,6 @@ class NotWeightedStateCest
     
     public function CheckNotBlocked_SectorChecklist_Tier1(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\SectorChecklistManage::URL($this->id_SC_Sector1_T1));
-//        $I->wait(2);
         
         $I->cantSeeElement(Page\SectorChecklistManage::$OnlyViewModeAlert);
         
@@ -987,7 +924,6 @@ class NotWeightedStateCest
     
     public function CheckBlocked_ProgramChecklist_Tier2_Program2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T2));
-//        $I->wait(2);
         
         $I->canSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
@@ -1007,7 +943,6 @@ class NotWeightedStateCest
     
     public function CheckNotBlocked_ProgramChecklist_Tier1_Program1(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T1));
-//        $I->wait(2);
         
         $I->cantSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         
@@ -1024,7 +959,6 @@ class NotWeightedStateCest
     
     public function CheckNotBlocked_ProgramChecklist_Tier2_Program1(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T2));
-//        $I->wait(2);
         
         $I->cantSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         
@@ -1123,7 +1057,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure1Desc, $this->measure3Desc, $this->measure4Desc, $this->measure6Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T1));
-//        $I->wait(2);
         $I->canSee($this->program1.':'.$this->sector1, \Page\ChecklistManage::$Title);
         $I->canSee('VERSION:'.$this->todayDate.' - '.'PUBLISHED'.' | tiername1', \Page\ChecklistManage::$VersionDateInfo);
         $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
@@ -1140,7 +1073,6 @@ class NotWeightedStateCest
         $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '2', $lbCount = '2', $llCount = '2', $allCount = '2');
         
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_PC1_Sector1_T1));
-//        $I->wait(2);
         $I->comment("-----           -----Versions 1st row-----           -----");
         $I->canSee($this->id_PC1_Sector1_T1, \Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
         $I->canSee('Published', \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
@@ -1160,7 +1092,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure2Desc, $this->measure5Desc, $this->measure6Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T2));
-//        $I->wait(2);
         $I->canSee($this->program1.':'.$this->sector1, \Page\ChecklistManage::$Title);
         $I->canSee('VERSION:'.$this->todayDate.' - '.'PUBLISHED'.' | TIER 2', \Page\ChecklistManage::$VersionDateInfo);
         $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
@@ -1177,7 +1108,6 @@ class NotWeightedStateCest
         $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '2', $lbCount = '2', $llCount = '2', $allCount = '2');
         
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_PC1_Sector1_T2));
-//        $I->wait(2);
         $I->comment("-----           -----Versions 1st row-----           -----");
         $I->canSee($this->id_PC1_Sector1_T2, \Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
         $I->canSee('Published', \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
@@ -1197,7 +1127,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure1Desc, $this->measure3Desc, $this->measure4Desc, $this->measure6Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T1));
-//        $I->wait(2);
         $I->canSee($this->program2.':'.$this->sector1, \Page\ChecklistManage::$Title);
         $I->canSee('VERSION:'.$this->todayDate.' - '.'PUBLISHED'.' | TIER 1', \Page\ChecklistManage::$VersionDateInfo);
         $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
@@ -1214,7 +1143,6 @@ class NotWeightedStateCest
         $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '2', $lbCount = '2', $llCount = '2', $allCount = '2');
         
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_PC2_Sector1_T1));
-//        $I->wait(2);
         $I->comment("-----           -----Versions 1st row-----           -----");
         $I->canSee($this->id_PC2_Sector1_T1, \Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
         $I->canSee('Published', \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
@@ -1235,11 +1163,9 @@ class NotWeightedStateCest
         
         $this->id_old1_PC2_Sector1_T2 = $this->id_PC2_Sector1_T2;
         $I->amOnPage(\Page\ChecklistList::URL());
-//        $I->wait(2); 
         $this->id_PC2_Sector1_T2 = $I->grabTextFrom(Page\ChecklistList::Id_ByProg_Sect_Tier_Line($this->program2, $this->sector1, 'Tier 2'));
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T2));
-//        $I->wait(2);
         $I->canSee($this->program2.':'.$this->sector1, \Page\ChecklistManage::$Title);
         $I->canSee('VERSION:'.$this->todayDate.' - '.'PUBLISHED'.' | TIER 2', \Page\ChecklistManage::$VersionDateInfo);
         $I->canSee('Published', \Page\ChecklistManage::$StatusTitle);
@@ -1256,7 +1182,6 @@ class NotWeightedStateCest
         $I->Check_CountOf_RequiredElective_Measures_IncludedMeasuresForm($defaultCount = '2', $lbCount = '2', $llCount = '2', $allCount = '2');
         
         $I->amOnPage(\Page\ChecklistManage::URL_VersionTab($this->id_PC2_Sector1_T2));
-//        $I->wait(2);
         $I->comment("-----           -----Versions 1st row-----           -----");
         $I->canSee($this->id_PC2_Sector1_T2, \Page\ChecklistManage::IdLine_VersionHistoryTab('1'));
         $I->canSee('Published', \Page\ChecklistManage::StatusLine_VersionHistoryTab('1'));
@@ -1282,7 +1207,6 @@ class NotWeightedStateCest
     
     public function Check_OldVersion_SectorChecklist_Tier2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\SectorChecklistManage::URL($this->id_old1_SC_Sector1_T2));
-//        $I->wait(2);
         
         $I->canSeeElement(Page\SectorChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\SectorChecklistManage::OnlyViewModeMessage, Page\SectorChecklistManage::$OnlyViewModeAlert);
@@ -1309,7 +1233,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure1Desc, $this->measure2Desc, $this->measure5Desc, $this->measure6Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_old1_PC2_Sector1_T2));
-//        $I->wait(2);
         
         $I->canSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
@@ -1363,7 +1286,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure1Desc, $this->measure3Desc, $this->measure4Desc, $this->measure6Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T1));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(4);
         $I->waitPageLoad();
@@ -1383,7 +1305,6 @@ class NotWeightedStateCest
         $group2              = Page\AuditGroupList::SolidWaste_AuditGroup;
         
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_PC1_Sector1_T1));
-//        $I->wait(2);
         $I->UpdateDefineTotalValue($extension = 'def', $group1, $this->audSubgroup1_Energy, $value = '2');
         $I->UpdateDefineTotalValue($extension = 'def', $group2, $this->audSubgroup1_SolidWaste, $value = '1');
         
@@ -1404,7 +1325,6 @@ class NotWeightedStateCest
         $active_descs   = [$this->measure2Desc, $this->measure5Desc, $this->measure6Desc, $this->measure7Desc, $this->measure8Desc, $this->measure9Desc, $this->measure10Desc];
         
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T2));
-//        $I->wait(2);
         $I->selectOption(Page\ChecklistManage::$Filter_ByStatusSelect, 'View All');
         $I->wait(4);
         $I->waitPageLoad();
@@ -1424,7 +1344,6 @@ class NotWeightedStateCest
         $group2              = Page\AuditGroupList::SolidWaste_AuditGroup;
         
         $I->amOnPage(\Page\ChecklistManage::URL($this->id_PC1_Sector1_T2));
-//        $I->wait(2);
         $I->UpdateDefineTotalValue($extension = 'def', $group2, $this->audSubgroup1_SolidWaste, $value = '2');
         $I->UpdateDefineTotalValue($extension = 'def', $group2, $this->audSubgroup2_SolidWaste, $value = '1');
         
@@ -1444,7 +1363,6 @@ class NotWeightedStateCest
     
     public function LogOut2(AcceptanceTester $I) {
         $I->amOnPage(Page\MeasureList::URL());
-//        $I->wait(1);
         $I->Logout($I);
     }
     
@@ -1492,7 +1410,6 @@ class NotWeightedStateCest
     
     public function CheckBlocked_SectorChecklist_Tier2_2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\SectorChecklistManage::URL($this->id_SC_Sector1_T2));
-//        $I->wait(2);
         
         $I->canSeeElement(Page\SectorChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\SectorChecklistManage::OnlyViewModeMessage, Page\SectorChecklistManage::$OnlyViewModeAlert);
@@ -1512,7 +1429,6 @@ class NotWeightedStateCest
     
     public function CheckBlocked_SectorChecklist_Tier1_2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\SectorChecklistManage::URL($this->id_SC_Sector1_T1));
-//        $I->wait(2);
         
         $I->canSeeElement(Page\SectorChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\SectorChecklistManage::OnlyViewModeMessage, Page\SectorChecklistManage::$OnlyViewModeAlert);
@@ -1532,7 +1448,6 @@ class NotWeightedStateCest
     
     public function CheckNotBlocked_ProgramChecklist_Tier2_Program2_2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC2_Sector1_T2));
-//        $I->wait(2);
         
         $I->cantSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         
@@ -1549,7 +1464,6 @@ class NotWeightedStateCest
     
     public function CheckBlocked_ProgramChecklist_Tier1_Program1_2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T1));
-//        $I->wait(2);
         $I->canSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
         
@@ -1568,7 +1482,6 @@ class NotWeightedStateCest
     
     public function CheckBlocked_ProgramChecklist_Tier2_Program1_2(\Step\Acceptance\Checklist $I) {
         $I->amOnPage(Page\ChecklistManage::URL($this->id_PC1_Sector1_T2));
-//        $I->wait(2);
         $I->canSeeElement(Page\ChecklistManage::$OnlyViewModeAlert);
         $I->canSee(Page\ChecklistManage::OnlyViewModeMessage, Page\ChecklistManage::$OnlyViewModeAlert);
         

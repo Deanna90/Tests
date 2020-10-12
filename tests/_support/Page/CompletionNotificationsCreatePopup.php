@@ -15,6 +15,13 @@ class CompletionNotificationsCreatePopup
     public static function SelectedAuditGroupsOption($number)     { return "#completionnotification_audit_ids_chosen>ul>li.search-choice:nth-of-type($number)";}
     public static function SelectedAuditGroupsOptionByName($name) { return "//*[@id='completionnotification_audit_ids_chosen']/ul/li[@class='search-choice']/span[text()='$name']";}
     
+    public static $TierNumbersSelect = '#completionnotification_tiernumbers_chosen';
+    public static $TierNumbersOption = '#completionnotification_tiernumbers_chosen>div>ul>li';
+    public static function selectTierNumbersOption($number)       { return "#completionnotification_tiernumbers_chosen>div>ul>li:nth-of-type($number)";}
+    public static function selectTierNumbersOptionByName($name)   { return "//*[@id='completionnotification_tiernumbers_chosen']//*[@class='chosen-results']/li[text()='$name']";}
+    public static function SelectedTierNumbersOption($number)     { return "#completionnotification_tiernumbers_chosen>ul>li.search-choice:nth-of-type($number)";}
+    public static function SelectedTierNumbersOptionByName($name) { return "//*[@id='completionnotification_tiernumbers_chosen']/ul/li[@class='search-choice']/span[text()='$name']";}
+    
     public static $TypeSelect         = 'select#completionnotification-type';
     public static $SelectedTypeOption = 'select#completionnotification-type [selected]';
     public static $TypeOption         = 'select#completionnotification-type option';

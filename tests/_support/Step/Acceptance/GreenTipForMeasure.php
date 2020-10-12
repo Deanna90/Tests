@@ -3,21 +3,54 @@ namespace Step\Acceptance;
 
 class GreenTipForMeasure extends \AcceptanceTester
 {
-    public function CreateMeasureGreenTip($desc = null, $program = null)
+    public function CreateMeasureGreenTip($desc = null, $programsArray = null, $allPrograms = 'yes', $allSectors = 'yes', $sectorsArray = null)
     {
         $I = $this;
         $I->waitPageLoad();
         if (isset($desc)){
             $I->fillCkEditorTextarea(\Page\MeasureGreenTipCreate::$DescriptionField, $desc);
         }
-        if (isset($program)){
-            for ($i=1, $c= count($program); $i<=$c; $i++){
-                $k = $i-1;
-                $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
+        switch ($allPrograms){
+            case 'yes':
+                $I->click(\Page\MeasureGreenTipCreate::$UseForAllProgramsToggleButton);
                 $I->wait(1);
-                $I->click(\Page\MeasureGreenTipCreate::selectProgramOptionByName($program[$k]));
-            }
+                $I->waitPageLoad();
+                break;
+            case 'no':
+                if (isset($programsArray)){
+                    for ($i=1, $c= count($programsArray); $i<=$c; $i++){
+                    $k = $i-1;
+                    $I->click(\Page\MeasureGreenTipCreate::$ProgramSelect);
+                    $I->wait(1);
+                    $I->click(\Page\MeasureGreenTipCreate::selectProgramOptionByName($programsArray[$k]));
+                    }
+                }
+                break;
         }
+        $I->comment("All sectors value: $allSectors");
+        switch ($allSectors){
+            case 'yes':
+                break;
+            case 'no':
+                $I->comment("sector choose1");
+                $I->makeElementNotVisible([\Page\MeasureGreenTipCreate::$UseForAllSectorsToggleButtonSelect]);
+                $I->wait(1);
+                $I->selectOption(\Page\MeasureGreenTipCreate::$UseForAllSectorsToggleButtonSelect, 'no');
+                $I->wait(1);
+                $I->waitPageLoad();
+                if (isset($sectorsArray)){
+                    $I->comment("sector choose2");
+                    for ($i=1, $c= count($sectorsArray); $i<=$c; $i++){
+                    $k = $i-1;
+                    $I->click(\Page\MeasureGreenTipCreate::$SectorSelect);
+                    $I->wait(1);
+                    $I->comment("sector choose3");
+                    $I->click(\Page\MeasureGreenTipCreate::selectSectorOptionByName($sectorsArray[$k]));
+                    }
+                }
+                break;
+        }
+        $I->comment("sector choose4");
         $I->click(\Page\MeasureGreenTipCreate::$CreateButton);
         $I->wait(1);
         $I->waitPageLoad();

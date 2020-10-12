@@ -3,7 +3,7 @@ namespace Step\Acceptance;
 
 class Program extends \AcceptanceTester
 {
-    public function CreateProgram($name = null, $state = null, $cityArray = null, $recerticationCycle = '1 year')
+    public function CreateProgram($name = null, $state = null, $cityArray = null, $recerticationCycle = '1 year', $compledTiersArray = null)
     {
         $I = $this;
         $I->amOnPage(\Page\ProgramCreate::URL());
@@ -24,6 +24,14 @@ class Program extends \AcceptanceTester
             }
         }
         $I->selectOption(\Page\ProgramCreate::$RecertificationCycleSelect, $recerticationCycle);
+        if (isset($compledTiersArray)){
+            for ($i=1, $c= count($compledTiersArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\ProgramCreate::$CompletedTiersSelect);
+                $I->wait(3);
+                $I->click(\Page\ProgramCreate::selectCompletedTiersOptionByName($compledTiersArray[$k]));
+            }
+        }
         $I->click(\Page\ProgramCreate::$CreateButton);
         $I->wait(1);
         $I->waitPageLoad('150');
@@ -54,7 +62,7 @@ class Program extends \AcceptanceTester
         return $prog;
     }
     
-    public function UpdateProgram($idProg = null, $name = null, $state = null, $cityArray = null, $weighted = null, $recerticationCycle = null)
+    public function UpdateProgram($idProg = null, $name = null, $state = null, $cityArray = null, $weighted = null, $recerticationCycle = null, $compledTiersArray = null)
     {
         $I = $this;
         if (isset($idProg)){
@@ -83,6 +91,14 @@ class Program extends \AcceptanceTester
         }
         if (isset($recerticationCycle)){
             $I->selectOption(\Page\ProgramUpdate::$RecertificationCycleSelect, $recerticationCycle);
+        }
+        if (isset($compledTiersArray)){
+            for ($i=1, $c= count($compledTiersArray); $i<=$c; $i++){
+                $k = $i-1;
+                $I->click(\Page\ProgramUpdate::$CompletedTiersSelect);
+                $I->wait(3);
+                $I->click(\Page\ProgramUpdate::selectCompletedTiersOptionByName($compledTiersArray[$k]));
+            }
         }
         $I->click(\Page\ProgramUpdate::$UpdateButton);
         $I->wait(1);

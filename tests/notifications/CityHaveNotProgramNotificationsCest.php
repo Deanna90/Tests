@@ -472,8 +472,8 @@ class CityHaveNotProgramNotificationsCest
         $zip          = $this->zip3;
         $result       = 'popup';   
         $cityArray    = null;
-        $titlePopup   = $this->title_City2;
-        $messagePopup = $this->message_City2;
+        $titlePopup   = $this->title_AllCities;
+        $messagePopup = $this->message_AllCities;
                 
         $I->CityMessageCheckOnRegisterBusiness($zip, $result, $cityArray, $titlePopup, $messagePopup);
     }
@@ -576,8 +576,8 @@ class CityHaveNotProgramNotificationsCest
         $zip          = $this->zip3;
         $result       = 'popup';   
         $cityArray    = null;
-        $titlePopup   = $this->title_City2;
-        $messagePopup = $this->message_City2;
+        $titlePopup   = $this->title_AllCities;
+        $messagePopup = $this->message_AllCities;
                 
         $I->CityMessageCheckOnRegisterBusiness($zip, $result, $cityArray, $titlePopup, $messagePopup);
     }
@@ -683,8 +683,8 @@ class CityHaveNotProgramNotificationsCest
         $zip          = $this->zip3;
         $result       = 'popup';   
         $cityArray    = null;
-        $titlePopup   = $this->title_City2;
-        $messagePopup = $this->message_City2;
+        $titlePopup   = $this->title_City4_City5;
+        $messagePopup = $this->message_City4_City5;
                 
         $I->CityMessageCheckOnRegisterBusiness($zip, $result, $cityArray, $titlePopup, $messagePopup);
     }

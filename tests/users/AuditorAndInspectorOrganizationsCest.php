@@ -2116,7 +2116,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::AuditsPopup_MessageButtonByName(\Page\AuditGroupList::Energy_AuditGroup));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::Energy_AuditGroup), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Auditor1 from Organization1 for Energy group-");
         $I->fillField(Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::Energy_AuditGroup), $subject);
         $I->fillField(Page\ApplicationDetails::AuditsPopup_MessageFieldByName(\Page\AuditGroupList::Energy_AuditGroup), $message);
@@ -2142,7 +2144,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::AuditsPopup_MessageButtonByName(\Page\AuditGroupList::PollutionPrevention_AuditGroup));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::PollutionPrevention_AuditGroup), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Auditor1 from Organization1_2 for Pollution group-");
         $I->fillField(Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::PollutionPrevention_AuditGroup), $subject);
         $I->fillField(Page\ApplicationDetails::AuditsPopup_MessageFieldByName(\Page\AuditGroupList::PollutionPrevention_AuditGroup), $message);
@@ -2167,7 +2171,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::AuditsPopup_MessageButtonByName(\Page\AuditGroupList::Water_AuditGroup));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::Water_AuditGroup), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Auditor1 from Organization1_2 for Water group-");
         $I->fillField(Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::Water_AuditGroup), $subject);
         $I->fillField(Page\ApplicationDetails::AuditsPopup_MessageFieldByName(\Page\AuditGroupList::Water_AuditGroup), $message);
@@ -2226,7 +2232,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::AuditsPopup_MessageButtonByName(\Page\AuditGroupList::Energy_AuditGroup));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::Energy_AuditGroup), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Auditor2 from Organization2 for Energy group-");
         $I->fillField(Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::Energy_AuditGroup), $subject);
         $I->fillField(Page\ApplicationDetails::AuditsPopup_MessageFieldByName(\Page\AuditGroupList::Energy_AuditGroup), $message);
@@ -2251,7 +2259,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::AuditsPopup_MessageButtonByName(\Page\AuditGroupList::Water_AuditGroup));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::Water_AuditGroup), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Auditor1 from Organization1_2 for Water group-");
         $I->fillField(Page\ApplicationDetails::AuditsPopup_SubjectFieldByName(\Page\AuditGroupList::Water_AuditGroup), $subject);
         $I->fillField(Page\ApplicationDetails::AuditsPopup_MessageFieldByName(\Page\AuditGroupList::Water_AuditGroup), $message);
@@ -2333,7 +2343,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::ComplianceCheckPopup_MessageButtonByName($this->complCheck1_AirQuality));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck1_AirQuality), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Inspector1 from Organization1 for $this->complCheck1_AirQuality-");
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck1_AirQuality), $subject);
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_MessageFieldByName($this->complCheck1_AirQuality), $message);
@@ -2358,7 +2370,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::ComplianceCheckPopup_MessageButtonByName($this->complCheck6_Wastewater));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck6_Wastewater), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Inspector1 from Organization1_2 for $this->complCheck6_Wastewater-");
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck6_Wastewater), $subject);
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_MessageFieldByName($this->complCheck6_Wastewater), $message);
@@ -2384,7 +2398,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::ComplianceCheckPopup_MessageButtonByName($this->complCheck2_HazWaste));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck2_HazWaste), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Inspector1_2 from Organization1_2 for $this->complCheck2_HazWaste-");
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck2_HazWaste), $subject);
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_MessageFieldByName($this->complCheck2_HazWaste), $message);
@@ -2409,7 +2425,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::ComplianceCheckPopup_MessageButtonByName($this->complCheck4_FoodSaf));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck4_FoodSaf), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Inspector1 from Organization1_2 for $this->complCheck4_FoodSaf-");
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck4_FoodSaf), $subject);
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_MessageFieldByName($this->complCheck4_FoodSaf), $message);
@@ -2516,7 +2534,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::ComplianceCheckPopup_MessageButtonByName($this->complCheck5_Stormwater));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck5_Stormwater), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Inspector2 from Organization2 for $this->complCheck5_Stormwater-");
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck5_Stormwater), $subject);
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_MessageFieldByName($this->complCheck5_Stormwater), $message);
@@ -2542,7 +2562,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::ComplianceCheckPopup_MessageButtonByName($this->complCheck2_HazWaste));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck2_HazWaste), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Inspector1_2 from Organization1_2 for $this->complCheck2_HazWaste-");
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck2_HazWaste), $subject);
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_MessageFieldByName($this->complCheck2_HazWaste), $message);
@@ -2567,7 +2589,9 @@ class AuditorAndInspectorOrganizationsCest
         $I->wait(2);
         
         $I->click(\Page\ApplicationDetails::ComplianceCheckPopup_MessageButtonByName($this->complCheck4_FoodSaf));
-        $I->wait(4);
+        $I->wait(2);
+        $I->waitForElement(\Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck4_FoodSaf), 100);
+        $I->wait(1);
         $I->comment("-Send Message to Inspector2 from Organization1_2 for $this->complCheck4_FoodSaf-");
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_SubjectFieldByName($this->complCheck4_FoodSaf), $subject);
         $I->fillField(Page\ApplicationDetails::ComplianceCheckPopup_MessageFieldByName($this->complCheck4_FoodSaf), $message);
@@ -2679,7 +2703,7 @@ class AuditorAndInspectorOrganizationsCest
         $I->canSee(\Page\AuditGroupList::Water_AuditGroup, Page\CommunicationCreatePopup::$AuditGroupOption);
         $I->canSee(\Page\AuditGroupList::PollutionPrevention_AuditGroup, Page\CommunicationCreatePopup::$AuditGroupOption);
         $options= $I->getAmount($I, \Page\CommunicationCreatePopup::$AuditGroupOption);
-        $I->assertEquals('3', $options);
+        $I->assertSame("3", "$options");
     }
     
     public function Auditor1_CreateCommunication1_ForBusiness1_WithoutGroups(AcceptanceTester $I)
@@ -2948,7 +2972,7 @@ class AuditorAndInspectorOrganizationsCest
         $I->canSee(\Page\AuditGroupList::Water_AuditGroup, Page\CommunicationCreatePopup::$AuditGroupOption);
         $I->cantSee(\Page\AuditGroupList::PollutionPrevention_AuditGroup, Page\CommunicationCreatePopup::$AuditGroupOption);
         $options= $I->getAmount($I, \Page\CommunicationCreatePopup::$AuditGroupOption);
-        $I->assertEquals('2', $options);
+        $I->assertSame("2", "$options");
     }
     
     public function Auditor2_CreateCommunication1_ForBusiness2_WithoutGroups(AcceptanceTester $I)
@@ -3195,7 +3219,7 @@ class AuditorAndInspectorOrganizationsCest
         $I->canSee(\Page\AuditGroupList::Water_AuditGroup, Page\CommunicationCreatePopup::$AuditGroupOption);
         $I->canSee(\Page\AuditGroupList::PollutionPrevention_AuditGroup, Page\CommunicationCreatePopup::$AuditGroupOption);
         $options= $I->getAmount($I, \Page\CommunicationCreatePopup::$AuditGroupOption);
-        $I->assertEquals('2', $options);
+        $I->assertSame("2", "$options");
     }
     
     public function Auditor1_2_CreateCommunication1_ForBusiness1_WithoutGroups(AcceptanceTester $I)
@@ -3319,7 +3343,7 @@ class AuditorAndInspectorOrganizationsCest
         $I->canSee(\Page\AuditGroupList::Water_AuditGroup, Page\CommunicationCreatePopup::$AuditGroupOption);
         $I->cantSee(\Page\AuditGroupList::PollutionPrevention_AuditGroup, Page\CommunicationCreatePopup::$AuditGroupOption);
         $options= $I->getAmount($I, \Page\CommunicationCreatePopup::$AuditGroupOption);
-        $I->assertEquals('2', $options);
+        $I->assertSame("2", "$options");
     }
     
     public function Auditor1_2_CreateCommunication1_ForBusiness2_WithoutGroups(AcceptanceTester $I)
@@ -3927,7 +3951,7 @@ class AuditorAndInspectorOrganizationsCest
         $I->canSee($this->complCheck6_Wastewater, Page\CommunicationCreatePopup::$ComplianceCheckOption);
         $I->cantSee($this->complCheck3_Created, Page\CommunicationCreatePopup::$ComplianceCheckOption);
         $options= $I->getAmount($I, \Page\CommunicationCreatePopup::$ComplianceCheckOption);
-        $I->assertEquals('4', $options);
+        $I->assertSame("4", "$options");
     }
     
     public function Inspector1_CreateCommunication1_ForBusiness1_WithoutComplianceChecks(AcceptanceTester $I)
@@ -4198,7 +4222,7 @@ class AuditorAndInspectorOrganizationsCest
         $I->cantSee($this->complCheck6_Wastewater, Page\CommunicationCreatePopup::$ComplianceCheckOption);
         $I->cantSee($this->complCheck3_Created, Page\CommunicationCreatePopup::$ComplianceCheckOption);
         $options= $I->getAmount($I, \Page\CommunicationCreatePopup::$ComplianceCheckOption);
-        $I->assertEquals('4', $options);
+        $I->assertSame("4", "$options");
     }
     
     public function Inspector2_CreateCommunication1_ForBusiness2_WithoutComplianceChecks(AcceptanceTester $I)
@@ -4628,7 +4652,7 @@ class AuditorAndInspectorOrganizationsCest
         $I->canSee($this->complCheck6_Wastewater, Page\CommunicationCreatePopup::$ComplianceCheckOption);
         $I->cantSee($this->complCheck3_Created, Page\CommunicationCreatePopup::$ComplianceCheckOption);
         $options= $I->getAmount($I, \Page\CommunicationCreatePopup::$ComplianceCheckOption);
-        $I->assertEquals('3', $options);
+        $I->assertSame("3", "$options");
     }
     
     public function Inspector1_2_CreateCommunication1_ForBusiness1_WithoutComplianceChecks(AcceptanceTester $I)
@@ -4782,7 +4806,7 @@ class AuditorAndInspectorOrganizationsCest
         $I->cantSee($this->complCheck6_Wastewater, Page\CommunicationCreatePopup::$ComplianceCheckOption);
         $I->cantSee($this->complCheck3_Created, Page\CommunicationCreatePopup::$ComplianceCheckOption);
         $options= $I->getAmount($I, \Page\CommunicationCreatePopup::$ComplianceCheckOption);
-        $I->assertEquals('4', $options);
+        $I->assertSame("4", "$options");
     }
     
     public function Inspector1_2_CreateCommunication1_ForBusiness2_WithoutComplianceChecks(AcceptanceTester $I)

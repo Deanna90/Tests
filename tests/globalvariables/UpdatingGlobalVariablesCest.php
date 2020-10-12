@@ -665,49 +665,55 @@ class UpdatingGlobalVariablesCest
         $I->wait(3);
         $I->scrollTo("[data-measure-id='$this->idMeasure4']");
         $I->wait(2);
+        
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+//        $I->wait(3);
+//        $I->makeElementVisible(["[data-measure_id=$this->idMeasure4]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->selectOption(\Page\RegistrationStarted::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
+//        $I->wait(3);
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(2);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(2);
+//        $I->waitPageLoad();
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(2);
+//        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
+//        $I->wait(15);
+        
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
         $I->wait(3);
-        $I->makeElementVisible(["[data-measure_id=$this->idMeasure4]"], $style = 'visibility');
-        $I->wait(3);
-        $I->selectOption(\Page\RegistrationStarted::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
-        $I->wait(3);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->waitPageLoad();
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
-        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(2);
-        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
+        $I->click(Page\RegistrationStarted::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '1'));
         $I->wait(15);
         
         $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CommoditySelect('1', $before), 'Cardboard');
         $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), 'CARRY BIN');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), '32 gallons');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $before), '4');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '10');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '4x / week');
         $I->wait(1);
         $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CommoditySelect('2', $before), 'Mixed Recycling');
         $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('2', $before), 'WHEELIE BIN');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('2', $before), '64 gallons');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('2', $before), '4');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('2', $before), '9');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('2', $before), '2x / week');
         $I->wait(1);
         
         $I->click(\Page\RegistrationStarted::$WasteDiversionPopup_AfterGBTab);
         $I->wait(2);
         
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $after), 'CARRY BIN');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $after), '32 gallons');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $after), '4');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '10');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '7x / week');
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('1', $after));
         $I->wait(1);
@@ -715,7 +721,7 @@ class UpdatingGlobalVariablesCest
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('2', $after), '6');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('2', $after), '5');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('2', $after), '4x / week');
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('2', $after));
         $I->wait(1);
@@ -745,7 +751,7 @@ class UpdatingGlobalVariablesCest
         $I->wait(2);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
         $I->wait(3);
-        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
+        $I->click(Page\RegistrationStarted::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '2'));
         $I->wait(15);
         $I->executeJS('$(".modal.in [name=all_paper_percent]").val("15");'); 
         $I->wait(2);
@@ -879,46 +885,47 @@ class UpdatingGlobalVariablesCest
         $I->wait(2);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
         $I->wait(3);
-        $I->makeElementVisible(["[data-measure_id=$this->idMeasure4]"], $style = 'visibility');
-        $I->wait(3);
-        $I->selectOption(\Page\RegistrationStarted::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
-        $I->wait(3);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(6);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
-        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(2);
-        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
+//        $I->makeElementVisible(["[data-measure_id=$this->idMeasure4]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->selectOption(\Page\RegistrationStarted::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
+        $I->click(\Page\RegistrationStarted::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '1'));
+//        $I->wait(3);
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(2);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(6);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(2);
+//        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
         $I->wait(15);
         
         $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CommoditySelect('1', $before), 'Cardboard');
         $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), 'CARRY BIN');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), '32 gallons');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $before), '4');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '10');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '4x / week');
         $I->wait(1);
         $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CommoditySelect('2', $before), 'Mixed Recycling');
         $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('2', $before), 'WHEELIE BIN');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('2', $before), '64 gallons');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('2', $before), '4');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('2', $before), '9');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('2', $before), '2x / week');
         $I->wait(1);
         
         $I->click(\Page\RegistrationStarted::$WasteDiversionPopup_AfterGBTab);
         $I->wait(2);
         
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $after), 'CARRY BIN');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $after), '32 gallons');
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $after), '4');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '10');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '7x / week');
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('1', $after));
         $I->wait(1);
@@ -926,7 +933,7 @@ class UpdatingGlobalVariablesCest
         $I->wait(1);
         $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('2', $after), '6');
         $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('2', $after), '5');
+        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('2', $after), '4x / week');
         $I->wait(1);
         $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('2', $after));
         $I->wait(1);
@@ -956,7 +963,9 @@ class UpdatingGlobalVariablesCest
         $I->wait(2);
         $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
         $I->wait(3);
-        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
+        $I->click(\Page\RegistrationStarted::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '2'));
+//        $I->wait(2);
+//        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '2'));
         $I->wait(15);
         $I->executeJS('$(".modal.in [name=all_paper_percent]").val("15");'); 
         $I->wait(2);
@@ -1010,8 +1019,8 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: -50.25 kWh\ndaily: -0.137671232877 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 41.65 therms of natural gas per year\ndaily: 0.114109589041 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: -50.25 kWh\ndaily: -0.13767123287671 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 41.65 therms of natural gas per year\ndaily: 0.1141095890411 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure2_Savings_Business1(AcceptanceTester $I) {
@@ -1025,10 +1034,10 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: -3.35 lbs of CO2\ndaily: -0.00917808219178 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: -0.2025 kWh\ndaily: -0.000554794520548 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 120.7975 gallons of fuel\ndaily: 0.330952054795 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -34.0322580645 therms of natural gas per year\ndaily: -0.0932390631905 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: -3.35 lbs of CO2\ndaily: -0.0091780821917808 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: -0.2025 kWh\ndaily: -0.00055479452054795 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 120.7975 gallons of fuel\ndaily: 0.33095205479452 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -34.032258064516 therms of natural gas per year\ndaily: -0.093239063190455 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure3_Savings_Business1(AcceptanceTester $I) {
@@ -1042,7 +1051,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: -101.8225 lbs of CO2\ndaily: -0.278965753425 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: -101.8225 lbs of CO2\ndaily: -0.27896575342466 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure4_Savings_Business1(AcceptanceTester $I) {
@@ -1056,7 +1065,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1464746.882456 lbs of waste\ndaily: 4013.0051574136 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure5_Savings_Business1(AcceptanceTester $I) {
@@ -1070,7 +1079,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: -1537.29655324 lbs of waste\ndaily: -4.21177137874 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: -1537.2965532411 lbs of waste\ndaily: -4.2117713787427 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure1_Savings_Business2(AcceptanceTester $I) {
@@ -1084,8 +1093,8 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: -50.25 kWh\ndaily: -0.137671232877 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 41.65 therms of natural gas per year\ndaily: 0.114109589041 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: -50.25 kWh\ndaily: -0.13767123287671 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 41.65 therms of natural gas per year\ndaily: 0.1141095890411 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure2_Savings_Business2(AcceptanceTester $I) {
@@ -1099,10 +1108,10 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: -3.35 lbs of CO2\ndaily: -0.00917808219178 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: -0.2025 kWh\ndaily: -0.000554794520548 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 120.7975 gallons of fuel\ndaily: 0.330952054795 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -34.0322580645 therms of natural gas per year\ndaily: -0.0932390631905 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: -3.35 lbs of CO2\ndaily: -0.0091780821917808 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: -0.2025 kWh\ndaily: -0.00055479452054795 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 120.7975 gallons of fuel\ndaily: 0.33095205479452 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -34.032258064516 therms of natural gas per year\ndaily: -0.093239063190455 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure3_Savings_Business2(AcceptanceTester $I) {
@@ -1116,7 +1125,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: -101.8225 lbs of CO2\ndaily: -0.278965753425 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: -101.8225 lbs of CO2\ndaily: -0.27896575342466 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure4_Savings_Business2(AcceptanceTester $I) {
@@ -1130,7 +1139,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1464746.882456 lbs of waste\ndaily: 4013.0051574136 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure5_Savings_Business2(AcceptanceTester $I) {
@@ -1144,7 +1153,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: -1537.29655324 lbs of waste\ndaily: -4.21177137874 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: -1537.2965532411 lbs of waste\ndaily: -4.2117713787427 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Cardboard_UpdateGlobalVariable(\Step\Acceptance\GlobalVariable $I)
@@ -1154,7 +1163,7 @@ class UpdatingGlobalVariablesCest
         
         $I->UpdateGlobalVariable($id_cardboard, null, null, $value_cardboard);
 //        $I->wait(5);
-        $I->waitForElement(\Page\GlobalVariableList::$GlobalVariableRow, 150);
+        $I->waitForElement(\Page\GlobalVariableList::$GlobalVariableRow, 400);
     }
     
     public function Compostable_UpdateGlobalVariable(\Step\Acceptance\GlobalVariable $I)
@@ -1164,7 +1173,7 @@ class UpdatingGlobalVariablesCest
         
         $I->UpdateGlobalVariable($id_cardboard, null, null, $value_cardboard);
 //        $I->wait(5);
-        $I->waitForElement(\Page\GlobalVariableList::$GlobalVariableRow, 150);
+        $I->waitForElement(\Page\GlobalVariableList::$GlobalVariableRow, 400);
     }
     
     public function Check_Measure1_Savings_Business1_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1178,8 +1187,8 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 50.25 kWh\ndaily: 0.137671232877 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 41.65 therms of natural gas per year\ndaily: 0.114109589041 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 50.25 kWh\ndaily: 0.13767123287671 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 41.65 therms of natural gas per year\ndaily: 0.1141095890411 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure2_Savings_Business1_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1193,10 +1202,10 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 3.35 lbs of CO2\ndaily: 0.00917808219178 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -34.0322580645 therms of natural gas per year\ndaily: -0.0932390631905 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 3.35 lbs of CO2\ndaily: 0.0091780821917808 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260273973 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.33424657534247 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -34.032258064516 therms of natural gas per year\ndaily: -0.093239063190455 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure3_Savings_Business1_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1210,7 +1219,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 105.19 lbs of CO2\ndaily: 0.288191780822 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 105.19 lbs of CO2\ndaily: 0.28819178082192 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure4_Savings_Business1_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1224,7 +1233,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1391010.280088 lbs of waste\ndaily: 3810.9870687342 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure5_Savings_Business1_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1238,7 +1247,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.3908399889 lbs of waste\ndaily: 19.165454356134 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure1_Savings_Business2_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1252,8 +1261,8 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 50.25 kWh\ndaily: 0.137671232877 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 41.65 therms of natural gas per year\ndaily: 0.114109589041 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 50.25 kWh\ndaily: 0.13767123287671 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 41.65 therms of natural gas per year\ndaily: 0.1141095890411 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure2_Savings_Business2_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1267,10 +1276,10 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 3.35 lbs of CO2\ndaily: 0.00917808219178 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -34.0322580645 therms of natural gas per year\ndaily: -0.0932390631905 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 3.35 lbs of CO2\ndaily: 0.0091780821917808 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260273973 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.33424657534247 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -34.032258064516 therms of natural gas per year\ndaily: -0.093239063190455 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure3_Savings_Business2_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1284,7 +1293,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 105.19 lbs of CO2\ndaily: 0.288191780822 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 105.19 lbs of CO2\ndaily: 0.28819178082192 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure4_Savings_Business2_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1298,7 +1307,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1391010.280088 lbs of waste\ndaily: 3810.9870687342 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure5_Savings_Business2_AfterGVUpdating1(AcceptanceTester $I) {
@@ -1312,7 +1321,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.3908399889 lbs of waste\ndaily: 19.165454356134 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Cardboard_GlobalVariableOverride_ForState(\Step\Acceptance\GlobalVariable $I)
@@ -1438,8 +1447,8 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 30 kWh\ndaily: 0.0821917808219 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -35 therms of natural gas per year\ndaily: -0.0958904109589 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 30 kWh\ndaily: 0.082191780821918 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -35 therms of natural gas per year\ndaily: -0.095890410958904 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure2_Savings_Business1_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1453,10 +1462,10 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 2 lbs of CO2\ndaily: 0.00547945205479 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.375 therms of natural gas per year\ndaily: -0.00102739726027 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 2 lbs of CO2\ndaily: 0.0054794520547945 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260273973 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.33424657534247 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.375 therms of natural gas per year\ndaily: -0.001027397260274 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure3_Savings_Business1_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1470,7 +1479,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 105 lbs of CO2\ndaily: 0.287671232877 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 105 lbs of CO2\ndaily: 0.28767123287671 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure4_Savings_Business1_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1484,7 +1493,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1391010.280088 lbs of waste\ndaily: 3810.9870687342 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure5_Savings_Business1_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1498,7 +1507,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.3908399889 lbs of waste\ndaily: 19.165454356134 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure1_Savings_Business2_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1512,8 +1521,8 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 30 kWh\ndaily: 0.0821917808219 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 7 therms of natural gas per year\ndaily: 0.0191780821918 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 30 kWh\ndaily: 0.082191780821918 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 7 therms of natural gas per year\ndaily: 0.019178082191781 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure2_Savings_Business2_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1527,10 +1536,10 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 2 lbs of CO2\ndaily: 0.00547945205479 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 11 kWh\ndaily: 0.0301369863014 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 132 gallons of fuel\ndaily: 0.361643835616 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.606060606061 therms of natural gas per year\ndaily: -0.0016604400166 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 2 lbs of CO2\ndaily: 0.0054794520547945 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 11 kWh\ndaily: 0.03013698630137 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 132 gallons of fuel\ndaily: 0.36164383561644 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.60606060606061 therms of natural gas per year\ndaily: -0.0016604400166044 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure3_Savings_Business2_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1544,7 +1553,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 116.65 lbs of CO2\ndaily: 0.319589041096 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 116.65 lbs of CO2\ndaily: 0.31958904109589 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure4_Savings_Business2_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1558,7 +1567,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1391010.280088 lbs of waste\ndaily: 3810.9870687342 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Check_Measure5_Savings_Business2_AfterGVUpdating2(AcceptanceTester $I) {
@@ -1572,7 +1581,7 @@ class UpdatingGlobalVariablesCest
         $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
         $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 77953.29016 lbs of waste\ndaily: 213.570657973 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 77953.290159989 lbs of waste\ndaily: 213.57065797257 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
     }
     
     public function Cardboard_SV_UpdateOverriddedVariable(\Step\Acceptance\GlobalVariable $I)
@@ -1605,739 +1614,742 @@ class UpdatingGlobalVariablesCest
         $I->waitForElement(\Page\GlobalVariableList::$GlobalVariableRow, 150);
     }
     
-    public function Help_LogOut3(AcceptanceTester $I) {
-        $I->amOnPage(Page\MeasureList::URL());
+//    public function Help_LogOut3(AcceptanceTester $I) {
+//        $I->amOnPage(Page\MeasureList::URL());
+////        $I->wait(1);
+//        $I->LogIn_TRUEorFALSE($I);
+////        $I->wait(2);
+//        $I->Logout($I);
+//    }
+//    
+//    public function Help_Business3Register(Step\Acceptance\Business $I)
+//    {
+//        $firstName        = $I->GenerateNameOf("firnam");
+//        $lastName         = $I->GenerateNameOf("lasnam");
+//        $phoneNumber      = $I->GeneratePhoneNumber();
+//        $email            = $I->GenerateEmail();
+//        $password         = $confirmPassword = $this->password;
+//        $busName          = $this->business2_P1 = $I->GenerateNameOf("busnam2_P1");
+//        $busPhone         = $I->GeneratePhoneNumber();
+//        $address          = $I->GenerateNameOf("addr");
+//        $zip              = $this->zip1;
+//        $city             = $this->city1;
+//        $website          = 'fgfh.fh';
+//        $busType          = 'Office / Retail';
+//        $employees        = $this->employeesCount2 = '121';
+//        $busFootage       = '4566';
+//        $landscapeFootage = '12345';
+//        
+//        $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
+//                $employees, $busFootage, $landscapeFootage);
+//        $I->wait(12);
+//    }
+//    
+//    public function Business3_CompleteMeasure1(AcceptanceTester $I) {
+//        $measDesc = $this->measure1Desc;
+//        $value1   = '10';
+//        $value2   = '15';
+//                
+////        $I->wait(1);
+//        $I->comment("Complete Measure1 and save.");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+////        $I->wait(4);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
 //        $I->wait(1);
-        $I->LogIn_TRUEorFALSE($I);
-//        $I->wait(2);
-        $I->Logout($I);
-    }
-    
-    public function Help_Business3Register(Step\Acceptance\Business $I)
-    {
-        $firstName        = $I->GenerateNameOf("firnam");
-        $lastName         = $I->GenerateNameOf("lasnam");
-        $phoneNumber      = $I->GeneratePhoneNumber();
-        $email            = $I->GenerateEmail();
-        $password         = $confirmPassword = $this->password;
-        $busName          = $this->business2_P1 = $I->GenerateNameOf("busnam2_P1");
-        $busPhone         = $I->GeneratePhoneNumber();
-        $address          = $I->GenerateNameOf("addr");
-        $zip              = $this->zip1;
-        $city             = $this->city1;
-        $website          = 'fgfh.fh';
-        $busType          = 'Office / Retail';
-        $employees        = $this->employeesCount2 = '121';
-        $busFootage       = '4566';
-        $landscapeFootage = '12345';
-        
-        $I->RegisterBusiness($firstName, $lastName, $phoneNumber, $email, $password, $confirmPassword, $busName, $busPhone, $address, $zip, $city, $website, $busType, 
-                $employees, $busFootage, $landscapeFootage);
-        $I->wait(12);
-    }
-    
-    public function Business3_CompleteMeasure1(AcceptanceTester $I) {
-        $measDesc = $this->measure1Desc;
-        $value1   = '10';
-        $value2   = '15';
-                
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
 //        $I->wait(1);
-        $I->comment("Complete Measure1 and save.");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-//        $I->wait(4);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
-        $I->wait(3);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
-        $I->wait(1);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->waitPageLoad();
-    }
-    
-    public function Business3_CompleteMeasure2(AcceptanceTester $I) {
-        $measDesc = $this->measure2Desc;
-                
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
 //        $I->wait(1);
-        $I->comment("Complete Measure2 and save.");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-//        $I->wait(4);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
-        $I->wait(3);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(1);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->waitPageLoad();
-    }
-    
-    public function Business3_CompleteMeasure3(AcceptanceTester $I) {
-        $measDesc = $this->measure3Desc;
-        $value1   = '5';
-        $value2   = '6';
-        $value3   = '1';
-        $option1  = 'Green';
-        $option2  = 'Red';
-        $option3  = 'Grey';
-                
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(2);
+//        $I->waitPageLoad();
+//    }
+//    
+//    public function Business3_CompleteMeasure2(AcceptanceTester $I) {
+//        $measDesc = $this->measure2Desc;
+//                
+////        $I->wait(1);
+//        $I->comment("Complete Measure2 and save.");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+////        $I->wait(4);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
 //        $I->wait(1);
-        $I->comment("Complete Measure3 and save.");
-        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-//        $I->wait(4);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure3]"], $style = 'visibility');
-        $I->wait(3);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(2);
-        $I->selectOption(\Page\RegistrationStarted::SubmeasureSelect_ByMeasureDesc($measDesc, '1'), $option2);
-        $I->selectOption(\Page\RegistrationStarted::SubmeasureSelect_ByMeasureDesc($measDesc, '2'), $option1);
-        $I->selectOption(\Page\RegistrationStarted::SubmeasureSelect_ByMeasureDesc($measDesc, '3'), $option3);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
-        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '3'), $value3);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->waitPageLoad();
-    }
-    
-    public function Business3_CompleteMeasure4(AcceptanceTester $I) {
-        $measDesc = $this->measure4Desc;
-        $before   = 'before';
-        $after    = 'after';
-        
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
 //        $I->wait(1);
-        $I->comment("Complete Measure4 fand save.");
-        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-//        $I->wait(4);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
-        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(2);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(3);
-        $I->makeElementVisible(["[data-measure_id=$this->idMeasure4]"], $style = 'visibility');
-        $I->wait(3);
-        $I->selectOption(\Page\RegistrationStarted::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
-        $I->wait(3);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->waitPageLoad();
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
-        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(2);
-        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
-        $I->wait(15);
-        
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CommoditySelect('1', $before), 'Cardboard');
-        $I->wait(1);
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), 'CARRY BIN');
-        $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $before), '6');
-        $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '10');
-        $I->wait(1);
-        
-        $I->click(\Page\RegistrationStarted::$WasteDiversionPopup_AfterGBTab);
-        $I->wait(2);
-        
-        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $after), 'CARRY BIN');
-        $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $after), '6');
-        $I->wait(1);
-        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '10');
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('1', $after));
-        $I->wait(1);
-        
-        $I->click(\Page\RegistrationStarted::WasteDiversionPopup_SaveChangesButton($after));
-        $I->wait(2);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->waitPageLoad();
-    }
-    
-    public function Business3_CompleteMeasure5_Yes_NAonSubmeasure(AcceptanceTester $I) {
-        $measDesc = $this->measure5Desc;
-        $paper    = '15';
-        $bottles  = '26';
-        $compost  = '16';
-        
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(2);
+//        $I->waitPageLoad();
+//    }
+//    
+//    public function Business3_CompleteMeasure3(AcceptanceTester $I) {
+//        $measDesc = $this->measure3Desc;
+//        $value1   = '5';
+//        $value2   = '6';
+//        $value3   = '1';
+//        $option1  = 'Green';
+//        $option2  = 'Red';
+//        $option3  = 'Grey';
+//                
+////        $I->wait(1);
+//        $I->comment("Complete Measure3 and save.");
+//        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+////        $I->wait(4);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure3]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+//        $I->wait(2);
+//        $I->selectOption(\Page\RegistrationStarted::SubmeasureSelect_ByMeasureDesc($measDesc, '1'), $option2);
+//        $I->selectOption(\Page\RegistrationStarted::SubmeasureSelect_ByMeasureDesc($measDesc, '2'), $option1);
+//        $I->selectOption(\Page\RegistrationStarted::SubmeasureSelect_ByMeasureDesc($measDesc, '3'), $option3);
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
+//        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '3'), $value3);
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
 //        $I->wait(1);
-        $I->comment("Complete Measure5 fand save.");
-        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]"], $style = 'visibility');
-        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
-        $I->wait(2);
-        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
-        $I->wait(3);
-        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
-        $I->wait(15);
-        $I->executeJS('$(".modal.in [name=all_paper_percent]").val("15");'); 
-        $I->wait(2);
-        $I->executeJS('$(".modal.in [name=bottles_cans_percent]").val("26");'); 
-        $I->wait(2);
-        $I->executeJS('$(".modal.in [name=compost_percent]").val("16");'); 
-        $I->wait(2);
-        $I->click(\Page\RegistrationStarted::$WasteDiversionPopup_NO_SaveButton);
-        $I->wait(3);
-        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(1);
-        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
-        $I->wait(2);
-        $I->waitPageLoad();
-    }
-    
-    public function Help_LogOut4(AcceptanceTester $I) {
-        $I->reloadPage();
-        $I->waitPageLoad();
-        $I->LogIn_TRUEorFALSE($I);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
 //        $I->wait(2);
-        $I->Logout($I);
+//        $I->waitPageLoad();
+//    }
+//    
+//    public function Business3_CompleteMeasure4(AcceptanceTester $I) {
+//        $measDesc = $this->measure4Desc;
+//        $before   = 'before';
+//        $after    = 'after';
+//        
+////        $I->wait(1);
+//        $I->comment("Complete Measure4 fand save.");
+//        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+////        $I->wait(4);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
+//        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(2);
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+//        $I->wait(3);
+////        $I->makeElementVisible(["[data-measure_id=$this->idMeasure4]"], $style = 'visibility');
+////        $I->wait(3);
+////        $I->selectOption(\Page\RegistrationStarted::SubmeasureToggleButton_3Items_ByMeasureDesc($measDesc, '1'), 'yes');
+//        $I->click(\Page\RegistrationStarted::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '1'));
+////        $I->wait(3);
+////        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+////        $I->wait(2);
+////        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+////        $I->waitPageLoad();
+////        $I->makeElementVisible(["[data-measure-id=$this->idMeasure4]"], $style = 'visibility');
+////        $I->wait(3);
+////        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+////        $I->wait(2);
+////        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '1'));
+//        $I->wait(15);
+//        
+//        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CommoditySelect('1', $before), 'Cardboard');
 //        $I->wait(1);
-        $I->LoginAsAdmin($I);
-    }
-    
-    public function GetBusiness3ID(AcceptanceTester $I) {
-        $url2 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2_P1), 'href');
-        $I->comment("Url2: $url2");
-        $u2 = explode('=', $url2);
-        $this->id_business2_P1 = $u2[1];
-        $I->comment("Business3 id: $this->id_business2_P1.");
-    }
-    
-    public function Check_Measure1_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure1Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -35 therms of natural gas per year\ndaily: -0.0958904109589 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure2_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure2Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.375 therms of natural gas per year\ndaily: -0.00102739726027 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure3_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure3Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 345 lbs of CO2\ndaily: 0.945205479452 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure4_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure4Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure5_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure5Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure1_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure1Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 7 therms of natural gas per year\ndaily: 0.0191780821918 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure2_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure2Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 3 kWh\ndaily: 0.00821917808219 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 124 gallons of fuel\ndaily: 0.339726027397 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.606060606061 therms of natural gas per year\ndaily: -0.0016604400166 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure3_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure3Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 316.65 lbs of CO2\ndaily: 0.867534246575 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure4_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure4Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure5_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure5Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 21186.970704 lbs of waste\ndaily: 58.0464950794 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure1_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure1Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -35 therms of natural gas per year\ndaily: -0.0958904109589 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure2_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure2Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.375 therms of natural gas per year\ndaily: -0.00102739726027 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure3_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure3Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 345 lbs of CO2\ndaily: 0.945205479452 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure4_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure4Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 550273.152 lbs of waste\ndaily: 1507.59767671 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure5_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
-        $measDesc           = $this->measure5Desc;
-        
-//        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function New_GV_ErrorAppears_DeletingOfGlobalVariable_Overrided(Step\Acceptance\GlobalVariable $I) {
-        $I->amOnPage(Page\GlobalVariableList::URL());
+//        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $before), '32 gallons');
 //        $I->wait(1);
-        $countInList1 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
-        $I->comment("Count of variables before deleting: $countInList1");
-        $var = $I->GetGlobalVariableOnPageInList($this->globVariableTitle);
-        $row = $var['row'];
-        $I->click(Page\GlobalVariableList::DeleteButtonLine($row));
-        $I->wait(2);
-        $I->acceptPopup();
-        $I->wait(2);
-        $I->canSeeElement(".sweet-alert.visible");
-        $I->canSee('Global Variable was overriden. Please, remove overrides first!', ".sweet-alert.visible h2");
-        $I->click(".sweet-alert.visible button");
-        $I->wait(2);
-        $countInList2 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
-        $I->comment("Count of variables after deleting: $countInList2");
-        $I->assertEquals($countInList1, $countInList2);
-    }
-    
-    public function New_P1V_DeletingOfProgramVariable(Step\Acceptance\GlobalVariable $I) {
-        $I->amOnPage(Page\GlobalVariableList::URL());
+//        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $before), '6');
 //        $I->wait(1);
-        $countInList1 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
-        $I->comment("Count of variables before deleting: $countInList1");
-        $var = $I->GetGlobalVariableOnPageInList($this->globVariableTitle, 'Program', $this->program1);
-        $row = $var['row'];
-        $I->click(Page\GlobalVariableList::DeleteButtonLine($row));
-        $I->wait(2);
-        $I->acceptPopup();
-        $I->wait(2);
-        $I->canSeeElement(".sweet-alert.visible");
-        $I->canSee('Global Variable was deleted.', ".sweet-alert.visible h2");
-        $I->click(".sweet-alert.visible button");
-        $I->wait(2);
-        $countInList2 = $countInList1-1;
-        $I->canSee($countInList2, Page\GlobalVariableList::$SummaryCount);
-    }
-    
-    public function Recycling100_SV_DeletingOfStateVariable(Step\Acceptance\GlobalVariable $I) {
-        $I->amOnPage(Page\GlobalVariableList::URL());
+//        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $before), '4x / week');
 //        $I->wait(1);
-        $countInList1 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
-        $I->comment("Count of variables before deleting: $countInList1");
-        $var = $I->GetGlobalVariableOnPageInList($this->Recicled100_Title, 'State', $this->state);
-        $row = $var['row'];
-        $I->click(Page\GlobalVariableList::DeleteButtonLine($row));
-        $I->wait(2);
-        $I->acceptPopup();
-        $I->wait(2);
-        $I->canSeeElement(".sweet-alert.visible");
-        $I->canSee('Global Variable was deleted.', ".sweet-alert.visible h2");
-        $I->click(".sweet-alert.visible button");
-        $I->wait(2);
-        $countInList2 = $countInList1-1;
-        $I->canSee($countInList2, Page\GlobalVariableList::$SummaryCount);
-    }
-    
-    public function Compostable_P2V_DeletingOfProgramVariable(Step\Acceptance\GlobalVariable $I) {
-        $I->amOnPage(Page\GlobalVariableList::URL());
+//        
+//        $I->click(\Page\RegistrationStarted::$WasteDiversionPopup_AfterGBTab);
+//        $I->wait(2);
+//        
+//        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_ContainerTypeSelect('1', $after), '32 gallons');
 //        $I->wait(1);
-        $countInList1 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
-        $I->comment("Count of variables before deleting: $countInList1");
-        $var = $I->GetGlobalVariableOnPageInList($this->Compostable_Title, 'Program', $this->program2);
-        $row = $var['row'];
-        $I->click(Page\GlobalVariableList::DeleteButtonLine($row));
-        $I->wait(2);
-        $I->acceptPopup();
-        $I->wait(2);
-        $I->canSeeElement(".sweet-alert.visible");
-        $I->canSee('Global Variable was deleted.', ".sweet-alert.visible h2");
-        $I->click(".sweet-alert.visible button");
-        $I->wait(2);
-        $countInList2 = $countInList1-1;
-        $I->canSee($countInList2, Page\GlobalVariableList::$SummaryCount);
-    }
-    
-    public function Check_Measure1_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
-        $measDesc           = $this->measure1Desc;
-        
+//        $I->fillField(\Page\RegistrationStarted::WasteDiversionPopup_ContainersField('1', $after), '6');
+//        $I->wait(1);
+//        $I->selectOption(\Page\RegistrationStarted::WasteDiversionPopup_CollectionPerWeekField('1', $after), '2x / week');
+//        $I->wait(1);
+//        $I->click(\Page\RegistrationStarted::WasteDiversionPopup_CompactedToggleButton('1', $after));
+//        $I->wait(1);
+//        
+//        $I->click(\Page\RegistrationStarted::WasteDiversionPopup_SaveChangesButton($after));
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -50 therms of natural gas per year\ndaily: -0.13698630137 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure2_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
-        $measDesc           = $this->measure2Desc;
-        
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(1);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+//        $I->waitPageLoad();
+//    }
+//    
+//    public function Business3_CompleteMeasure5_Yes_NAonSubmeasure(AcceptanceTester $I) {
+//        $measDesc = $this->measure5Desc;
+//        $paper    = '15';
+//        $bottles  = '26';
+//        $compost  = '16';
+//        
+////        $I->wait(1);
+//        $I->comment("Complete Measure5 fand save.");
+//        $I->amOnPage(Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure5]"], $style = 'visibility');
 //        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.5 therms of natural gas per year\ndaily: -0.0013698630137 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure3_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
-        $measDesc           = $this->measure3Desc;
-        
+//        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+//        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
 //        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 345 lbs of CO2\ndaily: 0.945205479452 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure4_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
-        $measDesc           = $this->measure4Desc;
-        
+//        $I->click(\Page\RegistrationStarted::SubmeasureToggleButton_2Items_ByMeasureDesc($measDesc, '2'));
+////        $I->wait(2);
+////        $I->click(Page\RegistrationStarted::SubmeasureLink_ByMeasureDesc($measDesc, '2'));
+//        $I->wait(15);
+//        $I->executeJS('$(".modal.in [name=all_paper_percent]").val("15");'); 
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure5_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
-        $measDesc           = $this->measure5Desc;
-        
+//        $I->executeJS('$(".modal.in [name=bottles_cans_percent]").val("26");'); 
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure1_Savings_Business2_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
-        $measDesc           = $this->measure1Desc;
-        
+//        $I->executeJS('$(".modal.in [name=compost_percent]").val("16");'); 
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+//        $I->click(\Page\RegistrationStarted::$WasteDiversionPopup_NO_SaveButton);
 //        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 7 therms of natural gas per year\ndaily: 0.0191780821918 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure2_Savings_Business2_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
-        $measDesc           = $this->measure2Desc;
-        
+//        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+//        $I->wait(1);
+//        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 3.22580645161 therms of natural gas per year\ndaily: 0.00883782589483 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure3_Savings_Business2_AfterGVUpdating4(AcceptanceTester $I) {
-        $measDesc           = $this->measure3Desc;
-        
+//        $I->waitPageLoad();
+//    }
+//    
+//    public function Help_LogOut4(AcceptanceTester $I) {
+//        $I->reloadPage();
+//        $I->waitPageLoad();
+//        $I->LogIn_TRUEorFALSE($I);
+////        $I->wait(2);
+//        $I->Logout($I);
+////        $I->wait(1);
+//        $I->LoginAsAdmin($I);
+//    }
+//    
+//    public function GetBusiness3ID(AcceptanceTester $I) {
+//        $url2 = $I->grabAttributeFrom(\Page\Dashboard::BusinessLink_ByBusName($this->business2_P1), 'href');
+//        $I->comment("Url2: $url2");
+//        $u2 = explode('=', $url2);
+//        $this->id_business2_P1 = $u2[1];
+//        $I->comment("Business3 id: $this->id_business2_P1.");
+//    }
+//    
+//    public function Check_Measure1_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure1Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -35 therms of natural gas per year\ndaily: -0.0958904109589 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure2_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure2Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.375 therms of natural gas per year\ndaily: -0.00102739726027 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure3_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure3Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 345 lbs of CO2\ndaily: 0.945205479452 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure4_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure4Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure5_Savings_Business1_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure5Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure1_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure1Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 7 therms of natural gas per year\ndaily: 0.0191780821918 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure2_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure2Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 3 kWh\ndaily: 0.00821917808219 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 124 gallons of fuel\ndaily: 0.339726027397 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.606060606061 therms of natural gas per year\ndaily: -0.0016604400166 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure3_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure3Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 316.65 lbs of CO2\ndaily: 0.867534246575 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure4_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure4Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure5_Savings_Business2_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure5Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 21186.970704 lbs of waste\ndaily: 58.0464950794 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure1_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure1Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -35 therms of natural gas per year\ndaily: -0.0958904109589 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure2_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure2Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.375 therms of natural gas per year\ndaily: -0.00102739726027 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure3_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure3Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 345 lbs of CO2\ndaily: 0.945205479452 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure4_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure4Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 550273.152 lbs of waste\ndaily: 1507.59767671 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure5_Savings_Business3_AfterGVUpdating3(AcceptanceTester $I) {
+//        $measDesc           = $this->measure5Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function New_GV_ErrorAppears_DeletingOfGlobalVariable_Overrided(Step\Acceptance\GlobalVariable $I) {
+//        $I->amOnPage(Page\GlobalVariableList::URL());
+////        $I->wait(1);
+//        $countInList1 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
+//        $I->comment("Count of variables before deleting: $countInList1");
+//        $var = $I->GetGlobalVariableOnPageInList($this->globVariableTitle);
+//        $row = $var['row'];
+//        $I->click(Page\GlobalVariableList::DeleteButtonLine($row));
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 304.69 lbs of CO2\ndaily: 0.834767123288 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure4_Savings_Business2_AfterGVUpdating4(AcceptanceTester $I) {
-        $measDesc           = $this->measure4Desc;
-        
+//        $I->acceptPopup();
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure5_Savings_Business2_AfterGVUpdating4(AcceptanceTester $I) {
-        $measDesc           = $this->measure5Desc;
-        
+//        $I->canSeeElement(".sweet-alert.visible");
+//        $I->canSee('Global Variable was overriden. Please, remove overrides first!', ".sweet-alert.visible h2");
+//        $I->click(".sweet-alert.visible button");
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 21186.970704 lbs of waste\ndaily: 58.0464950794 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure1_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
-        $measDesc           = $this->measure1Desc;
-        
+//        $countInList2 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
+//        $I->comment("Count of variables after deleting: $countInList2");
+//        $I->assertSame($countInList1, $countInList2);
+//    }
+//    
+//    public function New_P1V_DeletingOfProgramVariable(Step\Acceptance\GlobalVariable $I) {
+//        $I->amOnPage(Page\GlobalVariableList::URL());
+////        $I->wait(1);
+//        $countInList1 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
+//        $I->comment("Count of variables before deleting: $countInList1");
+//        $var = $I->GetGlobalVariableOnPageInList($this->globVariableTitle, 'Program', $this->program1);
+//        $row = $var['row'];
+//        $I->click(Page\GlobalVariableList::DeleteButtonLine($row));
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -50 therms of natural gas per year\ndaily: -0.13698630137 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure2_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
-        $measDesc           = $this->measure2Desc;
-        
+//        $I->acceptPopup();
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.5 therms of natural gas per year\ndaily: -0.0013698630137 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure3_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
-        $measDesc           = $this->measure3Desc;
-        
+//        $I->canSeeElement(".sweet-alert.visible");
+//        $I->canSee('Global Variable was deleted.', ".sweet-alert.visible h2");
+//        $I->click(".sweet-alert.visible button");
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 345 lbs of CO2\ndaily: 0.945205479452 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure4_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
-        $measDesc           = $this->measure4Desc;
-        
+//        $countInList2 = $countInList1-1;
+//        $I->canSee($countInList2, Page\GlobalVariableList::$SummaryCount);
+//    }
+//    
+//    public function Recycling100_SV_DeletingOfStateVariable(Step\Acceptance\GlobalVariable $I) {
+//        $I->amOnPage(Page\GlobalVariableList::URL());
+////        $I->wait(1);
+//        $countInList1 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
+//        $I->comment("Count of variables before deleting: $countInList1");
+//        $var = $I->GetGlobalVariableOnPageInList($this->Recicled100_Title, 'State', $this->state);
+//        $row = $var['row'];
+//        $I->click(Page\GlobalVariableList::DeleteButtonLine($row));
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 550273.152 lbs of waste\ndaily: 1507.59767671 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
-    
-    public function Check_Measure5_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
-        $measDesc           = $this->measure5Desc;
-        
+//        $I->acceptPopup();
 //        $I->wait(2);
-        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
-//        $I->wait(3);
-        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
-        $I->wait(1);
-        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-        $I->comment("Savings: $saving");
-        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
-    }
+//        $I->canSeeElement(".sweet-alert.visible");
+//        $I->canSee('Global Variable was deleted.', ".sweet-alert.visible h2");
+//        $I->click(".sweet-alert.visible button");
+//        $I->wait(2);
+//        $countInList2 = $countInList1-1;
+//        $I->canSee($countInList2, Page\GlobalVariableList::$SummaryCount);
+//    }
+//    
+//    public function Compostable_P2V_DeletingOfProgramVariable(Step\Acceptance\GlobalVariable $I) {
+//        $I->amOnPage(Page\GlobalVariableList::URL());
+////        $I->wait(1);
+//        $countInList1 = $I->grabValueFrom(Page\GlobalVariableList::$SummaryCount);
+//        $I->comment("Count of variables before deleting: $countInList1");
+//        $var = $I->GetGlobalVariableOnPageInList($this->Compostable_Title, 'Program', $this->program2);
+//        $row = $var['row'];
+//        $I->click(Page\GlobalVariableList::DeleteButtonLine($row));
+//        $I->wait(2);
+//        $I->acceptPopup();
+//        $I->wait(2);
+//        $I->canSeeElement(".sweet-alert.visible");
+//        $I->canSee('Global Variable was deleted.', ".sweet-alert.visible h2");
+//        $I->click(".sweet-alert.visible button");
+//        $I->wait(2);
+//        $countInList2 = $countInList1-1;
+//        $I->canSee($countInList2, Page\GlobalVariableList::$SummaryCount);
+//    }
+//    
+//    public function Check_Measure1_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
+//        $measDesc           = $this->measure1Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -50 therms of natural gas per year\ndaily: -0.13698630137 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure2_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
+//        $measDesc           = $this->measure2Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.5 therms of natural gas per year\ndaily: -0.0013698630137 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure3_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
+//        $measDesc           = $this->measure3Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 345 lbs of CO2\ndaily: 0.945205479452 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure4_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
+//        $measDesc           = $this->measure4Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure5_Savings_Business1_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
+//        $measDesc           = $this->measure5Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure1_Savings_Business2_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
+//        $measDesc           = $this->measure1Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 7 therms of natural gas per year\ndaily: 0.0191780821918 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure2_Savings_Business2_AfterGVUpdating4_DeletingGV(AcceptanceTester $I) {
+//        $measDesc           = $this->measure2Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: 3.22580645161 therms of natural gas per year\ndaily: 0.00883782589483 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure3_Savings_Business2_AfterGVUpdating4(AcceptanceTester $I) {
+//        $measDesc           = $this->measure3Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 304.69 lbs of CO2\ndaily: 0.834767123288 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure4_Savings_Business2_AfterGVUpdating4(AcceptanceTester $I) {
+//        $measDesc           = $this->measure4Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 1327927.08058 lbs of waste\ndaily: 3638.15638516 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure5_Savings_Business2_AfterGVUpdating4(AcceptanceTester $I) {
+//        $measDesc           = $this->measure5Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1_P2, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 21186.970704 lbs of waste\ndaily: 58.0464950794 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure1_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
+//        $measDesc           = $this->measure1Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 150 kWh\ndaily: 0.41095890411 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -50 therms of natural gas per year\ndaily: -0.13698630137 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure2_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
+//        $measDesc           = $this->measure2Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 10 lbs of CO2\ndaily: 0.027397260274 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::EnergySaved.":\nannual: 1 kWh\ndaily: 0.0027397260274 kWh", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::FuelSaved.":\nannual: 122 gallons of fuel\ndaily: 0.334246575342 gallons of fuel", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->canSee(\Page\SavingAreaList::Therms.":\nannual: -0.5 therms of natural gas per year\ndaily: -0.0013698630137 therms of natural gas per year", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure3_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
+//        $measDesc           = $this->measure3Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure3']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::GreenhouseGasEmissionsSaved.":\nannual: 345 lbs of CO2\ndaily: 0.945205479452 lbs of CO2", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure4_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
+//        $measDesc           = $this->measure4Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure4']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 550273.152 lbs of waste\ndaily: 1507.59767671 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
+//    
+//    public function Check_Measure5_Savings_Business3_AfterGVUpdating4(AcceptanceTester $I) {
+//        $measDesc           = $this->measure5Desc;
+//        
+////        $I->wait(2);
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2_P1, $this->id_audSubgroup1_Energy));
+////        $I->wait(3);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure5']");
+//        $I->wait(1);
+//        $I->canSeeElement(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $saving = $I->grabTextFrom(\Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//        $I->comment("Savings: $saving");
+//        $I->canSee(\Page\SavingAreaList::SolidWasteDiverted.":\nannual: 6995.39083999 lbs of waste\ndaily: 19.1654543561 lbs of waste", \Page\BusinessChecklistView::Savings_ByDesc($measDesc));
+//    }
     
 //    public function After_UpdateGlobalVariablesToDefaultValues(\Step\Acceptance\GlobalVariable $I)
 //    {

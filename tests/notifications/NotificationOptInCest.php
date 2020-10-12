@@ -63,7 +63,7 @@ class NotificationOptInCest
         $I->SelectDefaultState($I, $this->state);
     }
     
-    public function CheckNotificationsTemplatedPresentInList(AcceptanceTester $I)
+    public function CheckNotificationsTemplatesPresentInList(AcceptanceTester $I)
     {
         $template = 'Template';
         
@@ -82,7 +82,7 @@ class NotificationOptInCest
         $I->cantSeeElement(Page\ApplicantEmailTextList::EmailLine_ByProgramName(Page\ApplicantEmailTextList::PGERegisterRequest_Trigger, $template));
         $I->canSee('13', Page\ApplicantEmailTextList::$SummaryCount);
         $rows = $I->getAmount($I, Page\ApplicantEmailTextList::$EmailRow);
-        $I->assertEquals('13', $rows);
+        $I->assertSame("13", "$rows");
     }
     
     //--------------------------Create audit subgroups--------------------------
@@ -379,9 +379,10 @@ class NotificationOptInCest
         $zips    = $this->zip1 = $I->GenerateZipCode();
         $program = $this->program1 = $I->GenerateNameOf("Prog1");
         $county  = $this->county;
+        $tiersCompleted = ['Tier 2'];
         
         $I->CreateCity($city, $state, $zips, $county);
-        $Y->CreateProgram($program, $state, $cityArr);
+        $Y->CreateProgram($program, $state, $cityArr, '1 year', $tiersCompleted);
         $prog = $Y->GetProgramOnPageInList($program);
         $this->id_program1 = $prog['id'];
     }
@@ -1191,7 +1192,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
     {
         $trigger      = Page\ApplicantEmailTextList::CertificationEmail_Trigger;
         $subject      = $this->subject_Certification_Prog3 = 'subject for program3 Certification';
-        $body         = $this->body_Certification_Prog3 = 'bodyscsbcbs {contact_person_name}';
+        $body         = $this->body_Certification_Prog3 = 'bodyscsbcbs {contact_person_name} {business_name} {business_phone} {business_street} {business_city} {business_state} {business_zip} {user_name} {user_phone} {user_email} {checklist_link} {checklist_energy_link} {tier_level} {tier_number} {tier_points_text} {tier_points} {recertification_link} {coordinator_name} {coordinator_phone} {coordinator_email} {contact_person_name} {contact_person_phone} {contact_person_email} {user_first_name}, {user_last_name}';
         $program      = $this->program3;
         $programArray = [$program];
                 
@@ -1251,7 +1252,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         
         $I->canSee('18', Page\ApplicantEmailTextList::$SummaryCount);
         $rows = $I->getAmount($I, Page\ApplicantEmailTextList::$EmailRow);
-        $I->assertEquals('18', $rows);
+        $I->assertSame("18", "$rows");
     }
     
     public function Help_LogOut(AcceptanceTester $I) {
@@ -1293,25 +1294,28 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->cantSee($subject_All, Page\CommunicationsList::$SubjectColumnRow);
     }
     
-    public function On_CheckBusinessRegisteredMessage_Business1_CommunicationTab(AcceptanceTester $I){
-        $subject   = $this->subject_BusinessRegistered_All = 'New business has registered with the Green Business Program';
-        $body_Row1 = $this->body_BusinessRegistered_All_Bus1_Row1 = 'The following business has registered:';
-        $body_Row2 = $this->body_BusinessRegistered_All_Bus1_Row2 = "$this->business1 $this->phone_Bus1 $this->address_Bus1, $this->city1, $this->state, $this->zip1 $this->firstName_Bus1 $this->lastName_Bus1 $this->contactPhone_Bus1 $this->email_Bus1";
-        $body_Row3 = $this->body_BusinessRegistered_All_Bus1_Row3 = 'Checklist';
-        $sender    = $this->business1;
+    public function On_NotShownForBusinessUser_CheckBusinessRegisteredMessage_Business1_CommunicationTab(AcceptanceTester $I){
+        $subject        = $this->subject_BusinessRegistered_All = 'New business has registered with the Green Business Program';
+        $subject_Prog3  = $this->subject_BusinessRegistered_Prog3;
+//        $body_Row1 = $this->body_BusinessRegistered_All_Bus1_Row1 = 'The following business has registered:';
+//        $body_Row2 = $this->body_BusinessRegistered_All_Bus1_Row2 = "$this->business1 $this->phone_Bus1 $this->address_Bus1, $this->city1, $this->state, $this->zip1 $this->firstName_Bus1 $this->lastName_Bus1 $this->contactPhone_Bus1 $this->email_Bus1";
+//        $body_Row3 = $this->body_BusinessRegistered_All_Bus1_Row3 = 'Checklist';
+//        $sender    = $this->business1;
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
-        $I->canSee($this->program1, Page\CommunicationsList::SenderLine('1'));
-        $I->canSee($subject, Page\CommunicationsList::SubjectLine('1'));
-        $I->click(Page\CommunicationsList::ViewButtonLine('1'));
-        $I->wait(1);
-        $I->waitPageLoad();
-        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
-        $I->canSee($body_Row1, Page\CommunicationsView::PreviousMessage('1').'[1]');
-        $I->canSee($body_Row2, Page\CommunicationsView::PreviousMessage('1').'[2]');
-        $I->canSee($body_Row3, Page\CommunicationsView::PreviousMessage('1').'[3]/a');
-        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+        $I->cantSee($subject, Page\CommunicationsList::$SubjectColumnRow);
+        $I->cantSee($subject_Prog3, Page\CommunicationsList::$SubjectColumnRow);
+//        $I->canSee($this->program1, Page\CommunicationsList::SenderLine('1'));
+//        $I->canSee($subject, Page\CommunicationsList::SubjectLine('1'));
+//        $I->click(Page\CommunicationsList::ViewButtonLine('1'));
+//        $I->wait(1);
+//        $I->waitPageLoad();
+//        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+//        $I->canSee($body_Row1, Page\CommunicationsView::PreviousMessage('1').'[1]');
+//        $I->canSee($body_Row2, Page\CommunicationsView::PreviousMessage('1').'[2]');
+//        $I->canSee($body_Row3, Page\CommunicationsView::PreviousMessage('1').'[3]/a');
+//        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
     }
     
     public function ActivateHelpCheckboxForMeasure1_Business1(AcceptanceTester $I){
@@ -1331,40 +1335,25 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSeeInCurrentUrl(Page\BusinessDashboard::$URL);
     }
     
-    public function On_BusinessTierSubmission_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function On_NotShownForBusinessUser_BusinessTierSubmission_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->subject_BusinessSubmision_All;
-        $body_Row1 = $this->body_BusinessSubmision_All_Bus1_Row1 = "Business submitted his checklist.";
-        $body_Row2 = $this->body_BusinessSubmision_All_Bus1_Row2 = "Business name: $this->business1";
-        $body_Row3 = $this->body_BusinessSubmision_All_Bus1_Row3 = "Contact information:";
-        $body_Row4 = $this->body_BusinessSubmision_All_Bus1_Row4 = "Name - $this->firstName_Bus1 $this->lastName_Bus1";
-        $body_Row5 = $this->body_BusinessSubmision_All_Bus1_Row5 = "Phone - $this->contactPhone_Bus1";
-        $body_Row6 = $this->body_BusinessSubmision_All_Bus1_Row6 = "Email - $this->email_Bus1";
-        $body_Row7 = $this->body_BusinessSubmision_All_Bus1_Row7 = "Tier information:";
-        $body_Row8 = $this->body_BusinessSubmision_All_Bus1_Row8 = "Number - 2";
-        $body_Row9 = $this->body_BusinessSubmision_All_Bus1_Row9 = "Name - Tier 2";
-        $sender    = $this->business1;
+        $subject_Prog2          = $this->subject_BusinessSubmision_Prog2;
+//        $body_Row1 = $this->body_BusinessSubmision_All_Bus1_Row1 = "Business submitted his checklist.";
+//        $body_Row2 = $this->body_BusinessSubmision_All_Bus1_Row2 = "Business name: $this->business1";
+//        $body_Row3 = $this->body_BusinessSubmision_All_Bus1_Row3 = "Contact information:";
+//        $body_Row4 = $this->body_BusinessSubmision_All_Bus1_Row4 = "Name - $this->firstName_Bus1 $this->lastName_Bus1";
+//        $body_Row5 = $this->body_BusinessSubmision_All_Bus1_Row5 = "Phone - $this->contactPhone_Bus1";
+//        $body_Row6 = $this->body_BusinessSubmision_All_Bus1_Row6 = "Email - $this->email_Bus1";
+//        $body_Row7 = $this->body_BusinessSubmision_All_Bus1_Row7 = "Tier information:";
+//        $body_Row8 = $this->body_BusinessSubmision_All_Bus1_Row8 = "Number - 2";
+//        $body_Row9 = $this->body_BusinessSubmision_All_Bus1_Row9 = "Name - Tier 2";
+//        $sender    = $this->business1;
     
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
-        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
-        $I->canSee($this->program1, Page\CommunicationsList::SenderLine($row));
-        $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
-        $I->click(Page\CommunicationsList::ViewButtonLine($row));
-        $I->wait(1);
-        $I->waitPageLoad();
-        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
-        $grabedBodyValue = $I->grabTextFrom(Page\CommunicationsView::PreviousMessage('1'));
-        $I->comment("Grabed body value: $grabedBodyValue");
-        $I->canSee($body_Row1, Page\CommunicationsView::PreviousMessage('1').'[1]');
-        $I->canSee($body_Row2, Page\CommunicationsView::PreviousMessage('1').'[2]');
-        $I->canSee($body_Row3, Page\CommunicationsView::PreviousMessage('1').'[3]');
-        $I->canSee($body_Row4, Page\CommunicationsView::PreviousMessage('1').'[4]');
-        $I->canSee($body_Row5, Page\CommunicationsView::PreviousMessage('1').'[5]');
-        $I->canSee($body_Row6, Page\CommunicationsView::PreviousMessage('1').'[6]');
-        $I->canSee($body_Row7, Page\CommunicationsView::PreviousMessage('1').'[7]');
-        $I->canSee($body_Row8, Page\CommunicationsView::PreviousMessage('1').'[8]');
-        $I->canSee($body_Row9, Page\CommunicationsView::PreviousMessage('1').'[9]');
-        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+        $I->cantSee($subject, Page\CommunicationsList::$SubjectColumnRow);
+        $I->cantSee($subject_Prog2, Page\CommunicationsList::$SubjectColumnRow);
+
     }
     
     public function On_HelpNotification_Business1_CommunicationTab(\Step\Acceptance\Communication $I){
@@ -1390,6 +1379,24 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee($body_Row3, Page\CommunicationsView::PreviousMessage('1').'[3]');
 //        $I->canSee($body_Row4, Page\CommunicationsView::PreviousMessage('1').'[4]');
 //        $I->canSee($body_Row5, Page\CommunicationsView::PreviousMessage('1').'[5]');
+    }
+    
+    public function Business1_CompleteMeasure1_NA_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure1Desc;
+                
+        $I->comment("Complete Measure1 for business: $this->business1");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'na');
+        $I->wait(1);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $I->waitPageLoad();
     }
     
     public function Help_LogOut1(AcceptanceTester $I) {
@@ -1421,6 +1428,29 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->wait(4);
         $I->waitPageLoad();
     }
+    
+    public function Business2_CompleteMeasure1_Yes_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure1Desc;
+        $value1   = '1111';
+        $value2   = '2222';
+                
+        $I->comment("Complete Measure1 for business: $this->business2");
+        $I->amOnPage(\Page\RegistrationStarted::URL_AuditGroup($this->id_audSubgroup1_Energy));
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+        $I->wait(1);
+        $I->selectOption(\Page\RegistrationStarted::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+        $I->fillField(\Page\RegistrationStarted::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
+        $I->scrollTo(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\RegistrationStarted::$SaveButton_Footer);
+        $I->wait(3);
+        $I->waitPageLoad();
+    }
+    
     
     public function On_CheckGetStartedMessage_Business2_CommunicationTab(AcceptanceTester $I){
         $subject                = $this->subject_GetStarted_Prog2;
@@ -1557,22 +1587,16 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
 //        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
     }
     
-    public function On_CheckBusinessRegisteredMessage_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function On_NotShownForBusinessUser_CheckBusinessRegisteredMessage_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->subject_BusinessRegistered_Prog3;
-        $body                   = $this->body_BusinessRegistered_Prog3;
-        $sender                 = $this->business3;
+        $subject_All            = $this->subject_BusinessRegistered_All;
+//        $body                   = $this->body_BusinessRegistered_Prog3;
+//        $sender                 = $this->business3;
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
-        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
-        $I->canSee($this->program3, Page\CommunicationsList::SenderLine($row));
-        $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
-        $I->click(Page\CommunicationsList::ViewButtonLine($row));
-        $I->wait(1);
-        $I->waitPageLoad();
-        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
-        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
-        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+        $I->cantSee($subject, Page\CommunicationsList::$SubjectColumnRow);
+        $I->cantSee($subject_All, Page\CommunicationsList::$SubjectColumnRow);
     }
     
     public function ActivateHelpCheckboxForMeasure1_Business3(AcceptanceTester $I){
@@ -1592,40 +1616,24 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSeeInCurrentUrl(Page\BusinessDashboard::$URL);
     }
     
-    public function On_BusinessTierSubmission_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
+    public function On_NotShownForBusinessUser_BusinessTierSubmission_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
         $subject                = $this->subject_BusinessSubmision_All;
-        $body_Row1 = $this->body_BusinessSubmision_All_Bus3_Row1 = "Business submitted his checklist.";
-        $body_Row2 = $this->body_BusinessSubmision_All_Bus3_Row2 = "Business name: $this->business3";
-        $body_Row3 = $this->body_BusinessSubmision_All_Bus3_Row3 = "Contact information:";
-        $body_Row4 = $this->body_BusinessSubmision_All_Bus3_Row4 = "Name - $this->firstName_Bus3 $this->lastName_Bus3";
-        $body_Row5 = $this->body_BusinessSubmision_All_Bus3_Row5 = "Phone - $this->contactPhone_Bus3";
-        $body_Row6 = $this->body_BusinessSubmision_All_Bus3_Row6 = "Email - $this->email_Bus3";
-        $body_Row7 = $this->body_BusinessSubmision_All_Bus3_Row7 = "Tier information:";
-        $body_Row8 = $this->body_BusinessSubmision_All_Bus3_Row8 = "Number - 2";
-        $body_Row9 = $this->body_BusinessSubmision_All_Bus3_Row9 = "Name - Tier 2";
-        $sender    = $this->business3;
+        $subject_Prog2          = $this->subject_BusinessSubmision_Prog2;
+//        $body_Row1 = $this->body_BusinessSubmision_All_Bus3_Row1 = "Business submitted his checklist.";
+//        $body_Row2 = $this->body_BusinessSubmision_All_Bus3_Row2 = "Business name: $this->business3";
+//        $body_Row3 = $this->body_BusinessSubmision_All_Bus3_Row3 = "Contact information:";
+//        $body_Row4 = $this->body_BusinessSubmision_All_Bus3_Row4 = "Name - $this->firstName_Bus3 $this->lastName_Bus3";
+//        $body_Row5 = $this->body_BusinessSubmision_All_Bus3_Row5 = "Phone - $this->contactPhone_Bus3";
+//        $body_Row6 = $this->body_BusinessSubmision_All_Bus3_Row6 = "Email - $this->email_Bus3";
+//        $body_Row7 = $this->body_BusinessSubmision_All_Bus3_Row7 = "Tier information:";
+//        $body_Row8 = $this->body_BusinessSubmision_All_Bus3_Row8 = "Number - 2";
+//        $body_Row9 = $this->body_BusinessSubmision_All_Bus3_Row9 = "Name - Tier 2";
+//        $sender    = $this->business3;
         
         $I->comment("Check on Communication Tab");
         $I->amOnPage(\Page\CommunicationsList::URL());
-        $row = $I->GetNotificationRowOnCommunicationListForBusiness($subject);
-        $I->canSee($this->program3, Page\CommunicationsList::SenderLine($row));
-        $I->canSee($subject, Page\CommunicationsList::SubjectLine($row));
-        $I->click(Page\CommunicationsList::ViewButtonLine($row));
-        $I->wait(1);
-        $I->waitPageLoad();
-        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
-        $grabedBodyValue = $I->grabTextFrom(Page\CommunicationsView::PreviousMessage('1'));
-        $I->comment("Grabed body value: $grabedBodyValue");
-        $I->canSee($body_Row1, Page\CommunicationsView::PreviousMessage('1').'[1]');
-        $I->canSee($body_Row2, Page\CommunicationsView::PreviousMessage('1').'[2]');
-        $I->canSee($body_Row3, Page\CommunicationsView::PreviousMessage('1').'[3]');
-        $I->canSee($body_Row4, Page\CommunicationsView::PreviousMessage('1').'[4]');
-        $I->canSee($body_Row5, Page\CommunicationsView::PreviousMessage('1').'[5]');
-        $I->canSee($body_Row6, Page\CommunicationsView::PreviousMessage('1').'[6]');
-        $I->canSee($body_Row7, Page\CommunicationsView::PreviousMessage('1').'[7]');
-        $I->canSee($body_Row8, Page\CommunicationsView::PreviousMessage('1').'[8]');
-        $I->canSee($body_Row9, Page\CommunicationsView::PreviousMessage('1').'[9]');
-        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+        $I->cantSee($subject, Page\CommunicationsList::$SubjectColumnRow);
+        $I->cantSee($subject_Prog2, Page\CommunicationsList::$SubjectColumnRow);
     }
     
     public function On_HelpNotification_Business3_CommunicationTab(\Step\Acceptance\Communication $I){
@@ -1700,26 +1708,29 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $userID = $I->GetUserIDFromUrl($I);
-        $I->amOnPage(\Page\UserUpdate::URL_AddStateForm($userID));
+        $I->amOnPage(\Page\UserUpdate::URL_AddStateForm($userID, Page\UserCreate::inspectorType));
+//        $I->click(Page\UserUpdate::$InspectorTab);
+        $I->wait(1);
+//        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->wait(1);
+        $I->wait(2);
         $I->waitPageLoad();
-        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID));
+        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID, Page\UserCreate::inspectorType));
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program1);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
         $I->wait(1);
         $I->waitPageLoad();
-        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID));
+        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID, Page\UserCreate::inspectorType));
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
         $I->wait(1);
         $I->waitPageLoad();
-        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID));
+        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID, Page\UserCreate::inspectorType));
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program3);
@@ -1744,12 +1755,15 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->waitForElement(".confirm", 150);
         $I->wait(2);
         $userID = $I->GetUserIDFromUrl($I);
-        $I->amOnPage(\Page\UserUpdate::URL_AddStateForm($userID));
+        $I->amOnPage(\Page\UserUpdate::URL_AddStateForm($userID, Page\UserCreate::auditorType));
+//        $I->click(Page\UserUpdate::$AuditorTab);
+        $I->wait(1);
+//        $I->waitPageLoad();
         $I->selectOption(Page\UserUpdate::$StateSelect_AddStateForm, $this->state);
         $I->click(Page\UserUpdate::$AddButton_AddStateForm);
-        $I->wait(1);
+        $I->wait(2);
         $I->waitPageLoad();
-        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID));
+        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID, Page\UserCreate::auditorType));
         $I->waitForElement(Page\UserUpdate::$ProgramSelect_AddProgramForm, 200);
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
@@ -1757,14 +1771,14 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
         $I->wait(1);
         $I->waitPageLoad();
-        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID));
+        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID, Page\UserCreate::auditorType));
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
         $I->selectOption(Page\UserUpdate::$ProgramSelect_AddProgramForm, $this->program2);
         $I->click(Page\UserUpdate::$AddButton_AddProgramForm);
         $I->wait(1);
         $I->waitPageLoad();
-        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID));
+        $I->amOnPage(\Page\UserUpdate::URL_AddProgramForm($userID, Page\UserCreate::auditorType));
         $I->wait(2);
         $I->click(Page\UserUpdate::$ProgramSelect_AddProgramForm);
         $I->wait(4);
@@ -1973,7 +1987,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('1'));
         $I->canSee('1', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('1', $rows);
+        $I->assertSame("1", "$rows");
     }
     
     //----------------------------------Business2--------------------------------
@@ -2028,7 +2042,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->cantSee($this->business2, Page\AuditorNotificationsList::BusinessLine('1'));
         $I->canSee('1', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('1', $rows);
+        $I->assertSame("1", "$rows");
     }
     
     public function InspectorPopup_AddInspectorWithoutChangingStatusToReadyForComplianceCheckTypeInPopup_Business2(AcceptanceTester $I) {
@@ -2075,7 +2089,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\InspectorNotificationsList::SentLine('1'));
         $I->canSee('1', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('1', $rows);
+        $I->assertSame("1", "$rows");
     }
     
     public function CheckBusiness2MessageAbsent2_AuditCompleteList(AcceptanceTester $I){
@@ -2089,7 +2103,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('1'));
         $I->canSee('1', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('1', $rows);
+        $I->assertSame("1", "$rows");
     }
     
     //----------------------------------Business3--------------------------------
@@ -2138,7 +2152,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->cantSee($this->business3, Page\InspectorNotificationsList::BusinessLine('1'));
         $I->canSee('1', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('1', $rows);
+        $I->assertSame("1", "$rows");
     }
     
     public function CheckBusiness3MessageAbsent_AuditCompleteList(AcceptanceTester $I){
@@ -2148,7 +2162,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->cantSee($this->business3, Page\AuditorNotificationsList::BusinessLine('1'));
         $I->canSee('1', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('1', $rows);
+        $I->assertSame("1", "$rows");
     }
     
     public function InspectorPopup_AddInspectorWithoutChangingStatusToReadyForComplianceCheckTypeInPopup_Business3(AcceptanceTester $I) {
@@ -2189,7 +2203,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\InspectorNotificationsList::URL_InspectionComplete());
         $I->canSee('2', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('2', $rows);
+        $I->assertSame("2", "$rows");
         
         $I->canSee($this->program3, Page\InspectorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business3, Page\InspectorNotificationsList::BusinessLine($rows));
@@ -2204,7 +2218,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\AuditorNotificationsList::URL_AuditComplete());
         $I->canSee('2', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('2', $rows);
+        $I->assertSame("2", "$rows");
         
         $I->canSee($this->program3, Page\AuditorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business3, Page\AuditorNotificationsList::BusinessLine($rows));
@@ -2212,6 +2226,45 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee($this->emailAuditor, Page\AuditorNotificationsList::AuditorEmailLine($rows));
         $I->canSee($this->auditOrganization, Page\AuditorNotificationsList::AuditOrganizationLine($rows));
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine($rows));
+    }
+    
+    public function Business1_CheckDisabledRecognizedStatus(AcceptanceTester $I){
+        $status = \Page\BusinessChecklistView::RecognizedStatus;
+        $subject                = $this->subject_Certification_All;
+        $body                   = $this->body_Certification_All;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
+        $I->click(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab);
+        $I->wait(1);
+        $I->cantSee($status, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab." option:enabled");
+        $I->canSee("Recognized (More than 50% of the answers are 'N/A')", \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab." option[disabled]");
+        
+        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, "Recognized (More than 50% of the answers are 'N/A')");
+        $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
+    }
+    
+    public function Business1_CompleteMeasure1_Yes_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure1Desc;
+        $value1   = '22';
+        $value2   = '44';
+                
+        $I->comment("Complete Measure1 for business: $this->business1");
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business1, $this->id_audSubgroup1_Energy));
+        
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+        $I->wait(1);
+        $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+        $I->wait(1);
+        $I->fillField(\Page\BusinessChecklistView::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+        $I->fillField(\Page\BusinessChecklistView::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
+        $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(3);
+        $I->waitPageLoad();
     }
     
     public function Business1_ChangeStatusToRecognized(AcceptanceTester $I){
@@ -2222,12 +2275,65 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business1));
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(5);
-        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 200);
         $I->wait(1);
         $I->cantSeeElement(Page\CommunicationCreatePopup::$SendMessagePopup_UserTypeSelect);
         $I->canSeeInField(Page\CommunicationCreatePopup::$SendMessagePopup_SubjectField, $subject);
         $I->click(Page\CommunicationCreatePopup::$SendMessagePopup_SendButton);
         $I->wait(10);
+    }
+    
+    public function Business2_CheckRecognizedStatusIsEnabled(AcceptanceTester $I){
+        $status = \Page\BusinessChecklistView::RecognizedStatus;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business2));
+        $I->click(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab);
+        $I->wait(1);
+        $I->canSee($status, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab." option:enabled");
+        $I->cantSee("Recognized (95% of checklist must be complete)", \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab." option[disabled]");
+        
+//        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, "Recognized (Please, complete more 95% measures)");
+//        $I->wait(5);
+//        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
+    }
+    
+    public function UpdateProgram2_AddTier2ShoulBeCompleted(\Step\Acceptance\Program $I) {
+        $compledTiersArray = ['Tier 2 (Tier 2) Opted In'];
+        
+        $I->UpdateProgram($this->id_program2, null, null, null, null, null, $compledTiersArray);
+    }
+    
+    public function Business2_CheckDisabledRecognizedStatus_AfterProgram2Update(AcceptanceTester $I){
+        $status = \Page\BusinessChecklistView::RecognizedStatus;
+        
+        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business2));
+        $I->click(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab);
+        $I->wait(1);
+        $I->cantSee($status, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab." option:enabled");
+        $I->canSee("Recognized (95% of checklist must be complete)", \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab." option[disabled]");
+        
+        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, "Recognized (95% of checklist must be complete)");
+        $I->wait(5);
+        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
+    }
+    
+    public function Business2_CompleteMeasure2_NA_Answer(AcceptanceTester $I) {
+        $measDesc = $this->measure2Desc;
+                
+        $I->comment("Complete Measure2 for business: $this->business2");
+        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business2, $this->id_audSubgroup1_SolidWaste));
+        
+        $I->makeElementVisible(["[data-measure-id=$this->idMeasure2]"], $style = 'visibility');
+        $I->wait(2);
+        $I->scrollTo("[data-measure-id='$this->idMeasure2']");
+        $I->wait(1);
+        $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'na');
+        $I->wait(1);
+        $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(1);
+        $I->click(\Page\BusinessChecklistView::$SaveButton_Footer);
+        $I->wait(3);
+        $I->waitPageLoad();
     }
     
     public function Business2_ChangeStatusToRecognized(AcceptanceTester $I){
@@ -2240,9 +2346,46 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->wait(3);
     }
     
+//    public function Business3_RecognizedStatusDisabled(AcceptanceTester $I){
+//        $status = \Page\BusinessChecklistView::RecognizedStatus;
+//        
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business3));
+//        $I->click(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab);
+//        $I->wait(1);
+//        $I->cantSee($status, \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab." option:enabled");
+//        $I->canSee("Recognized (Please, complete more 95% measures)", \Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab." option[disabled]");
+//        
+//        $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, "Recognized (Please, complete more 95% measures)");
+//        $I->wait(5);
+//        $I->canSeeOptionIsSelected(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, \Page\BusinessChecklistView::InProcessStatus);
+//    }
+//    
+//    public function Business3_CompleteMeasure1_Yes_Answer(AcceptanceTester $I) {
+//        $measDesc = $this->measure1Desc;
+//        $value1   = '1111';
+//        $value2   = '2222';
+//                
+//        $I->comment("Complete Measure1 for business: $this->business3");
+//        $I->amOnPage(\Page\BusinessChecklistView::URL_AuditGroupInChecklist($this->id_business3, $this->id_audSubgroup1_Energy));
+//        
+//        $I->makeElementVisible(["[data-measure-id=$this->idMeasure1]"], $style = 'visibility');
+//        $I->wait(2);
+//        $I->scrollTo("[data-measure-id='$this->idMeasure1']");
+//        $I->wait(1);
+//        $I->selectOption(\Page\BusinessChecklistView::MeasureToggleButton2_ByDesc($measDesc), 'yes');
+//        $I->wait(1);
+//        $I->fillField(\Page\BusinessChecklistView::SubmeasureField_ByMeasureDesc($measDesc, '1'), $value1);
+//        $I->fillField(\Page\BusinessChecklistView::SubmeasureField_ByMeasureDesc($measDesc, '2'), $value2);
+//        $I->scrollTo(\Page\BusinessChecklistView::$SaveButton_Footer);
+//        $I->wait(1);
+//        $I->click(\Page\BusinessChecklistView::$SaveButton_Footer);
+//        $I->wait(3);
+//        $I->waitPageLoad();
+//    }
+    
     public function Business3_ChangeStatusToRecognized(AcceptanceTester $I){
         $status = \Page\BusinessChecklistView::RecognizedStatus;
-        $this->body_Certification_Prog3 = "bodyscsbcbs $this->firstName_Bus3 $this->lastName_Bus3";
+        $this->body_Certification_Prog3 = "bodyscsbcbs $this->firstName_Bus3 $this->lastName_Bus3 $this->business3 $this->phone_Bus3 $this->address_Bus3 $this->city3 $this->state $this->zip3 $this->firstName_Bus3 $this->lastName_Bus3 $this->contactPhone_Bus3 $this->email_Bus3 Checklist Checklist Tier 2 2 Recertification UI $this->firstName_Bus3 $this->lastName_Bus3 $this->contactPhone_Bus3 $this->email_Bus3 $this->firstName_Bus3, $this->lastName_Bus3";
         
         $subject                = $this->subject_Certification_Prog3;
         $body                   = $this->body_Certification_Prog3;
@@ -2251,7 +2394,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\BusinessChecklistView::URL_BusinessInfo($this->id_business3));
         $I->selectOption(\Page\BusinessChecklistView::$StatusSelect_BusinessInfoTab, $status);
         $I->wait(5);
-        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 120);
+        $I->waitForElement(Page\CommunicationCreatePopup::SendMessagePopup, 200);
         $I->wait(1);
         $I->cantSeeElement(Page\CommunicationCreatePopup::$SendMessagePopup_UserTypeSelect);
         $I->canSeeInField(Page\CommunicationCreatePopup::$SendMessagePopup_SubjectField, $subject);
@@ -2260,7 +2403,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
     }
     
     public function Business1_ChangeStatusToRequiresRenewal(AcceptanceTester $I){
-        $status                 = \Page\BusinessChecklistView::RequiresRenewalStatus;
+        $status                 = \Page\BusinessChecklistView::RecertifyStatus;
         $subject                = $this->subject_RequiresRenewal_All = \Page\ApplicantEmailTextList::RequiresRenewal_Trigger;
         $body                   = $this->body_RequiresRenewal_All = 'You need renewal your Application';
         
@@ -2278,7 +2421,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
     }
     
     public function Business2_ChangeStatusToRequiresRenewal(AcceptanceTester $I){
-        $status                 = \Page\BusinessChecklistView::RequiresRenewalStatus;
+        $status                 = \Page\BusinessChecklistView::RecertifyStatus;
         $subject                = $this->subject_RequiresRenewal_All = \Page\ApplicantEmailTextList::RequiresRenewal_Trigger;
         $body                   = $this->body_RequiresRenewal_All = 'You need renewal your Application';
         
@@ -2292,7 +2435,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
     }
     
     public function Business3_ChangeStatusToRequiresRenewal(AcceptanceTester $I){
-        $status                 = \Page\BusinessChecklistView::RequiresRenewalStatus;
+        $status                 = \Page\BusinessChecklistView::RecertifyStatus;
         $subject                = $this->subject_RequiresRenewal_All = \Page\ApplicantEmailTextList::RequiresRenewal_Trigger;
         $body                   = $this->body_RequiresRenewal_All = 'You need renewal your Application';
         
@@ -2358,7 +2501,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\InspectorNotificationsList::SentLine('2'));
         $I->canSee('2', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('2', $rows);
+        $I->assertSame("2", "$rows");
     }
     
     public function CheckBusiness1_Absent_AuditCompleteList(AcceptanceTester $I){
@@ -2379,7 +2522,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('2'));
         $I->canSee('2', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('2', $rows);
+        $I->assertSame("2", "$rows");
     }
     
     //----------------------------------Business1--------------------------------
@@ -2420,7 +2563,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\InspectorNotificationsList::URL_InspectionComplete());
         $I->canSee('2', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('2', $rows);
+        $I->assertSame("2", "$rows");
         
         $I->canSee($this->program3, Page\InspectorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business3, Page\InspectorNotificationsList::BusinessLine($rows));
@@ -2435,7 +2578,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\AuditorNotificationsList::URL_AuditComplete());
         $I->canSee('3', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('3', $rows);
+        $I->assertSame("3", "$rows");
         
         $I->canSee($this->program1, Page\AuditorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business1, Page\AuditorNotificationsList::BusinessLine($rows));
@@ -2509,7 +2652,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\InspectorNotificationsList::SentLine('3'));
         $I->canSee('3', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('3', $rows);
+        $I->assertSame("3", "$rows");
     }
     
     public function CheckBusiness2_Absent_Off_AuditCompleteList(AcceptanceTester $I){
@@ -2537,7 +2680,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('3'));
         $I->canSee('3', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('3', $rows);
+        $I->assertSame("3", "$rows");
     }
     
     //----------------------------------Business3--------------------------------
@@ -2604,7 +2747,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\InspectorNotificationsList::SentLine('3'));
         $I->canSee('3', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('3', $rows);
+        $I->assertSame("3", "$rows");
     }
     
     public function CheckBusiness3_Absent_AuditCompleteList(AcceptanceTester $I){
@@ -2632,7 +2775,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('3'));
         $I->canSee('3', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('3', $rows);
+        $I->assertSame("3", "$rows");
     }
     
     //----------------------------------Business3--------------------------------
@@ -2671,7 +2814,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\InspectorNotificationsList::URL_InspectionComplete());
         $I->canSee('4', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('4', $rows);
+        $I->assertSame("4", "$rows");
         
         $I->canSee($this->program3, Page\InspectorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business3, Page\InspectorNotificationsList::BusinessLine($rows));
@@ -2686,7 +2829,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\AuditorNotificationsList::URL_AuditComplete());
         $I->canSee('4', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('4', $rows);
+        $I->assertSame("4", "$rows");
         
         $I->canSee($this->program3, Page\AuditorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business3, Page\AuditorNotificationsList::BusinessLine($rows));
@@ -2759,7 +2902,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\InspectorNotificationsList::SentLine('4'));
         $I->canSee('4', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('4', $rows);
+        $I->assertSame("4", "$rows");
     }
     
     public function CheckBusiness1_NotPassed_Absent_AuditCompleteList(AcceptanceTester $I){
@@ -2794,7 +2937,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('4'));
         $I->canSee('4', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('4', $rows);
+        $I->assertSame("4", "$rows");
     }
     
     //----------------------------------Business1--------------------------------
@@ -2862,7 +3005,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\InspectorNotificationsList::SentLine('4'));
         $I->canSee('4', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('4', $rows);
+        $I->assertSame("4", "$rows");
     }
     
     public function CheckBusiness1_NotPassed_On_AuditCompleteList(AcceptanceTester $I){
@@ -2870,7 +3013,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\AuditorNotificationsList::URL_AuditComplete());
         $I->canSee('5', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('5', $rows);
+        $I->assertSame("5", "$rows");
         
         $I->canSee($this->program1, Page\AuditorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business1, Page\AuditorNotificationsList::BusinessLine($rows));
@@ -2924,7 +3067,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\InspectorNotificationsList::URL_InspectionComplete());
         $I->canSee('5', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('5', $rows);
+        $I->assertSame("5", "$rows");
         
         $I->canSee($this->program2, Page\InspectorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business2, Page\InspectorNotificationsList::BusinessLine($rows));
@@ -2973,7 +3116,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('5'));
         $I->canSee('5', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('5', $rows);
+        $I->assertSame("5", "$rows");
     }
     
     //----------------------------------Business3--------------------------------
@@ -3054,7 +3197,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\InspectorNotificationsList::SentLine('5'));
         $I->canSee('5', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('5', $rows);
+        $I->assertSame("5", "$rows");
     }
     
     public function CheckBusiness3_NotPassed_Absent_AuditCompleteList(AcceptanceTester $I){
@@ -3096,7 +3239,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('5'));
         $I->canSee('5', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('5', $rows);
+        $I->assertSame("5", "$rows");
     }
     
     //----------------------------------Business3--------------------------------
@@ -3133,7 +3276,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\InspectorNotificationsList::URL_InspectionComplete());
         $I->canSee('6', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('6', $rows);
+        $I->assertSame("6", "$rows");
         
         $I->canSee($this->program3, Page\InspectorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business3, Page\InspectorNotificationsList::BusinessLine($rows));
@@ -3148,7 +3291,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\AuditorNotificationsList::URL_AuditComplete());
         $I->canSee('6', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('6', $rows);
+        $I->assertSame("6", "$rows");
         
         $I->canSee($this->program3, Page\AuditorNotificationsList::ProgramLine($rows));
         $I->canSee($this->business3, Page\AuditorNotificationsList::BusinessLine($rows));
@@ -3176,6 +3319,28 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
         $I->cantSee($subject, Page\ApplicationDetails::$SubjectColumnRow_CommunicationTab);
         $I->cantSee($subject_Prog2, Page\ApplicationDetails::$SubjectColumnRow_CommunicationTab);
+    }
+    
+    public function On_CheckBusinessRegisteredMessage_Business1(Step\Acceptance\Communication $I){
+        $subject   = $this->subject_BusinessRegistered_All = 'New business has registered with the Green Business Program';
+        $body_Row1 = $this->body_BusinessRegistered_All_Bus1_Row1 = 'The following business has registered:';
+        $body_Row2 = $this->body_BusinessRegistered_All_Bus1_Row2 = "$this->business1 $this->phone_Bus1 $this->address_Bus1, $this->city1, $this->state, $this->zip1 $this->firstName_Bus1 $this->lastName_Bus1 $this->contactPhone_Bus1 $this->email_Bus1";
+        $body_Row3 = $this->body_BusinessRegistered_All_Bus1_Row3 = 'Checklist';
+        $sender    = $this->business1;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business1));
+        $row = $I->GetNotificationRowOnCommunicationTab($subject);
+        $I->canSee($this->program1, Page\ApplicationDetails::SenderLine_CommunicationTab($row));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab($row));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab($row));
+        $I->wait(1);
+        $I->waitPageLoad();
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body_Row1, Page\CommunicationsView::PreviousMessage('1').'[1]');
+        $I->canSee($body_Row2, Page\CommunicationsView::PreviousMessage('1').'[2]');
+        $I->canSee($body_Row3, Page\CommunicationsView::PreviousMessage('1').'[3]/a');
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
     }
     
     public function On_BusinessTierSubmission_Business1(\Step\Acceptance\Communication $I){
@@ -3387,6 +3552,23 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
 //        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
     }
     
+    public function On_CheckBusinessRegisteredMessage_Business3(\Step\Acceptance\Communication $I){
+        $subject                = $this->subject_BusinessRegistered_Prog3;
+        $body                   = $this->body_BusinessRegistered_Prog3;
+        $sender                 = $this->business3;
+        
+        $I->comment("Check on Communication Tab");
+        $I->amOnPage(\Page\ApplicationDetails::URL_Communication($this->id_business3));
+        $row = $I->GetNotificationRowOnCommunicationTab($subject);
+        $I->canSee($this->program3, Page\ApplicationDetails::SenderLine_CommunicationTab($row));
+        $I->canSee($subject, Page\ApplicationDetails::SubjectLine_CommunicationTab($row));
+        $I->click(Page\ApplicationDetails::ViewButtonLine_CommunicationTab($row));
+        $I->wait(4);
+        $I->canSee("Inbox - $subject", Page\CommunicationsView::$Title);
+        $I->canSee($body, Page\CommunicationsView::PreviousMessage('1'));
+        $I->canSee($sender, \Page\CommunicationsView::PreviousMessageSender('1'));
+    }
+    
     public function On_BusinessTierSubmission_Business3(\Step\Acceptance\Communication $I){
         $subject                = $this->subject_BusinessSubmision_All;
         $body_Row1              = $this->body_BusinessSubmision_All_Bus3_Row1;
@@ -3502,7 +3684,7 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\InspectorNotificationsList::SentLine('2'));
         $I->canSee('2', Page\InspectorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\InspectorNotificationsList::$RequestRow);
-        $I->assertEquals('2', $rows);
+        $I->assertSame("2", "$rows");
     }
     
     public function AuditorMessages_AuditorRequestsList(AcceptanceTester $I){
@@ -3523,6 +3705,6 @@ P.S. You can keep up to date on SF Green Business Program activities by signing 
         $I->canSee('Sending', Page\AuditorNotificationsList::SentLine('2'));
         $I->canSee('2', Page\AuditorNotificationsList::$SummaryCount);
         $rows = $I->getAmount($I, Page\AuditorNotificationsList::$RequestRow);
-        $I->assertEquals('2', $rows);
+        $I->assertSame("2", "$rows");
     }
 }
